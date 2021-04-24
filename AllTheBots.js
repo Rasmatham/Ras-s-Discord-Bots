@@ -515,6 +515,52 @@
 	}
 	//Other
 	{
+		//reveal all the secrets
+		{/*
+			class Image {
+				constructor(file, name) {
+					this.file = file;
+					this.name = name;
+				}
+			}
+			fs.rm('./Source.zip', (err) => {
+				if (err) throw err;
+				fs.readFile(`./.env`, `utf8`, (err, env) => {
+					if (err) throw err;
+					fs.readdir(`./Pokèbot/Pokemon/1-151`, (err, PNGIsTooBig) => {
+						if (err) throw err;
+						let imgArr = [];
+						PNGIsTooBig.forEach((image) => {
+							fs.readFile(`./Pokèbot/Pokemon/1-151/${image}`, (err, out) => {
+								if (err) throw err;
+								imgArr.push(new Image(out, image));
+							})
+						});
+						fs.rmdir(`./Pokèbot/Pokemon/1-151`, { recursive: true }, (err) => {
+							if (err) throw err;
+							fs.writeFile(`./.env`, `BUZZBOTTOKEN=\nEBNJTOKEN=\nGLADOSTOKEN=\nARTOOTOKEN=\nRANDOMTOKEN=\nZELDATOKEN=\nCLAMBOTTOKEN=\nSINITOKEN=\nPOKETOKEN=\nME=`, (err) => {
+								if (err) throw err;
+								zipFolder('./', './Source.zip', (err, source) => {
+									if (err) throw err;
+									fs.mkdir(`./Pokèbot/Pokemon/1-151`, (err) => {
+										if (err) throw err;
+										imgArr.forEach((img, i) => {
+											fs.writeFile(`./Pokèbot/Pokemon/1-151/${img.name}`, img.file, (err) => {
+												if (err) throw err;
+											})
+										});
+										fs.writeFile(`./.env`, env, (err) => {
+											if (err) throw err;
+											console.log(`zipped`);
+										})
+									})
+								})
+							})
+						})
+					})
+				})
+			})
+		*/}
 		//Music
 		{
 			ebnj.on(`ready`, () => voiceEnabled = false)
