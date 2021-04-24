@@ -35,6 +35,7 @@
 		var r2Link			= `https://discordapp.com/oauth2/authorize?&client_id=688152192196149250&scope=bot&permissions=8`;
 		var randomLink		= `https://discordapp.com/oauth2/authorize?&client_id=654787079590641713&scope=bot&permissions=8`;
 		var zeldaLink		= `https://discordapp.com/oauth2/authorize?&client_id=654786965090074656&scope=bot&permissions=8`;
+		var githublink		= `https://github.com/Rasmatham/Ras-s-Discord-Bots`
 		var buzzBot			= new Discord.Client();
 		var clambot			= new Discord.Client();
 		var ebnj			= new Discord.Client();
@@ -517,52 +518,6 @@
 	}
 	//Other
 	{
-		//reveal all the secrets
-		{/*
-			class Image {
-				constructor(file, name) {
-					this.file = file;
-					this.name = name;
-				}
-			}
-			fs.rm('./Source.zip', (err) => {
-				if (err) throw err;
-				fs.readFile(`./.env`, `utf8`, (err, env) => {
-					if (err) throw err;
-					fs.readdir(`./Pokèbot/Pokemon/1-151`, (err, PNGIsTooBig) => {
-						if (err) throw err;
-						let imgArr = [];
-						PNGIsTooBig.forEach((image) => {
-							fs.readFile(`./Pokèbot/Pokemon/1-151/${image}`, (err, out) => {
-								if (err) throw err;
-								imgArr.push(new Image(out, image));
-							})
-						});
-						fs.rmdir(`./Pokèbot/Pokemon/1-151`, { recursive: true }, (err) => {
-							if (err) throw err;
-							fs.writeFile(`./.env`, `BUZZBOTTOKEN=\nEBNJTOKEN=\nGLADOSTOKEN=\nARTOOTOKEN=\nRANDOMTOKEN=\nZELDATOKEN=\nCLAMBOTTOKEN=\nSINITOKEN=\nPOKETOKEN=\nME=`, (err) => {
-								if (err) throw err;
-								zipFolder('./', './Source.zip', (err, source) => {
-									if (err) throw err;
-									fs.mkdir(`./Pokèbot/Pokemon/1-151`, (err) => {
-										if (err) throw err;
-										imgArr.forEach((img, i) => {
-											fs.writeFile(`./Pokèbot/Pokemon/1-151/${img.name}`, img.file, (err) => {
-												if (err) throw err;
-											})
-										});
-										fs.writeFile(`./.env`, env, (err) => {
-											if (err) throw err;
-											console.log(`zipped`);
-										})
-									})
-								})
-							})
-						})
-					})
-				})
-			})
-		*/}
 		//Music
 		{
 			ebnj.on(`ready`, () => voiceEnabled = false)
@@ -868,7 +823,7 @@
 				replyThing(		message,		`exact`,		100,	{},											`<@454340813388775445>`,		[`@kelp`]);
 				replyThing(		message,		`anywhere`,		100,	{embed: stillalive},						``,								[`still alive`]);
 				replyThing(		message,		`anywhere`,		100,	{files: [`./AllTheBots.js`]},				``,								[`${GLaDOSPrefix}source`]);
-				//replyThing(	message,		`anywhere`,		100,	{files: [`./Source.zip`]},					``,								[`${GLaDOSPrefix}zipsource`]);
+				replyThing(		message,		`anywhere`,		100,	{},											githublink,						[`${GLaDOSPrefix}githubsource`]);
 				replyThing(		message,		`mention`,		100,	{},											`P I N G`,						[`680053684243398693`]);
 				replyThing(		message,		`mention`,		100,	{},											ping,							[`654074851337699328`]);
 				replyThing(		message,		`exact`,		100,	{},											`He's my daddy 😉`,				[`quinn`, `quinnsnipe`]);
