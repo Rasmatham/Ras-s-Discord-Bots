@@ -637,17 +637,6 @@
 		var lemonrant = `All right, I've been thinking, when life gives you lemons, don't make lemonade!\nMake life take the lemons back!\nGet mad!\nI don't want your damn lemons!\nWhat am I supposed to do with these?\nDemand to see life's manager!\nMake life rue the day it thought it could give Cave Johnson lemons!\nDo you know who I am?\nI'm the man whose gonna burn your house down - with the lemons!`;
 		var lie = `I will tell you what is not a lie\nThe cake`;
 		var ping = `P I N G\nWait\nNevermind`;
-		var blackList = [
-			`announcements`,
-			`6-hour-cooldown`,
-			`rules`,
-			`polls`,
-			`stalking-tips`,
-			`rules-for-new-mods`,
-			`serious`,
-			`gif-only-conversation`,
-			`love-advice`,
-		];
 		var stillalive = new Discord.MessageEmbed()
 		.setColor(`FFFFFF`)
 		.setTitle(`Still alive`)
