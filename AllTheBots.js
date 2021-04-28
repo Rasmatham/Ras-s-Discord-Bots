@@ -27,7 +27,7 @@
 	}
 	//Other Variables
 	{
-		var blackList		= [`announcements`, `6-hour-cooldown`, `rules`, `polls`, `stalking-tips`, `rules-for-new-mods`, `serious`, `gif-only-conversation`, `love-advice`];
+		var blackList		= [`announcements`, `6-hour-cooldown`, `rules`, `polls`, `stalking-tips`, `rules-for-new-mods`, `serious`, `gif-only-conversation`, `love-advice`, `inspiration`];
 		var buzzLink		= `https://discordapp.com/oauth2/authorize?&client_id=689449074008653865&scope=bot&permissions=8`;
 		var ebnjLink		= `https://discordapp.com/oauth2/authorize?&client_id=654079161723387914&scope=bot&permissions=8`;
 		var GladosLink		= `https://discordapp.com/oauth2/authorize?&client_id=680053684243398693&scope=bot&permissions=8`;
@@ -834,7 +834,7 @@
 				replyThing(		message,		`exact`,		100,	{},											userInfo(message),				[`${GLaDOSPrefix}userinfo`]);
 				replyThing(		message,		`exact`,		100,	{},											serverInfo(message),			[`${GLaDOSPrefix}serverinfo`]);
 				replyThing(		message,		`exact`,		100,	{embed: joindate(message)},					``,								[`${GLaDOSPrefix}joindate`]);
-				if(!message.author.bot && (message.content.includes(`inspire`) || message.content.includes(`inspiration`) || message.content.includes(`inspiring`))){
+				if(!message.author.bot && (message.content.includes(`inspire`) || message.content.includes(`inspiration`) || message.content.includes(`inspiring`)) && !blackList.includes(message.channel.name)){
 					inspiroBot().then((url) => {
 						message.channel.send(url)
 					})
