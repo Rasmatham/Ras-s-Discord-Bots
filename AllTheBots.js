@@ -18,7 +18,6 @@
 		var DB			= require(`./Pokèbot/PokeDB.js`);
 		var inspiroBot	= require(`./GLaDOS/inspiroBot.js`);
 		var mazeThing	= require(`generate-maze`);
-		var zipFolder	= require('zip-folder');
 		var Discord		= require(`discord.js`);
 		var ytdl		= require(`ytdl-core`);
 		var xkcd		= require(`xkcd`);
