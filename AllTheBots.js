@@ -425,16 +425,16 @@
 							message.channel.send(`Sorry, but this function is disabled right now.\nRas might be at school and doesn't want to constantly up/download youtube videos.\nIf you know for a fact that he's not at school, ping him until he turns it on or gives an explanation`);
 						}
 						return;
-					} else if (	message.content.toLowerCase().startsWith(`${prfx}skip`) ||
-					message.content.toLowerCase().startsWith(`${prfx}s`)) {
+					} else if (	message.content.toLowerCase() == `${prfx}skip` ||
+					message.content.toLowerCase() == `${prfx}s`) {
 						if(voiceEnabled){
 							skip(message, serverQueue);
 						} else {
 							message.channel.send(`Sorry, but this function is disabled right now.\nRas might be at school and doesn't want to constantly up/download youtube videos.\nIf you know for a fact that he's not at school, ping him until he turns it on or gives an explanation`);
 						}
 						return;
-					} else if (	message.content.toLowerCase().startsWith(`${prfx}disconnect`) || 
-					message.content.toLowerCase().startsWith(`${prfx}dc`)) {
+					} else if (	message.content.toLowerCase() == `${prfx}disconnect` || 
+					message.content.toLowerCase() == `${prfx}dc`) {
 						stop(message, serverQueue);
 						return;
 					} else {
