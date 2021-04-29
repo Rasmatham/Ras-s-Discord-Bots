@@ -444,10 +444,10 @@
 				async function execute(message, serverQueue) {
 					const args = message.content.split(` `);
 					const voiceChannel = message.member.voice.channel;
-					if (!voiceChannel) return message.channel.send(`You should ~~join the hive~~ hop into a vc to listen to that bad music yourself first`);
+					if (!voiceChannel) return message.channel.send(`You need to be in a VC to play music`);
 					const permissions = voiceChannel.permissionsFor(message.client.user);
 					if (!permissions.has(`CONNECT`) || !permissions.has(`SPEAK`)) {
-						return message.channel.send(`I need permission to speak freely first`);
+						return message.channel.send(`I need permission to speak in a VC to do this`);
 					}
 					if(ytdl.validateURL(args[1])){
 						const songInfo = await ytdl.getBasicInfo(args[1]);
@@ -486,7 +486,7 @@
 				}
 				function skip(message, serverQueue) {
 					if (!message.member.voice.channel) return message.channel.send(`Don't try to ruin someones listening experience`);
-					if (!serverQueue) return message.channel.send(`The hive needs to hear some buzzing before you can do that`);
+					if (!serverQueue) return message.channel.send(`I am not playing any songs right now`);
 					serverQueue.voiceChannel.leave();
 				}
 				function stop(message, serverQueue) {
