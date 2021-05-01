@@ -803,10 +803,7 @@
 				replyThing(		message,		`exact`,		100,	{},											lie,							[`lie`]);
 				replyThing(		message,		`anywhere`,		100,	{},											`JA JA DING DONG!`,				[`${GLaDOSPrefix}play`]);
 				replyThing(		message,		`anywhere`,		100,	{files: [`./GLaDOS/files/BSOD.png`]},		``,								[`neurotoxin`]);
-				replyThing(		message,		`anywhere`,		100,	{files: [`./GLaDOS/files/Aperture.png`]},	``,								[`science`]);
 				replyThing(		message,		`anywhere`,		100,	{},											`#36393F`,						[`${GLaDOSPrefix}inviscolor`, `${GLaDOSPrefix}inviscolour`]);
-				replyThing(		message,		`anywhere`,		100,	{files: [`./GLaDOS/files/Blue.png`]},		``,								[`blue`]);
-				replyThing(		message,		`anywhere`,		100,	{files: [`./GLaDOS/files/Orange.png`]},		``,								[`orange`]);
 				replyThing(		message,		`exact`,		100,	{},											`<@${rasID}>`,					[`@ras`]);
 				replyThing(		message,		`exact`,		100,	{},											`<@454340813388775445>`,		[`@kelp`]);
 				replyThing(		message,		`anywhere`,		100,	{embed: stillalive},						``,								[`still alive`]);
@@ -822,6 +819,9 @@
 				replyThing(		message,		`exact`,		100,	{},											userInfo(message),				[`${GLaDOSPrefix}userinfo`]);
 				replyThing(		message,		`exact`,		100,	{},											serverInfo(message),			[`${GLaDOSPrefix}serverinfo`]);
 				replyThing(		message,		`exact`,		100,	{embed: joindate(message)},					``,								[`${GLaDOSPrefix}joindate`]);
+				reactThing(		message,		`anywhere`,		100,	[`838084115629735976`],														[`science`]);
+				reactThing(		message,		`anywhere`,		100,	[`838084115391053844`],														[`blue`]);
+				reactThing(		message,		`anywhere`,		100,	[`838084116653670420`],														[`orange`]);
 				if(!message.author.bot && (message.content.includes(`inspire`) || message.content.includes(`inspiration`) || message.content.includes(`inspiring`)) && !blackList.includes(message.channel.name)){
 					inspiroBot().then((url) => {
 						message.channel.send(url)
