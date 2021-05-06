@@ -414,7 +414,7 @@
 			var music = (bot, prfx) => {
 				bot.on(`message`, async message => {
 					if (message.author.bot) return;
-					if (!(message.content.toLowerCase().startsWith(`${prfx}`))) return;
+					if (!(message.content.toLowerCase().startsWith(`${prfx}`)) || message.guild === null) return;
 					const serverQueue = bot.queue.get(message.guild.id);
 					if (message.content.startsWith(`${prfx}play `) ||
 					message.content.startsWith(`${prfx}p `)) {
