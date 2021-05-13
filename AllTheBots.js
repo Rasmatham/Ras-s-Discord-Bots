@@ -409,6 +409,23 @@
 				webHookFunction(message.client)
 			}
 		}
+		//Channel link
+		{
+			var channelLink = (message, ch1, ch2) => {
+				if(!message.author.bot){
+					switch (message.channel.id) {
+						case ch1:
+						sendAsWebHook(message, message.client.channels.cache.get(ch2), message, { files: message.attachments.array() }, message.author.username, message.author.displayAvatarURL({format: `png`, dynamic: true}));
+						break;
+						case ch2:
+						sendAsWebHook(message, message.client.channels.cache.get(ch1), message, { files: message.attachments.array() }, message.author.username, message.author.displayAvatarURL({format: `png`, dynamic: true}));
+						break;
+						default:
+						break;
+					}
+				}
+			}
+		}
 		//Myoooosic
 		{
 			var music = (bot, prfx) => {
@@ -822,6 +839,7 @@
 				reactThing(		message,		`anywhere`,		100,	[`838084115629735976`],														[`science`]);
 				reactThing(		message,		`anywhere`,		100,	[`838084115391053844`],														[`blue`]);
 				reactThing(		message,		`anywhere`,		100,	[`838084116653670420`],														[`orange`]);
+				channelLink(message, `842486821510447115`, `842486725347508266`)
 				if(!message.author.bot && (message.content.includes(`inspire`) || message.content.includes(`inspiration`) || message.content.includes(`inspiring`)) && !blackList.includes(message.channel.name)){
 					inspiroBot().then((url) => {
 						message.channel.send(url)
