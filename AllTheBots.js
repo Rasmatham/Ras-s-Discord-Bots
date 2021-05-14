@@ -457,7 +457,7 @@
 						return;
 					}
 				});
-				async function execute(message, serverQueue) {
+				var execute = async (message, serverQueue) => {
 					const args = message.content.split(` `);
 					const voiceChannel = message.member.voice.channel;
 					if (!voiceChannel) return message.channel.send(`You need to be in a VC to play music`);
@@ -500,17 +500,17 @@
 						message.channel.send(`This is not a valid YouTube URL`);
 					}
 				}
-				function skip(message, serverQueue) {
+				const skip = (message, serverQueue) => {
 					if (!message.member.voice.channel) return message.channel.send(`Don't try to ruin someones listening experience`);
 					if (!serverQueue) return message.channel.send(`I am not playing any songs right now`);
 					serverQueue.voiceChannel.leave();
 				}
-				function stop(message, serverQueue) {
+				const stop = (message, serverQueue) => {
 					if (!message.member.voice.channel) return message.channel.send(`Don't try to ruin someones listening experience`);
 					serverQueue.songs = [];
 					serverQueue.voiceChannel.leave();
 				}
-				function play(guild, song) {
+				const play = (guild, song) => {
 					const serverQueue = bot.queue.get(guild.id);
 					if (!song) {
 						serverQueue.voiceChannel.leave();
@@ -557,7 +557,7 @@
 	}
 	//functions
 	{
-		function buzzes() {
+		var buzzes = () => {
 			let str = ``;
 			for (let i = 0; i < Math.floor(Math.random() * 9); i++) {
 				if (Math.floor(Math.random() * 2)) {
@@ -699,15 +699,15 @@
 				if (message.content.toLowerCase().startsWith(`${GLaDOSPrefix}startcf`)) {
 					message.channel
 					.send(`Creating save for ${message.author}`)
-					.then(() => fs.mkdir(`userinfo/`, function(err) {}))
+					.then(() => fs.mkdir(`userinfo/`, (err) => {}))
 					.then(() =>
-					fs.mkdir(`./GLaDOS/userinfo/${message.author.id}`, function(err) {})
+					fs.mkdir(`./GLaDOS/userinfo/${message.author.id}`, (err) => {})
 					)
 					.then(() => {
-						fs.mkdir(`./GLaDOS/userinfo/${message.author.id}/coinflip/`, function(err) {})
+						fs.mkdir(`./GLaDOS/userinfo/${message.author.id}/coinflip/`, (err) => {})
 					})
-					.then(() => { fs.writeFile(`./GLaDOS/userinfo/${message.author.id}/coinflip/wins.txt`, `0`, function(err) {}) })
-					.then(() => { fs.writeFile(`./GLaDOS/userinfo/${message.author.id}/coinflip/losses.txt`, `0`, function(err) {}) });
+					.then(() => { fs.writeFile(`./GLaDOS/userinfo/${message.author.id}/coinflip/wins.txt`, `0`, (err) => {}) })
+					.then(() => { fs.writeFile(`./GLaDOS/userinfo/${message.author.id}/coinflip/losses.txt`, `0`, (err) => {}) });
 					message.channel.send(`Setup complete\nWarning: Using this command agin will reset your score`);
 				}
 			});
@@ -736,7 +736,7 @@
 	}
 	//Check amount
 	{
-		function checkFor(arr, str) {
+		var checkFor = (arr, str) => {
 			if (arr.length > 0) {
 				return `${str} ${arr.length}\n`;
 			} else {
@@ -755,9 +755,9 @@
 				if (fs.existsSync(coinflippath)) {
 					if (message.content.toLowerCase().startsWith(`${GLaDOSPrefix}coinflip heads`)) {
 						if (Math.random() * 10 < 5 === true) {
-							var wincount = fs.readFileSync(coinfilew, `utf8`, function(err) {});
-							var losecount = fs.readFileSync(coinfilel, `utf8`, function(err) {});
-							fs.writeFile(coinfilew, (parseInt(wincount) + 1).toString(), function(err) {});
+							var wincount = fs.readFileSync(coinfilew, `utf8`, (err) => {});
+							var losecount = fs.readFileSync(coinfilel, `utf8`, (err) => {});
+							fs.writeFile(coinfilew, (parseInt(wincount) + 1).toString(), (err) => {});
 							var embed = new Discord.MessageEmbed()
 							.setColor(`00FF00`)
 							.setTitle(`You won!`)
@@ -765,9 +765,9 @@
 							.addFields({ name: `The coin landed on heads`, value: `You won!` }, { name: `Wins`, value: parseInt(wincount) + 1 }, { name: `Losses`, value: losecount });
 							message.channel.send({ embed: embed });
 						} else {
-							var wincount = fs.readFileSync(coinfilew, `utf8`, function(err) {});
-							var losecount = fs.readFileSync(coinfilel, `utf8`, function(err) {});
-							fs.writeFile(coinfilel, (parseInt(losecount) + 1).toString(), function(err) {});
+							var wincount = fs.readFileSync(coinfilew, `utf8`, (err) => {});
+							var losecount = fs.readFileSync(coinfilel, `utf8`, (err) => {});
+							fs.writeFile(coinfilel, (parseInt(losecount) + 1).toString(), (err) => {});
 							var embed = new Discord.MessageEmbed()
 							.setColor(`FF0000`)
 							.setTitle(`You lost!`)
@@ -778,9 +778,9 @@
 					}
 					if (message.content.toLowerCase().startsWith(`${GLaDOSPrefix}coinflip tails`)) {
 						if (Math.random() * 10 < 5 === true) {
-							var wincount = fs.readFileSync(coinfilew, `utf8`, function(err) {});
-							var losecount = fs.readFileSync(coinfilel, `utf8`, function(err) {});
-							fs.writeFile(coinfilew, (parseInt(losecount) + 1).toString(), function(err) {});
+							var wincount = fs.readFileSync(coinfilew, `utf8`, (err) => {});
+							var losecount = fs.readFileSync(coinfilel, `utf8`, (err) => {});
+							fs.writeFile(coinfilew, (parseInt(losecount) + 1).toString(), (err) => {});
 							var embed = new Discord.MessageEmbed()
 							.setColor(`00FF00`)
 							.setTitle(`You won!`)
@@ -788,9 +788,9 @@
 							.addFields({ name: `The coin landed on tails`, value: `You won!` }, { name: `Wins`, value: parseInt(wincount) + 1 }, { name: `Losses`, value: losecount });
 							message.channel.send({ embed: embed });
 						} else {
-							var wincount = fs.readFileSync(coinfilew, `utf8`, function(err) {});
-							var losecount = fs.readFileSync(coinfilel, `utf8`, function(err) {});
-							fs.writeFile(coinfilel, (parseInt(losecount) + 1).toString(), function(err) {});
+							var wincount = fs.readFileSync(coinfilew, `utf8`, (err) => {});
+							var losecount = fs.readFileSync(coinfilel, `utf8`, (err) => {});
+							fs.writeFile(coinfilel, (parseInt(losecount) + 1).toString(), (err) => {});
 							var embed = new Discord.MessageEmbed()
 							.setColor(`FF0000`)
 							.setTitle(`You lost!`)
@@ -982,7 +982,7 @@
 					},
 				};
 				
-				function mazeStyle() {
+				var mazeStyle = () => {
 					if (typeof message.content.split(` `)[1] === `undefined`) {
 						return `normal`;
 					} else {
@@ -1111,7 +1111,7 @@
 					});
 				});
 				
-				function mazeMessage(mazeObj) {
+				var mazeMessage = (mazeObj) => {
 					let messageText = ``;
 					for (let i = 0; i < 8; i++) {
 						for (let j = 0; j < 8; j++) {
@@ -1221,7 +1221,7 @@
 	}
 	//dex embed
 	{
-		function dex(Query){
+		var dex = (Query) => {
 			let dexNumber = 0;
 			if(!isNaN(Query)){Query = Number(Query)}
 			switch(typeof Query){
@@ -1243,7 +1243,7 @@
 				default:
 				break;
 			}
-			function secType(){
+			var secType = () => {
 				if(typeof DB.pokemon[dexNumber].types[1] !== `undefined`){
 					return DB.pokemon[dexNumber].types[1].name
 				} else {
@@ -1287,7 +1287,7 @@
 	}
 	//functions
 	{
-		function beeps(){
+		var beeps = () => {
 			let str = ``;
 			for(let i = 0; i<Math.floor(Math.random() * 10); i++){
 				if(Math.floor(Math.random()*2)){
