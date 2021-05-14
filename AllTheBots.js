@@ -715,17 +715,18 @@
 	}
 	//xkcd
 	{
-		function xkcdFunct(message, numRaw) {
+		var xkcdFunct = (message, numRaw) => {
 			let num = Math.ceil(Math.abs(numRaw));
-			xkcd(function(xkcdObjOuter) {
+			xkcd((xkcdObjOuter) => {
 				if (num > xkcdObjOuter.num || num <= 0) {
 					message.channel.send(`Try a whole number from 1 to ${xkcdObjOuter.num}`);
 				} else {
 					let xkcdRand = Math.ceil(Math.random() * (xkcdObjOuter.num + Math.random()));
-					xkcd(num || xkcdRand, function(xkcdObj) {
+					xkcd(num || xkcdRand, (xkcdObj) => {
 						const xkcdEmbed = new Discord.MessageEmbed()
 						.setTitle(xkcdObj.title)
 						.setURL(`https://xkcd.com/${xkcdObj.num}/`)
+						.setDescription(xkcdObj.alt)
 						.setImage(xkcdObj.img);
 						message.channel.send({ embed: xkcdEmbed });
 					});
