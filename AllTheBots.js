@@ -1191,7 +1191,7 @@
 		});
 	}
 	//Flit no lasting! Flit no lasting! Flit no lasting! 
-	{/*
+	{
 		bot.on(`message`, (message) => {
 			if(message.author.id === `541617670533939210`){
 				if(message.content.toLowerCase().includes(`last`)){
@@ -1199,7 +1199,7 @@
 				}
 			}
 		})
-	*/}
+	}
 	//random stuff I did because I was bored
 	{
 		//smh, Espen bot doesn't work
