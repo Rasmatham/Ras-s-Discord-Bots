@@ -1172,8 +1172,8 @@
 	{
 		glados.on(`message`, (message) => {
 			if (message.author.id !== glados.user.id && message.guild !== null && message.content.toLowerCase().includes(`from now on`)) {
+				let textChannels = [];
 				if (message.guild.id === `646155122992480266`) {
-					let textChannels = [];
 					message.guild.channels.cache.map((channel) => {
 						if (channel.type === `text`) {
 							blackList.forEach((bannedChannel) => {
