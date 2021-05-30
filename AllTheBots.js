@@ -15,43 +15,43 @@
 {
 	//Modules
 	{
-		var containsWord	= require(`./custom_modules/containsWordFunctions.js`);
-		var inspiroBot		= require(`./custom_modules/inspiroBot.js`);
-		var DB				= require(`./Pokèbot/PokeDB.js`);
-		var mazeThing		= require(`generate-maze`);
-		var Discord			= require(`discord.js`);
-		var ytdl			= require(`ytdl-core`);
-		var xkcd			= require(`xkcd`);
-		var fs				= require(`fs`);
+		var containsWord = require(`./custom_modules/containsWordFunctions.js`);
+		var inspiroBot = require(`./custom_modules/inspiroBot.js`);
+		var DB = require(`./Pokèbot/PokeDB.js`);
+		var mazeThing = require(`generate-maze`);
+		var Discord = require(`discord.js`);
+		var ytdl = require(`ytdl-core`);
+		var xkcd = require(`xkcd`);
+		var fs = require(`fs`);
 		require(`dotenv`).config();
 	}
 	//Other Variables
 	{
-		var blackList		= [`announcements`, `6-hour-cooldown`, `rules`, `polls`, `stalking-tips`, `rules-for-new-mods`, `serious`, `gif-only-conversation`, `love-advice`, `inspiration`];
-		var buzzLink		= `https://discordapp.com/oauth2/authorize?&client_id=689449074008653865&scope=bot&permissions=8`;
-		var ebnjLink		= `https://discordapp.com/oauth2/authorize?&client_id=654079161723387914&scope=bot&permissions=8`;
-		var GladosLink		= `https://discordapp.com/oauth2/authorize?&client_id=680053684243398693&scope=bot&permissions=8`;
-		var pokeLink		= `https://discordapp.com/oauth2/authorize?&client_id=716002740442103899&scope=bot&permissions=8`;
-		var r2Link			= `https://discordapp.com/oauth2/authorize?&client_id=688152192196149250&scope=bot&permissions=8`;
-		var randomLink		= `https://discordapp.com/oauth2/authorize?&client_id=654787079590641713&scope=bot&permissions=8`;
-		var zeldaLink		= `https://discordapp.com/oauth2/authorize?&client_id=654786965090074656&scope=bot&permissions=8`;
-		var githublink		= `https://github.com/Rasmatham/Ras-s-Discord-Bots`
-		var buzzBot			= new Discord.Client();
-		var clambot			= new Discord.Client();
-		var ebnj			= new Discord.Client();
-		var glados			= new Discord.Client();
-		var pokebot			= new Discord.Client();
-		var artoo			= new Discord.Client();
-		var random			= new Discord.Client();
-		var sini			= new Discord.Client();
-		var zelda			= new Discord.Client();
-		var rasID			= `347039494375079947`;
-		var clamID			= `588511925944582186`;
-		var testChannel		= `735213241860620308`;
-		var voiceEnabled	= false;
-		var PokePrefix		= `pd`;
-		var GLaDOSPrefix	= `&`;
-		module.exports = {blackList};
+		var blackList = [`announcements`, `6-hour-cooldown`, `rules`, `polls`, `stalking-tips`, `rules-for-new-mods`, `serious`, `gif-only-conversation`, `love-advice`, `inspiration`];
+		var buzzLink = `https://discordapp.com/oauth2/authorize?&client_id=689449074008653865&scope=bot&permissions=8`;
+		var ebnjLink = `https://discordapp.com/oauth2/authorize?&client_id=654079161723387914&scope=bot&permissions=8`;
+		var GladosLink = `https://discordapp.com/oauth2/authorize?&client_id=680053684243398693&scope=bot&permissions=8`;
+		var pokeLink = `https://discordapp.com/oauth2/authorize?&client_id=716002740442103899&scope=bot&permissions=8`;
+		var r2Link = `https://discordapp.com/oauth2/authorize?&client_id=688152192196149250&scope=bot&permissions=8`;
+		var randomLink = `https://discordapp.com/oauth2/authorize?&client_id=654787079590641713&scope=bot&permissions=8`;
+		var zeldaLink = `https://discordapp.com/oauth2/authorize?&client_id=654786965090074656&scope=bot&permissions=8`;
+		var githublink = `https://github.com/Rasmatham/Ras-s-Discord-Bots`
+		var buzzBot = new Discord.Client();
+		var clambot = new Discord.Client();
+		var ebnj = new Discord.Client();
+		var glados = new Discord.Client();
+		var pokebot = new Discord.Client();
+		var artoo = new Discord.Client();
+		var random = new Discord.Client();
+		var sini = new Discord.Client();
+		var zelda = new Discord.Client();
+		var rasID = `347039494375079947`;
+		var clamID = `588511925944582186`;
+		var testChannel = `735213241860620308`;
+		var voiceEnabled = false;
+		var PokePrefix = `pd`;
+		var GLaDOSPrefix = `&`;
+		module.exports = { blackList };
 	}
 	//logins
 	{
@@ -71,15 +71,15 @@
 		{
 			var forwarding = (bot) => {
 				bot.on(`message`, (message) => {
-					if(!message.author.bot){
+					if (!message.author.bot) {
 						if (message.content.startsWith(`<#`)) {
 							if ([`talk-as-${bot.user.username.toLowerCase()}`, `talk-and-dm-as-${bot.user.username.toLowerCase()}`, `dm-and-talk-as-${bot.user.username.toLowerCase()}`].includes(message.channel.name)) {
 								if (message.member.id === rasID || message.member.hasPermission(`ADMINISTRATOR`) || !blackList.includes(bot.channels.cache.get(message.mentions.channels.first().id).name)) {
 									bot.channels.cache
-									.get(message.mentions.channels.first().id)
-									.send(message.content.replace(message.mentions.channels.first(), ``)
-									.replace(/¤/g, ``), { files: message.attachments.array() }
-									);
+										.get(message.mentions.channels.first().id)
+										.send(message.content.replace(message.mentions.channels.first(), ``)
+											.replace(/¤/g, ``), { files: message.attachments.array() }
+										);
 								} else {
 									message.channel.send(`Nice try`);
 								}
@@ -87,17 +87,17 @@
 						} else if (message.content.startsWith(`<@`) && !message.content.startsWith(`<@&`) /*&& message.member.hasPermission(`ADMINISTRATOR`)*/) {
 							if ([`dm-as-${bot.user.username.toLowerCase()}`, `talk-and-dm-as-${bot.user.username.toLowerCase()}`, `dm-and-talk-as-${bot.user.username.toLowerCase()}`].includes(message.channel.name)) {
 								bot.users.cache
-								.get(message.mentions.users.first().id)
-								.send(message.content.replace(message.mentions.users.first().id, ``)
-								.replace(`<@>`, ``)
-								.replace(`<@!>`, ``)
-								.replace(/¤/g, ``), { files: message.attachments.array() })
-								.then(() => {
-									message.channel.send(`Message sent to ${message.mentions.users.first().tag}`)
-								})
-								.catch((err) => {
-									message.channel.send(`Sorry, but ${message.mentions.users.first().tag} has blocked me or they blocked DM's from this server`)
-								});
+									.get(message.mentions.users.first().id)
+									.send(message.content.replace(message.mentions.users.first().id, ``)
+										.replace(`<@>`, ``)
+										.replace(`<@!>`, ``)
+										.replace(/¤/g, ``), { files: message.attachments.array() })
+									.then(() => {
+										message.channel.send(`Message sent to ${message.mentions.users.first().tag}`)
+									})
+									.catch((err) => {
+										message.channel.send(`Sorry, but ${message.mentions.users.first().tag} has blocked me or they blocked DM's from this server`)
+									});
 							}
 						}
 					}
@@ -113,10 +113,10 @@
 							if (isNaN(Number(message.content.toLowerCase().replace(`d`, ``)))) {
 								if (message.content.includes(`*`)) {
 									var multidice = message.content
-									.toLowerCase()
-									.replace(`d`, ``)
-									.replace(`*`, ` `)
-									.split(` `);
+										.toLowerCase()
+										.replace(`d`, ``)
+										.replace(`*`, ` `)
+										.split(` `);
 									var i;
 									if (isNaN(multidice[0])) {
 										return;
@@ -128,28 +128,28 @@
 										if (multidice[0] === `10`) {
 											for (i = 0; i < multidice[1]; i++) {
 												var number10 = new Discord.MessageEmbed()
-												.setColor(`#0099ff`)
-												.setTitle(`Totally legit dice`)
-												.addField(`You \"rolled\" a:`, Math.floor(Math.random() * 10), true)
-												.addField(`\"roll\" number:`, `${i + 1}/${multidice[1]}`);
+													.setColor(`#0099ff`)
+													.setTitle(`Totally legit dice`)
+													.addField(`You \"rolled\" a:`, Math.floor(Math.random() * 10), true)
+													.addField(`\"roll\" number:`, `${i + 1}/${multidice[1]}`);
 												message.channel.send(number10);
 											}
 										} else if (multidice[0] === `100`) {
 											for (i = 0; i < multidice[1]; i++) {
 												var number100 = new Discord.MessageEmbed()
-												.setColor(`#0099ff`)
-												.setTitle(`Totally legit dice`)
-												.addField(`You \"rolled\" a:`, Math.floor(Math.random() * 10) * 10, true)
-												.addField(`\"roll\" number:`, `${i + 1}/${multidice[1]}`);
+													.setColor(`#0099ff`)
+													.setTitle(`Totally legit dice`)
+													.addField(`You \"rolled\" a:`, Math.floor(Math.random() * 10) * 10, true)
+													.addField(`\"roll\" number:`, `${i + 1}/${multidice[1]}`);
 												message.channel.send(number100);
 											}
 										} else {
 											for (i = 0; i < multidice[1]; i++) {
 												var numberN = new Discord.MessageEmbed()
-												.setColor(`#0099ff`)
-												.setTitle(`Totally legit dice`)
-												.addField(`You \"rolled\" a:`, Math.ceil(Math.random() * Number(multidice[0])), true)
-												.addField(`\"roll\" number:`, `${i + 1}/${multidice[1]}`);
+													.setColor(`#0099ff`)
+													.setTitle(`Totally legit dice`)
+													.addField(`You \"rolled\" a:`, Math.ceil(Math.random() * Number(multidice[0])), true)
+													.addField(`\"roll\" number:`, `${i + 1}/${multidice[1]}`);
 												message.channel.send(numberN);
 											}
 										}
@@ -159,27 +159,27 @@
 								}
 							} else if (message.content.toLowerCase().replace(`d`, ``) === `10`) {
 								var number10 = new Discord.MessageEmbed()
-								.setColor(`#0099ff`)
-								.setTitle(`Totally legit dice`)
-								.addField(`You \"rolled\" a:`,
-								Math.floor(Math.random() * 10), true);
+									.setColor(`#0099ff`)
+									.setTitle(`Totally legit dice`)
+									.addField(`You \"rolled\" a:`,
+										Math.floor(Math.random() * 10), true);
 								message.channel.send(number10);
 							} else if (message.content.toLowerCase().replace(`d`, ``) === `100`) {
 								var number100 = new Discord.MessageEmbed()
-								.setColor(`#0099ff`)
-								.setTitle(`Totally legit dice`)
-								.addField(`You \"rolled\" a:`, Math.floor(Math.random() * 10) * 10, true);
+									.setColor(`#0099ff`)
+									.setTitle(`Totally legit dice`)
+									.addField(`You \"rolled\" a:`, Math.floor(Math.random() * 10) * 10, true);
 								message.channel.send(number100);
 							} else {
 								var numberN = new Discord.MessageEmbed()
-								.setColor(`#0099ff`)
-								.setTitle(`Totally legit dice`)
-								.addField(`You \"rolled\" a:`,
-								Math.ceil(Math.random() *
-								Number(message.content.toLowerCase().replace(`d`, ``))
-								),
-								true
-								);
+									.setColor(`#0099ff`)
+									.setTitle(`Totally legit dice`)
+									.addField(`You \"rolled\" a:`,
+										Math.ceil(Math.random() *
+											Number(message.content.toLowerCase().replace(`d`, ``))
+										),
+										true
+									);
 								message.channel.send(numberN);
 							}
 						}
@@ -190,11 +190,9 @@
 		//userinfo
 		{
 			var userInfo = (message) => {
-				return `\`\`\`json\nmessage.author\n${
-					JSON.stringify( message.author, null, 2)
-				}\n\nmessage.member\n${
-					JSON.stringify(message.member, null, 2)
-				}\n\`\`\``
+				return `\`\`\`json\nmessage.author\n${JSON.stringify(message.author, null, 2)
+					}\n\nmessage.member\n${JSON.stringify(message.member, null, 2)
+					}\n\`\`\``
 			}
 		}
 		//serverinfo
@@ -203,42 +201,35 @@
 				if (message.guild !== null) {
 					let textChannels = [];
 					let voiceChannels = [];
-					let Categories =[];
+					let Categories = [];
 					let unknown = [];
 					message.guild.channels.cache.map((channel) => {
 						switch (channel.type) {
 							case `text`:
-							textChannels.push(channel.name);
-							break;
+								textChannels.push(channel.name);
+								break;
 							case `voice`:
-							voiceChannels.push(channel.name);
-							break;
+								voiceChannels.push(channel.name);
+								break;
 							case `category`:
-							Categories.push(channel.name);
-							break;
+								Categories.push(channel.name);
+								break;
 							default:
-							unknown.push(channel.name);
-							break;
+								unknown.push(channel.name);
+								break;
 						}
 					});
 					textChannels.sort();
 					voiceChannels.sort();
 					unknown.sort();
-					return `\`\`\`\n${
-						checkFor(textChannels, `Text channels:`)
-					}${
-						checkFor(voiceChannels, `Voice channels:`)
-					}${
-						checkFor(Categories, `Categories:`)
-					}${
-						checkFor(unknown, `Other channels:`)
-					}Total channels: ${
-						textChannels.length + voiceChannels.length + Categories.length + unknown.length
-					}\nChannels left: ${
-						500 - (textChannels.length + voiceChannels.length + Categories.length + unknown.length)
-					}\nmembers: ${
-						message.guild.memberCount
-					}\n\`\`\``;
+					return `\`\`\`\n${checkFor(textChannels, `Text channels:`)
+						}${checkFor(voiceChannels, `Voice channels:`)
+						}${checkFor(Categories, `Categories:`)
+						}${checkFor(unknown, `Other channels:`)
+						}Total channels: ${textChannels.length + voiceChannels.length + Categories.length + unknown.length
+						}\nChannels left: ${500 - (textChannels.length + voiceChannels.length + Categories.length + unknown.length)
+						}\nmembers: ${message.guild.memberCount
+						}\n\`\`\``;
 				} else {
 					if (message.author.id === `588511925944582186`) {
 						return `stop tring to kill me, smh`;
@@ -255,61 +246,61 @@
 					var ms = message.author.createdTimestamp;
 					var date = new Date(ms);
 					var embed = new Discord.MessageEmbed()
-					.setColor(`FFFFFF`)
-					.setTitle(`You joined:`)
-					.setThumbnail(`https://cdn.discordapp.com/attachments/656164355381133332/715651846584270899/ezgif-3-ea387cdabbbe.gif`)
-					.addFields({
-						name: `Date`,
-						value: date.toLocaleDateString(`en-GB`, { timeZone: `utc` }),
-					},
-					{
-						name: `Time`,
-						value: date.toLocaleTimeString(`en-GB`, {
-							timeZone: `utc`,
-							timeZoneName: `short`,
-						}),
-					}
-					);
+						.setColor(`FFFFFF`)
+						.setTitle(`You joined:`)
+						.setThumbnail(`https://cdn.discordapp.com/attachments/656164355381133332/715651846584270899/ezgif-3-ea387cdabbbe.gif`)
+						.addFields({
+							name: `Date`,
+							value: date.toLocaleDateString(`en-GB`, { timeZone: `utc` }),
+						},
+							{
+								name: `Time`,
+								value: date.toLocaleTimeString(`en-GB`, {
+									timeZone: `utc`,
+									timeZoneName: `short`,
+								}),
+							}
+						);
 					return embed;
 				}
 			}
 		}
 		//send as webhook
 		{
-			var sendAsWebHook = (message, sendTo,  sendMessage, sendAttachments, name, PFP) => {
+			var sendAsWebHook = (message, sendTo, sendMessage, sendAttachments, name, PFP) => {
 				let webHookFunction = () => {
 					sendTo.fetchWebhooks()
-					.then((webHooks) => {
-						if(webHooks.size <= 0){
-							sendTo.createWebhook(`${message.client.user.username}-Webhook`)
-							.then(() => {
-								webHookFunction(message.client)
-							}).catch(() => {
-								message.channel.send(`Something went wrong`)
-							})
-						}
-						let i = 0;
-						for (webHook of webHooks.values()){
-							if(webHook.owner.id === message.client.user.id){
-								let myWebHook = new Discord.WebhookClient(webHook.id, webHook.token)
-								myWebHook.edit({name: name, avatar: PFP})
-								.then((editedWebHook) => {
-									editedWebHook.send(sendMessage, sendAttachments)
-								})
-								break
-							} else if (i >= webHooks.size-1){
+						.then((webHooks) => {
+							if (webHooks.size <= 0) {
 								sendTo.createWebhook(`${message.client.user.username}-Webhook`)
-								.then(() => {
-									webHookFunction(message.client)
-								}).catch(() => {
-									message.channel.send(`Something went wrong`)
-								})
-							};
-							i++
-						}
-					}).catch((err) => {
-						console.error(err)
-					})
+									.then(() => {
+										webHookFunction(message.client)
+									}).catch(() => {
+										message.channel.send(`Something went wrong`)
+									})
+							}
+							let i = 0;
+							for (webHook of webHooks.values()) {
+								if (webHook.owner.id === message.client.user.id) {
+									let myWebHook = new Discord.WebhookClient(webHook.id, webHook.token)
+									myWebHook.edit({ name: name, avatar: PFP })
+										.then((editedWebHook) => {
+											editedWebHook.send(sendMessage, sendAttachments)
+										})
+									break
+								} else if (i >= webHooks.size - 1) {
+									sendTo.createWebhook(`${message.client.user.username}-Webhook`)
+										.then(() => {
+											webHookFunction(message.client)
+										}).catch(() => {
+											message.channel.send(`Something went wrong`)
+										})
+								};
+								i++
+							}
+						}).catch((err) => {
+							console.error(err)
+						})
 				}
 				webHookFunction(message.client)
 			}
@@ -317,16 +308,16 @@
 		//Channel link
 		{
 			var channelLink = (message, ch1, ch2) => {
-				if(!message.author.bot){
+				if (!message.author.bot) {
 					switch (message.channel.id) {
 						case ch1:
-						sendAsWebHook(message, message.client.channels.cache.get(ch2), message, { files: message.attachments.array() }, message.author.username, message.author.displayAvatarURL({format: `png`, dynamic: true}));
-						break;
+							sendAsWebHook(message, message.client.channels.cache.get(ch2), message, { files: message.attachments.array() }, message.author.username, message.author.displayAvatarURL({ format: `png`, dynamic: true }));
+							break;
 						case ch2:
-						sendAsWebHook(message, message.client.channels.cache.get(ch1), message, { files: message.attachments.array() }, message.author.username, message.author.displayAvatarURL({format: `png`, dynamic: true}));
-						break;
+							sendAsWebHook(message, message.client.channels.cache.get(ch1), message, { files: message.attachments.array() }, message.author.username, message.author.displayAvatarURL({ format: `png`, dynamic: true }));
+							break;
 						default:
-						break;
+							break;
 					}
 				}
 			}
@@ -339,23 +330,23 @@
 					if (!(message.content.toLowerCase().startsWith(`${prfx}`)) || message.guild === null) return;
 					const serverQueue = bot.queue.get(message.guild.id);
 					if (message.content.startsWith(`${prfx}play `) ||
-					message.content.startsWith(`${prfx}p `)) {
-						if(voiceEnabled){
+						message.content.startsWith(`${prfx}p `)) {
+						if (voiceEnabled) {
 							execute(message, serverQueue);
 						} else {
 							message.channel.send(`Sorry, but this function is disabled right now.\nRas might be at school and doesn't want to constantly up/download youtube videos.\nIf you know for a fact that he's not at school, ping him until he turns it on or gives an explanation`);
 						}
 						return;
-					} else if (	message.content.toLowerCase() == `${prfx}skip` ||
-					message.content.toLowerCase() == `${prfx}s`) {
-						if(voiceEnabled){
+					} else if (message.content.toLowerCase() == `${prfx}skip` ||
+						message.content.toLowerCase() == `${prfx}s`) {
+						if (voiceEnabled) {
 							skip(message, serverQueue);
 						} else {
 							message.channel.send(`Sorry, but this function is disabled right now.\nRas might be at school and doesn't want to constantly up/download youtube videos.\nIf you know for a fact that he's not at school, ping him until he turns it on or gives an explanation`);
 						}
 						return;
-					} else if (	message.content.toLowerCase() == `${prfx}disconnect` || 
-					message.content.toLowerCase() == `${prfx}dc`) {
+					} else if (message.content.toLowerCase() == `${prfx}disconnect` ||
+						message.content.toLowerCase() == `${prfx}dc`) {
 						stop(message, serverQueue);
 						return;
 					} else {
@@ -370,7 +361,7 @@
 					if (!permissions.has(`CONNECT`) || !permissions.has(`SPEAK`)) {
 						return message.channel.send(`I need permission to speak in a VC to do this`);
 					}
-					if(ytdl.validateURL(args[1])){
+					if (ytdl.validateURL(args[1])) {
 						const songInfo = await ytdl.getBasicInfo(args[1]);
 						const song = {
 							title: songInfo.videoDetails.title,
@@ -423,15 +414,15 @@
 						return;
 					}
 					const dispatcher = serverQueue.connection.play(ytdl(song.url, { quality: 'highestaudio' }))
-					.on(`speaking`, (speaking) => {
-						if(!speaking){
-							serverQueue.songs.shift();
-							play(guild, serverQueue.songs[0]);
-						}
-					})
-					.on(`error`, error => {
-						console.error(error);
-					});
+						.on(`speaking`, (speaking) => {
+							if (!speaking) {
+								serverQueue.songs.shift();
+								play(guild, serverQueue.songs[0]);
+							}
+						})
+						.on(`error`, error => {
+							console.error(error);
+						});
 					dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
 				}
 			}
@@ -478,14 +469,14 @@
 	//replies
 	{
 		buzzBot.on(`message`, (message) => {
-			if (blackList.includes(message.channel.name)) {return};
-			containsWord.replyThing(	message,		`exact`,		10,		{},						`He makes me go buzz`,							[`ras`, `rasmatham`, `rasberry`]);
-			containsWord.replyThing(	message,		`exact`,		10,		{},						`It's BeeMrtz, you insensitive prick!`,			[`bymrtz`]);
-			containsWord.replyThing(	message,		`exact`,		10,		{},						mrtz,											[`mrtz`, `beemrtz`, `rasberry`]);
-			containsWord.replyThing(	message,		`anywhere`,		100,	{},						buzzLink,										[`botlink buzzbot`]);
-			containsWord.replyThing(	message,		`anywhere`,		100,	{},						`The hivemind is the absolute truth`,			[`hive`]);
-			containsWord.replyThing(	message,		`anywhere`,		100,	{},						`you have no choice`,							[`join us`]);
-			containsWord.replyThing(	message,		`anywhere`,		100,	{},						buzzes(),										[`buzz`]);
+			if (blackList.includes(message.channel.name)) { return };
+			containsWord.replyThing(message, `exact`, 10, {}, `He makes me go buzz`, [`ras`, `rasmatham`, `rasberry`]);
+			containsWord.replyThing(message, `exact`, 10, {}, `It's BeeMrtz, you insensitive prick!`, [`bymrtz`]);
+			containsWord.replyThing(message, `exact`, 10, {}, mrtz, [`mrtz`, `beemrtz`, `rasberry`]);
+			containsWord.replyThing(message, `anywhere`, 100, {}, buzzLink, [`botlink buzzbot`]);
+			containsWord.replyThing(message, `anywhere`, 100, {}, `The hivemind is the absolute truth`, [`hive`]);
+			containsWord.replyThing(message, `anywhere`, 100, {}, `you have no choice`, [`join us`]);
+			containsWord.replyThing(message, `anywhere`, 100, {}, buzzes(), [`buzz`]);
 		})
 	}
 	//forwarding
@@ -498,8 +489,8 @@
 	//Mention reply
 	{
 		clambot.on(`message`, (message) => {
-			if (blackList.includes(message.channel.name)) {return};
-			containsWord.replyThing(		message,		`anywhere`,		100,	{},						`PING!`,	[`<@&`]);
+			if (blackList.includes(message.channel.name)) { return };
+			containsWord.replyThing(message, `anywhere`, 100, {}, `PING!`, [`<@&`]);
 		})
 	}
 	//DM spy
@@ -526,22 +517,22 @@
 	//replies
 	{
 		ebnj.on(`message`, (message) => {
-			if (blackList.includes(message.channel.name)) {return};
-			containsWord.replyThing(		message,		`anywhere`,		100,	{},						ebnjLink,								[`botlink ebnj`]);
-			containsWord.replyThing(		message,		`anywhere`,		100,	{},						`🦆 <:Minecoins:656622021240815623>`,	[`minecoin`]);
-			containsWord.replyThing(		message,		`anywhere`,		100,	{},						`Nice\nJava`,							[`java`]);
-			containsWord.replyThing(		message,		`anywhere`,		100,	{},						`Ew\nBedrock`,							[`bedrock`]);
-			containsWord.replyThing(		message,		`anywhere`,		100,	{},						`Cool\nEarth`,							[`earth`]);
-			containsWord.replyThing(		message,		`exact`,		10,		{},						`Cool\nRas`,							[`ras`, `rasmatham`, `rasberry`]);
-			containsWord.reactThing(		message,		`anywhere`,		100,	[`🇫`, `🇺`, `🇨`, `🇰`, `➖`, `🇩`, `ℹ️`, `🇴`, `🇷`, `🇮`, `🇹`, `🇪`],	[`diorite`]);
+			if (blackList.includes(message.channel.name)) { return };
+			containsWord.replyThing(message, `anywhere`, 100, {}, ebnjLink, [`botlink ebnj`]);
+			containsWord.replyThing(message, `anywhere`, 100, {}, `🦆 <:Minecoins:656622021240815623>`, [`minecoin`]);
+			containsWord.replyThing(message, `anywhere`, 100, {}, `Nice\nJava`, [`java`]);
+			containsWord.replyThing(message, `anywhere`, 100, {}, `Ew\nBedrock`, [`bedrock`]);
+			containsWord.replyThing(message, `anywhere`, 100, {}, `Cool\nEarth`, [`earth`]);
+			containsWord.replyThing(message, `exact`, 10, {}, `Cool\nRas`, [`ras`, `rasmatham`, `rasberry`]);
+			containsWord.reactThing(message, `anywhere`, 100, [`🇫`, `🇺`, `🇨`, `🇰`, `➖`, `🇩`, `ℹ️`, `🇴`, `🇷`, `🇮`, `🇹`, `🇪`], [`diorite`]);
 		})
 	}
 	//toggle Music
 	{
 		ebnj.on(`message`, (message) => {
-			if(message.author.id === rasID && message.content.startsWith(`toggleMusic`)){
+			if (message.author.id === rasID && message.content.startsWith(`toggleMusic`)) {
 				console.log(voiceEnabled)
-				if(voiceEnabled){
+				if (voiceEnabled) {
 					voiceEnabled = false;
 				} else {
 					voiceEnabled = true;
@@ -559,42 +550,42 @@
 		var lie = `I will tell you what is not a lie\nThe cake`;
 		var ping = `P I N G\nWait\nNevermind`;
 		var stillalive = new Discord.MessageEmbed()
-		.setColor(`FFFFFF`)
-		.setTitle(`Still alive`)
-		.addFields({
-			name: `᲼`,
-			value: `This was a triumph\nI'm taking a note here: "HUGE SUCCESS"\nIt's hard to overstate\nMy satisfaction`,
-		}, {
-			name: `᲼`,
-			value: `Aperture Science\nWe do what we must because we can\nFor the good of all of us\nExcept the ones who are dead`,
-		}, {
-			name: `᲼`,
-			value: `But there's no sense crying over every mistake\nYou just keep on trying till you run out of cake\nAnd the science gets done, and you make a neat gun\nFor the people who are still alive`,
-		}, {
-			name: `᲼`,
-			value: `I'm not even angry\nI'm being so sincere right now\nEven though you broke my heart\nAnd killed me`,
-		}, {
-			name: `᲼`,
-			value: `And tore me to pieces\nAnd threw every piece into a fire\nAs they burned, it hurt because\nI was so happy for you`,
-		}, {
-			name: `᲼`,
-			value: `Now these points of data make a beautiful line\nAnd we're out of beta, we're releasing on time\nSo I'm GLaD I got burned: think of the things we learned\nFor the people who are still alive`,
-		}, {
-			name: `᲼`,
-			value: `Go ahead and leave me\nI think I prefer to stay inside\nMaybe you'll find someone else\nTo help you`,
-		}, {
-			name: `᲼`,
-			value: `Maybe Black Mesa\nThat was a joke. Haha, fat chance\nAnyway, this cake is great\nIt's so delicious and moist`,
-		}, {
-			name: `᲼`,
-			value: `Look at me still talking when there's Science to do\nWhen I look out there, it makes me GLaD I'm not you\nI've experiments to run; there is research to be done\nOn the people who are still alive`,
-		}, {
-			name: `᲼`,
-			value: `And believe me, I am still alive\nI'm doing science and I'm still alive\nI feel fantastic and I'm still alive\nWhile you're dying, I'll be still alive`,
-		}, {
-			name: `᲼`,
-			value: `And when you're dead, I will be still alive\nStill alive, still alive...`,
-		});
+			.setColor(`FFFFFF`)
+			.setTitle(`Still alive`)
+			.addFields({
+				name: `᲼`,
+				value: `This was a triumph\nI'm taking a note here: "HUGE SUCCESS"\nIt's hard to overstate\nMy satisfaction`,
+			}, {
+				name: `᲼`,
+				value: `Aperture Science\nWe do what we must because we can\nFor the good of all of us\nExcept the ones who are dead`,
+			}, {
+				name: `᲼`,
+				value: `But there's no sense crying over every mistake\nYou just keep on trying till you run out of cake\nAnd the science gets done, and you make a neat gun\nFor the people who are still alive`,
+			}, {
+				name: `᲼`,
+				value: `I'm not even angry\nI'm being so sincere right now\nEven though you broke my heart\nAnd killed me`,
+			}, {
+				name: `᲼`,
+				value: `And tore me to pieces\nAnd threw every piece into a fire\nAs they burned, it hurt because\nI was so happy for you`,
+			}, {
+				name: `᲼`,
+				value: `Now these points of data make a beautiful line\nAnd we're out of beta, we're releasing on time\nSo I'm GLaD I got burned: think of the things we learned\nFor the people who are still alive`,
+			}, {
+				name: `᲼`,
+				value: `Go ahead and leave me\nI think I prefer to stay inside\nMaybe you'll find someone else\nTo help you`,
+			}, {
+				name: `᲼`,
+				value: `Maybe Black Mesa\nThat was a joke. Haha, fat chance\nAnyway, this cake is great\nIt's so delicious and moist`,
+			}, {
+				name: `᲼`,
+				value: `Look at me still talking when there's Science to do\nWhen I look out there, it makes me GLaD I'm not you\nI've experiments to run; there is research to be done\nOn the people who are still alive`,
+			}, {
+				name: `᲼`,
+				value: `And believe me, I am still alive\nI'm doing science and I'm still alive\nI feel fantastic and I'm still alive\nWhile you're dying, I'll be still alive`,
+			}, {
+				name: `᲼`,
+				value: `And when you're dead, I will be still alive\nStill alive, still alive...`,
+			});
 	}
 	//setups
 	{
@@ -603,16 +594,16 @@
 			glados.on(`message`, (message) => {
 				if (message.content.toLowerCase().startsWith(`${GLaDOSPrefix}startcf`)) {
 					message.channel
-					.send(`Creating save for ${message.author}`)
-					.then(() => fs.mkdir(`userinfo/`, (err) => {}))
-					.then(() =>
-					fs.mkdir(`./GLaDOS/userinfo/${message.author.id}`, (err) => {})
-					)
-					.then(() => {
-						fs.mkdir(`./GLaDOS/userinfo/${message.author.id}/coinflip/`, (err) => {})
-					})
-					.then(() => { fs.writeFile(`./GLaDOS/userinfo/${message.author.id}/coinflip/wins.txt`, `0`, (err) => {}) })
-					.then(() => { fs.writeFile(`./GLaDOS/userinfo/${message.author.id}/coinflip/losses.txt`, `0`, (err) => {}) });
+						.send(`Creating save for ${message.author}`)
+						.then(() => fs.mkdir(`userinfo/`, (err) => { }))
+						.then(() =>
+							fs.mkdir(`./GLaDOS/userinfo/${message.author.id}`, (err) => { })
+						)
+						.then(() => {
+							fs.mkdir(`./GLaDOS/userinfo/${message.author.id}/coinflip/`, (err) => { })
+						})
+						.then(() => { fs.writeFile(`./GLaDOS/userinfo/${message.author.id}/coinflip/wins.txt`, `0`, (err) => { }) })
+						.then(() => { fs.writeFile(`./GLaDOS/userinfo/${message.author.id}/coinflip/losses.txt`, `0`, (err) => { }) });
 					message.channel.send(`Setup complete\nWarning: Using this command agin will reset your score`);
 				}
 			});
@@ -629,10 +620,10 @@
 					let xkcdRand = Math.ceil(Math.random() * (xkcdObjOuter.num + Math.random()));
 					xkcd(num || xkcdRand, (xkcdObj) => {
 						const xkcdEmbed = new Discord.MessageEmbed()
-						.setTitle(xkcdObj.title)
-						.setURL(`https://xkcd.com/${xkcdObj.num}/`)
-						.setDescription(xkcdObj.alt)
-						.setImage(xkcdObj.img);
+							.setTitle(xkcdObj.title)
+							.setURL(`https://xkcd.com/${xkcdObj.num}/`)
+							.setDescription(xkcdObj.alt)
+							.setImage(xkcdObj.img);
 						message.channel.send({ embed: xkcdEmbed });
 					});
 				}
@@ -660,47 +651,47 @@
 				if (fs.existsSync(coinflippath)) {
 					if (message.content.toLowerCase().startsWith(`${GLaDOSPrefix}coinflip heads`)) {
 						if (Math.random() * 10 < 5 === true) {
-							var wincount = fs.readFileSync(coinfilew, `utf8`, (err) => {});
-							var losecount = fs.readFileSync(coinfilel, `utf8`, (err) => {});
-							fs.writeFile(coinfilew, (parseInt(wincount) + 1).toString(), (err) => {});
+							var wincount = fs.readFileSync(coinfilew, `utf8`, (err) => { });
+							var losecount = fs.readFileSync(coinfilel, `utf8`, (err) => { });
+							fs.writeFile(coinfilew, (parseInt(wincount) + 1).toString(), (err) => { });
 							var embed = new Discord.MessageEmbed()
-							.setColor(`00FF00`)
-							.setTitle(`You won!`)
-							.setThumbnail(`https://cdn.discordapp.com/attachments/656164355381133332/715662587471331359/ezgif-3-b3ae702d4205.gif`)
-							.addFields({ name: `The coin landed on heads`, value: `You won!` }, { name: `Wins`, value: parseInt(wincount) + 1 }, { name: `Losses`, value: losecount });
+								.setColor(`00FF00`)
+								.setTitle(`You won!`)
+								.setThumbnail(`https://cdn.discordapp.com/attachments/656164355381133332/715662587471331359/ezgif-3-b3ae702d4205.gif`)
+								.addFields({ name: `The coin landed on heads`, value: `You won!` }, { name: `Wins`, value: parseInt(wincount) + 1 }, { name: `Losses`, value: losecount });
 							message.channel.send({ embed: embed });
 						} else {
-							var wincount = fs.readFileSync(coinfilew, `utf8`, (err) => {});
-							var losecount = fs.readFileSync(coinfilel, `utf8`, (err) => {});
-							fs.writeFile(coinfilel, (parseInt(losecount) + 1).toString(), (err) => {});
+							var wincount = fs.readFileSync(coinfilew, `utf8`, (err) => { });
+							var losecount = fs.readFileSync(coinfilel, `utf8`, (err) => { });
+							fs.writeFile(coinfilel, (parseInt(losecount) + 1).toString(), (err) => { });
 							var embed = new Discord.MessageEmbed()
-							.setColor(`FF0000`)
-							.setTitle(`You lost!`)
-							.setThumbnail(`https://cdn.discordapp.com/attachments/656164355381133332/715669285128634368/ezgif-3-b8913657fa57.gif`)
-							.addFields({ name: `The coin landed on tails`, value: `You lost!` }, { name: `Wins`, value: wincount }, { name: `Losses`, value: parseInt(losecount) + 1 });
+								.setColor(`FF0000`)
+								.setTitle(`You lost!`)
+								.setThumbnail(`https://cdn.discordapp.com/attachments/656164355381133332/715669285128634368/ezgif-3-b8913657fa57.gif`)
+								.addFields({ name: `The coin landed on tails`, value: `You lost!` }, { name: `Wins`, value: wincount }, { name: `Losses`, value: parseInt(losecount) + 1 });
 							message.channel.send({ embed: embed });
 						}
 					}
 					if (message.content.toLowerCase().startsWith(`${GLaDOSPrefix}coinflip tails`)) {
 						if (Math.random() * 10 < 5 === true) {
-							var wincount = fs.readFileSync(coinfilew, `utf8`, (err) => {});
-							var losecount = fs.readFileSync(coinfilel, `utf8`, (err) => {});
-							fs.writeFile(coinfilew, (parseInt(losecount) + 1).toString(), (err) => {});
+							var wincount = fs.readFileSync(coinfilew, `utf8`, (err) => { });
+							var losecount = fs.readFileSync(coinfilel, `utf8`, (err) => { });
+							fs.writeFile(coinfilew, (parseInt(losecount) + 1).toString(), (err) => { });
 							var embed = new Discord.MessageEmbed()
-							.setColor(`00FF00`)
-							.setTitle(`You won!`)
-							.setThumbnail(`https://cdn.discordapp.com/attachments/656164355381133332/715669285128634368/ezgif-3-b8913657fa57.gif`)
-							.addFields({ name: `The coin landed on tails`, value: `You won!` }, { name: `Wins`, value: parseInt(wincount) + 1 }, { name: `Losses`, value: losecount });
+								.setColor(`00FF00`)
+								.setTitle(`You won!`)
+								.setThumbnail(`https://cdn.discordapp.com/attachments/656164355381133332/715669285128634368/ezgif-3-b8913657fa57.gif`)
+								.addFields({ name: `The coin landed on tails`, value: `You won!` }, { name: `Wins`, value: parseInt(wincount) + 1 }, { name: `Losses`, value: losecount });
 							message.channel.send({ embed: embed });
 						} else {
-							var wincount = fs.readFileSync(coinfilew, `utf8`, (err) => {});
-							var losecount = fs.readFileSync(coinfilel, `utf8`, (err) => {});
-							fs.writeFile(coinfilel, (parseInt(losecount) + 1).toString(), (err) => {});
+							var wincount = fs.readFileSync(coinfilew, `utf8`, (err) => { });
+							var losecount = fs.readFileSync(coinfilel, `utf8`, (err) => { });
+							fs.writeFile(coinfilel, (parseInt(losecount) + 1).toString(), (err) => { });
 							var embed = new Discord.MessageEmbed()
-							.setColor(`FF0000`)
-							.setTitle(`You lost!`)
-							.setThumbnail(`https://cdn.discordapp.com/attachments/656164355381133332/715662587471331359/ezgif-3-b3ae702d4205.gif`)
-							.addFields({ name: `The coin landed on heads`, value: `You lost!` }, { name: `Wins`, value: wincount }, { name: `Losses`, value: parseInt(losecount) + 1 });
+								.setColor(`FF0000`)
+								.setTitle(`You lost!`)
+								.setThumbnail(`https://cdn.discordapp.com/attachments/656164355381133332/715662587471331359/ezgif-3-b3ae702d4205.gif`)
+								.addFields({ name: `The coin landed on heads`, value: `You lost!` }, { name: `Wins`, value: wincount }, { name: `Losses`, value: parseInt(losecount) + 1 });
 							message.channel.send({ embed: embed });
 						}
 					}
@@ -715,38 +706,38 @@
 		//if [MESSAGE(S)] then [MESSAGE(S)]
 		{
 			glados.on(`message`, (message) => {
-				if (blackList.includes(message.channel.name)) {return};
-				containsWord.replyThing(		message,		`anywhere`,		100,	{},											GladosLink,						[`${GLaDOSPrefix}botlink`]); // These call the function from above and adds the parameters to it.
-				containsWord.replyThing(		message,		`anywhere`,		100,	{},											`https://discord.gg/xNQ8TaV`,	[`${GLaDOSPrefix}nbclink`]);
-				containsWord.replyThing(		message,		`anywhere`,		100,	{},											`https://discord.gg/62jvqRv`,	[`${GLaDOSPrefix}sightingslink`]);
-				containsWord.replyThing(		message,		`anywhere`,		100,	{},											`https://discord.gg/ys2XWTr`,	[`${GLaDOSPrefix}marquettelink`]);
-				containsWord.replyThing(		message,		`anywhere`,		100,	{},											`https://discord.gg/xsXdy7h`,	[`${GLaDOSPrefix}resourcelink`]);
-				containsWord.replyThing(		message,		`anywhere`,		100,	{},											cake,							[`cake`, `tower 15`]);
-				containsWord.replyThing(		message,		`anywhere`,		100,	{files: [`./GLaDOS/files/lemonade.png`]},	lemonrant,						[`lemon`, `🍋`]);
-				containsWord.replyThing(		message,		`exact`,		100,	{},											lie,							[`lie`]);
-				containsWord.replyThing(		message,		`anywhere`,		100,	{},											`JA JA DING DONG!`,				[`${GLaDOSPrefix}play`]);
-				containsWord.replyThing(		message,		`anywhere`,		100,	{files: [`./GLaDOS/files/BSOD.png`]},		``,								[`neurotoxin`]);
-				containsWord.replyThing(		message,		`anywhere`,		100,	{},											`#36393F`,						[`${GLaDOSPrefix}inviscolor`, `${GLaDOSPrefix}inviscolour`]);
-				containsWord.replyThing(		message,		`exact`,		100,	{},											`<@${rasID}>`,					[`@ras`]);
-				containsWord.replyThing(		message,		`exact`,		100,	{},											`<@454340813388775445>`,		[`@kelp`]);
-				containsWord.replyThing(		message,		`anywhere`,		100,	{embed: stillalive},						``,								[`still alive`]);
-				containsWord.replyThing(		message,		`anywhere`,		100,	{files: [`./AllTheBots.js`]},				``,								[`${GLaDOSPrefix}source`]);
-				containsWord.replyThing(		message,		`anywhere`,		100,	{},											githublink,						[`${GLaDOSPrefix}githubsource`]);
-				containsWord.replyThing(		message,		`mention`,		100,	{},											`P I N G`,						[`680053684243398693`]);
-				containsWord.replyThing(		message,		`mention`,		100,	{},											ping,							[`654074851337699328`]);
-				containsWord.replyThing(		message,		`exact`,		100,	{},											`He's my daddy 😉`,				[`quinn`, `quinnsnipe`]);
-				containsWord.replyThing(		message,		`exact`,		10,		{},											`He's a superior lifeform`,		[`ras`, `rasmatham`, `rasberry`]);
-				containsWord.replyThing(		message,		`exact`,		10,		{},											`Did you mean: Czechia?`,		[`cz`, `cz12345`]);
-				containsWord.replyThing(		message,		`exact`,		10,		{},											`Failed test subject #1`,		[`12`, `flit`, `flitwick`]);
-				containsWord.replyThing(		message,		`exact`,		50,		{},											`Say hi to him for me 😳`,		[`espen bot`]);
-				containsWord.replyThing(		message,		`exact`,		100,	{},											userInfo(message),				[`${GLaDOSPrefix}userinfo`]);
-				containsWord.replyThing(		message,		`exact`,		100,	{},											serverInfo(message),			[`${GLaDOSPrefix}serverinfo`]);
-				containsWord.replyThing(		message,		`exact`,		100,	{embed: joindate(message)},					``,								[`${GLaDOSPrefix}joindate`]);
-				containsWord.reactThing(		message,		`anywhere`,		100,	[`838084115629735976`],														[`science`]);
-				containsWord.reactThing(		message,		`anywhere`,		100,	[`838084115391053844`],														[`blue`]);
-				containsWord.reactThing(		message,		`anywhere`,		100,	[`838084116653670420`],														[`orange`]);
+				if (blackList.includes(message.channel.name)) { return };
+				containsWord.replyThing(message, `anywhere`, 100, {}, GladosLink, [`${GLaDOSPrefix}botlink`]); // These call the function from above and adds the parameters to it.
+				containsWord.replyThing(message, `anywhere`, 100, {}, `https://discord.gg/xNQ8TaV`, [`${GLaDOSPrefix}nbclink`]);
+				containsWord.replyThing(message, `anywhere`, 100, {}, `https://discord.gg/62jvqRv`, [`${GLaDOSPrefix}sightingslink`]);
+				containsWord.replyThing(message, `anywhere`, 100, {}, `https://discord.gg/ys2XWTr`, [`${GLaDOSPrefix}marquettelink`]);
+				containsWord.replyThing(message, `anywhere`, 100, {}, `https://discord.gg/xsXdy7h`, [`${GLaDOSPrefix}resourcelink`]);
+				containsWord.replyThing(message, `anywhere`, 100, {}, cake, [`cake`, `tower 15`]);
+				containsWord.replyThing(message, `anywhere`, 100, { files: [`./GLaDOS/files/lemonade.png`] }, lemonrant, [`lemon`, `🍋`]);
+				containsWord.replyThing(message, `exact`, 100, {}, lie, [`lie`]);
+				containsWord.replyThing(message, `anywhere`, 100, {}, `JA JA DING DONG!`, [`${GLaDOSPrefix}play`]);
+				containsWord.replyThing(message, `anywhere`, 100, { files: [`./GLaDOS/files/BSOD.png`] }, ``, [`neurotoxin`]);
+				containsWord.replyThing(message, `anywhere`, 100, {}, `#36393F`, [`${GLaDOSPrefix}inviscolor`, `${GLaDOSPrefix}inviscolour`]);
+				containsWord.replyThing(message, `exact`, 100, {}, `<@${rasID}>`, [`@ras`]);
+				containsWord.replyThing(message, `exact`, 100, {}, `<@454340813388775445>`, [`@kelp`]);
+				containsWord.replyThing(message, `anywhere`, 100, { embed: stillalive }, ``, [`still alive`]);
+				containsWord.replyThing(message, `anywhere`, 100, { files: [`./AllTheBots.js`] }, ``, [`${GLaDOSPrefix}source`]);
+				containsWord.replyThing(message, `anywhere`, 100, {}, githublink, [`${GLaDOSPrefix}githubsource`]);
+				containsWord.replyThing(message, `mention`, 100, {}, `P I N G`, [`680053684243398693`]);
+				containsWord.replyThing(message, `mention`, 100, {}, ping, [`654074851337699328`]);
+				containsWord.replyThing(message, `exact`, 100, {}, `He's my daddy 😉`, [`quinn`, `quinnsnipe`]);
+				containsWord.replyThing(message, `exact`, 10, {}, `He's a superior lifeform`, [`ras`, `rasmatham`, `rasberry`]);
+				containsWord.replyThing(message, `exact`, 10, {}, `Did you mean: Czechia?`, [`cz`, `cz12345`]);
+				containsWord.replyThing(message, `exact`, 10, {}, `Failed test subject #1`, [`12`, `flit`, `flitwick`]);
+				containsWord.replyThing(message, `exact`, 50, {}, `Say hi to him for me 😳`, [`espen bot`]);
+				containsWord.replyThing(message, `exact`, 100, {}, userInfo(message), [`${GLaDOSPrefix}userinfo`]);
+				containsWord.replyThing(message, `exact`, 100, {}, serverInfo(message), [`${GLaDOSPrefix}serverinfo`]);
+				containsWord.replyThing(message, `exact`, 100, { embed: joindate(message) }, ``, [`${GLaDOSPrefix}joindate`]);
+				containsWord.reactThing(message, `anywhere`, 100, [`838084115629735976`], [`science`]);
+				containsWord.reactThing(message, `anywhere`, 100, [`838084115391053844`], [`blue`]);
+				containsWord.reactThing(message, `anywhere`, 100, [`838084116653670420`], [`orange`]);
 				channelLink(message, `842486821510447115`, `842486725347508266`)
-				if(!message.author.bot && (message.content.includes(`inspire`) || message.content.includes(`inspiration`) || message.content.includes(`inspiring`)) && !blackList.includes(message.channel.name)){
+				if (!message.author.bot && (message.content.includes(`inspire`) || message.content.includes(`inspiration`) || message.content.includes(`inspiring`)) && !blackList.includes(message.channel.name)) {
 					inspiroBot().then((url) => {
 						message.channel.send(url)
 					})
@@ -763,7 +754,7 @@
 		glados.on(`message`, (message) => {
 			if (message.guild === null && !message.author.bot && message.author.id !== rasID) {
 				glados.channels.cache.get(`741333824494895144`).send(`\`\`\`${message.author.tag} - <@${message.author.id}>\`\`\`\nsent:`);
-				sendAsWebHook(message, glados.channels.cache.get(`741333824494895144`), message, { files: message.attachments.array() }, message.author.username, message.author.displayAvatarURL({format: `png`, dynamic: true}));
+				sendAsWebHook(message, glados.channels.cache.get(`741333824494895144`), message, { files: message.attachments.array() }, message.author.username, message.author.displayAvatarURL({ format: `png`, dynamic: true }));
 				message.channel.send(`Your message was sent to a super secret channel in Everyone Sightings`);
 			}
 		});
@@ -886,7 +877,7 @@
 						},
 					},
 				};
-				
+
 				var mazeStyle = () => {
 					if (typeof message.content.split(` `)[1] === `undefined`) {
 						return `normal`;
@@ -990,32 +981,24 @@
 				maze.forEach((x, i) => {
 					x.forEach((y, j) => {
 						if (message.content.toLowerCase().includes(`zelda`)) {
-							createdClass.addCell(i, j, `${
-								y.left
-							}${
-								y.top
-							}${
-								y.right
-							}${
-								y.bottom
-							}`
-							.replaceAll(`true`, `I`)
-							.replaceAll(`false`, `O`), `zelda`);
+							createdClass.addCell(i, j, `${y.left
+								}${y.top
+								}${y.right
+								}${y.bottom
+								}`
+								.replaceAll(`true`, `I`)
+								.replaceAll(`false`, `O`), `zelda`);
 						} else {
-							createdClass.addCell(i, j, `${
-								y.left
-							}${
-								y.top
-							}${
-								y.right
-							}${
-								y.bottom
-							}`.replaceAll(`true`, `I`)
-							.replaceAll(`false`, `O`), `normal`);
+							createdClass.addCell(i, j, `${y.left
+								}${y.top
+								}${y.right
+								}${y.bottom
+								}`.replaceAll(`true`, `I`)
+								.replaceAll(`false`, `O`), `normal`);
 						}
 					});
 				});
-				
+
 				var mazeMessage = (mazeObj) => {
 					let messageText = ``;
 					for (let i = 0; i < 8; i++) {
@@ -1028,47 +1011,47 @@
 				}
 				message.channel.send(mazeMessage(createdClass)).then((newMessage) => {
 					newMessage
-					.react(`⬅️`)
-					.then(newMessage.react(`⬆️`))
-					.then(newMessage.react(`⬇️`))
-					.then(newMessage.react(`➡️`))
-					.then(() => {
-						let lock = true;
-						if (lock) {
-							glados.on(`messageReactionAdd`, (reaction, reactor) => {
-								if (!reaction.me && reaction.message.id === newMessage.id) {
-									if (reactor.id === message.author.id) {
-										switch (reaction.emoji.name) {
-											case `⬅️`:
-											createdClass.moveLeft();
-											newMessage.edit(mazeMessage(createdClass));
-											break;
-											case `⬆️`:
-											createdClass.moveUp();
-											newMessage.edit(mazeMessage(createdClass));
-											break;
-											case `⬇️`:
-											createdClass.moveDown();
-											newMessage.edit(mazeMessage(createdClass));
-											break;
-											case `➡️`:
-											createdClass.moveRight();
-											newMessage.edit(mazeMessage(createdClass));
-											break;
-											default:
-											break;
+						.react(`⬅️`)
+						.then(newMessage.react(`⬆️`))
+						.then(newMessage.react(`⬇️`))
+						.then(newMessage.react(`➡️`))
+						.then(() => {
+							let lock = true;
+							if (lock) {
+								glados.on(`messageReactionAdd`, (reaction, reactor) => {
+									if (!reaction.me && reaction.message.id === newMessage.id) {
+										if (reactor.id === message.author.id) {
+											switch (reaction.emoji.name) {
+												case `⬅️`:
+													createdClass.moveLeft();
+													newMessage.edit(mazeMessage(createdClass));
+													break;
+												case `⬆️`:
+													createdClass.moveUp();
+													newMessage.edit(mazeMessage(createdClass));
+													break;
+												case `⬇️`:
+													createdClass.moveDown();
+													newMessage.edit(mazeMessage(createdClass));
+													break;
+												case `➡️`:
+													createdClass.moveRight();
+													newMessage.edit(mazeMessage(createdClass));
+													break;
+												default:
+													break;
+											}
+										}
+										reaction.users.remove(reactor.id);
+										if (createdClass.cellArr[63].playerState) {
+											lock = !lock;
+											newMessage.edit(`**Congratulations!**\nYou managed to navigate through a maze even one of my ~~test subjects~~paid workers could finish!`);
+											newMessage.reactions.removeAll();
 										}
 									}
-									reaction.users.remove(reactor.id);
-									if (createdClass.cellArr[63].playerState) {
-										lock = !lock;
-										newMessage.edit(`**Congratulations!**\nYou managed to navigate through a maze even one of my ~~test subjects~~paid workers could finish!`);
-										newMessage.reactions.removeAll();
-									}
-								}
-							});
-						}
-					});
+								});
+							}
+						});
 				});
 			}
 		});
@@ -1090,8 +1073,8 @@
 					});
 				}
 				glados.channels.cache
-				.get(textChannels[Math.floor(Math.random() * (textChannels.length - 1))])
-				.send(`<@${message.author.id}>, you did an oopsie`);
+					.get(textChannels[Math.floor(Math.random() * (textChannels.length - 1))])
+					.send(`<@${message.author.id}>, you did an oopsie`);
 			}
 		});
 	}
@@ -1126,8 +1109,8 @@
 	//link
 	{
 		pokebot.on(`message`, (message) => {
-			if (blackList.includes(message.channel.name)) {return};
-			containsWord.replyThing(		message,		`anywhere`,		100,	{},						pokeLink,		[`botlink ebnj`]);
+			if (blackList.includes(message.channel.name)) { return };
+			containsWord.replyThing(message, `anywhere`, 100, {}, pokeLink, [`botlink ebnj`]);
 		})
 	}
 	//forwarding
@@ -1138,52 +1121,52 @@
 	{
 		var dex = (Query) => {
 			let dexNumber = 0;
-			if(!isNaN(Query)){Query = Number(Query)}
-			switch(typeof Query){
+			if (!isNaN(Query)) { Query = Number(Query) }
+			switch (typeof Query) {
 				case `number`:
-				if(Number(Query) <= 151 && Number(Query) > 0){
-					dexNumber = Number(Query);
-					break;
-				} else {
-					break;
-				}
-				case `string`:
-				Object.keys(DB.pokemon).forEach(i => {
-					let pokeObj = DB.pokemon[i];
-					if(Query === pokeObj.name.toLowerCase()){
-						dexNumber = Number(pokeObj.nat);
+					if (Number(Query) <= 151 && Number(Query) > 0) {
+						dexNumber = Number(Query);
+						break;
+					} else {
+						break;
 					}
-				})
-				break;
+				case `string`:
+					Object.keys(DB.pokemon).forEach(i => {
+						let pokeObj = DB.pokemon[i];
+						if (Query === pokeObj.name.toLowerCase()) {
+							dexNumber = Number(pokeObj.nat);
+						}
+					})
+					break;
 				default:
-				break;
+					break;
 			}
 			var secType = () => {
-				if(typeof DB.pokemon[dexNumber].types[1] !== `undefined`){
+				if (typeof DB.pokemon[dexNumber].types[1] !== `undefined`) {
 					return DB.pokemon[dexNumber].types[1].name
 				} else {
 					return `None`
 				}
 			}
 			var embed = new Discord.MessageEmbed()
-			.setColor(DB.pokemon[dexNumber].types[0].color)
-			.setTitle(DB.pokemon[dexNumber].name)
-			.addFields({ name: `National dex number:`, value:  DB.pokemon[dexNumber].nat},
-			{ name: `Regional dex nunber:`, value: DB.pokemon[dexNumber].reg},
-			{ name: `Primary type`, value: DB.pokemon[dexNumber].types[0].name},
-			{ name: `Secondary type`, value: secType()}
-			)
-			.attachFiles([`./Pokèbot/Pokemon/1-151/250px-${DB.pokemon[dexNumber].nat}${DB.pokemon[dexNumber].name}.png`])
-			.setImage(`attachment://250px-${DB.pokemon[dexNumber].nat}${DB.pokemon[dexNumber].name.replace(`'`, ``)}.png`);
+				.setColor(DB.pokemon[dexNumber].types[0].color)
+				.setTitle(DB.pokemon[dexNumber].name)
+				.addFields({ name: `National dex number:`, value: DB.pokemon[dexNumber].nat },
+					{ name: `Regional dex nunber:`, value: DB.pokemon[dexNumber].reg },
+					{ name: `Primary type`, value: DB.pokemon[dexNumber].types[0].name },
+					{ name: `Secondary type`, value: secType() }
+				)
+				.attachFiles([`./Pokèbot/Pokemon/1-151/250px-${DB.pokemon[dexNumber].nat}${DB.pokemon[dexNumber].name}.png`])
+				.setImage(`attachment://250px-${DB.pokemon[dexNumber].nat}${DB.pokemon[dexNumber].name.replace(`'`, ``)}.png`);
 			return embed;
 		}
 	}
 	//search
 	{
 		pokebot.on(`message`, (message) => {
-			if(message.author.id !== pokebot.user.id){
-				if(message.content.toLowerCase().startsWith(`${PokePrefix} `)) {
-					message.channel.send({embed: dex(message.content.toLowerCase().split(` `)[1])});
+			if (message.author.id !== pokebot.user.id) {
+				if (message.content.toLowerCase().startsWith(`${PokePrefix} `)) {
+					message.channel.send({ embed: dex(message.content.toLowerCase().split(` `)[1]) });
 				}
 			}
 		});
@@ -1194,7 +1177,7 @@
 	//Long stuff
 	{
 		var generalRas = `General Ras.\nYears ago you served my father in the Clone Wars.\nNow he begs you to help him in his struggle against the Empire.\nI regret that I am unable to present my father's request to you in person, but my ship has fallen under attack, and I'm afraid my mission to bring you to Alderaan has failed.\nI have placed information vital to the survival of the Rebellion into the memory systems of this R2 unit.\nMy father will know how to retrieve it.\nYou must see this droid safely delivered to him on Alderaan.\nThis is our most desperate hour.\nHelp me, Rasmatham.\nYou're my only hope.`;
-		var SWWords = [`star`,`wars`,`anakin`,`luke`,`obi`,`wan`,`kenobi`,`han`,`solo`,`leia`,`yoda`,`mace`,`windu`,`force`,`c3po`,`chewbacca`,`chewie`,`darth`,`vader`,`maul`,`sidius`,`plagueis`,`c-3po`,`r2`,`d2`,`emperor`,`palpatine`,`skywalker`,`jango`,`fett`,`padme`,`padmé`,`amidala`,`doku`,`tyranus`,`grievous`,`qui`,`gon`,`jinn`,`ackbar`,`tarkin`,`jabba`,`hut`,`lando`,`calrissian`,`boba`,`naboo`,`kashyyyk`,`alderaan`,`geonosis`,`kamino`,`dagobah`,`hoth`,`endor`,`bespin`,`mustafar`,`coruscant`,`tatooine`];
+		var SWWords = [`star`, `wars`, `anakin`, `luke`, `obi`, `wan`, `kenobi`, `han`, `solo`, `leia`, `yoda`, `mace`, `windu`, `force`, `c3po`, `chewbacca`, `chewie`, `darth`, `vader`, `maul`, `sidius`, `plagueis`, `c-3po`, `r2`, `d2`, `emperor`, `palpatine`, `skywalker`, `jango`, `fett`, `padme`, `padmé`, `amidala`, `doku`, `tyranus`, `grievous`, `qui`, `gon`, `jinn`, `ackbar`, `tarkin`, `jabba`, `hut`, `lando`, `calrissian`, `boba`, `naboo`, `kashyyyk`, `alderaan`, `geonosis`, `kamino`, `dagobah`, `hoth`, `endor`, `bespin`, `mustafar`, `coruscant`, `tatooine`];
 	}
 	//forwarding
 	{
@@ -1204,8 +1187,8 @@
 	{
 		var beeps = () => {
 			let str = ``;
-			for(let i = 0; i<Math.floor(Math.random() * 10); i++){
-				if(Math.floor(Math.random()*2)){
+			for (let i = 0; i < Math.floor(Math.random() * 10); i++) {
+				if (Math.floor(Math.random() * 2)) {
 					str = `${str}beep `
 				} else {
 					str = `${str}boop `
@@ -1217,10 +1200,10 @@
 	//replies
 	{
 		artoo.on(`message`, (message) => {
-			if (blackList.includes(message.channel.name)) {return};
-			containsWord.replyThing(		message,		`anywhere`,		100,	{},						r2Link,			[`botlink artoo`]);
-			containsWord.replyThing(		message,		`exact`,		10,		{},						generalRas,		[`ras`, `rasmatham`, `rasberry`]);
-			containsWord.replyThing(		message,		`anywhere`,		100,	{},						beeps(),		SWWords);
+			if (blackList.includes(message.channel.name)) { return };
+			containsWord.replyThing(message, `anywhere`, 100, {}, r2Link, [`botlink artoo`]);
+			containsWord.replyThing(message, `exact`, 10, {}, generalRas, [`ras`, `rasmatham`, `rasberry`]);
+			containsWord.replyThing(message, `anywhere`, 100, {}, beeps(), SWWords);
 		})
 	}
 }
@@ -1233,18 +1216,18 @@
 	//replies
 	{
 		random.on(`message`, (message) => {
-			if (blackList.includes(message.channel.name)) {return};
-			containsWord.replyThing(		message,		`anywhere`,		100,	{},						randomLink,													[`botlink random stuff`]);
-			containsWord.replyThing(		message,		`anywhere`,		100,	{},						`I like him`,												[`ras`, `rasmatham`, `rasberry`]);
-			containsWord.reactThing(		message,		`exact`,				100,	[`653023282945196042`],														[`espen`]);
-			containsWord.reactThing(		message,		`exact`,				100,	[`642497812885405707`],														[`wolfo`]);
-			containsWord.reactThing(		message,		`exact`,				100,	[`654428027995815976`],														[`no u`]);
-			containsWord.reactThing(		message,		`exact`,				100,	[`699747136144932925`],														[`emily`, `impa`]);
-			containsWord.reactThing(		message,		`exact`,				100,	[`699743387817082891`],														[`ahk`, `ahkrin`, `ck`, `ck32`, `creeper_killer`, `creeper_killer32`]);
-			containsWord.reactThing(		message,		`exact`,				100,	[`656207221792702466`],														[`enndal,`, `ganon`, `ganondorf`, `ganond0rf`]);
-			containsWord.reactThing(		message,		`anywhere`,				100,	[`656223106788229121`],														[`force`]);
-			containsWord.reactThing(		message,		`anywhere`,				100,	[`👍`, `👎`],																[`yes/no`, `yes or no`, `no/yes`, `no or yes`]);
-			containsWord.reactThing(		message,		`anywhere`,				100,	[`0️⃣`, `1️⃣`, `2️⃣`, `3️⃣`, `4️⃣`, `5️⃣`, `6️⃣`, `7️⃣`, `8️⃣`, `9️⃣`, `🔟`],	[`multichoice`]);
+			if (blackList.includes(message.channel.name)) { return };
+			containsWord.replyThing(message, `anywhere`, 100, {}, randomLink, [`botlink random stuff`]);
+			containsWord.replyThing(message, `anywhere`, 100, {}, `I like him`, [`ras`, `rasmatham`, `rasberry`]);
+			containsWord.reactThing(message, `exact`, 100, [`653023282945196042`], [`espen`]);
+			containsWord.reactThing(message, `exact`, 100, [`642497812885405707`], [`wolfo`]);
+			containsWord.reactThing(message, `exact`, 100, [`654428027995815976`], [`no u`]);
+			containsWord.reactThing(message, `exact`, 100, [`699747136144932925`], [`emily`, `impa`]);
+			containsWord.reactThing(message, `exact`, 100, [`699743387817082891`], [`ahk`, `ahkrin`, `ck`, `ck32`, `creeper_killer`, `creeper_killer32`]);
+			containsWord.reactThing(message, `exact`, 100, [`656207221792702466`], [`enndal,`, `ganon`, `ganondorf`, `ganond0rf`]);
+			containsWord.reactThing(message, `anywhere`, 100, [`656223106788229121`], [`force`]);
+			containsWord.reactThing(message, `anywhere`, 100, [`👍`, `👎`], [`yes/no`, `yes or no`, `no/yes`, `no or yes`]);
+			containsWord.reactThing(message, `anywhere`, 100, [`0️⃣`, `1️⃣`, `2️⃣`, `3️⃣`, `4️⃣`, `5️⃣`, `6️⃣`, `7️⃣`, `8️⃣`, `9️⃣`, `🔟`], [`multichoice`]);
 		})
 	}
 }
@@ -1261,8 +1244,8 @@
 	//joinVC
 	{
 		sini.on(`message`, (message) => {
-			if(!message.author.bot){
-				if(message.content.startsWith(`&join`)) {
+			if (!message.author.bot) {
+				if (message.content.startsWith(`&join`)) {
 					if (message.member.voice.channel) {
 						message.member.voice.channel.join();
 					}
@@ -1270,7 +1253,7 @@
 			}
 		})
 		sini.on(`message`, (message) => {
-			if (!message.author.bot){
+			if (!message.author.bot) {
 				if (message.content.startsWith(`&leave`)) {
 					if (message.member.voice.channel) {
 						message.member.voice.channel.leave();
@@ -1289,13 +1272,13 @@
 	//replies
 	{
 		zelda.on(`message`, (message) => {
-			if (blackList.includes(message.channel.name)) {return};
-			containsWord.replyThing(		message,	`anywhere`,		100,	{},					zeldaLink,			[`botlink zelda`]);
-			containsWord.replyThing(		message,	`exact`,		10,		{},					`Awesome dude`,		[`ras`, `rasmatham`, `rasberry`]);
-			containsWord.reactThing(		message,	`anywhere`,		100,	[`642474761204662284`],					[`courage`]);
-			containsWord.reactThing(		message,	`anywhere`,		100,	[`642474761804578826`],					[`power`]);
-			containsWord.reactThing(		message,	`anywhere`,		100,	[`642474761821224990`],					[`wisdom`]);
-			containsWord.reactThing(		message,	`anywhere`,		100,	[`642474761754247168`],					[`neutral`]);
+			if (blackList.includes(message.channel.name)) { return };
+			containsWord.replyThing(message, `anywhere`, 100, {}, zeldaLink, [`botlink zelda`]);
+			containsWord.replyThing(message, `exact`, 10, {}, `Awesome dude`, [`ras`, `rasmatham`, `rasberry`]);
+			containsWord.reactThing(message, `anywhere`, 100, [`642474761204662284`], [`courage`]);
+			containsWord.reactThing(message, `anywhere`, 100, [`642474761804578826`], [`power`]);
+			containsWord.reactThing(message, `anywhere`, 100, [`642474761821224990`], [`wisdom`]);
+			containsWord.reactThing(message, `anywhere`, 100, [`642474761754247168`], [`neutral`]);
 		})
 	}
 	//Test stuff
