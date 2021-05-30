@@ -16,7 +16,7 @@
 	//Modules
 	{
 		var containsWord = require(`./custom_modules/containsWordFunctions.js`);
-		var sendAsWebHook = require(`./custom_modules/simpleWebHook.js`);
+		var generalStuff = require(`./custom_modules/generalUse.js`);
 		var inspiroBot = require(`./custom_modules/inspiroBot.js`);
 		var dice = require(`./custom_modules/dice.js`);
 		var info = require(`./custom_modules/info.js`);
@@ -113,10 +113,10 @@
 				if (!message.author.bot) {
 					switch (message.channel.id) {
 						case ch1:
-							sendAsWebHook(message, message.client.channels.cache.get(ch2), message, { files: message.attachments.array() }, message.author.username, message.author.displayAvatarURL({ format: `png`, dynamic: true }));
+							generalStuff.sendAsWebHook(message, message.client.channels.cache.get(ch2), message, { files: message.attachments.array() }, message.author.username, message.author.displayAvatarURL({ format: `png`, dynamic: true }));
 							break;
 						case ch2:
-							sendAsWebHook(message, message.client.channels.cache.get(ch1), message, { files: message.attachments.array() }, message.author.username, message.author.displayAvatarURL({ format: `png`, dynamic: true }));
+							generalStuff.sendAsWebHook(message, message.client.channels.cache.get(ch1), message, { files: message.attachments.array() }, message.author.username, message.author.displayAvatarURL({ format: `png`, dynamic: true }));
 							break;
 						default:
 							break;
@@ -548,7 +548,7 @@
 		glados.on(`message`, (message) => {
 			if (message.guild === null && !message.author.bot && message.author.id !== rasID) {
 				glados.channels.cache.get(`741333824494895144`).send(`\`\`\`${message.author.tag} - <@${message.author.id}>\`\`\`\nsent:`);
-				sendAsWebHook(message, glados.channels.cache.get(`741333824494895144`), message, { files: message.attachments.array() }, message.author.username, message.author.displayAvatarURL({ format: `png`, dynamic: true }));
+				generalStuff.sendAsWebHook(message, glados.channels.cache.get(`741333824494895144`), message, { files: message.attachments.array() }, message.author.username, message.author.displayAvatarURL({ format: `png`, dynamic: true }));
 				message.channel.send(`Your message was sent to a super secret channel in Everyone Sightings`);
 			}
 		});
