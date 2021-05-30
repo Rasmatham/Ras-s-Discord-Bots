@@ -18,6 +18,7 @@
 		var containsWord = require(`./custom_modules/containsWordFunctions.js`);
 		var generalStuff = require(`./custom_modules/generalUse.js`);
 		var inspiroBot = require(`./custom_modules/inspiroBot.js`);
+		var forwarding = require(`./custom_modules/forwardMessages.js`);
 		var dice = require(`./custom_modules/dice.js`);
 		var info = require(`./custom_modules/info.js`);
 		var mazeThing = require(`generate-maze`);
@@ -48,8 +49,6 @@
 		var random = new Discord.Client();
 		var sini = new Discord.Client();
 		var zelda = new Discord.Client();
-		var rasID = `347039494375079947`;
-		var clamID = `588511925944582186`;
 		var testChannel = `735213241860620308`;
 		var voiceEnabled = false;
 		var PokePrefix = `pd`;
@@ -70,60 +69,6 @@
 	}
 	//Functions
 	{
-		//forwarding
-		{
-			var forwarding = (bot) => {
-				bot.on(`message`, (message) => {
-					if (!message.author.bot) {
-						if (message.content.startsWith(`<#`)) {
-							if ([`talk-as-${bot.user.username.toLowerCase()}`, `talk-and-dm-as-${bot.user.username.toLowerCase()}`, `dm-and-talk-as-${bot.user.username.toLowerCase()}`].includes(message.channel.name)) {
-								if (message.member.id === rasID || message.member.hasPermission(`ADMINISTRATOR`) || !blackList.includes(bot.channels.cache.get(message.mentions.channels.first().id).name)) {
-									bot.channels.cache
-										.get(message.mentions.channels.first().id)
-										.send(message.content.replace(message.mentions.channels.first(), ``)
-											.replace(/¤/g, ``), { files: message.attachments.array() }
-										);
-								} else {
-									message.channel.send(`Nice try`);
-								}
-							}
-						} else if (message.content.startsWith(`<@`) && !message.content.startsWith(`<@&`) /*&& message.member.hasPermission(`ADMINISTRATOR`)*/) {
-							if ([`dm-as-${bot.user.username.toLowerCase()}`, `talk-and-dm-as-${bot.user.username.toLowerCase()}`, `dm-and-talk-as-${bot.user.username.toLowerCase()}`].includes(message.channel.name)) {
-								bot.users.cache
-									.get(message.mentions.users.first().id)
-									.send(message.content.replace(message.mentions.users.first().id, ``)
-										.replace(`<@>`, ``)
-										.replace(`<@!>`, ``)
-										.replace(/¤/g, ``), { files: message.attachments.array() })
-									.then(() => {
-										message.channel.send(`Message sent to ${message.mentions.users.first().tag}`)
-									})
-									.catch((err) => {
-										message.channel.send(`Sorry, but ${message.mentions.users.first().tag} has blocked me or they blocked DM's from this server`)
-									});
-							}
-						}
-					}
-				});
-			}
-		}
-		//Channel link
-		{
-			var channelLink = (message, ch1, ch2) => {
-				if (!message.author.bot) {
-					switch (message.channel.id) {
-						case ch1:
-							generalStuff.sendAsWebHook(message, message.client.channels.cache.get(ch2), message, { files: message.attachments.array() }, message.author.username, message.author.displayAvatarURL({ format: `png`, dynamic: true }));
-							break;
-						case ch2:
-							generalStuff.sendAsWebHook(message, message.client.channels.cache.get(ch1), message, { files: message.attachments.array() }, message.author.username, message.author.displayAvatarURL({ format: `png`, dynamic: true }));
-							break;
-						default:
-							break;
-					}
-				}
-			}
-		}
 		//Myoooosic
 		{
 			var music = (bot, prfx) => {
@@ -279,11 +224,8 @@
 			containsWord.replyThing(message, `anywhere`, 100, {}, `The hivemind is the absolute truth`, [`hive`]);
 			containsWord.replyThing(message, `anywhere`, 100, {}, `you have no choice`, [`join us`]);
 			containsWord.replyThing(message, `anywhere`, 100, {}, buzzes(), [`buzz`]);
+			forwarding.messageForwarding(message);
 		})
-	}
-	//forwarding
-	{
-		forwarding(buzzBot);
 	}
 }
 //Clambot
@@ -295,27 +237,16 @@
 			containsWord.replyThing(message, `anywhere`, 100, {}, `PING!`, [`<@&`]);
 		})
 	}
-	//DM spy
+	//Stuff
 	{
 		clambot.on(`message`, (message) => {
-			if (message.guild === null && !message.author.bot && message.author.id !== rasID && message.author.id !== clamID) {
-				clambot.channels.cache.get(`764479509138636810`).send(`\`\`\`${message.author.tag} - <@${message.author.id}>\`\`\` sent:`);
-				clambot.channels.cache.get(`764479509138636810`).send(message, { files: message.attachments.array() });
-				message.channel.send(`Your message was sent to a super secret channel in Everyone Sightings`);
-			}
+			forwarding.DMSpy(message, `764479509138636810`);
+			forwarding.messageForwarding(message);
 		})
-	}
-	//stuff
-	{
-		forwarding(clambot);
 	}
 }
 //EBNJ
 {
-	//forwarding
-	{
-		forwarding(ebnj);
-	}
 	//replies
 	{
 		ebnj.on(`message`, (message) => {
@@ -327,12 +258,13 @@
 			containsWord.replyThing(message, `anywhere`, 100, {}, `Cool\nEarth`, [`earth`]);
 			containsWord.replyThing(message, `exact`, 10, {}, `Cool\nRas`, [`ras`, `rasmatham`, `rasberry`]);
 			containsWord.reactThing(message, `anywhere`, 100, [`🇫`, `🇺`, `🇨`, `🇰`, `➖`, `🇩`, `ℹ️`, `🇴`, `🇷`, `🇮`, `🇹`, `🇪`], [`diorite`]);
+			forwarding.messageForwarding(message);
 		})
 	}
 	//toggle Music
 	{
 		ebnj.on(`message`, (message) => {
-			if (message.author.id === rasID && message.content.startsWith(`toggleMusic`)) {
+			if (message.author.id === process.env.RASID && message.content.startsWith(`toggleMusic`)) {
 				console.log(voiceEnabled)
 				if (voiceEnabled) {
 					voiceEnabled = false;
@@ -510,7 +442,7 @@
 				containsWord.replyThing(message, `anywhere`, 100, {}, `JA JA DING DONG!`, [`${GLaDOSPrefix}play`]);
 				containsWord.replyThing(message, `anywhere`, 100, { files: [`./GLaDOS/files/BSOD.png`] }, ``, [`neurotoxin`]);
 				containsWord.replyThing(message, `anywhere`, 100, {}, `#36393F`, [`${GLaDOSPrefix}inviscolor`, `${GLaDOSPrefix}inviscolour`]);
-				containsWord.replyThing(message, `exact`, 100, {}, `<@${rasID}>`, [`@ras`]);
+				containsWord.replyThing(message, `exact`, 100, {}, `<@${process.env.RASID}>`, [`@ras`]);
 				containsWord.replyThing(message, `exact`, 100, {}, `<@454340813388775445>`, [`@kelp`]);
 				containsWord.replyThing(message, `anywhere`, 100, { embed: stillalive }, ``, [`still alive`]);
 				containsWord.replyThing(message, `anywhere`, 100, { files: [`./AllTheBots.js`] }, ``, [`${GLaDOSPrefix}source`]);
@@ -528,30 +460,17 @@
 				containsWord.reactThing(message, `anywhere`, 100, [`838084115629735976`], [`science`]);
 				containsWord.reactThing(message, `anywhere`, 100, [`838084115391053844`], [`blue`]);
 				containsWord.reactThing(message, `anywhere`, 100, [`838084116653670420`], [`orange`]);
-				channelLink(message, `842486821510447115`, `842486725347508266`)
+				forwarding.channelLink(message, `842486821510447115`, `842486725347508266`);
 				if (!message.author.bot && (message.content.includes(`inspire`) || message.content.includes(`inspiration`) || message.content.includes(`inspiring`)) && !blackList.includes(message.channel.name)) {
 					inspiroBot().then((url) => {
 						message.channel.send(url)
 					})
 				}
-
 				dice(message, GLaDOSPrefix);
+				forwarding.DMSpy(message, `741333824494895144`);
+				forwarding.messageForwarding(message);
 			})
 		}
-		//forwarding
-		{
-			forwarding(glados);
-		}
-	}
-	//DM spy
-	{
-		glados.on(`message`, (message) => {
-			if (message.guild === null && !message.author.bot && message.author.id !== rasID) {
-				glados.channels.cache.get(`741333824494895144`).send(`\`\`\`${message.author.tag} - <@${message.author.id}>\`\`\`\nsent:`);
-				generalStuff.sendAsWebHook(message, glados.channels.cache.get(`741333824494895144`), message, { files: message.attachments.array() }, message.author.username, message.author.displayAvatarURL({ format: `png`, dynamic: true }));
-				message.channel.send(`Your message was sent to a super secret channel in Everyone Sightings`);
-			}
-		});
 	}
 	//xkcd
 	{
@@ -883,7 +802,7 @@
 		//smh, Espen bot doesn't work
 		{
 			glados.on(`message`, (message) => {
-				if (message.author.id === rasID && Math.floor(Math.random() * 100) <= 0 && message.guild.id === `646155122992480266`) {
+				if (message.author.id === process.env.RASID && Math.floor(Math.random() * 100) <= 0 && message.guild.id === `646155122992480266`) {
 					message.channel.send(`https://cdn.discordapp.com/attachments/735213241860620308/781189544103247922/unknown.png`);
 				}
 			});
@@ -901,11 +820,8 @@
 		pokebot.on(`message`, (message) => {
 			if (blackList.includes(message.channel.name)) { return };
 			containsWord.replyThing(message, `anywhere`, 100, {}, pokeLink, [`botlink ebnj`]);
+			forwarding.messageForwarding(message);
 		})
-	}
-	//forwarding
-	{
-		forwarding(pokebot);
 	}
 	//dex embed
 	{
@@ -969,10 +885,6 @@
 		var generalRas = `General Ras.\nYears ago you served my father in the Clone Wars.\nNow he begs you to help him in his struggle against the Empire.\nI regret that I am unable to present my father's request to you in person, but my ship has fallen under attack, and I'm afraid my mission to bring you to Alderaan has failed.\nI have placed information vital to the survival of the Rebellion into the memory systems of this R2 unit.\nMy father will know how to retrieve it.\nYou must see this droid safely delivered to him on Alderaan.\nThis is our most desperate hour.\nHelp me, Rasmatham.\nYou're my only hope.`;
 		var SWWords = [`star`, `wars`, `anakin`, `luke`, `obi`, `wan`, `kenobi`, `han`, `solo`, `leia`, `yoda`, `mace`, `windu`, `force`, `c3po`, `chewbacca`, `chewie`, `darth`, `vader`, `maul`, `sidius`, `plagueis`, `c-3po`, `r2`, `d2`, `emperor`, `palpatine`, `skywalker`, `jango`, `fett`, `padme`, `padmé`, `amidala`, `doku`, `tyranus`, `grievous`, `qui`, `gon`, `jinn`, `ackbar`, `tarkin`, `jabba`, `hut`, `lando`, `calrissian`, `boba`, `naboo`, `kashyyyk`, `alderaan`, `geonosis`, `kamino`, `dagobah`, `hoth`, `endor`, `bespin`, `mustafar`, `coruscant`, `tatooine`];
 	}
-	//forwarding
-	{
-		forwarding(artoo);
-	}
 	//functions
 	{
 		var beeps = () => {
@@ -994,15 +906,12 @@
 			containsWord.replyThing(message, `anywhere`, 100, {}, r2Link, [`botlink artoo`]);
 			containsWord.replyThing(message, `exact`, 10, {}, generalRas, [`ras`, `rasmatham`, `rasberry`]);
 			containsWord.replyThing(message, `anywhere`, 100, {}, beeps(), SWWords);
+			forwarding.messageForwarding(message);
 		})
 	}
 }
 //Random
 {
-	//forwarding
-	{
-		forwarding(random);
-	}
 	//replies
 	{
 		random.on(`message`, (message) => {
@@ -1018,19 +927,17 @@
 			containsWord.reactThing(message, `anywhere`, 100, [`656223106788229121`], [`force`]);
 			containsWord.reactThing(message, `anywhere`, 100, [`👍`, `👎`], [`yes/no`, `yes or no`, `no/yes`, `no or yes`]);
 			containsWord.reactThing(message, `anywhere`, 100, [`0️⃣`, `1️⃣`, `2️⃣`, `3️⃣`, `4️⃣`, `5️⃣`, `6️⃣`, `7️⃣`, `8️⃣`, `9️⃣`, `🔟`], [`multichoice`]);
+			forwarding.messageForwarding(message);
 		})
 	}
 }
 //sinibot
 {
-	//forwarding
-	{
-		forwarding(sini);
-	}
 	//dice roll
 	{
 		sini.on(`message`, (message) => {
 			dice(message, ``);
+			forwarding.messageForwarding(message);
 		})
 	}
 	//joinVC
@@ -1057,10 +964,6 @@
 }
 //Zelda
 {
-	//forwarding
-	{
-		forwarding(zelda);
-	}
 	//replies
 	{
 		zelda.on(`message`, (message) => {
@@ -1071,6 +974,7 @@
 			containsWord.reactThing(message, `anywhere`, 100, [`642474761804578826`], [`power`]);
 			containsWord.reactThing(message, `anywhere`, 100, [`642474761821224990`], [`wisdom`]);
 			containsWord.reactThing(message, `anywhere`, 100, [`642474761754247168`], [`neutral`]);
+			forwarding.messageForwarding(message);
 		})
 	}
 	//Test stuff
