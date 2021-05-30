@@ -16,6 +16,7 @@
 	//Modules
 	{
 		var containsWord = require(`./custom_modules/containsWordFunctions.js`);
+		var sendAsWebHook = require(`./custom_modules/simpleWebHook.js`);
 		var inspiroBot = require(`./custom_modules/inspiroBot.js`);
 		var dice = require(`./custom_modules/dice.js`);
 		var info = require(`./custom_modules/info.js`);
@@ -104,46 +105,6 @@
 						}
 					}
 				});
-			}
-		}
-		//send as webhook
-		{
-			var sendAsWebHook = (message, sendTo, sendMessage, sendAttachments, name, PFP) => {
-				let webHookFunction = () => {
-					sendTo.fetchWebhooks()
-						.then((webHooks) => {
-							if (webHooks.size <= 0) {
-								sendTo.createWebhook(`${message.client.user.username}-Webhook`)
-									.then(() => {
-										webHookFunction(message.client)
-									}).catch(() => {
-										message.channel.send(`Something went wrong`)
-									})
-							}
-							let i = 0;
-							for (webHook of webHooks.values()) {
-								if (webHook.owner.id === message.client.user.id) {
-									let myWebHook = new Discord.WebhookClient(webHook.id, webHook.token)
-									myWebHook.edit({ name: name, avatar: PFP })
-										.then((editedWebHook) => {
-											editedWebHook.send(sendMessage, sendAttachments)
-										})
-									break
-								} else if (i >= webHooks.size - 1) {
-									sendTo.createWebhook(`${message.client.user.username}-Webhook`)
-										.then(() => {
-											webHookFunction(message.client)
-										}).catch(() => {
-											message.channel.send(`Something went wrong`)
-										})
-								};
-								i++
-							}
-						}).catch((err) => {
-							console.error(err)
-						})
-				}
-				webHookFunction(message.client)
 			}
 		}
 		//Channel link
