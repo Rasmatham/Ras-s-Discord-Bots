@@ -23,8 +23,8 @@
 		var info = require(`./custom_modules/info.js`);
 		var mazeThing = require(`generate-maze`);
 		var DB = require(`./Pokèbot/PokeDB.js`);
+		var music = require(`./custom_modules/music.js`);
 		var Discord = require(`discord.js`);
-		var ytdl = require(`ytdl-core`);
 		var xkcd = require(`xkcd`);
 		require(`dotenv`).config();
 		var fs = require(`fs`);
@@ -50,10 +50,8 @@
 		var sini = new Discord.Client();
 		var zelda = new Discord.Client();
 		var testChannel = `735213241860620308`;
-		var voiceEnabled = false;
 		var PokePrefix = `pd`;
 		var GLaDOSPrefix = `&`;
-		module.exports = { blackList };
 	}
 	//logins
 	{
@@ -69,127 +67,9 @@
 	}
 	//Functions
 	{
-		//Myoooosic
-		{
-			var music = (bot, prfx) => {
-				bot.on(`message`, async message => {
-					if (message.author.bot) return;
-					if (!(message.content.toLowerCase().startsWith(`${prfx}`)) || message.guild === null) return;
-					const serverQueue = bot.queue.get(message.guild.id);
-					if (message.content.startsWith(`${prfx}play `) ||
-						message.content.startsWith(`${prfx}p `)) {
-						if (voiceEnabled) {
-							execute(message, serverQueue);
-						} else {
-							message.channel.send(`Sorry, but this function is disabled right now.\nRas might be at school and doesn't want to constantly up/download youtube videos.\nIf you know for a fact that he's not at school, ping him until he turns it on or gives an explanation`);
-						}
-						return;
-					} else if (message.content.toLowerCase() == `${prfx}skip` ||
-						message.content.toLowerCase() == `${prfx}s`) {
-						if (voiceEnabled) {
-							skip(message, serverQueue);
-						} else {
-							message.channel.send(`Sorry, but this function is disabled right now.\nRas might be at school and doesn't want to constantly up/download youtube videos.\nIf you know for a fact that he's not at school, ping him until he turns it on or gives an explanation`);
-						}
-						return;
-					} else if (message.content.toLowerCase() == `${prfx}disconnect` ||
-						message.content.toLowerCase() == `${prfx}dc`) {
-						stop(message, serverQueue);
-						return;
-					} else {
-						return;
-					}
-				});
-				var execute = async (message, serverQueue) => {
-					const args = message.content.split(` `);
-					const voiceChannel = message.member.voice.channel;
-					if (!voiceChannel) return message.channel.send(`You need to be in a VC to play music`);
-					const permissions = voiceChannel.permissionsFor(message.client.user);
-					if (!permissions.has(`CONNECT`) || !permissions.has(`SPEAK`)) {
-						return message.channel.send(`I need permission to speak in a VC to do this`);
-					}
-					if (ytdl.validateURL(args[1])) {
-						const songInfo = await ytdl.getBasicInfo(args[1]);
-						const song = {
-							title: songInfo.videoDetails.title,
-							url: songInfo.videoDetails.video_url,
-						};
-						if (!serverQueue) {
-							const queueContruct = {
-								textChannel: message.channel,
-								voiceChannel: voiceChannel,
-								connection: null,
-								songs: [],
-								volume: 5,
-								playing: true,
-							};
-							bot.queue.set(message.guild.id, queueContruct);
-							queueContruct.songs.push(song);
-							try {
-								var connection = await voiceChannel.join();
-								queueContruct.connection = connection;
-								play(message.guild, queueContruct.songs[0]);
-							} catch (err) {
-								console.log(err);
-								bot.queue.delete(message.guild.id);
-								return message.channel.send(err);
-							}
-						} else {
-							serverQueue.songs.push(song);
-							//console.log(serverQueue.songs);
-							return message.channel.send(`${song.title} has been added to the queue!`);
-						}
-					} else {
-						message.channel.send(`This is not a valid YouTube URL`);
-					}
-				}
-				const skip = (message, serverQueue) => {
-					if (!message.member.voice.channel) return message.channel.send(`Don't try to ruin someones listening experience`);
-					if (!serverQueue) return message.channel.send(`I am not playing any songs right now`);
-					serverQueue.voiceChannel.leave();
-				}
-				const stop = (message, serverQueue) => {
-					if (!message.member.voice.channel) return message.channel.send(`Don't try to ruin someones listening experience`);
-					serverQueue.songs = [];
-					serverQueue.voiceChannel.leave();
-				}
-				const play = (guild, song) => {
-					const serverQueue = bot.queue.get(guild.id);
-					if (!song) {
-						serverQueue.voiceChannel.leave();
-						bot.queue.delete(guild.id);
-						return;
-					}
-					const dispatcher = serverQueue.connection.play(ytdl(song.url, { quality: 'highestaudio' }))
-						.on(`speaking`, (speaking) => {
-							if (!speaking) {
-								serverQueue.songs.shift();
-								play(guild, serverQueue.songs[0]);
-							}
-						})
-						.on(`error`, error => {
-							console.error(error);
-						});
-					dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
-				}
-			}
-		}
 	}
 	//Other
 	{
-		//Music
-		{
-			ebnj.on(`ready`, () => voiceEnabled = false)
-			music(buzzBot, `bb;`);
-			music(clambot, `cb;`);
-			music(ebnj, `eb;`);
-			music(glados, GLaDOSPrefix);
-			music(pokebot, PokePrefix);
-			music(artoo, `r2;`);
-			music(random, `random;`);
-			music(sini, `sn;`);
-			music(zelda, `zd;`);
-		}
 	}
 }
 //BuzzBot
@@ -225,6 +105,7 @@
 			containsWord.replyThing(message, `anywhere`, 100, {}, `you have no choice`, [`join us`]);
 			containsWord.replyThing(message, `anywhere`, 100, {}, buzzes(), [`buzz`]);
 			forwarding.messageForwarding(message);
+			music(message, `bb;`);
 		})
 	}
 }
@@ -242,6 +123,7 @@
 		clambot.on(`message`, (message) => {
 			forwarding.DMSpy(message, `764479509138636810`);
 			forwarding.messageForwarding(message);
+			music(message, `cb;`);
 		})
 	}
 }
@@ -259,6 +141,7 @@
 			containsWord.replyThing(message, `exact`, 10, {}, `Cool\nRas`, [`ras`, `rasmatham`, `rasberry`]);
 			containsWord.reactThing(message, `anywhere`, 100, [`🇫`, `🇺`, `🇨`, `🇰`, `➖`, `🇩`, `ℹ️`, `🇴`, `🇷`, `🇮`, `🇹`, `🇪`], [`diorite`]);
 			forwarding.messageForwarding(message);
+			music(message, `eb;`);
 		})
 	}
 	//toggle Music
@@ -469,6 +352,7 @@
 				dice(message, GLaDOSPrefix);
 				forwarding.DMSpy(message, `741333824494895144`);
 				forwarding.messageForwarding(message);
+				music(message, GLaDOSPrefix);
 			})
 		}
 	}
@@ -821,6 +705,7 @@
 			if (blackList.includes(message.channel.name)) { return };
 			containsWord.replyThing(message, `anywhere`, 100, {}, pokeLink, [`botlink ebnj`]);
 			forwarding.messageForwarding(message);
+			music(message, PokePrefix);
 		})
 	}
 	//dex embed
@@ -907,6 +792,7 @@
 			containsWord.replyThing(message, `exact`, 10, {}, generalRas, [`ras`, `rasmatham`, `rasberry`]);
 			containsWord.replyThing(message, `anywhere`, 100, {}, beeps(), SWWords);
 			forwarding.messageForwarding(message);
+			music(message, `r2;`);
 		})
 	}
 }
@@ -928,6 +814,7 @@
 			containsWord.reactThing(message, `anywhere`, 100, [`👍`, `👎`], [`yes/no`, `yes or no`, `no/yes`, `no or yes`]);
 			containsWord.reactThing(message, `anywhere`, 100, [`0️⃣`, `1️⃣`, `2️⃣`, `3️⃣`, `4️⃣`, `5️⃣`, `6️⃣`, `7️⃣`, `8️⃣`, `9️⃣`, `🔟`], [`multichoice`]);
 			forwarding.messageForwarding(message);
+			music(message, `random;`);
 		})
 	}
 }
@@ -938,6 +825,7 @@
 		sini.on(`message`, (message) => {
 			dice(message, ``);
 			forwarding.messageForwarding(message);
+			music(message, `sn;`);
 		})
 	}
 	//joinVC
@@ -975,6 +863,7 @@
 			containsWord.reactThing(message, `anywhere`, 100, [`642474761821224990`], [`wisdom`]);
 			containsWord.reactThing(message, `anywhere`, 100, [`642474761754247168`], [`neutral`]);
 			forwarding.messageForwarding(message);
+			music(message, `zd;`);
 		})
 	}
 	//Test stuff
