@@ -1,4 +1,5 @@
 const { Message, MessageEmbed } = require(`discord.js`);
+const { checkFor } = require(`./generalUse.js`);
 //userinfo
 {
     /**
@@ -68,27 +69,26 @@ const { Message, MessageEmbed } = require(`discord.js`);
      * @param {Message} message 
      * @returns {MessageEmbed} Embed containing information on when you joined the server and when you joined Discord
      */
-    var joindate = (message) => {
-        if (message.content.toLowerCase() === `${GLaDOSPrefix}joindate`) {
-            var ms = message.author.createdTimestamp;
-            var date = new Date(ms);
-            var embed = new MessageEmbed()
-                .setColor(`FFFFFF`)
-                .setTitle(`You joined:`)
-                .setThumbnail(`https://cdn.discordapp.com/attachments/656164355381133332/715651846584270899/ezgif-3-ea387cdabbbe.gif`)
-                .addFields({
-                    name: `Date`,
-                    value: date.toLocaleDateString(`en-GB`, { timeZone: `utc` }),
-                },
-                    {
-                        name: `Time`,
-                        value: date.toLocaleTimeString(`en-GB`, {
-                            timeZone: `utc`,
-                            timeZoneName: `short`,
-                        }),
-                    }
-                );
-            return embed;
-        }
+    var joindate = (message, prefix) => {
+        var ms = message.author.createdTimestamp;
+        var date = new Date(ms);
+        var embed = new MessageEmbed()
+            .setColor(`FFFFFF`)
+            .setTitle(`You joined:`)
+            .setThumbnail(`https://cdn.discordapp.com/attachments/656164355381133332/715651846584270899/ezgif-3-ea387cdabbbe.gif`)
+            .addFields({
+                name: `Date`,
+                value: date.toLocaleDateString(`en-GB`, { timeZone: `utc` }),
+            },
+                {
+                    name: `Time`,
+                    value: date.toLocaleTimeString(`en-GB`, {
+                        timeZone: `utc`,
+                        timeZoneName: `short`,
+                    }),
+                }
+            );
+        return embed;
     }
 }
+module.exports = { userInfo, serverInfo, joindate }

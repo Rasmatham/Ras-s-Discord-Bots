@@ -18,6 +18,7 @@
 		var containsWord = require(`./custom_modules/containsWordFunctions.js`);
 		var inspiroBot = require(`./custom_modules/inspiroBot.js`);
 		var dice = require(`./custom_modules/dice.js`);
+		var info = require(`./custom_modules/info.js`);
 		var mazeThing = require(`generate-maze`);
 		var DB = require(`./Pokèbot/PokeDB.js`);
 		var Discord = require(`discord.js`);
@@ -470,16 +471,6 @@
 			});
 		}
 	}
-	//Check amount
-	{
-		var checkFor = (arr, str) => {
-			if (arr.length > 0) {
-				return `${str} ${arr.length}\n`;
-			} else {
-				return ``;
-			}
-		}
-	}
 	//coinflip
 	{
 		glados.on(`message`, (message) => {
@@ -570,9 +561,9 @@
 				containsWord.replyThing(message, `exact`, 10, {}, `Did you mean: Czechia?`, [`cz`, `cz12345`]);
 				containsWord.replyThing(message, `exact`, 10, {}, `Failed test subject #1`, [`12`, `flit`, `flitwick`]);
 				containsWord.replyThing(message, `exact`, 50, {}, `Say hi to him for me 😳`, [`espen bot`]);
-				containsWord.replyThing(message, `exact`, 100, {}, userInfo(message), [`${GLaDOSPrefix}userinfo`]);
-				containsWord.replyThing(message, `exact`, 100, {}, serverInfo(message), [`${GLaDOSPrefix}serverinfo`]);
-				containsWord.replyThing(message, `exact`, 100, { embed: joindate(message) }, ``, [`${GLaDOSPrefix}joindate`]);
+				containsWord.replyThing(message, `exact`, 100, {}, info.userInfo(message), [`${GLaDOSPrefix}userinfo`]);
+				containsWord.replyThing(message, `exact`, 100, {}, info.serverInfo(message), [`${GLaDOSPrefix}serverinfo`]);
+				containsWord.replyThing(message, `exact`, 100, { embed: info.joindate(message) }, ``, [`${GLaDOSPrefix}joindate`]);
 				containsWord.reactThing(message, `anywhere`, 100, [`838084115629735976`], [`science`]);
 				containsWord.reactThing(message, `anywhere`, 100, [`838084115391053844`], [`blue`]);
 				containsWord.reactThing(message, `anywhere`, 100, [`838084116653670420`], [`orange`]);
