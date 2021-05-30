@@ -1,3 +1,4 @@
+const { Message, MessageAdditions } = require("discord.js");
 //reply
 {
 	//function int
@@ -14,12 +15,12 @@
 	{
 		/**
 		 * 
-		 * @param {object} message Discord.js message object
-		 * @param {string} type Anywhere, exact or mention
-		 * @param {number} chance A number between 0 and 100 that decides the percentage of times the function should send a message
-		 * @param {object} fileorembed Discord.js messageAdditions object (could probably also ba a messageOptions object)
-		 * @param {string} rply Message that the bot should send back
-		 * @param {string[]} triggerArr An array of trigger strings
+		 * @param {Message} message Discord.js message object
+		 * @param {String} type Anywhere, exact or mention
+		 * @param {Number} chance A number between 0 and 100 that decides the percentage of times the function should send a message
+		 * @param {MessageAdditions} fileorembed Discord.js messageAdditions object (could probably also ba a messageOptions object)
+		 * @param {String} rply Message that the bot should send back
+		 * @param {String[]} triggerArr An array of trigger strings
 		 */
 		var replyThing = (message, type, chance, fileorembed, rply, triggerArr) => {
 			if (!message.author.bot) {
@@ -70,11 +71,11 @@
 	{
 		/**
 		 * 
-		 * @param {object} message Discord.js message object
-		 * @param {string} type Anywhere, exact or mention
-		 * @param {number} chance A number between 0 and 100 that decides the percentage of times the function should send a message
-		 * @param {string} emoteArr An array of emotes (the number part of the ID or 😃)
-		 * @param {string[]} triggerArr An array of trigger strings
+		 * @param {Message} message Discord.js message object
+		 * @param {String} type Anywhere, exact or mention
+		 * @param {Number} chance A number between 0 and 100 that decides the percentage of times the function should send a message
+		 * @param {String} emoteArr An array of emotes (the number part of the ID or 😃)
+		 * @param {String[]} triggerArr An array of trigger strings
 		 */
 		var reactThing = (message, type, chance, emoteArr, triggerArr) => {
 			if (!message.author.bot) {
