@@ -1,4 +1,4 @@
-const { Message, MessageAttachment, TextChannel, WebhookClient } = require(`discord.js`);
+const { Message, MessageAttachment, TextChannel, WebhookClient, Client } = require(`discord.js`);
 //Check amount
 {
 	/**
@@ -64,4 +64,18 @@ const { Message, MessageAttachment, TextChannel, WebhookClient } = require(`disc
         webHookFunction(message.client)
     }
 }
-module.exports = {checkFor, sendAsWebHook};
+//Bot check
+{
+    /**
+     * 
+     * @param {Client[]} bots
+     */
+    var botReady = (bots) => {
+        bots.forEach((bot) => {
+            bot.on(`ready`, () => {
+                console.log(`${bot.user.username} is online`);
+            })
+        })
+    }
+}
+module.exports = {checkFor, sendAsWebHook, botReady};

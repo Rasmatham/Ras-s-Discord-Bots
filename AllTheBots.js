@@ -16,14 +16,14 @@
 	//Modules
 	{
 		var containsWord = require(`./custom_modules/containsWordFunctions.js`);
+		var forwarding = require(`./custom_modules/forwardMessages.js`);
 		var generalStuff = require(`./custom_modules/generalUse.js`);
 		var inspiroBot = require(`./custom_modules/inspiroBot.js`);
-		var forwarding = require(`./custom_modules/forwardMessages.js`);
+		var music = require(`./custom_modules/music.js`);
 		var dice = require(`./custom_modules/dice.js`);
 		var info = require(`./custom_modules/info.js`);
 		var mazeThing = require(`generate-maze`);
 		var DB = require(`./Pokèbot/PokeDB.js`);
-		var music = require(`./custom_modules/music.js`);
 		var Discord = require(`discord.js`);
 		var xkcd = require(`xkcd`);
 		require(`dotenv`).config();
@@ -64,6 +64,7 @@
 		random.login(process.env.RANDOMTOKEN);
 		sini.login(process.env.SINITOKEN);
 		zelda.login(process.env.ZELDATOKEN);
+		generalStuff.botReady([buzzBot, clambot, ebnj, glados, pokebot, artoo, random, sini, zelda]);
 	}
 }
 //BuzzBot
