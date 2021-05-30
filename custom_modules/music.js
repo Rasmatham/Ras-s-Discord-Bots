@@ -3,7 +3,7 @@ var ytdl = require(`ytdl-core`);
 /**
  * 
  * @param {Message} message 
- * @param {*} prfx 
+ * @param {String} prfx 
  * @returns 
  */
 var music = (message, prfx) => {
