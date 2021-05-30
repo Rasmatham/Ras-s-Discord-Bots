@@ -15,13 +15,14 @@
 {
 	//Modules
 	{
-		var DB			= require(`./Pokèbot/PokeDB.js`);
-		var inspiroBot	= require(`./GLaDOS/inspiroBot.js`);
-		var mazeThing	= require(`generate-maze`);
-		var Discord		= require(`discord.js`);
-		var ytdl		= require(`ytdl-core`);
-		var xkcd		= require(`xkcd`);
-		var fs			= require(`fs`);
+		var containsWord	= require(`./custom_modules/containsWordFunctions.js`);
+		var inspiroBot		= require(`./custom_modules/inspiroBot.js`);
+		var DB				= require(`./Pokèbot/PokeDB.js`);
+		var mazeThing		= require(`generate-maze`);
+		var Discord			= require(`discord.js`);
+		var ytdl			= require(`ytdl-core`);
+		var xkcd			= require(`xkcd`);
+		var fs				= require(`fs`);
 		require(`dotenv`).config();
 	}
 	//Other Variables
@@ -50,6 +51,7 @@
 		var voiceEnabled	= false;
 		var PokePrefix		= `pd`;
 		var GLaDOSPrefix	= `&`;
+		module.exports = {blackList};
 	}
 	//logins
 	{
@@ -65,103 +67,6 @@
 	}
 	//Functions
 	{
-		//contains word functions
-		{
-			//reply
-			{
-				//function int
-				{
-					var reply = async (message, chance, fileorembed, rply) => {
-						if(Math.random() * 100 <= chance) {
-							message.channel.startTyping(3);
-							message.channel.send(rply, fileorembed);
-							message.channel.stopTyping(true);
-						}
-					}
-				}
-				//function ext
-				{
-					var replyThing = (message, type, chance, fileorembed, rply, triggerArr) => {
-						if (!blackList.includes(message.channel.name) && !message.author.bot) {
-							if (type === `anywhere`) {
-								triggerArr.forEach((trigger) => {
-									if (message.content.toLowerCase().includes(trigger)){
-										reply(message, chance, fileorembed, rply);
-									}
-								});
-							} else if (type === `exact`) {
-								editedMessage = message.content
-								.replace(`.`, ``)
-								.replace(`,`, ``)
-								.replace(`!`, ``)
-								.replace(`?`, ``)
-								.replace(`:`, ``);
-								message.content.split(` `).forEach((word) => {
-									triggerArr.forEach((trigger) => {
-										if (word === trigger) {
-											reply(message, chance, fileorembed, rply);
-										}
-									});
-								});
-							} else if (type === `mention`) {
-								triggerArr.forEach((trigger) => {
-									if (message.mentions.users.has(trigger)) {
-										reply(message, chance, fileorembed, rply);
-									}
-								});
-							}
-						}
-					}
-				}
-			}
-			//react
-			{
-				//function int
-				{
-					var react = (message, chance, emoteArr) => {
-						if(Math.random() * 100 <= chance) {
-							emoteArr.forEach(emote => {
-								message.react(emote);
-							})
-						}
-					}
-				}
-				//Function ext
-				{
-					var reactThing = (message, type, chance, emoteArr, triggerArr) => {
-						if (!blackList.includes(message.channel.name) && !message.author.bot) {
-							if (type === `anywhere`) {
-								triggerArr.forEach((trigger) => {
-									if (message.content.toLowerCase().includes(trigger) && Math.random() * 100 <= chance) {
-										react(message, chance, emoteArr);
-									}
-								});
-							} else if (type === `exact`) {
-								editedMessage = message.content
-								.replace(`.`, ``)
-								.replace(`,`, ``)
-								.replace(`!`, ``)
-								.replace(`?`, ``)
-								.replace(`:`, ``);
-								message.content.split(` `).forEach((word) => {
-									triggerArr.forEach((trigger) => {
-										if (word === trigger){
-											react(message, chance, emoteArr);
-										}
-									});
-								});
-							} else if (type === `mention`) {
-								triggerArr.forEach((trigger) => {
-									if (message.mentions.users.has(trigger) && Math.random() * 100 <= chance) {
-										react(message, chance, emoteArr);
-									}
-								});
-							}
-						}
-					}
-				}
-			}
-		}
 		//forwarding
 		{
 			var forwarding = (bot) => {
@@ -573,14 +478,14 @@
 	//replies
 	{
 		buzzBot.on(`message`, (message) => {
-			//replyThing(	message,		type,			%,		{attachments},			text,											[triggers]);
-			replyThing(		message,		`exact`,		10,		{},						`He makes me go buzz`,							[`ras`, `rasmatham`, `rasberry`]);
-			replyThing(		message,		`exact`,		10,		{},						`It's BeeMrtz, you insensitive prick!`,			[`bymrtz`]);
-			replyThing(		message,		`exact`,		10,		{},						mrtz,											[`mrtz`, `beemrtz`, `rasberry`]);
-			replyThing(		message,		`anywhere`,		100,	{},						buzzLink,										[`botlink buzzbot`]);
-			replyThing(		message,		`anywhere`,		100,	{},						`The hivemind is the absolute truth`,			[`hive`]);
-			replyThing(		message,		`anywhere`,		100,	{},						`you have no choice`,							[`join us`]);
-			replyThing(		message,		`anywhere`,		100,	{},						buzzes(),										[`buzz`]);
+			if (blackList.includes(message.channel.name)) {return};
+			containsWord.replyThing(	message,		`exact`,		10,		{},						`He makes me go buzz`,							[`ras`, `rasmatham`, `rasberry`]);
+			containsWord.replyThing(	message,		`exact`,		10,		{},						`It's BeeMrtz, you insensitive prick!`,			[`bymrtz`]);
+			containsWord.replyThing(	message,		`exact`,		10,		{},						mrtz,											[`mrtz`, `beemrtz`, `rasberry`]);
+			containsWord.replyThing(	message,		`anywhere`,		100,	{},						buzzLink,										[`botlink buzzbot`]);
+			containsWord.replyThing(	message,		`anywhere`,		100,	{},						`The hivemind is the absolute truth`,			[`hive`]);
+			containsWord.replyThing(	message,		`anywhere`,		100,	{},						`you have no choice`,							[`join us`]);
+			containsWord.replyThing(	message,		`anywhere`,		100,	{},						buzzes(),										[`buzz`]);
 		})
 	}
 	//forwarding
@@ -593,8 +498,8 @@
 	//Mention reply
 	{
 		clambot.on(`message`, (message) => {
-			//replyThing(	message,		type,			%,		{attachments},			text,		[triggers]);
-			replyThing(		message,		`anywhere`,		100,	{},						`PING!`,	[`<@&`]);
+			if (blackList.includes(message.channel.name)) {return};
+			containsWord.replyThing(		message,		`anywhere`,		100,	{},						`PING!`,	[`<@&`]);
 		})
 	}
 	//DM spy
@@ -621,14 +526,14 @@
 	//replies
 	{
 		ebnj.on(`message`, (message) => {
-			//replyThing(	message,		type,			%,		{attachments},			text,									[triggers]);
-			replyThing(		message,		`anywhere`,		100,	{},						ebnjLink,								[`botlink ebnj`]);
-			replyThing(		message,		`anywhere`,		100,	{},						`🦆 <:Minecoins:656622021240815623>`,	[`minecoin`]);
-			replyThing(		message,		`anywhere`,		100,	{},						`Nice\nJava`,							[`java`]);
-			replyThing(		message,		`anywhere`,		100,	{},						`Ew\nBedrock`,							[`bedrock`]);
-			replyThing(		message,		`anywhere`,		100,	{},						`Cool\nEarth`,							[`earth`]);
-			replyThing(		message,		`exact`,		10,		{},						`Cool\nRas`,							[`ras`, `rasmatham`, `rasberry`]);
-			reactThing(		message,		`anywhere`,		100,	[`🇫`, `🇺`, `🇨`, `🇰`, `➖`, `🇩`, `ℹ️`, `🇴`, `🇷`, `🇮`, `🇹`, `🇪`],	[`diorite`]);
+			if (blackList.includes(message.channel.name)) {return};
+			containsWord.replyThing(		message,		`anywhere`,		100,	{},						ebnjLink,								[`botlink ebnj`]);
+			containsWord.replyThing(		message,		`anywhere`,		100,	{},						`🦆 <:Minecoins:656622021240815623>`,	[`minecoin`]);
+			containsWord.replyThing(		message,		`anywhere`,		100,	{},						`Nice\nJava`,							[`java`]);
+			containsWord.replyThing(		message,		`anywhere`,		100,	{},						`Ew\nBedrock`,							[`bedrock`]);
+			containsWord.replyThing(		message,		`anywhere`,		100,	{},						`Cool\nEarth`,							[`earth`]);
+			containsWord.replyThing(		message,		`exact`,		10,		{},						`Cool\nRas`,							[`ras`, `rasmatham`, `rasberry`]);
+			containsWord.reactThing(		message,		`anywhere`,		100,	[`🇫`, `🇺`, `🇨`, `🇰`, `➖`, `🇩`, `ℹ️`, `🇴`, `🇷`, `🇮`, `🇹`, `🇪`],	[`diorite`]);
 		})
 	}
 	//toggle Music
@@ -810,36 +715,36 @@
 		//if [MESSAGE(S)] then [MESSAGE(S)]
 		{
 			glados.on(`message`, (message) => {
-				//replyThing(	message,		type,			%,		{attachments},								text,							[triggers]);
-				replyThing(		message,		`anywhere`,		100,	{},											GladosLink,						[`${GLaDOSPrefix}botlink`]); // These call the function from above and adds the parameters to it.
-				replyThing(		message,		`anywhere`,		100,	{},											`https://discord.gg/xNQ8TaV`,	[`${GLaDOSPrefix}nbclink`]);
-				replyThing(		message,		`anywhere`,		100,	{},											`https://discord.gg/62jvqRv`,	[`${GLaDOSPrefix}sightingslink`]);
-				replyThing(		message,		`anywhere`,		100,	{},											`https://discord.gg/ys2XWTr`,	[`${GLaDOSPrefix}marquettelink`]);
-				replyThing(		message,		`anywhere`,		100,	{},											`https://discord.gg/xsXdy7h`,	[`${GLaDOSPrefix}resourcelink`]);
-				replyThing(		message,		`anywhere`,		100,	{},											cake,							[`cake`, `tower 15`]);
-				replyThing(		message,		`anywhere`,		100,	{files: [`./GLaDOS/files/lemonade.png`]},	lemonrant,						[`lemon`, `🍋`]);
-				replyThing(		message,		`exact`,		100,	{},											lie,							[`lie`]);
-				replyThing(		message,		`anywhere`,		100,	{},											`JA JA DING DONG!`,				[`${GLaDOSPrefix}play`]);
-				replyThing(		message,		`anywhere`,		100,	{files: [`./GLaDOS/files/BSOD.png`]},		``,								[`neurotoxin`]);
-				replyThing(		message,		`anywhere`,		100,	{},											`#36393F`,						[`${GLaDOSPrefix}inviscolor`, `${GLaDOSPrefix}inviscolour`]);
-				replyThing(		message,		`exact`,		100,	{},											`<@${rasID}>`,					[`@ras`]);
-				replyThing(		message,		`exact`,		100,	{},											`<@454340813388775445>`,		[`@kelp`]);
-				replyThing(		message,		`anywhere`,		100,	{embed: stillalive},						``,								[`still alive`]);
-				replyThing(		message,		`anywhere`,		100,	{files: [`./AllTheBots.js`]},				``,								[`${GLaDOSPrefix}source`]);
-				replyThing(		message,		`anywhere`,		100,	{},											githublink,						[`${GLaDOSPrefix}githubsource`]);
-				replyThing(		message,		`mention`,		100,	{},											`P I N G`,						[`680053684243398693`]);
-				replyThing(		message,		`mention`,		100,	{},											ping,							[`654074851337699328`]);
-				replyThing(		message,		`exact`,		100,	{},											`He's my daddy 😉`,				[`quinn`, `quinnsnipe`]);
-				replyThing(		message,		`exact`,		10,		{},											`He's a superior lifeform`,		[`ras`, `rasmatham`, `rasberry`]);
-				replyThing(		message,		`exact`,		10,		{},											`Did you mean: Czechia?`,		[`cz`, `cz12345`]);
-				replyThing(		message,		`exact`,		10,		{},											`Failed test subject #1`,		[`12`, `flit`, `flitwick`]);
-				replyThing(		message,		`exact`,		50,		{},											`Say hi to him for me 😳`,		[`espen bot`]);
-				replyThing(		message,		`exact`,		100,	{},											userInfo(message),				[`${GLaDOSPrefix}userinfo`]);
-				replyThing(		message,		`exact`,		100,	{},											serverInfo(message),			[`${GLaDOSPrefix}serverinfo`]);
-				replyThing(		message,		`exact`,		100,	{embed: joindate(message)},					``,								[`${GLaDOSPrefix}joindate`]);
-				reactThing(		message,		`anywhere`,		100,	[`838084115629735976`],														[`science`]);
-				reactThing(		message,		`anywhere`,		100,	[`838084115391053844`],														[`blue`]);
-				reactThing(		message,		`anywhere`,		100,	[`838084116653670420`],														[`orange`]);
+				if (blackList.includes(message.channel.name)) {return};
+				containsWord.replyThing(		message,		`anywhere`,		100,	{},											GladosLink,						[`${GLaDOSPrefix}botlink`]); // These call the function from above and adds the parameters to it.
+				containsWord.replyThing(		message,		`anywhere`,		100,	{},											`https://discord.gg/xNQ8TaV`,	[`${GLaDOSPrefix}nbclink`]);
+				containsWord.replyThing(		message,		`anywhere`,		100,	{},											`https://discord.gg/62jvqRv`,	[`${GLaDOSPrefix}sightingslink`]);
+				containsWord.replyThing(		message,		`anywhere`,		100,	{},											`https://discord.gg/ys2XWTr`,	[`${GLaDOSPrefix}marquettelink`]);
+				containsWord.replyThing(		message,		`anywhere`,		100,	{},											`https://discord.gg/xsXdy7h`,	[`${GLaDOSPrefix}resourcelink`]);
+				containsWord.replyThing(		message,		`anywhere`,		100,	{},											cake,							[`cake`, `tower 15`]);
+				containsWord.replyThing(		message,		`anywhere`,		100,	{files: [`./GLaDOS/files/lemonade.png`]},	lemonrant,						[`lemon`, `🍋`]);
+				containsWord.replyThing(		message,		`exact`,		100,	{},											lie,							[`lie`]);
+				containsWord.replyThing(		message,		`anywhere`,		100,	{},											`JA JA DING DONG!`,				[`${GLaDOSPrefix}play`]);
+				containsWord.replyThing(		message,		`anywhere`,		100,	{files: [`./GLaDOS/files/BSOD.png`]},		``,								[`neurotoxin`]);
+				containsWord.replyThing(		message,		`anywhere`,		100,	{},											`#36393F`,						[`${GLaDOSPrefix}inviscolor`, `${GLaDOSPrefix}inviscolour`]);
+				containsWord.replyThing(		message,		`exact`,		100,	{},											`<@${rasID}>`,					[`@ras`]);
+				containsWord.replyThing(		message,		`exact`,		100,	{},											`<@454340813388775445>`,		[`@kelp`]);
+				containsWord.replyThing(		message,		`anywhere`,		100,	{embed: stillalive},						``,								[`still alive`]);
+				containsWord.replyThing(		message,		`anywhere`,		100,	{files: [`./AllTheBots.js`]},				``,								[`${GLaDOSPrefix}source`]);
+				containsWord.replyThing(		message,		`anywhere`,		100,	{},											githublink,						[`${GLaDOSPrefix}githubsource`]);
+				containsWord.replyThing(		message,		`mention`,		100,	{},											`P I N G`,						[`680053684243398693`]);
+				containsWord.replyThing(		message,		`mention`,		100,	{},											ping,							[`654074851337699328`]);
+				containsWord.replyThing(		message,		`exact`,		100,	{},											`He's my daddy 😉`,				[`quinn`, `quinnsnipe`]);
+				containsWord.replyThing(		message,		`exact`,		10,		{},											`He's a superior lifeform`,		[`ras`, `rasmatham`, `rasberry`]);
+				containsWord.replyThing(		message,		`exact`,		10,		{},											`Did you mean: Czechia?`,		[`cz`, `cz12345`]);
+				containsWord.replyThing(		message,		`exact`,		10,		{},											`Failed test subject #1`,		[`12`, `flit`, `flitwick`]);
+				containsWord.replyThing(		message,		`exact`,		50,		{},											`Say hi to him for me 😳`,		[`espen bot`]);
+				containsWord.replyThing(		message,		`exact`,		100,	{},											userInfo(message),				[`${GLaDOSPrefix}userinfo`]);
+				containsWord.replyThing(		message,		`exact`,		100,	{},											serverInfo(message),			[`${GLaDOSPrefix}serverinfo`]);
+				containsWord.replyThing(		message,		`exact`,		100,	{embed: joindate(message)},					``,								[`${GLaDOSPrefix}joindate`]);
+				containsWord.reactThing(		message,		`anywhere`,		100,	[`838084115629735976`],														[`science`]);
+				containsWord.reactThing(		message,		`anywhere`,		100,	[`838084115391053844`],														[`blue`]);
+				containsWord.reactThing(		message,		`anywhere`,		100,	[`838084116653670420`],														[`orange`]);
 				channelLink(message, `842486821510447115`, `842486725347508266`)
 				if(!message.author.bot && (message.content.includes(`inspire`) || message.content.includes(`inspiration`) || message.content.includes(`inspiring`)) && !blackList.includes(message.channel.name)){
 					inspiroBot().then((url) => {
@@ -1221,8 +1126,8 @@
 	//link
 	{
 		pokebot.on(`message`, (message) => {
-			//replyThing(	message,		type,			%,		{attachments},			text,			[triggers]);
-			replyThing(		message,		`anywhere`,		100,	{},						pokeLink,		[`botlink ebnj`]);
+			if (blackList.includes(message.channel.name)) {return};
+			containsWord.replyThing(		message,		`anywhere`,		100,	{},						pokeLink,		[`botlink ebnj`]);
 		})
 	}
 	//forwarding
@@ -1312,10 +1217,10 @@
 	//replies
 	{
 		artoo.on(`message`, (message) => {
-			//replyThing(	message,		type,			%,		{attachments},			text,			[triggers]);
-			replyThing(		message,		`anywhere`,		100,	{},						r2Link,			[`botlink artoo`]);
-			replyThing(		message,		`exact`,		10,		{},						generalRas,		[`ras`, `rasmatham`, `rasberry`]);
-			replyThing(		message,		`anywhere`,		100,	{},						beeps(),		SWWords);
+			if (blackList.includes(message.channel.name)) {return};
+			containsWord.replyThing(		message,		`anywhere`,		100,	{},						r2Link,			[`botlink artoo`]);
+			containsWord.replyThing(		message,		`exact`,		10,		{},						generalRas,		[`ras`, `rasmatham`, `rasberry`]);
+			containsWord.replyThing(		message,		`anywhere`,		100,	{},						beeps(),		SWWords);
 		})
 	}
 }
@@ -1328,18 +1233,18 @@
 	//replies
 	{
 		random.on(`message`, (message) => {
-			//replyThing(	message,		type,			%,		{attachments},			text,														[triggers]);
-			replyThing(		message,		`anywhere`,		100,	{},						randomLink,													[`botlink random stuff`]);
-			replyThing(		message,		`anywhere`,		100,	{},						`I like him`,												[`ras`, `rasmatham`, `rasberry`]);
-			reactThing(		message,		`exact`,				100,	[`653023282945196042`],														[`espen`]);
-			reactThing(		message,		`exact`,				100,	[`642497812885405707`],														[`wolfo`]);
-			reactThing(		message,		`exact`,				100,	[`654428027995815976`],														[`no u`]);
-			reactThing(		message,		`exact`,				100,	[`699747136144932925`],														[`emily`, `impa`]);
-			reactThing(		message,		`exact`,				100,	[`699743387817082891`],														[`ahk`, `ahkrin`, `ck`, `ck32`, `creeper_killer`, `creeper_killer32`]);
-			reactThing(		message,		`exact`,				100,	[`656207221792702466`],														[`enndal,`, `ganon`, `ganondorf`, `ganond0rf`]);
-			reactThing(		message,		`anywhere`,				100,	[`656223106788229121`],														[`force`]);
-			reactThing(		message,		`anywhere`,				100,	[`👍`, `👎`],																[`yes/no`, `yes or no`, `no/yes`, `no or yes`]);
-			reactThing(		message,		`anywhere`,				100,	[`0️⃣`, `1️⃣`, `2️⃣`, `3️⃣`, `4️⃣`, `5️⃣`, `6️⃣`, `7️⃣`, `8️⃣`, `9️⃣`, `🔟`],	[`multichoice`]);
+			if (blackList.includes(message.channel.name)) {return};
+			containsWord.replyThing(		message,		`anywhere`,		100,	{},						randomLink,													[`botlink random stuff`]);
+			containsWord.replyThing(		message,		`anywhere`,		100,	{},						`I like him`,												[`ras`, `rasmatham`, `rasberry`]);
+			containsWord.reactThing(		message,		`exact`,				100,	[`653023282945196042`],														[`espen`]);
+			containsWord.reactThing(		message,		`exact`,				100,	[`642497812885405707`],														[`wolfo`]);
+			containsWord.reactThing(		message,		`exact`,				100,	[`654428027995815976`],														[`no u`]);
+			containsWord.reactThing(		message,		`exact`,				100,	[`699747136144932925`],														[`emily`, `impa`]);
+			containsWord.reactThing(		message,		`exact`,				100,	[`699743387817082891`],														[`ahk`, `ahkrin`, `ck`, `ck32`, `creeper_killer`, `creeper_killer32`]);
+			containsWord.reactThing(		message,		`exact`,				100,	[`656207221792702466`],														[`enndal,`, `ganon`, `ganondorf`, `ganond0rf`]);
+			containsWord.reactThing(		message,		`anywhere`,				100,	[`656223106788229121`],														[`force`]);
+			containsWord.reactThing(		message,		`anywhere`,				100,	[`👍`, `👎`],																[`yes/no`, `yes or no`, `no/yes`, `no or yes`]);
+			containsWord.reactThing(		message,		`anywhere`,				100,	[`0️⃣`, `1️⃣`, `2️⃣`, `3️⃣`, `4️⃣`, `5️⃣`, `6️⃣`, `7️⃣`, `8️⃣`, `9️⃣`, `🔟`],	[`multichoice`]);
 		})
 	}
 }
@@ -1384,13 +1289,13 @@
 	//replies
 	{
 		zelda.on(`message`, (message) => {
-			//replyThing(	message,	type,			%,		{attachments},		text,				[triggers]);
-			replyThing(		message,	`anywhere`,		100,	{},					zeldaLink,			[`botlink zelda`]);
-			replyThing(		message,	`exact`,		10,		{},					`Awesome dude`,		[`ras`, `rasmatham`, `rasberry`]);
-			reactThing(		message,	`anywhere`,		100,	[`642474761204662284`],					[`courage`]);
-			reactThing(		message,	`anywhere`,		100,	[`642474761804578826`],					[`power`]);
-			reactThing(		message,	`anywhere`,		100,	[`642474761821224990`],					[`wisdom`]);
-			reactThing(		message,	`anywhere`,		100,	[`642474761754247168`],					[`neutral`]);
+			if (blackList.includes(message.channel.name)) {return};
+			containsWord.replyThing(		message,	`anywhere`,		100,	{},					zeldaLink,			[`botlink zelda`]);
+			containsWord.replyThing(		message,	`exact`,		10,		{},					`Awesome dude`,		[`ras`, `rasmatham`, `rasberry`]);
+			containsWord.reactThing(		message,	`anywhere`,		100,	[`642474761204662284`],					[`courage`]);
+			containsWord.reactThing(		message,	`anywhere`,		100,	[`642474761804578826`],					[`power`]);
+			containsWord.reactThing(		message,	`anywhere`,		100,	[`642474761821224990`],					[`wisdom`]);
+			containsWord.reactThing(		message,	`anywhere`,		100,	[`642474761754247168`],					[`neutral`]);
 		})
 	}
 	//Test stuff
