@@ -65,12 +65,6 @@
 		sini.login(process.env.SINITOKEN);
 		zelda.login(process.env.ZELDATOKEN);
 	}
-	//Functions
-	{
-	}
-	//Other
-	{
-	}
 }
 //BuzzBot
 {
