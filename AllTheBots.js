@@ -796,7 +796,4 @@
 			music(message, `zd;`);
 		})
 	}
-	//Test stuff
-	{
-	}
 }
