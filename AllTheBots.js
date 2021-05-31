@@ -672,13 +672,25 @@
 }
 //Pokebot
 {
-	//link
+	
+	//search
+	{
+		var sendEmbed = (message) => {
+			if (message.author.id !== pokebot.user.id) {
+				if (message.content.toLowerCase().startsWith(`${PokePrefix} `)) {
+					generalStuff.sendAsWebHook(message, message.channel, ``, {embeds: [dex(message.content.toLowerCase().split(` `)[1])]}, DB.trainers[Math.round(Math.random()*DB.trainers.length)], pokebot.user.avatarURL());
+				}
+			}
+		}
+	}
+	//Stuff
 	{
 		pokebot.on(`message`, (message) => {
 			if (blackList.includes(message.channel.name)) { return };
 			containsWord.replyThing(message, `anywhere`, 100, {}, pokeLink, [`botlink ebnj`]);
 			forwarding.messageForwarding(message);
 			music(message, PokePrefix);
+			sendEmbed(message);
 		})
 	}
 	//dex embed
@@ -724,16 +736,6 @@
 				.setImage(`attachment://250px-${DB.pokemon[dexNumber].nat}${DB.pokemon[dexNumber].name.replace(`'`, ``)}.png`);
 			return embed;
 		}
-	}
-	//search
-	{
-		pokebot.on(`message`, (message) => {
-			if (message.author.id !== pokebot.user.id) {
-				if (message.content.toLowerCase().startsWith(`${PokePrefix} `)) {
-					message.channel.send({ embed: dex(message.content.toLowerCase().split(` `)[1]) });
-				}
-			}
-		});
 	}
 }
 //Artoo

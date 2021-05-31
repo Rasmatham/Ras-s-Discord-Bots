@@ -6520,5 +6520,5 @@ const pokemon = {
 		}
 	}
 };
-exports.types = types;
-exports.pokemon = pokemon;
+const trainers = [`Ash Kechum`, `Red`, `Leaf`, `Blue`, `Ethan`, `Kris`, `Lyra`, `Silver`, `Brendan`, `May`, `Lucas`, `Dawn`, `Barry`, `Hilbert`, `Hilda`, `Cheren`, `Bianca`, `Nate`, `Rosa`, `Hugh`, `Calem`, `Serena`, `Elio`, `Selene`, `Lillie`, `Hau`, `Victor`, `Gloria`, `Hop`, `Bede`, `Marnie`]
+module.exports = {types, pokemon, trainers};
