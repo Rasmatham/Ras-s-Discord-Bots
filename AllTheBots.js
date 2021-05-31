@@ -106,16 +106,11 @@
 }
 //Clambot
 {
-	//Mention reply
+	//Stuff
 	{
 		clambot.on(`message`, (message) => {
 			if (blackList.includes(message.channel.name)) { return };
 			containsWord.replyThing(message, `anywhere`, 100, {}, `PING!`, [`<@&`]);
-		})
-	}
-	//Stuff
-	{
-		clambot.on(`message`, (message) => {
 			forwarding.DMSpy(message, `764479509138636810`);
 			forwarding.messageForwarding(message);
 			music(message, `cb;`);
