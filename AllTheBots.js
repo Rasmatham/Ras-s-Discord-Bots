@@ -134,19 +134,6 @@
 			music(message, `eb;`);
 		})
 	}
-	//toggle Music
-	{
-		ebnj.on(`message`, (message) => {
-			if (message.author.id === process.env.RASID && message.content.startsWith(`toggleMusic`)) {
-				console.log(voiceEnabled)
-				if (voiceEnabled) {
-					voiceEnabled = false;
-				} else {
-					voiceEnabled = true;
-				}
-			}
-		})
-	}
 }
 //GLaDOS
 {
