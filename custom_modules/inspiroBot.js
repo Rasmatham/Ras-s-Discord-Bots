@@ -1,3 +1,4 @@
+const { Message } = require(`discord.js`);
 const req = require('node-fetch')
 /**
  * @returns {Promise<string>} A promise to a random inspirobot URL.
@@ -8,4 +9,15 @@ const getURL = () => {
         return res.text()
     })
 }
-module.exports = getURL;
+/**
+ * 
+ * @param {Message} mesage 
+ */
+const sendMessage = (message) => {
+    if (!message.author.bot && (message.content.includes(`inspire`) || message.content.includes(`inspiration`) || message.content.includes(`inspiring`))) {
+        getURL().then((url) => {
+            message.channel.send(url)
+        })
+    }
+}
+module.exports = {getURL, sendMessage};
