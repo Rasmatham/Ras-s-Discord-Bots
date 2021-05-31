@@ -672,13 +672,13 @@
 }
 //Pokebot
 {
-	
+
 	//search
 	{
 		var sendEmbed = (message) => {
 			if (message.author.id !== pokebot.user.id) {
 				if (message.content.toLowerCase().startsWith(`${PokePrefix} `)) {
-					generalStuff.sendAsWebHook(message, message.channel, ``, {embeds: [pokedex.natDex(message.content.toLowerCase().split(` `)[1])]}, pokedex.DB.trainers[Math.round(Math.random()*pokedex.DB.trainers.length)], pokebot.user.avatarURL());
+					generalStuff.sendAsWebHook(message, message.channel, ``, { embeds: [pokedex.natDex(message.content.toLowerCase().split(` `)[1])] }, pokedex.DB.trainers[Math.round(Math.random() * pokedex.DB.trainers.length)], pokebot.user.avatarURL());
 				}
 			}
 		}
@@ -751,34 +751,33 @@
 }
 //sinibot
 {
-	//dice roll
+	//Stuff
 	{
 		sini.on(`message`, (message) => {
 			dice(message, ``);
 			forwarding.messageForwarding(message);
 			music(message, `sn;`);
+			joinLeave(message);
 		})
 	}
 	//joinVC
 	{
-		sini.on(`message`, (message) => {
+		var joinLeave = (message) => {
 			if (!message.author.bot) {
-				if (message.content.startsWith(`&join`)) {
-					if (message.member.voice.channel) {
-						message.member.voice.channel.join();
+				if (message.member.voice.channel) {
+					switch (message.content.startsWith()) {
+						case `&join`:
+							message.member.voice.channel.join();
+							break;
+						case `&leave`:
+							message.member.voice.channel.leave();
+							break;
+						default:
+							break;
 					}
 				}
 			}
-		})
-		sini.on(`message`, (message) => {
-			if (!message.author.bot) {
-				if (message.content.startsWith(`&leave`)) {
-					if (message.member.voice.channel) {
-						message.member.voice.channel.leave();
-					}
-				}
-			}
-		})
+		}
 	}
 }
 //Zelda
