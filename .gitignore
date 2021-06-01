@@ -10,5 +10,8 @@ lerna-debug.log*
 .env
 .env.test
 
+# user info
+GLaDOS/userinfo/
+
 # parcel-bundler cache (https://parceljs.org/)
 .cache
