@@ -11,7 +11,8 @@ lerna-debug.log*
 .env.test
 
 # user info
-GLaDOS/userinfo/
+GLaDOS/userinfo/347039494375079947/coinflip/wins.txt
+GLaDOS/userinfo/347039494375079947/coinflip/losses.txt
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
