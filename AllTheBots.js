@@ -9,8 +9,6 @@
 ╚══════════════════════════════════════════════════════════╝
 */
 
-//Just testing to see if this works right
-
 //Common
 {
 	//Modules
@@ -232,10 +230,6 @@
 				maze(message, GLaDOSPrefix);
 			})
 		}
-	}
-	//test stuff
-	{
-		//glados.users.fetch(`202558206495555585`).then(out => console.log(out))
 	}
 }
 //Pokebot
