@@ -11,7 +11,7 @@ const { sendAsWebHook } = require(`./generalUse.js`);
             if (!message.author.bot) {
                 if (message.content.startsWith(`<#`)) {
                     if ([`talk-as-${bot.user.username.toLowerCase()}`, `talk-and-dm-as-${bot.user.username.toLowerCase()}`, `dm-and-talk-as-${bot.user.username.toLowerCase()}`].includes(message.channel.name)) {
-                        if (message.member.id === process.env.RASID || message.member.hasPermission(`ADMINISTRATOR`) || !blackList.includes(bot.channels.cache.get(message.mentions.channels.first().id).name)) {
+                        if (message.member.id === process.env.RASID || message.member.hasPermission(`ADMINISTRATOR`)) {
                             bot.channels.cache
                                 .get(message.mentions.channels.first().id)
                                 .send(message.content.replace(message.mentions.channels.first(), ``)
