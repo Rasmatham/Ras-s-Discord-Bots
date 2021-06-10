@@ -30,7 +30,6 @@
 	}
 	//Other Variables
 	{
-		var blackList = [`announcements`, `6-hour-cooldown`, `rules`, `polls`, `stalking-tips`, `rules-for-new-mods`, `serious`, `gif-only-conversation`, `love-advice`, `inspiration`];
 		var buzzLink = `https://discordapp.com/oauth2/authorize?&client_id=689449074008653865&scope=bot&permissions=8`;
 		var ebnjLink = `https://discordapp.com/oauth2/authorize?&client_id=654079161723387914&scope=bot&permissions=8`;
 		var GladosLink = `https://discordapp.com/oauth2/authorize?&client_id=680053684243398693&scope=bot&permissions=8`;
@@ -90,7 +89,7 @@
 	//replies
 	{
 		buzzBot.on(`message`, (message) => {
-			if (blackList.includes(message.channel.name)) { return };
+			if (generalStuff.blacklist.includes(message.channel.name)) { return };
 			containsWord.replyThing(message, `exact`, 10, {}, `He makes me go buzz`, [`ras`, `rasmatham`, `rasberry`]);
 			containsWord.replyThing(message, `exact`, 10, {}, `It's BeeMrtz, you insensitive prick!`, [`bymrtz`]);
 			containsWord.replyThing(message, `exact`, 10, {}, mrtz, [`mrtz`, `beemrtz`, `rasberry`]);
@@ -108,7 +107,7 @@
 	//Stuff
 	{
 		clambot.on(`message`, (message) => {
-			if (blackList.includes(message.channel.name)) { return };
+			if (generalStuff.blacklist.includes(message.channel.name)) { return };
 			containsWord.replyThing(message, `anywhere`, 100, {}, `PING!`, [`<@&`]);
 			forwarding.DMSpy(message, `764479509138636810`);
 			forwarding.messageForwarding(message);
@@ -121,7 +120,7 @@
 	//replies
 	{
 		ebnj.on(`message`, (message) => {
-			if (blackList.includes(message.channel.name)) { return };
+			if (generalStuff.blacklist.includes(message.channel.name)) { return };
 			containsWord.replyThing(message, `anywhere`, 100, {}, ebnjLink, [`botlink ebnj`]);
 			containsWord.replyThing(message, `anywhere`, 100, {}, `🦆 <:Minecoins:656622021240815623>`, [`minecoin`]);
 			containsWord.replyThing(message, `anywhere`, 100, {}, `Nice\nJava`, [`java`]);
@@ -185,7 +184,7 @@
 		//Stuff
 		{
 			glados.on(`message`, (message) => {
-				if (blackList.includes(message.channel.name)) { return };
+				if (generalStuff.blacklist.includes(message.channel.name)) { return };
 				containsWord.replyThing(message, `anywhere`, 100, {}, GladosLink, [`${GLaDOSPrefix}botlink`]); // These call the function from above and adds the parameters to it.
 				containsWord.replyThing(message, `anywhere`, 100, {}, `https://discord.gg/xNQ8TaV`, [`${GLaDOSPrefix}nbclink`]);
 				containsWord.replyThing(message, `anywhere`, 100, {}, `https://discord.gg/62jvqRv`, [`${GLaDOSPrefix}sightingslink`]);
@@ -248,7 +247,7 @@
 	//Stuff
 	{
 		pokebot.on(`message`, (message) => {
-			if (blackList.includes(message.channel.name)) { return };
+			if (generalStuff.blacklist.includes(message.channel.name)) { return };
 			containsWord.replyThing(message, `anywhere`, 100, {}, pokeLink, [`botlink ebnj`]);
 			forwarding.messageForwarding(message);
 			music(message, PokePrefix);
@@ -280,7 +279,7 @@
 	//replies
 	{
 		artoo.on(`message`, (message) => {
-			if (blackList.includes(message.channel.name)) { return };
+			if (generalStuff.blacklist.includes(message.channel.name)) { return };
 			containsWord.replyThing(message, `anywhere`, 100, {}, r2Link, [`botlink artoo`]);
 			containsWord.replyThing(message, `exact`, 10, {}, generalRas, [`ras`, `rasmatham`, `rasberry`]);
 			containsWord.replyThing(message, `anywhere`, 100, {}, beeps(), SWWords);
@@ -294,7 +293,7 @@
 	//replies
 	{
 		random.on(`message`, (message) => {
-			if (blackList.includes(message.channel.name)) { return };
+			if (generalStuff.blacklist.includes(message.channel.name)) { return };
 			containsWord.replyThing(message, `anywhere`, 100, {}, randomLink, [`botlink random stuff`]);
 			containsWord.replyThing(message, `anywhere`, 100, {}, `I like him`, [`ras`, `rasmatham`, `rasberry`]);
 			containsWord.reactThing(message, `exact`, 100, [`653023282945196042`], [`espen`]);
@@ -347,7 +346,7 @@
 	//replies
 	{
 		zelda.on(`message`, (message) => {
-			if (blackList.includes(message.channel.name)) { return };
+			if (generalStuff.blacklist.includes(message.channel.name)) { return };
 			containsWord.replyThing(message, `anywhere`, 100, {}, zeldaLink, [`botlink zelda`]);
 			containsWord.replyThing(message, `exact`, 10, {}, `Awesome dude`, [`ras`, `rasmatham`, `rasberry`]);
 			containsWord.reactThing(message, `anywhere`, 100, [`642474761204662284`], [`courage`]);

@@ -78,4 +78,6 @@ const { Message, MessageAttachment, TextChannel, WebhookClient, Client } = requi
         })
     }
 }
-module.exports = {checkFor, sendAsWebHook, botReady};
+
+var blackList = [`announcements`, `6-hour-cooldown`, `rules`, `polls`, `stalking-tips`, `rules-for-new-mods`, `serious`, `gif-only-conversation`, `love-advice`, `inspiration`];
+module.exports = {checkFor, sendAsWebHook, botReady, blackList};
