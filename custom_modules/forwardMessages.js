@@ -11,7 +11,7 @@ const { sendAsWebHook, blackList } = require(`./generalUse.js`);
             if (!message.author.bot) {
                 if (message.content.startsWith(`<#`)) {
                     if ([`talk-as-${bot.user.username.toLowerCase()}`, `talk-and-dm-as-${bot.user.username.toLowerCase()}`, `dm-and-talk-as-${bot.user.username.toLowerCase()}`].includes(message.channel.name)) {
-                        if (!blackList.includes(message.channel.name) || message.member.id === process.env.RASID || message.member.hasPermission(`ADMINISTRATOR`)) {
+                        if (!blackList.includes(message.channel.name) /*|| message.member.id === process.env.RASID*/ || message.member.hasPermission(`ADMINISTRATOR`)) {
                             bot.channels.cache
                                 .get(message.mentions.channels.first().id)
                                 .send(message.content.replace(message.mentions.channels.first(), ``)
@@ -48,7 +48,7 @@ const { sendAsWebHook, blackList } = require(`./generalUse.js`);
      * @param {String|Number} ChID Channel ID for the channel the DM should be sent to
      */
     var DMSpy = (message, ChID) => {
-        if (message.guild === null && !message.author.bot && message.author.id !== process.env.RASID) {
+        if (message.guild === null && !message.author.bot /*&& message.author.id !== process.env.RASID*/) {
             message.client.channels.cache.get(ChID).send(`\`\`\`${message.author.tag} - <@${message.author.id}>\`\`\`\nsent:`);
             sendAsWebHook(message, message.client.channels.cache.get(ChID), message, { files: message.attachments.array() }, message.author.username, message.author.displayAvatarURL({ format: `png`, dynamic: true }));
             message.channel.send(`Your message was sent to a super secret channel in Everyone Sightings`);
