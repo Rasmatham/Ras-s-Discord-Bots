@@ -14,7 +14,7 @@ const getURL = () => {
  * @param {Message} mesage 
  */
 const sendMessage = (message) => {
-    if (!message.author.bot && (message.content.includes(`inspire`) || message.content.includes(`inspiration`) || message.content.includes(`inspiring`))) {
+    if (!message.author.bot && (message.content.toLowerCase().includes(`inspire`) || message.content.toLowerCase().includes(`inspiration`) || message.content.toLowerCase().includes(`inspiring`))) {
         getURL().then((url) => {
             message.channel.send(url)
         })
