@@ -47,7 +47,7 @@
 		var random = new Client();
 		var sini = new Client();
 		var zelda = new Client();
-		var crossant = new Client();
+		var croissant = new Client();
 		var testChannel = `735213241860620308`;
 		var PokePrefix = `pd`;
 		var GLaDOSPrefix = `&`;
@@ -63,8 +63,8 @@
 		random.login(process.env.RANDOMTOKEN);
 		sini.login(process.env.SINITOKEN);
 		zelda.login(process.env.ZELDATOKEN);
-		crossant.login(process.env.CROSSANTTOKEN);
-		generalStuff.botReady([buzzBot, clambot, ebnj, glados, pokebot, artoo, random, sini, zelda, crossant]);
+		croissant.login(process.env.CROISSANTTOKEN);
+		generalStuff.botReady([buzzBot, clambot, ebnj, glados, pokebot, artoo, random, sini, zelda, croissant]);
 	}
 }
 //BuzzBot
