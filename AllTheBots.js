@@ -181,6 +181,15 @@
 				value: `And when you're dead, I will be still alive\nStill alive, still alive...`,
 			});
 	}
+	//welcome/goodbye Message
+	{
+		glados.on(`guildMemberAdd`, (member) => {
+			generalStuff.welcomeGoodbye(member, generalStuff.messageFormat(`Welcome to the server, #${member.guild.memberCount}\nWe currently have ${info.channelCount(member.guild).all}/500 channels used`));
+		})
+		glados.on(`guildMemberRemove`, (member) => {
+			generalStuff.welcomeGoodbye(member, generalStuff.messageFormat(`Bye, ${member.user.tag}`));
+		})
+	}
 	//replies
 	{
 		//Stuff
