@@ -127,7 +127,7 @@
 			containsWord.replyThing(message, `anywhere`, 100, {}, `🦆 <:Minecoins:656622021240815623>`, [`minecoin`]);
 			containsWord.replyThing(message, `anywhere`, 100, {}, `Nice\nJava`, [`java`]);
 			containsWord.replyThing(message, `anywhere`, 100, {}, `Ew\nBedrock`, [`bedrock`]);
-			containsWord.replyThing(message, `anywhere`, 100, {}, `Cool\nEarth`, [`earth`]);
+			containsWord.replyThing(message, `anywhere`, 100, {}, `R.I.P. Earth\nApparently nobody liked you`, [`earth`]);
 			containsWord.replyThing(message, `exact`, 10, {}, `Cool\nRas`, [`ras`, `rasmatham`, `rasberry`]);
 			containsWord.reactThing(message, `anywhere`, 100, [`🇫`, `🇺`, `🇨`, `🇰`, `➖`, `🇩`, `ℹ️`, `🇴`, `🇷`, `🇮`, `🇹`, `🇪`], [`diorite`]);
 			forwarding.messageForwarding(message);
