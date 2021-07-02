@@ -234,7 +234,8 @@
 				coinflip.setup(message, GLaDOSPrefix);
 				coinflip.flip(message, GLaDOSPrefix);
 				stupidStuff.hencefortifier(message);
-				stupidStuff.espenBotReplacement(message);
+				stupidStuff.espenBotReplacement(`message`, message, 10, process.env.RASID, generalStuff.messageFormat(`https://cdn.discordapp.com/attachments/735213241860620308/781189544103247922/unknown.png`));
+				stupidStuff.espenBotReplacement(`reac`, message, 100, process.env.ZARLID, `🦆`);
 				//stupidStuff.userWordBan(message, `last`, `541617670533939210`);
 				xkcd(message, GLaDOSPrefix);
 				maze(message, GLaDOSPrefix);
