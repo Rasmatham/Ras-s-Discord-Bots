@@ -1,5 +1,5 @@
 const { Message } = require(`discord.js`);
-const { messageFormat } = require(`./generalUse`);
+const { messageFormat, blackList } = require(`./generalUse`);
 //Frick that one rule
 {
 	/**

@@ -1,5 +1,5 @@
 
-const { Message } = require(`discord.js`);
+const { Message, MessageActionRow, MessageButton } = require(`discord.js`);
 var mazeThing = require(`generate-maze`);
 var mazeFunction = (message, prefix) => {
     if (message.content.toLowerCase().startsWith(`${prefix}maze`) && message.guild !== null && !message.author.bot) {
@@ -101,7 +101,7 @@ var mazeFunction = (message, prefix) => {
                 },
             },
         };
-
+        
         var mazeStyle = () => {
             if (typeof message.content.split(` `)[1] === `undefined`) {
                 return `normal`;
@@ -206,23 +206,23 @@ var mazeFunction = (message, prefix) => {
             x.forEach((y, j) => {
                 if (message.content.toLowerCase().includes(`zelda`)) {
                     createdClass.addCell(i, j, `${y.left
-                        }${y.top
-                        }${y.right
-                        }${y.bottom
-                        }`
-                        .replaceAll(`true`, `I`)
-                        .replaceAll(`false`, `O`), `zelda`);
+                    }${y.top
+                    }${y.right
+                    }${y.bottom
+                    }`
+                    .replaceAll(`true`, `I`)
+                    .replaceAll(`false`, `O`), `zelda`);
                 } else {
                     createdClass.addCell(i, j, `${y.left
-                        }${y.top
-                        }${y.right
-                        }${y.bottom
-                        }`.replaceAll(`true`, `I`)
-                        .replaceAll(`false`, `O`), `normal`);
+                    }${y.top
+                    }${y.right
+                    }${y.bottom
+                    }`.replaceAll(`true`, `I`)
+                    .replaceAll(`false`, `O`), `normal`);
                 }
             });
         });
-
+        
         var mazeMessage = (mazeObj) => {
             let messageText = ``;
             for (let i = 0; i < 8; i++) {
@@ -233,49 +233,60 @@ var mazeFunction = (message, prefix) => {
             }
             return messageText;
         }
-        message.channel.send(mazeMessage(createdClass)).then((newMessage) => {
-            newMessage
-                .react(`⬅️`)
-                .then(newMessage.react(`⬆️`))
-                .then(newMessage.react(`⬇️`))
-                .then(newMessage.react(`➡️`))
-                .then(() => {
-                    let lock = true;
-                    if (lock) {
-                        message.client.on(`messageReactionAdd`, (reaction, reactor) => {
-                            if (!reaction.me && reaction.message.id === newMessage.id) {
-                                if (reactor.id === message.author.id) {
-                                    switch (reaction.emoji.name) {
-                                        case `⬅️`:
-                                            createdClass.moveLeft();
-                                            newMessage.edit(mazeMessage(createdClass));
-                                            break;
-                                        case `⬆️`:
-                                            createdClass.moveUp();
-                                            newMessage.edit(mazeMessage(createdClass));
-                                            break;
-                                        case `⬇️`:
-                                            createdClass.moveDown();
-                                            newMessage.edit(mazeMessage(createdClass));
-                                            break;
-                                        case `➡️`:
-                                            createdClass.moveRight();
-                                            newMessage.edit(mazeMessage(createdClass));
-                                            break;
-                                        default:
-                                            break;
-                                    }
-                                }
-                                reaction.users.remove(reactor.id);
-                                if (createdClass.cellArr[63].playerState) {
-                                    lock = !lock;
-                                    newMessage.edit(`**Congratulations!**\nYou managed to navigate through a maze even one of my ~~test subjects~~paid workers could finish!`);
-                                    newMessage.reactions.removeAll();
-                                }
-                            }
-                        });
-                    }
-                });
+        const arrows = new MessageActionRow()
+        .addComponents([
+            new MessageButton()
+            .setCustomID(`Left`)
+            .setEmoji(`⬅️`)
+            .setStyle(`SECONDARY`)
+        ],[
+            new MessageButton()
+            .setCustomID(`Up`)
+            .setEmoji(`⬆️`)
+            .setStyle(`SECONDARY`)
+        ],[
+            new MessageButton()
+            .setCustomID(`Down`)
+            .setEmoji(`⬇️`)
+            .setStyle(`SECONDARY`)
+        ],[
+            new MessageButton()
+            .setCustomID(`Right`)
+            .setEmoji(`➡️`)
+            .setStyle(`SECONDARY`)
+        ]
+        )
+        message.channel.send({content: mazeMessage(createdClass), components: [arrows]}).then((newMessage) => {
+            message.client.on(`interactionCreate`, (interaction) => {
+                if (!interaction.isButton()) return;
+                switch (interaction.customID) {
+                    case `Left`:
+                    createdClass.moveLeft();
+                    newMessage.edit(mazeMessage(createdClass));
+                    interaction.deferUpdate();
+                    break;
+                    case `Up`:
+                    createdClass.moveUp();
+                    newMessage.edit(mazeMessage(createdClass));
+                    interaction.deferUpdate();
+                    break;
+                    case `Down`:
+                    createdClass.moveDown();
+                    newMessage.edit(mazeMessage(createdClass));
+                    interaction.deferUpdate();
+                    break;
+                    case `Right`:
+                    createdClass.moveRight();
+                    newMessage.edit(mazeMessage(createdClass));
+                    interaction.deferUpdate();
+                    break;
+                    default:
+                    break;
+                }
+                if (createdClass.cellArr[63].playerState) {
+                    newMessage.edit(`**Congratulations!**\nYou managed to navigate through a maze even one of my ~~test subjects~~paid workers could finish!`);
+                } 
+            })
         });
     }
 }

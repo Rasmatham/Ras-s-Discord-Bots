@@ -37,7 +37,7 @@ class GuildDeleteAction extends Action {
       }
 
       for (const channel of guild.channels.cache.values()) this.client.channels.remove(channel.id);
-      if (guild.voice && guild.voice.connection) guild.voice.connection.disconnect();
+      client.voice.adapters.get(data.id)?.destroy();
 
       // Delete guild
       client.guilds.cache.delete(guild.id);
@@ -53,7 +53,7 @@ class GuildDeleteAction extends Action {
       this.deleted.set(guild.id, guild);
       this.scheduleForDeletion(guild.id);
     } else {
-      guild = this.deleted.get(data.id) || null;
+      guild = this.deleted.get(data.id) ?? null;
     }
 
     return { guild };

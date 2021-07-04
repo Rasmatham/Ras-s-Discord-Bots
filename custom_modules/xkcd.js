@@ -14,7 +14,7 @@ var xkcdFunct = (message, numRaw) => {
                     .setURL(`https://xkcd.com/${xkcdObj.num}/`)
                     .setDescription(xkcdObj.alt)
                     .setImage(xkcdObj.img);
-                message.channel.send({ embed: xkcdEmbed });
+                message.channel.send({ embeds: [xkcdEmbed] });
             });
         }
     });

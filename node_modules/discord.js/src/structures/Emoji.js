@@ -1,7 +1,15 @@
 'use strict';
 
 const Base = require('./Base');
-const Snowflake = require('../util/Snowflake');
+const SnowflakeUtil = require('../util/SnowflakeUtil');
+
+/**
+ * Represents raw emoji data from the API
+ * @typedef {APIEmoji} RawEmoji
+ * @property {?Snowflake} id ID of this emoji
+ * @property {?string} name Name of this emoji
+ * @property {?boolean} animated Whether this emoji is animated
+ */
 
 /**
  * Represents an emoji, see {@link GuildEmoji} and {@link ReactionEmoji}.
@@ -12,15 +20,15 @@ class Emoji extends Base {
     super(client);
     /**
      * Whether this emoji is animated
-     * @type {boolean}
+     * @type {?boolean}
      */
-    this.animated = emoji.animated;
+    this.animated = emoji.animated ?? null;
 
     /**
      * The name of this emoji
-     * @type {string}
+     * @type {?string}
      */
-    this.name = emoji.name;
+    this.name = emoji.name ?? null;
 
     /**
      * The ID of this emoji
@@ -51,8 +59,7 @@ class Emoji extends Base {
    * @readonly
    */
   get url() {
-    if (!this.id) return null;
-    return this.client.rest.cdn.Emoji(this.id, this.animated ? 'gif' : 'png');
+    return this.id && this.client.rest.cdn.Emoji(this.id, this.animated ? 'gif' : 'png');
   }
 
   /**
@@ -61,8 +68,7 @@ class Emoji extends Base {
    * @readonly
    */
   get createdTimestamp() {
-    if (!this.id) return null;
-    return Snowflake.deconstruct(this.id).timestamp;
+    return this.id && SnowflakeUtil.deconstruct(this.id).timestamp;
   }
 
   /**
@@ -71,8 +77,7 @@ class Emoji extends Base {
    * @readonly
    */
   get createdAt() {
-    if (!this.id) return null;
-    return new Date(this.createdTimestamp);
+    return this.id && new Date(this.createdTimestamp);
   }
 
   /**
@@ -82,7 +87,7 @@ class Emoji extends Base {
    * @example
    * // Send a custom emoji from a guild:
    * const emoji = guild.emojis.cache.first();
-   * msg.reply(`Hello! ${emoji}`);
+   * msg.channel.send(`Hello! ${emoji}`);
    * @example
    * // Send the emoji used in a reaction to the channel the reaction is part of
    * reaction.message.channel.send(`The emoji used was: ${reaction.emoji}`);
@@ -102,3 +107,8 @@ class Emoji extends Base {
 }
 
 module.exports = Emoji;
+
+/**
+ * @external APIEmoji
+ * @see {@link https://discord.com/developers/docs/resources/emoji#emoji-object}
+ */

@@ -1,4 +1,4 @@
-const { MessageEmbed } = require(`discord.js`);
+const { MessageEmbed, MessageAttachment } = require(`discord.js`);
 var DB = require(`../Pokèbot/PokeDB.js`);
 //dex embed
 {
@@ -36,6 +36,7 @@ var DB = require(`../Pokèbot/PokeDB.js`);
                 return `None`
             }
         }
+        var attachment = new MessageAttachment(`./Pokèbot/Pokemon/1-151/250px-${DB.pokemon[dexNumber].nat}${DB.pokemon[dexNumber].name}.png`);
         var embed = new MessageEmbed()
             .setColor(DB.pokemon[dexNumber].types[0].color)
             .setTitle(DB.pokemon[dexNumber].name)
@@ -44,9 +45,8 @@ var DB = require(`../Pokèbot/PokeDB.js`);
                 { name: `Primary type`, value: DB.pokemon[dexNumber].types[0].name },
                 { name: `Secondary type`, value: secType() }
             )
-            .attachFiles([`./Pokèbot/Pokemon/1-151/250px-${DB.pokemon[dexNumber].nat}${DB.pokemon[dexNumber].name}.png`])
-            .setImage(`attachment://250px-${DB.pokemon[dexNumber].nat}${DB.pokemon[dexNumber].name.replace(`'`, ``)}.png`);
-        return embed;
+            .setImage(`attachment://250px-${DB.pokemon[dexNumber].nat}${DB.pokemon[dexNumber].name}.png`);
+        return {embeds: [embed], files: [attachment] };
     }
 }
 module.exports = {natDex, DB};

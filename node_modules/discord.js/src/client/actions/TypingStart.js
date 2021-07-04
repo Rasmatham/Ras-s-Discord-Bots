@@ -2,7 +2,7 @@
 
 const Action = require('./Action');
 const { Events } = require('../../util/Constants');
-const textBasedChannelTypes = ['dm', 'text', 'news'];
+const textBasedChannelTypes = ['dm', 'text', 'news', 'news_thread', 'public_thread', 'private_thread'];
 
 class TypingStart extends Action {
   handle(data) {
@@ -40,7 +40,7 @@ class TypingStart extends Action {
         /**
          * Emitted whenever a user starts typing in a channel.
          * @event Client#typingStart
-         * @param {Channel} channel The channel the user started typing in
+         * @param {DMChannel|TextChannel|NewsChannel} channel The channel the user started typing in
          * @param {User} user The user that started typing
          */
         this.client.emit(Events.TYPING_START, channel, user);

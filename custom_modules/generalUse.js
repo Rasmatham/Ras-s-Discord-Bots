@@ -1,4 +1,8 @@
 const { Message, MessageAttachment, TextChannel, WebhookClient, Client, MessageEmbed } = require(`discord.js`);
+//intents
+{
+	var intents = [`GUILDS`, `GUILD_MEMBERS`, `GUILD_BANS`, `GUILD_EMOJIS`, `GUILD_INTEGRATIONS`, `GUILD_WEBHOOKS`, `GUILD_INVITES`, `GUILD_VOICE_STATES`, `GUILD_PRESENCES`, `GUILD_MESSAGES`, `GUILD_MESSAGE_REACTIONS`, `GUILD_MESSAGE_TYPING`, `DIRECT_MESSAGES`, `DIRECT_MESSAGE_REACTIONS`, `DIRECT_MESSAGE_TYPING`];
+}
 //Message class
 {
 	/**
@@ -34,11 +38,10 @@ const { Message, MessageAttachment, TextChannel, WebhookClient, Client, MessageE
 	* @param {Message} message Discord.js Message object
 	* @param {TextChannel} sendTo Discord.js TextChannel object that a message should be sent to
 	* @param {String} sendMessage The message that the webhook should send
-	* @param {MessageAttachment} sendAttachments Anything that should be sent with the message
 	* @param {String} name The name the webhook should use for the message
 	* @param {URL} PFP The image the webhook should use as a PFP for the message
 	*/
-	var sendAsWebHook = (message, sendTo, sendMessage, sendAttachments, name, PFP) => {
+	var sendAsWebHook = (message, sendTo, sendMessage, name, PFP) => {
 		let webHookFunction = () => {
 			sendTo.fetchWebhooks()
 			.then((webHooks) => {
@@ -56,7 +59,12 @@ const { Message, MessageAttachment, TextChannel, WebhookClient, Client, MessageE
 						let myWebHook = new WebhookClient(webHook.id, webHook.token)
 						myWebHook.edit({ name: name, avatar: PFP })
 						.then((editedWebHook) => {
-							editedWebHook.send(sendMessage, sendAttachments)
+							if(typeof sendMessage.content !== `string` || sendMessage.content === ``){
+								sendMessage.content = ` `;
+								editedWebHook.send(sendMessage)
+							} else {
+								editedWebHook.send(sendMessage)
+							}
 						})
 						break
 					} else if (i >= webHooks.size - 1) {
@@ -90,17 +98,6 @@ const { Message, MessageAttachment, TextChannel, WebhookClient, Client, MessageE
 		})
 	}
 }
-//welcome/goodbye message
-{
-	/**
-	* 
-	* @param {Client} bot 
-	* @param {[]} message 
-	*/
-	var welcomeGoodbye = (member, message) => {
-		member.guild.systemChannel.send(message[0], message[1]);
-	}
-}
 
 var blackList = [`announcements`, `6-hour-cooldown`, `rules`, `polls`, `stalking-tips`, `rules-for-new-mods`, `serious`, `gif-only-conversation`, `love-advice`, `inspiration`];
-module.exports = {messageFormat, checkFor, sendAsWebHook, botReady, welcomeGoodbye, blackList};
+module.exports = {intents, messageFormat, checkFor, sendAsWebHook, botReady, blackList};

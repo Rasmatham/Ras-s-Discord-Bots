@@ -28,27 +28,27 @@ var dice = (message, prefix) => {
                                 var number10 = new MessageEmbed()
                                     .setColor(`#0099ff`)
                                     .setTitle(`Totally legit dice`)
-                                    .addField(`You \"rolled\" a:`, Math.floor(Math.random() * 10), true)
+                                    .addField(`You \"rolled\" a:`, `${Math.floor(Math.random() * 10)}`, true)
                                     .addField(`\"roll\" number:`, `${i + 1}/${multidice[1]}`);
-                                message.channel.send(number10);
+                                message.channel.send({embeds: [number10]});
                             }
                         } else if (multidice[0] === `100`) {
                             for (i = 0; i < multidice[1]; i++) {
                                 var number100 = new MessageEmbed()
                                     .setColor(`#0099ff`)
                                     .setTitle(`Totally legit dice`)
-                                    .addField(`You \"rolled\" a:`, Math.floor(Math.random() * 10) * 10, true)
+                                    .addField(`You \"rolled\" a:`, `${Math.floor(Math.random() * 10) * 10}`, true)
                                     .addField(`\"roll\" number:`, `${i + 1}/${multidice[1]}`);
-                                message.channel.send(number100);
+                                message.channel.send({embeds: [number100]});
                             }
                         } else {
                             for (i = 0; i < multidice[1]; i++) {
                                 var numberN = new MessageEmbed()
                                     .setColor(`#0099ff`)
                                     .setTitle(`Totally legit dice`)
-                                    .addField(`You \"rolled\" a:`, Math.ceil(Math.random() * Number(multidice[0])), true)
+                                    .addField(`You \"rolled\" a:`, `${Math.ceil(Math.random() * Number(multidice[0]))}`, true)
                                     .addField(`\"roll\" number:`, `${i + 1}/${multidice[1]}`);
-                                message.channel.send(numberN);
+                                message.channel.send({embeds: [numberN]});
                             }
                         }
                     }
@@ -59,26 +59,20 @@ var dice = (message, prefix) => {
                 var number10 = new MessageEmbed()
                     .setColor(`#0099ff`)
                     .setTitle(`Totally legit dice`)
-                    .addField(`You \"rolled\" a:`,
-                        Math.floor(Math.random() * 10), true);
-                message.channel.send(number10);
+                    .addField(`You \"rolled\" a:`, `${Math.floor(Math.random() * 10)}`, true);
+                message.channel.send({embeds: [number10]});
             } else if (message.content.toLowerCase().replace(`${prefix}d`, ``) === `100`) {
                 var number100 = new MessageEmbed()
                     .setColor(`#0099ff`)
                     .setTitle(`Totally legit dice`)
-                    .addField(`You \"rolled\" a:`, Math.floor(Math.random() * 10) * 10, true);
-                message.channel.send(number100);
+                    .addField(`You \"rolled\" a:`, `${Math.floor(Math.random() * 10) * 10}`, true);
+                message.channel.send({embeds: [number100]});
             } else {
                 var numberN = new MessageEmbed()
                     .setColor(`#0099ff`)
                     .setTitle(`Totally legit dice`)
-                    .addField(`You \"rolled\" a:`,
-                        Math.ceil(Math.random() *
-                            Number(message.content.toLowerCase().replace(`${prefix}d`, ``))
-                        ),
-                        true
-                    );
-                message.channel.send(numberN);
+                    .addField(`You \"rolled\" a:`, `${Math.ceil(Math.random() * Number(message.content.toLowerCase().replace(`${prefix}d`, ``)))}`, true);
+                message.channel.send({embeds: [numberN]});
             }
         }
     }

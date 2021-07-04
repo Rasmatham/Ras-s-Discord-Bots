@@ -3,10 +3,10 @@ const { Message, MessageAdditions } = require("discord.js");
 {
 	//function int
 	{
-		var reply = async (message, chance, fileorembed, rply) => {
+		var reply = async (message, chance, rply) => {
 			if (Math.random() * 100 <= chance) {
 				message.channel.startTyping(3);
-				message.channel.send(rply, fileorembed);
+				message.channel.send(rply);
 				message.channel.stopTyping(true);
 			}
 		}
@@ -22,12 +22,12 @@ const { Message, MessageAdditions } = require("discord.js");
 		 * @param {String} rply Message that the bot should send back
 		 * @param {String[]} triggerArr An array of trigger strings
 		 */
-		var replyThing = (message, type, chance, fileorembed, rply, triggerArr) => {
+		var replyThing = (message, type, chance, rply, triggerArr) => {
 			if (!message.author.bot) {
 				if (type === `anywhere`) {
 					triggerArr.forEach((trigger) => {
 						if (message.content.toLowerCase().includes(trigger)) {
-							reply(message, chance, fileorembed, rply);
+							reply(message, chance, rply);
 						}
 					});
 				} else if (type === `exact`) {
@@ -40,14 +40,14 @@ const { Message, MessageAdditions } = require("discord.js");
 					message.content.split(` `).forEach((word) => {
 						triggerArr.forEach((trigger) => {
 							if (word === trigger) {
-								reply(message, chance, fileorembed, rply);
+								reply(message, chance, rply);
 							}
 						});
 					});
 				} else if (type === `mention`) {
 					triggerArr.forEach((trigger) => {
 						if (message.mentions.users.has(trigger)) {
-							reply(message, chance, fileorembed, rply);
+							reply(message, chance, rply);
 						}
 					});
 				}

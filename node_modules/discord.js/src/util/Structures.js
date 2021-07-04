@@ -9,7 +9,10 @@
  * * **`CategoryChannel`**
  * * **`NewsChannel`**
  * * **`StoreChannel`**
+ * * **`StageChannel`**
+ * * **`ThreadChannel`**
  * * **`GuildMember`**
+ * * **`ThreadMember`**
  * * **`Guild`**
  * * **`Message`**
  * * **`MessageReaction`**
@@ -18,17 +21,17 @@
  * * **`VoiceState`**
  * * **`Role`**
  * * **`User`**
+ * * **`CommandInteraction`**
+ * * **`ButtonInteraction`**
+ * * **`StageInstance`**
+ * * **`SelectMenuInteraction`**
  * @typedef {string} ExtendableStructure
  */
 
 /**
  * Allows for the extension of built-in Discord.js structures that are instantiated by {@link BaseManager Managers}.
  */
-class Structures {
-  constructor() {
-    throw new Error(`The ${this.constructor.name} class may not be instantiated.`);
-  }
-
+class Structures extends null {
   /**
    * Retrieves a structure class.
    * @param {string} structure Name of the structure to retrieve
@@ -78,7 +81,7 @@ class Structures {
 
     if (!(extended.prototype instanceof structures[structure])) {
       const prototype = Object.getPrototypeOf(extended);
-      const received = `${extended.name || 'unnamed'}${prototype.name ? ` extends ${prototype.name}` : ''}`;
+      const received = `${extended.name ?? 'unnamed'}${prototype.name ? ` extends ${prototype.name}` : ''}`;
       throw new Error(
         'The class/prototype returned from the extender function must extend the existing structure class/prototype' +
           ` (received function ${received}; expected extension of ${structures[structure].name}).`,
@@ -98,7 +101,10 @@ const structures = {
   CategoryChannel: require('../structures/CategoryChannel'),
   NewsChannel: require('../structures/NewsChannel'),
   StoreChannel: require('../structures/StoreChannel'),
+  StageChannel: require('../structures/StageChannel'),
+  ThreadChannel: require('../structures/ThreadChannel'),
   GuildMember: require('../structures/GuildMember'),
+  ThreadMember: require('../structures/ThreadMember'),
   Guild: require('../structures/Guild'),
   Message: require('../structures/Message'),
   MessageReaction: require('../structures/MessageReaction'),
@@ -107,6 +113,10 @@ const structures = {
   VoiceState: require('../structures/VoiceState'),
   Role: require('../structures/Role'),
   User: require('../structures/User'),
+  CommandInteraction: require('../structures/CommandInteraction'),
+  ButtonInteraction: require('../structures/ButtonInteraction'),
+  SelectMenuInteraction: require('../structures/SelectMenuInteraction'),
+  StageInstance: require('../structures/StageInstance'),
 };
 
 module.exports = Structures;
