@@ -1,4 +1,4 @@
-const { Message, MessageActionRow, MessageButton } = require(`discord.js`);
+const { Message, MessageActionRow, MessageButton, MessageSelectMenu } = require(`discord.js`);
 const { messageFormat, blackList } = require(`./generalUse`);
 //Frick that one rule
 {
@@ -87,16 +87,35 @@ const { messageFormat, blackList } = require(`./generalUse`);
 					const bar = new MessageActionRow().addComponents([button],[button],[button],[button],[button]);
 					return {content: splitMessage[1].replace(discordEmojiNotExact, ``), components: [bar, bar, bar, bar, bar]};
 				}
-				if(message.client.emojis.cache.has(splitMessage[1])){
-					const button = new MessageButton().setCustomID(`Dummy`).setLabel(splitMessage[1]).setStyle(`SECONDARY`);
-					const bar = new MessageActionRow().addComponents([button],[button],[button],[button],[button]);
-					return {content: splitMessage[1], components: [bar, bar, bar, bar, bar]};
-				}
+				const button = new MessageButton().setCustomID(`Dummy`).setLabel(splitMessage[1]).setStyle(`SECONDARY`);
+				const bar = new MessageActionRow().addComponents([button],[button],[button],[button],[button]);
+				return {content: splitMessage[1], components: [bar, bar, bar, bar, bar]};
 			}
 		}
 		const button = new MessageButton().setCustomID(`Dummy`).setLabel(`🧰`).setStyle(`SECONDARY`);
 		const bar = new MessageActionRow().addComponents([button],[button],[button],[button],[button]);
 		return {content: `🧰`, components: [bar, bar, bar, bar, bar]};
 	}
+	/**
+	* 
+	* @param {Message} message 
+	* @returns 
+	 */
+	var selectMenu = () => {
+		const menu = new MessageSelectMenu().setCustomID(`Dummy`).setPlaceholder(`Choose wisely`).addOptions([
+			{
+				label: 'Ras is cool',
+				description: 'This is the wrong answer',
+				value: 'first_option',
+			},
+			{
+				label: 'Ras is cooler than cool',
+				description: 'Don\'t deny it',
+				value: 'second_option',
+			},
+		]);
+		const bar = new MessageActionRow().addComponents([menu]);
+		return {content: `sample menus:`, components: [bar, bar, bar, bar, bar]};
+	}
 }
-module.exports = { hencefortifier, userWordBan, espenBotReplacement, buttonGrid }
+module.exports = { hencefortifier, userWordBan, espenBotReplacement, buttonGrid, selectMenu }

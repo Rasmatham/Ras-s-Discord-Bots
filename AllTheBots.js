@@ -223,6 +223,7 @@
 				containsWord.replyThing(message, `exact`, 100, {content: info.serverInfo(message)}, [`${GLaDOSPrefix}serverinfo`]);
 				containsWord.replyThing(message, `exact`, 100, {embeds: [info.joindate(message)]}, [`${GLaDOSPrefix}joindate`]);
 				containsWord.replyThing(message, `anywhere`, 100, stupidStuff.buttonGrid(message), [`${GLaDOSPrefix}grid`])
+				containsWord.replyThing(message, `anywhere`, 100, stupidStuff.selectMenu(message), [`${GLaDOSPrefix}selectmenu`])
 				containsWord.reactThing(message, `anywhere`, 100, [`838084115629735976`], [`science`]);
 				containsWord.reactThing(message, `anywhere`, 100, [`838084115391053844`], [`blue`]);
 				containsWord.reactThing(message, `anywhere`, 100, [`838084116653670420`], [`orange`]);
@@ -242,7 +243,6 @@
 				maze(message, GLaDOSPrefix);
 			})
 			glados.on(`interactionCreate`, (interaction) => {
-                if (!interaction.isButton()) return;
 				if(interaction.customID === `Dummy`){
 					interaction.deferUpdate();
 				}
