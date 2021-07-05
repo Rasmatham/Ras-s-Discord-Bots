@@ -66,8 +66,35 @@ const { messageFormat, blackList } = require(`./generalUse`);
 }
 //button grid
 {
+	/**
+	* 
+	* @param {Message} message 
+	* @returns 
+	*/
 	var buttonGrid = (message) => {
-		const button = new MessageButton().setCustomID(`Dummy`).setEmoji(`🧰`).setStyle(`SECONDARY`);
+		var unicodeEmoji = /^(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])$/gi;
+		var discordEmoji = /^<(a?)?:.+?:\d+>$/gi;
+		var discordEmojiNotExact = /<(a?)?:.+?:\d+>/gi;
+		var splitMessage = message.content.split(` `);
+		if(splitMessage.length > 1){
+			if(splitMessage[1].length <= 80){
+				if(splitMessage[1].match(unicodeEmoji) || splitMessage[1].match(discordEmoji)){
+					const button = new MessageButton().setCustomID(`Dummy`).setEmoji(splitMessage[1]).setStyle(`SECONDARY`);
+					const bar = new MessageActionRow().addComponents([button],[button],[button],[button],[button]);
+					return {content: splitMessage[1], components: [bar, bar, bar, bar, bar]};
+				} else if (splitMessage[1].match(discordEmojiNotExact)) {
+					const button = new MessageButton().setCustomID(`Dummy`).setLabel(splitMessage[1].replace(discordEmojiNotExact, ``)).setStyle(`SECONDARY`);
+					const bar = new MessageActionRow().addComponents([button],[button],[button],[button],[button]);
+					return {content: splitMessage[1].replace(discordEmojiNotExact, ``), components: [bar, bar, bar, bar, bar]};
+				}
+				if(message.client.emojis.cache.has(splitMessage[1])){
+					const button = new MessageButton().setCustomID(`Dummy`).setLabel(splitMessage[1]).setStyle(`SECONDARY`);
+					const bar = new MessageActionRow().addComponents([button],[button],[button],[button],[button]);
+					return {content: splitMessage[1], components: [bar, bar, bar, bar, bar]};
+				}
+			}
+		}
+		const button = new MessageButton().setCustomID(`Dummy`).setLabel(`🧰`).setStyle(`SECONDARY`);
 		const bar = new MessageActionRow().addComponents([button],[button],[button],[button],[button]);
 		return {content: `🧰`, components: [bar, bar, bar, bar, bar]};
 	}
