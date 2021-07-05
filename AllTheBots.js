@@ -144,42 +144,42 @@
 		var lie = `I will tell you what is not a lie\nThe cake`;
 		var ping = `P I N G\nWait\nNevermind`;
 		var stillalive = new MessageEmbed()
-			.setColor(`FFFFFF`)
-			.setTitle(`Still alive`)
-			.addFields({
-				name: `᲼`,
-				value: `This was a triumph\nI'm taking a note here: "HUGE SUCCESS"\nIt's hard to overstate\nMy satisfaction`,
-			}, {
-				name: `᲼`,
-				value: `Aperture Science\nWe do what we must because we can\nFor the good of all of us\nExcept the ones who are dead`,
-			}, {
-				name: `᲼`,
-				value: `But there's no sense crying over every mistake\nYou just keep on trying till you run out of cake\nAnd the science gets done, and you make a neat gun\nFor the people who are still alive`,
-			}, {
-				name: `᲼`,
-				value: `I'm not even angry\nI'm being so sincere right now\nEven though you broke my heart\nAnd killed me`,
-			}, {
-				name: `᲼`,
-				value: `And tore me to pieces\nAnd threw every piece into a fire\nAs they burned, it hurt because\nI was so happy for you`,
-			}, {
-				name: `᲼`,
-				value: `Now these points of data make a beautiful line\nAnd we're out of beta, we're releasing on time\nSo I'm GLaD I got burned: think of the things we learned\nFor the people who are still alive`,
-			}, {
-				name: `᲼`,
-				value: `Go ahead and leave me\nI think I prefer to stay inside\nMaybe you'll find someone else\nTo help you`,
-			}, {
-				name: `᲼`,
-				value: `Maybe Black Mesa\nThat was a joke. Haha, fat chance\nAnyway, this cake is great\nIt's so delicious and moist`,
-			}, {
-				name: `᲼`,
-				value: `Look at me still talking when there's Science to do\nWhen I look out there, it makes me GLaD I'm not you\nI've experiments to run; there is research to be done\nOn the people who are still alive`,
-			}, {
-				name: `᲼`,
-				value: `And believe me, I am still alive\nI'm doing science and I'm still alive\nI feel fantastic and I'm still alive\nWhile you're dying, I'll be still alive`,
-			}, {
-				name: `᲼`,
-				value: `And when you're dead, I will be still alive\nStill alive, still alive...`,
-			});
+		.setColor(`FFFFFF`)
+		.setTitle(`Still alive`)
+		.addFields({
+			name: `᲼`,
+			value: `This was a triumph\nI'm taking a note here: "HUGE SUCCESS"\nIt's hard to overstate\nMy satisfaction`,
+		}, {
+			name: `᲼`,
+			value: `Aperture Science\nWe do what we must because we can\nFor the good of all of us\nExcept the ones who are dead`,
+		}, {
+			name: `᲼`,
+			value: `But there's no sense crying over every mistake\nYou just keep on trying till you run out of cake\nAnd the science gets done, and you make a neat gun\nFor the people who are still alive`,
+		}, {
+			name: `᲼`,
+			value: `I'm not even angry\nI'm being so sincere right now\nEven though you broke my heart\nAnd killed me`,
+		}, {
+			name: `᲼`,
+			value: `And tore me to pieces\nAnd threw every piece into a fire\nAs they burned, it hurt because\nI was so happy for you`,
+		}, {
+			name: `᲼`,
+			value: `Now these points of data make a beautiful line\nAnd we're out of beta, we're releasing on time\nSo I'm GLaD I got burned: think of the things we learned\nFor the people who are still alive`,
+		}, {
+			name: `᲼`,
+			value: `Go ahead and leave me\nI think I prefer to stay inside\nMaybe you'll find someone else\nTo help you`,
+		}, {
+			name: `᲼`,
+			value: `Maybe Black Mesa\nThat was a joke. Haha, fat chance\nAnyway, this cake is great\nIt's so delicious and moist`,
+		}, {
+			name: `᲼`,
+			value: `Look at me still talking when there's Science to do\nWhen I look out there, it makes me GLaD I'm not you\nI've experiments to run; there is research to be done\nOn the people who are still alive`,
+		}, {
+			name: `᲼`,
+			value: `And believe me, I am still alive\nI'm doing science and I'm still alive\nI feel fantastic and I'm still alive\nWhile you're dying, I'll be still alive`,
+		}, {
+			name: `᲼`,
+			value: `And when you're dead, I will be still alive\nStill alive, still alive...`,
+		});
 	}
 	//welcome/goodbye Message
 	{
@@ -222,6 +222,7 @@
 				containsWord.replyThing(message, `exact`, 100, {content: info.userInfo(message)}, [`${GLaDOSPrefix}userinfo`]);
 				containsWord.replyThing(message, `exact`, 100, {content: info.serverInfo(message)}, [`${GLaDOSPrefix}serverinfo`]);
 				containsWord.replyThing(message, `exact`, 100, {embeds: [info.joindate(message)]}, [`${GLaDOSPrefix}joindate`]);
+				containsWord.replyThing(message, `anywhere`, 100, stupidStuff.buttonGrid(message), [`${GLaDOSPrefix}grid`])
 				containsWord.reactThing(message, `anywhere`, 100, [`838084115629735976`], [`science`]);
 				containsWord.reactThing(message, `anywhere`, 100, [`838084115391053844`], [`blue`]);
 				containsWord.reactThing(message, `anywhere`, 100, [`838084116653670420`], [`orange`]);
@@ -240,12 +241,18 @@
 				xkcd(message, GLaDOSPrefix);
 				maze(message, GLaDOSPrefix);
 			})
+			glados.on(`interactionCreate`, (interaction) => {
+                if (!interaction.isButton()) return;
+				if(interaction.customID === `Dummy`){
+					interaction.deferUpdate();
+				}
+			})
 		}
 	}
 }
 //Pokebot
 {
-
+	
 	//search
 	{
 		var sendEmbed = (message) => {

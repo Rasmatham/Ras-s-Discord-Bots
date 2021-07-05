@@ -1,4 +1,4 @@
-const { Message } = require(`discord.js`);
+const { Message, MessageActionRow, MessageButton } = require(`discord.js`);
 const { messageFormat, blackList } = require(`./generalUse`);
 //Frick that one rule
 {
@@ -64,4 +64,12 @@ const { messageFormat, blackList } = require(`./generalUse`);
 		}
 	}
 }
-module.exports = { hencefortifier, userWordBan, espenBotReplacement }
+//button grid
+{
+	var buttonGrid = (message) => {
+		const button = new MessageButton().setCustomID(`Dummy`).setEmoji(`🧰`).setStyle(`SECONDARY`);
+		const bar = new MessageActionRow().addComponents([button],[button],[button],[button],[button]);
+		return {content: `🧰`, components: [bar, bar, bar, bar, bar]};
+	}
+}
+module.exports = { hencefortifier, userWordBan, espenBotReplacement, buttonGrid }
