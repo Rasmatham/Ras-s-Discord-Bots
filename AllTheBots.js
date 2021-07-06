@@ -181,6 +181,17 @@
 			value: `And when you're dead, I will be still alive\nStill alive, still alive...`,
 		});
 	}
+	{
+		glados.on(`ready`, () => {
+			glados.application.commands.create({
+				name: 'test',
+				description: 'A test command',
+				defaultPermission: true
+			})
+			.then(console.log)
+			.catch(console.error);
+		})
+	}
 	//welcome/goodbye Message
 	{
 		glados.on(`guildMemberAdd`, (member) => {
@@ -243,8 +254,12 @@
 				maze(message, GLaDOSPrefix);
 			})
 			glados.on(`interactionCreate`, (interaction) => {
-				if(interaction.customID === `Dummy`){
+				switch(interaction.customID){
+					case `Dummy`:
 					interaction.deferUpdate();
+					break;
+					default:
+					break
 				}
 			})
 		}
