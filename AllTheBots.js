@@ -262,16 +262,16 @@
 					let commandInteraction = interaction;
 					switch(commandInteraction.commandName){
 						case `botlink`:
-						commandInteraction.reply({content: GladosLink});
+						commandInteraction.reply({content: GladosLink, ephemeral: true});
 						break;
 						case `sightingslink`:
-						commandInteraction.reply({content: `https://discord.gg/62jvqRv`});
+						commandInteraction.reply({content: `https://discord.gg/62jvqRv`, ephemeral: true});
 						break;
 						case `invisicolor`:
-						commandInteraction.reply({content: `#36393F`});
+						commandInteraction.reply({content: `#36393F`, ephemeral: true});
 						break;
 						case `source`:
-						commandInteraction.reply({content: githublink});
+						commandInteraction.reply({content: githublink, ephemeral: true});
 						break;
 						case `userinfo`:
 						commandInteraction.reply(info.userInfo(commandInteraction));
