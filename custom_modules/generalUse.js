@@ -95,6 +95,15 @@ const { Message, MessageAttachment, TextChannel, WebhookClient, Client, MessageE
 			bot.on(`ready`, () => {
 				console.log(`${bot.user.username} is online`);
 			})
+			bot.on(`interactionCreate`, (interaction) => {
+				if(interaction.isCommand()){
+					if(interaction.commandName === `exit`){
+						interaction.reply({content: `Destroying client instance`})
+						interaction.client.destroy()
+						console.log(`${interaction.client.user.username} is offline`);
+					}
+				}
+			})
 		})
 	}
 }

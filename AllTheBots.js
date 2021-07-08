@@ -25,7 +25,7 @@
 		var dice = require(`./custom_modules/dice.js`);
 		var info = require(`./custom_modules/info.js`);
 		var xkcd = require(`./custom_modules/xkcd.js`);
-		var {Client, MessageEmbed} = require(`discord.js`);
+		var {Client, MessageEmbed, MessageComponentInteraction, ButtonInteraction, SelectMenuInteraction, CommandInteraction} = require(`discord.js`);
 		require(`dotenv`).config();
 	}
 	//Other Variables
@@ -38,16 +38,16 @@
 		var randomLink = `https://discordapp.com/oauth2/authorize?&client_id=654787079590641713&scope=bot&permissions=8`;
 		var zeldaLink = `https://discordapp.com/oauth2/authorize?&client_id=654786965090074656&scope=bot&permissions=8`;
 		var githublink = `https://github.com/Rasmatham/Ras-s-Discord-Bots`
-		var buzzBot = new Client({intents: generalStuff.intents});
-		var clambot = new Client({intents: generalStuff.intents});
-		var ebnj = new Client({intents: generalStuff.intents});
-		var glados = new Client({intents: generalStuff.intents});
-		var pokebot = new Client({intents: generalStuff.intents});
-		var artoo = new Client({intents: generalStuff.intents});
-		var random = new Client({intents: generalStuff.intents});
-		var sini = new Client({intents: generalStuff.intents});
-		var zelda = new Client({intents: generalStuff.intents});
-		var croissant = new Client({intents: generalStuff.intents});
+		var buzzBot		= new Client({intents: generalStuff.intents, activities: [{name: `Bee Movie Game`,						type: `PLAYING`}]});
+		var clambot		= new Client({intents: generalStuff.intents, activities: [{name: `Whatever Clams is playing`,			type: `PLAYING`}]});
+		var ebnj		= new Client({intents: generalStuff.intents, activities: [{name: `Minecraft`,							type: `PLAYING`}]});
+		var glados		= new Client({intents: generalStuff.intents, activities: [{name: `Portal Bridge Constructor`,			type: `PLAYING`}]});
+		var pokebot		= new Client({intents: generalStuff.intents, activities: [{name: `Pokémon Pinball`,						type: `PLAYING`}]});
+		var artoo		= new Client({intents: generalStuff.intents, activities: [{name: `LEGO Star Wars: the Skywalker saga`,	type: `PLAYING`}]});
+		var random		= new Client({intents: generalStuff.intents, activities: [{name: `honestly, idk what to put here`,		type: `PLAYING`}]});
+		var sini		= new Client({intents: generalStuff.intents, activities: [{name: `Splatoon 3`,							type: `PLAYING`}]});
+		var zelda		= new Client({intents: generalStuff.intents, activities: [{name: `Zelda: The Wand of Gamelon`,			type: `PLAYING`}]});
+		var croissant	= new Client({intents: generalStuff.intents, activities: [{name: `Oui Oui Baguette`,					type: `PLAYING`}]});
 		var testChannel = `735213241860620308`;
 		var PokePrefix = `pd`;
 		var GLaDOSPrefix = `&`;
@@ -181,17 +181,6 @@
 			value: `And when you're dead, I will be still alive\nStill alive, still alive...`,
 		});
 	}
-	{
-		glados.on(`ready`, () => {
-			glados.application.commands.create({
-				name: 'test',
-				description: 'A test command',
-				defaultPermission: true
-			})
-			.then(console.log)
-			.catch(console.error);
-		})
-	}
 	//welcome/goodbye Message
 	{
 		glados.on(`guildMemberAdd`, (member) => {
@@ -207,22 +196,13 @@
 		{
 			glados.on(`messageCreate`, (message) => {
 				if (generalStuff.blackList.includes(message.channel.name)) {return};
-				containsWord.replyThing(message, `anywhere`, 100, {content: GladosLink}, [`${GLaDOSPrefix}botlink`]); // These call the function from above and adds the parameters to it.
-				containsWord.replyThing(message, `anywhere`, 100, {content: `https://discord.gg/xNQ8TaV`}, [`${GLaDOSPrefix}nbclink`]);
-				containsWord.replyThing(message, `anywhere`, 100, {content: `https://discord.gg/62jvqRv`}, [`${GLaDOSPrefix}sightingslink`]);
-				containsWord.replyThing(message, `anywhere`, 100, {content: `https://discord.gg/ys2XWTr`}, [`${GLaDOSPrefix}marquettelink`]);
-				containsWord.replyThing(message, `anywhere`, 100, {content: `https://discord.gg/xsXdy7h`}, [`${GLaDOSPrefix}resourcelink`]);
 				containsWord.replyThing(message, `anywhere`, 100, {content: cake}, [`cake`, `tower 15`]);
 				containsWord.replyThing(message, `anywhere`, 100, {files: [{attachment: `./GLaDOS/files/lemonade.png`, name: `test.png`}], content: lemonrant}, [`lemon`, `🍋`]);
 				containsWord.replyThing(message, `exact`, 100, {content: lie}, [`lie`]);
-				containsWord.replyThing(message, `anywhere`, 100, {content: `JA JA DING DONG!`}, [`${GLaDOSPrefix}play`]);
 				containsWord.replyThing(message, `anywhere`, 100, {files: [`./GLaDOS/files/BSOD.png`]}, [`neurotoxin`]);
-				containsWord.replyThing(message, `anywhere`, 100, {content: `#36393F`}, [`${GLaDOSPrefix}inviscolor`, `${GLaDOSPrefix}inviscolour`]);
 				containsWord.replyThing(message, `exact`, 100, {content: `<@${process.env.RASID}>`}, [`@ras`]);
 				containsWord.replyThing(message, `exact`, 100, {content: `<@454340813388775445>`}, [`@kelp`]);
 				containsWord.replyThing(message, `anywhere`, 100, {embeds: [stillalive]}, [`still alive`]);
-				containsWord.replyThing(message, `anywhere`, 100, {files: [`./AllTheBots.js`]}, [`${GLaDOSPrefix}source`]);
-				containsWord.replyThing(message, `anywhere`, 100, {content: githublink}, [`${GLaDOSPrefix}githubsource`]);
 				containsWord.replyThing(message, `mention`, 100, {content: `P I N G`}, [`680053684243398693`]);
 				containsWord.replyThing(message, `mention`, 100, {content: ping}, [`654074851337699328`]);
 				containsWord.replyThing(message, `exact`, 100, {content: `He's my daddy 😉`}, [`quinn`, `quinnsnipe`]);
@@ -230,17 +210,11 @@
 				containsWord.replyThing(message, `exact`, 10, {content: `Did you mean: Czechia?`}, [`cz`, `cz12345`]);
 				containsWord.replyThing(message, `exact`, 10, {content: `Failed test subject #1`}, [`12`, `flit`, `flitwick`]);
 				containsWord.replyThing(message, `exact`, 50, {content: `Say hi to him for me 😳`}, [`espen bot`]);
-				containsWord.replyThing(message, `exact`, 100, {content: info.userInfo(message)}, [`${GLaDOSPrefix}userinfo`]);
-				containsWord.replyThing(message, `exact`, 100, {content: info.serverInfo(message)}, [`${GLaDOSPrefix}serverinfo`]);
-				containsWord.replyThing(message, `exact`, 100, {embeds: [info.joindate(message)]}, [`${GLaDOSPrefix}joindate`]);
-				containsWord.replyThing(message, `anywhere`, 100, stupidStuff.buttonGrid(message), [`${GLaDOSPrefix}grid`])
-				containsWord.replyThing(message, `anywhere`, 100, stupidStuff.selectMenu(message), [`${GLaDOSPrefix}selectmenu`])
 				containsWord.reactThing(message, `anywhere`, 100, [`838084115629735976`], [`science`]);
 				containsWord.reactThing(message, `anywhere`, 100, [`838084115391053844`], [`blue`]);
 				containsWord.reactThing(message, `anywhere`, 100, [`838084116653670420`], [`orange`]);
 				forwarding.channelLink(message, `842486821510447115`, `842486725347508266`);
 				inspiroBot.sendMessage(message);
-				dice(message, GLaDOSPrefix);
 				//forwarding.DMSpy(message, `741333824494895144`);
 				forwarding.messageForwarding(message);
 				//music(message, GLaDOSPrefix);
@@ -250,16 +224,85 @@
 				stupidStuff.espenBotReplacement(`message`, message, 10, process.env.RASID, generalStuff.messageFormat(`https://cdn.discordapp.com/attachments/735213241860620308/781189544103247922/unknown.png`));
 				stupidStuff.espenBotReplacement(`reac`, message, 100, process.env.ZARLID, `🦆`);
 				//stupidStuff.userWordBan(message, `last`, `541617670533939210`);
-				xkcd(message, GLaDOSPrefix);
-				maze(message, GLaDOSPrefix);
 			})
 			glados.on(`interactionCreate`, (interaction) => {
-				switch(interaction.customID){
-					case `Dummy`:
-					interaction.deferUpdate();
+				switch(interaction.type){
+					case `MESSAGE_COMPONENT`:
+					/** @type {MessageComponentInteraction} */
+					let messageComponentInteraction = interaction;
+					switch(messageComponentInteraction.componentType){
+						case `BUTTON`:
+						/** @type {ButtonInteraction} */
+						let buttonInteraction = messageComponentInteraction;
+						switch(buttonInteraction.customID){
+							case `Dummy`:
+							buttonInteraction.deleteReply();
+							break;
+							default:
+							break;
+						}
+						break;
+						case `SELECT_MENU`:
+						/** @type {SelectMenuInteraction} */
+						let selectMenuInteraction = messageComponentInteraction;
+						switch(selectMenuInteraction.customID){
+							case `Dummy`:
+							selectMenuInteraction.update({content: `Seems about right`})
+							break;
+							default:
+							break;
+						}
+						break;
+						default:
+						break;
+					}
+					break;
+					case `APPLICATION_COMMAND`:
+					/** @type {CommandInteraction} */
+					let commandInteraction = interaction;
+					switch(commandInteraction.commandName){
+						case `botlink`:
+						commandInteraction.reply({content: GladosLink});
+						break;
+						case `sightingslink`:
+						commandInteraction.reply({content: `https://discord.gg/62jvqRv`});
+						break;
+						case `invisicolor`:
+						commandInteraction.reply({content: `#36393F`});
+						break;
+						case `source`:
+						commandInteraction.reply({content: githublink});
+						break;
+						case `userinfo`:
+						commandInteraction.reply(info.userInfo(commandInteraction));
+						break;
+						case `serverinfo`:
+						commandInteraction.reply(info.serverInfo(commandInteraction));
+						break;
+						case `joindate`:
+						commandInteraction.reply(info.joindate(commandInteraction));
+						break;
+						case `grid`:
+						commandInteraction.reply(stupidStuff.buttonGrid(commandInteraction));
+						break;
+						case `selectmenu`:
+						commandInteraction.reply(stupidStuff.selectMenu(commandInteraction));
+						break;
+						case `d`:
+						dice(commandInteraction);
+						break;
+						case `xkcd`:
+						xkcd(commandInteraction);
+						break;
+						case `maze`:
+						maze(commandInteraction);
+						break;
+						default:
+						break;
+					}
 					break;
 					default:
-					break
+					break;
 				}
 			})
 		}
@@ -349,7 +392,6 @@
 	//Stuff
 	{
 		sini.on(`messageCreate`, (message) => {
-			dice(message, ``);
 			forwarding.messageForwarding(message);
 			//music(message, `sn;`);
 		})

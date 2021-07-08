@@ -1,36 +1,29 @@
-const { Message, MessageEmbed } = require(`discord.js`);
+const { CommandInteraction, MessageEmbed } = require(`discord.js`);
 const xkcd = require(`xkcd`);
 
-var xkcdFunct = (message, numRaw) => {
-    let num = Math.ceil(Math.abs(numRaw));
+/**
+* 
+* @param {CommandInteraction} interaction
+*/
+var xkcdFunct = (interaction) => {
     xkcd((xkcdObjOuter) => {
+        let num = Math.ceil(Math.random() * (xkcdObjOuter.num + Math.random()))
+        if(typeof interaction.options.get(`xkcd_number`) != `undefined`){
+            num = interaction.options.get(`xkcd_number`).value
+        }
+        console.log(num);
         if (num > xkcdObjOuter.num || num <= 0) {
-            message.channel.send(`Try a whole number from 1 to ${xkcdObjOuter.num}`);
+            interaction.reply({content: `Try a whole number from 1 to ${xkcdObjOuter.num}`, ephemeral: true});
         } else {
-            let xkcdRand = Math.ceil(Math.random() * (xkcdObjOuter.num + Math.random()));
-            xkcd(num || xkcdRand, (xkcdObj) => {
+            xkcd(num, (xkcdObj) => {
                 const xkcdEmbed = new MessageEmbed()
-                    .setTitle(xkcdObj.title)
-                    .setURL(`https://xkcd.com/${xkcdObj.num}/`)
-                    .setDescription(xkcdObj.alt)
-                    .setImage(xkcdObj.img);
-                message.channel.send({ embeds: [xkcdEmbed] });
+                .setTitle(xkcdObj.title)
+                .setURL(`https://xkcd.com/${xkcdObj.num}/`)
+                .setDescription(xkcdObj.alt)
+                .setImage(xkcdObj.img);
+                interaction.reply({embeds: [xkcdEmbed]});
             });
         }
     });
 }
-/**
- * 
- * @param {Message} message 
- * @param {String} prefix 
- */
-var sendEmbed = (message, prefix) => {
-    if (message.content.toLowerCase().startsWith(`${prefix}xkcd`)) {
-        if (!isNaN(message.content.toLowerCase().replace(`${prefix}xkcd`, ``))) {
-            xkcdFunct(message, message.content.toLowerCase().replace(`${prefix}xkcd `, ``));
-        } else {
-            xkcdFunct(message);
-        }
-    }
-}
-module.exports = sendEmbed;
+module.exports = xkcdFunct;

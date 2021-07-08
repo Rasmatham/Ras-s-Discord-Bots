@@ -1,4 +1,4 @@
-const { Message, MessageEmbed, GuildChannelManager } = require(`discord.js`);
+const { CommandInteraction, MessageEmbed, GuildChannelManager } = require(`discord.js`);
 const { checkFor } = require(`./generalUse.js`);
 //channelCount
 {
@@ -45,29 +45,29 @@ const { checkFor } = require(`./generalUse.js`);
 {
 	/**
 	* 
-	* @param {Message} message Discord.js Message object
-	* @returns {String} Discord codeblock with all information on a user as a string
+	* @param {CommandInteraction} interaction
+	* @returns {Object} Discord codeblock with all information on a user as a string
 	*/
-	var userInfo = (message) => {
-		return `\`\`\`json\nmessage.author\n${JSON.stringify(message.author, null, 2)
-		}\n\nmessage.member\n${JSON.stringify(message.member, null, 2)
-		}\n\`\`\``
+	var userInfo = (interaction) => {
+		return {content: `\`\`\`json\ninteraction.member.user\n${JSON.stringify(interaction.user, null, 2)
+		}\n\ninteraction.member\n${JSON.stringify(interaction.member, null, 2)
+		}\n\`\`\``, ephemeral: !interaction.options.get(`public`).value}
 	}
 }
 //serverinfo
 {
 	/**
 	* 
-	* @param {Message} message Discord.js Message object
+	* @param {CommandInteraction} interaction
 	* @returns {String} List of all channels and categories on the server the message was sent
 	*/
-	var serverInfo = (message) => {
-		if (message.guild !== null) {
+	var serverInfo = (interaction) => {
+		if (interaction.guild !== null) {
 			let textChannels = [];
 			let voiceChannels = [];
 			let Categories = [];
 			let unknown = [];
-			message.guild.channels.cache.map((channel) => {
+			interaction.guild.channels.cache.map((channel) => {
 				switch (channel.type) {
 					case `text`:
 					textChannels.push(channel.name);
@@ -86,32 +86,39 @@ const { checkFor } = require(`./generalUse.js`);
 			textChannels.sort();
 			voiceChannels.sort();
 			unknown.sort();
-			return `\`\`\`\n${checkFor(textChannels, `Text channels:`)
-		}${checkFor(voiceChannels, `Voice channels:`)
-	}${checkFor(Categories, `Categories:`)
-}${checkFor(unknown, `Other channels:`)
-}Total channels: ${textChannels.length + voiceChannels.length + Categories.length + unknown.length
-}\nChannels left: ${500 - (textChannels.length + voiceChannels.length + Categories.length + unknown.length)
-}\nmembers: ${message.guild.memberCount
-}\n\`\`\``;
-} else {
-	if (message.author.id === `588511925944582186`) {
-		return `stop tring to kill me, smh`;
-	} else {
-		return `I'm sorry, Dave, but I'm afraid I can't let you do that`;
+			return {content: `\`\`\`\n${
+				checkFor(textChannels, `Text channels:`)
+			}${
+				checkFor(voiceChannels, `Voice channels:`)
+			}${
+				checkFor(Categories, `Categories:`)
+			}${
+				checkFor(unknown, `Other channels:`)
+			}Total channels: ${
+				textChannels.length + voiceChannels.length + Categories.length + unknown.length
+			}\nChannels left: ${
+				500 - (textChannels.length + voiceChannels.length + Categories.length + unknown.length)
+			}\nmembers: ${
+				interaction.guild.memberCount
+			}\n\`\`\``};
+		} else {
+			if (interaction.member.user.id === `588511925944582186`) {
+				return {content: `stop tring to kill me, smh`};
+			} else {
+				return {content: `I'm sorry, Dave, but I'm afraid I can't let you do that`};
+			}
+		}
 	}
-}
-}
 }
 //join date
 {
 	/**
 	* 
-	* @param {Message} message 
+	* @param {CommandInteraction} interaction
 	* @returns {MessageEmbed} Embed containing information on when you joined the server and when you joined Discord
 	*/
-	var joindate = (message, prefix) => {
-		var ms = message.author.createdTimestamp;
+	var joindate = (interaction) => {
+		var ms = interaction.member.user.createdTimestamp;
 		var date = new Date(ms);
 		var embed = new MessageEmbed()
 		.setColor(`FFFFFF`)
@@ -129,7 +136,7 @@ const { checkFor } = require(`./generalUse.js`);
 			}),
 		}
 		);
-		return embed;
+		return {embeds: [embed], ephemeral: !interaction.options.get(`public`).value};
 	}
 }
 module.exports = { channelCount, userInfo, serverInfo, joindate }

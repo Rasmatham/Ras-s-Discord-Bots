@@ -1,5 +1,5 @@
-const { Message, MessageActionRow, MessageButton, MessageSelectMenu } = require(`discord.js`);
-const { messageFormat, blackList } = require(`./generalUse`);
+const { CommandInteraction, Message, MessageActionRow, MessageButton, MessageSelectMenu } = require(`discord.js`);
+const {interactionFormat, blackList } = require(`./generalUse`);
 //Frick that one rule
 {
 	/**
@@ -7,7 +7,7 @@ const { messageFormat, blackList } = require(`./generalUse`);
 	* @param {Message} message 
 	*/
 	var hencefortifier = (message) => {
-		if (message.author.id !== message.client.user.id && message.guild !== null && message.content.toLowerCase().includes(`from now on`)) {
+		if (message.author.id !== message.client.user.id && message.guild !== null &&message.content.toLowerCase().includes(`from now on`)) {
 			if(message.guild.id == `646155122992480266`){
 				let textChannels = [];
 				message.guild.channels.cache.map((channel) => {
@@ -45,7 +45,7 @@ const { messageFormat, blackList } = require(`./generalUse`);
 {
 	/**
 	* 
-	* @param {Message} message 
+	* @param {Message}interaction 
 	* @param {Number} chance
 	* @param {String|Number} victim
 	* @param {[]} out
@@ -68,39 +68,34 @@ const { messageFormat, blackList } = require(`./generalUse`);
 {
 	/**
 	* 
-	* @param {Message} message 
+	* @param {CommandInteraction} interaction 
 	* @returns 
 	*/
-	var buttonGrid = (message) => {
+	var buttonGrid = (interaction) => {
 		var unicodeEmoji = /^(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])$/gi;
 		var discordEmoji = /^<(a?)?:.+?:\d+>$/gi;
 		var discordEmojiNotExact = /<(a?)?:.+?:\d+>/gi;
-		var splitMessage = message.content.split(` `);
-		if(splitMessage.length > 1){
-			if(splitMessage[1].length <= 80){
-				if(splitMessage[1].match(unicodeEmoji) || splitMessage[1].match(discordEmoji)){
-					const button = new MessageButton().setCustomID(`Dummy`).setEmoji(splitMessage[1]).setStyle(`SECONDARY`);
-					const bar = new MessageActionRow().addComponents([button],[button],[button],[button],[button]);
-					return {content: splitMessage[1], components: [bar, bar, bar, bar, bar]};
-				} else if (splitMessage[1].match(discordEmojiNotExact)) {
-					const button = new MessageButton().setCustomID(`Dummy`).setLabel(splitMessage[1].replace(discordEmojiNotExact, ``)).setStyle(`SECONDARY`);
-					const bar = new MessageActionRow().addComponents([button],[button],[button],[button],[button]);
-					return {content: splitMessage[1].replace(discordEmojiNotExact, ``), components: [bar, bar, bar, bar, bar]};
-				}
-				const button = new MessageButton().setCustomID(`Dummy`).setLabel(splitMessage[1]).setStyle(`SECONDARY`);
+		let buttonContent = interaction.options.get(`button_content`).value;
+		if(buttonContent.length <= 80){
+			if(buttonContent.match(unicodeEmoji) || buttonContent.match(discordEmoji)){
+				const button = new MessageButton().setCustomID(`Dummy`).setEmoji(buttonContent).setStyle(`SECONDARY`);
 				const bar = new MessageActionRow().addComponents([button],[button],[button],[button],[button]);
-				return {content: splitMessage[1], components: [bar, bar, bar, bar, bar]};
+				return {content: buttonContent, components: [bar, bar, bar, bar, bar]};
+			} else if (buttonContent.match(discordEmojiNotExact)) {
+				const button = new MessageButton().setCustomID(`Dummy`).setLabel(buttonContent.replace(discordEmojiNotExact, ``)).setStyle(`SECONDARY`);
+				const bar = new MessageActionRow().addComponents([button],[button],[button],[button],[button]);
+				return {content: buttonContent.replace(discordEmojiNotExact, ``), components: [bar, bar, bar, bar, bar]};
 			}
+			const button = new MessageButton().setCustomID(`Dummy`).setLabel(buttonContent).setStyle(`SECONDARY`);
+			const bar = new MessageActionRow().addComponents([button],[button],[button],[button],[button]);
+			return {content: buttonContent, components: [bar, bar, bar, bar, bar]};
 		}
-		const button = new MessageButton().setCustomID(`Dummy`).setLabel(`🧰`).setStyle(`SECONDARY`);
-		const bar = new MessageActionRow().addComponents([button],[button],[button],[button],[button]);
-		return {content: `🧰`, components: [bar, bar, bar, bar, bar]};
 	}
 	/**
 	* 
-	* @param {Message} message 
+	* @param {CommandInteraction} interaction 
 	* @returns 
-	 */
+	*/
 	var selectMenu = () => {
 		const menu = new MessageSelectMenu().setCustomID(`Dummy`).setPlaceholder(`Choose wisely`).addOptions([
 			{
@@ -115,7 +110,7 @@ const { messageFormat, blackList } = require(`./generalUse`);
 			},
 		]);
 		const bar = new MessageActionRow().addComponents([menu]);
-		return {content: `sample menus:`, components: [bar, bar, bar, bar, bar]};
+		return {content: `sample menus:`, components: [bar]};
 	}
 }
 module.exports = { hencefortifier, userWordBan, espenBotReplacement, buttonGrid, selectMenu }
