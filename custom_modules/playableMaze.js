@@ -238,7 +238,7 @@ var mazeFunction = (interaction) => {
     ])
     interaction.reply({content: mazeMessage(createdClass), components: [arrows], ephemeral: true}).then(() => {
         interaction.client.on(`interactionCreate`, (buttonInteraction) => {
-            if (buttonInteraction.isButton()){
+            if (buttonInteraction.isButton() && interaction.id == buttonInteraction.message.interaction.id){
                 switch (buttonInteraction.customID) {
                     case `Left`:
                     createdClass.moveLeft();

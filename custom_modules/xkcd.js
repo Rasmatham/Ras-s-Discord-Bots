@@ -11,7 +11,6 @@ var xkcdFunct = (interaction) => {
         if(typeof interaction.options.get(`xkcd_number`) != `undefined`){
             num = interaction.options.get(`xkcd_number`).value
         }
-        console.log(num);
         if (num > xkcdObjOuter.num || num <= 0) {
             interaction.reply({content: `Try a whole number from 1 to ${xkcdObjOuter.num}`, ephemeral: true});
         } else {
