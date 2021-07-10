@@ -1,4 +1,4 @@
-const { Client, Guild } = require(`discord.js`);
+const { Client } = require(`discord.js`);
 const { intents } = require(`./custom_modules/generalUse.js`);
 require(`dotenv`).config();
 const buzzBot = new Client({intents: intents, presence: {status: `dnd`, activities: [{name: `Doing some maintenance`, type: `PLAYING`}]}});
@@ -176,6 +176,26 @@ const gladosCommands = [
 				}]
 			}]
 		}
+	},
+	{
+		id: ``,
+		command: {
+			name: `tictactoe`,
+			description: `Starts a game of Tic Tac Toe`,
+			defaultPermission: true,
+			options: [{
+				name: `playertwo`,
+				type: `USER`,
+				description: `Invite a second player to play`,
+				required: true,
+			},
+			{
+				name: `movepieces`,
+				type: `BOOLEAN`,
+				description: `should you move pieces aftee both players has laid down three pieces?`,
+				required: true
+			}]
+		}
 	}
 ];
 const pokebotCommands = [
@@ -201,20 +221,20 @@ const commandGroup = [buzzBotCommands, clambotCommands, ebnjCommands, gladosComm
 
 bots.forEach((bot, i) => {
 	//list commands
-	bot.on(`ready`, () => {
+	/*bot.on(`ready`, () => {
 		bot.application.commands.fetch().then(() => {
 			for (let command of bot.application.commands.cache){
 				console.log(command)
 			}
 		})
-	})
+	})*/
 	//Replace all
 	bot.on(`ready`, () => {
-		bot.application.commands.set([]).then(() => {
+		bot.application.commands.fetch().then((command) => {
 			console.log(`${bot.user.tag} is active`);
 			commandGroup[i].forEach((command, j) => {
 				bot.application.commands.create(command.command, command.guild = null)
-				.then((command) => {console.log(`[${j + 1}/${commandGroup[i].length}] Command: "${command.name}" activated`)})
+				.then((command) => {console.log(`[${j + 1}/${commandGroup[i].length}] Command: "${command.name}" updated`)})
 				.catch(console.error)
 			})
 		})

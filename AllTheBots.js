@@ -21,6 +21,7 @@
 		var coinflip = require(`./custom_modules/coinflip.js`);
 		var maze = require(`./custom_modules/playableMaze.js`);
 		var pokedex = require(`./custom_modules/pokedex.js`);
+		var ticTacToe = require(`./custom_modules/TicTacToe.js`);
 		var music = require(`./custom_modules/music.js`);
 		var dice = require(`./custom_modules/dice.js`);
 		var info = require(`./custom_modules/info.js`);
@@ -296,6 +297,9 @@
 						break;
 						case `maze`:
 						maze(commandInteraction);
+						break;
+						case `tictactoe`:
+						ticTacToe(commandInteraction);
 						break;
 						default:
 						break;
