@@ -49,8 +49,11 @@ const { Message, MessageAttachment, TextChannel, WebhookClient, Client, MessageE
 					sendTo.createWebhook(`${message.client.user.username}-Webhook`)
 					.then(() => {
 						webHookFunction(message.client)
-					}).catch(() => {
+					})
+					.catch((err) => {
+                        console.error(err)
 						message.channel.send(`Something went wrong`)
+                        .catch(console.error)
 					})
 				}
 				let i = 0;
@@ -58,28 +61,34 @@ const { Message, MessageAttachment, TextChannel, WebhookClient, Client, MessageE
 					if (webHook.owner.id === message.client.user.id) {
 						let myWebHook = new WebhookClient(webHook.id, webHook.token)
 						myWebHook.edit({ name: name, avatar: PFP })
+                        .catch(console.error)
 						.then((editedWebHook) => {
 							if(typeof sendMessage.content !== `string` || sendMessage.content === ``){
 								sendMessage.content = ` `;
 								editedWebHook.send(sendMessage)
+								.catch(console.error)
 							} else {
 								editedWebHook.send(sendMessage)
+								.catch(console.error)
 							}
 						})
+                        .catch(console.error)
 						break
 					} else if (i >= webHooks.size - 1) {
 						sendTo.createWebhook(`${message.client.user.username}-Webhook`)
 						.then(() => {
 							webHookFunction(message.client)
-						}).catch(() => {
+						})
+						.catch((err) => {
+							console.error(err)
 							message.channel.send(`Something went wrong`)
+							.catch(console.error)
 						})
 					};
 					i++
 				}
-			}).catch((err) => {
-				console.error(err)
 			})
+			.catch(console.error)
 		}
 		webHookFunction(message.client)
 	}
@@ -94,15 +103,6 @@ const { Message, MessageAttachment, TextChannel, WebhookClient, Client, MessageE
 		bots.forEach((bot) => {
 			bot.on(`ready`, () => {
 				console.log(`${bot.user.username} is online`);
-			})
-			bot.on(`interactionCreate`, (interaction) => {
-				if(interaction.isCommand()){
-					if(interaction.commandName === `exit`){
-						interaction.reply({content: `Destroying client instance`})
-						interaction.client.destroy()
-						console.log(`${interaction.client.user.username} is offline`);
-					}
-				}
 			})
 		})
 	}

@@ -12,16 +12,16 @@ const sini = new Client({intents: intents, presence: {status: `dnd`, activities:
 const zelda = new Client({intents: intents, presence: {status: `dnd`, activities: [{name: `Doing some maintenance`, type: `PLAYING`}]}});
 const croissant = new Client({intents: intents, presence: {status: `dnd`, activities: [{name: `Doing some maintenance`, type: `PLAYING`}]}});
 
-buzzBot.login(process.env.BUZZBOTTOKEN);
-clambot.login(process.env.CLAMBOTTOKEN);
-ebnj.login(process.env.EBNJTOKEN);
-glados.login(process.env.GLADOSTOKEN);
-pokebot.login(process.env.POKETOKEN);
-artoo.login(process.env.ARTOOTOKEN);
-random.login(process.env.RANDOMTOKEN);
-sini.login(process.env.SINITOKEN);
-zelda.login(process.env.ZELDATOKEN);
-croissant.login(process.env.CROISSANTTOKEN);
+buzzBot.login(process.env.BUZZBOTTOKEN).catch(console.error);
+clambot.login(process.env.CLAMBOTTOKEN).catch(console.error);
+ebnj.login(process.env.EBNJTOKEN).catch(console.error);
+glados.login(process.env.GLADOSTOKEN).catch(console.error);
+pokebot.login(process.env.POKETOKEN).catch(console.error);
+artoo.login(process.env.ARTOOTOKEN).catch(console.error);
+random.login(process.env.RANDOMTOKEN).catch(console.error);
+sini.login(process.env.SINITOKEN).catch(console.error);
+zelda.login(process.env.ZELDATOKEN).catch(console.error);
+croissant.login(process.env.CROISSANTTOKEN).catch(console.error);
 
 const buzzBotCommands = [
 	
@@ -178,7 +178,7 @@ const gladosCommands = [
 		}
 	},
 	{
-		id: ``,
+		id: `862809521243684894`,
 		command: {
 			name: `tictactoe`,
 			description: `Starts a game of Tic Tac Toe`,
@@ -221,15 +221,16 @@ const commandGroup = [buzzBotCommands, clambotCommands, ebnjCommands, gladosComm
 
 bots.forEach((bot, i) => {
 	//list commands
-	/*bot.on(`ready`, () => {
+	bot.on(`ready`, () => {
 		bot.application.commands.fetch().then(() => {
 			for (let command of bot.application.commands.cache){
 				console.log(command)
 			}
 		})
-	})*/
+		.catch(console.error)
+	})
 	//Replace all
-	bot.on(`ready`, () => {
+	/*bot.on(`ready`, () => {
 		bot.application.commands.fetch().then((command) => {
 			console.log(`${bot.user.tag} is active`);
 			commandGroup[i].forEach((command, j) => {
@@ -238,14 +239,13 @@ bots.forEach((bot, i) => {
 				.catch(console.error)
 			})
 		})
-	})
+	})*/
 	//edit specific
-	/*bot.on(`ready`, () => {
-		let commands = commandGroup[i];
-		commands.forEach((command) => {
-			bot.application.commands.edit(command.id, command.command, command.guild = null)
+	bot.on(`ready`, () => {
+		commandGroup[i].forEach((command) => {
+			bot.application.commands.create(command.command, command.guild = null)
 			.then((command) => {console.log(`Edited ${command.name}`)})
 			.catch(console.error);
 		})
-	})*/
+	})
 });

@@ -1,5 +1,5 @@
 
-const { CommandInteraction, MessageActionRow, MessageButton } = require(`discord.js`);
+const { CommandInteraction, MessageActionRow, MessageButton, ButtonInteraction } = require(`discord.js`);
 const mazeThing = require(`generate-maze`);
 /**
 * 
@@ -237,41 +237,49 @@ var mazeFunction = (interaction) => {
         .setStyle(`SECONDARY`)
     ])
     interaction.reply({content: mazeMessage(createdClass), components: [arrows], ephemeral: true}).then(() => {
-        interaction.client.on(`interactionCreate`, (buttonInteraction) => {
+        interaction.client.on(`interactionCreate`, (BI) => {
             if (buttonInteraction.isButton() && interaction.id == buttonInteraction.message.interaction.id){
+                /** @type {ButtonInteraction} */
+                const buttonInteraction = BI
                 switch (buttonInteraction.customID) {
                     case `Left`:
                     createdClass.moveLeft();
                     if (!createdClass.cellArr[63].playerState) {
-                        buttonInteraction.update(mazeMessage(createdClass));
+                        buttonInteraction.update(mazeMessage(createdClass))
+                        .catch(console.error);
                     }
                     break;
                     case `Up`:
                     createdClass.moveUp();
                     if (!createdClass.cellArr[63].playerState) {
-                        buttonInteraction.update(mazeMessage(createdClass));
+                        buttonInteraction.update(mazeMessage(createdClass))
+                        .catch(console.error);
                     }
                     break;
                     case `Down`:
                     createdClass.moveDown();
                     if (!createdClass.cellArr[63].playerState) {
-                        buttonInteraction.update(mazeMessage(createdClass));
+                        buttonInteraction.update(mazeMessage(createdClass))
+                        .catch(console.error);
                     }
                     break;
                     case `Right`:
                     createdClass.moveRight();
                     if (!createdClass.cellArr[63].playerState) {
-                        buttonInteraction.update(mazeMessage(createdClass));
+                        buttonInteraction.update(mazeMessage(createdClass))
+                        .catch(console.error);
                     }
                     break;
                     default:
                     break;
                 }
+                if (createdClass.cellArr[63].playerState) {
+                    buttonInteraction.update({content: `**Congratulations!**\nYou managed to navigate through a maze even one of my ~~test subjects~~paid workers could finish!`, components: []})
+                    .catch(console.error);
+                } 
             }
-            if (createdClass.cellArr[63].playerState) {
-                buttonInteraction.update({content: `**Congratulations!**\nYou managed to navigate through a maze even one of my ~~test subjects~~paid workers could finish!`, components: []});
-            } 
         })
-    });
+    })
+    .catch(console.error);
 }
 module.exports = mazeFunction;

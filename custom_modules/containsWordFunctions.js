@@ -1,13 +1,21 @@
-const { Message, MessageAdditions } = require("discord.js");
+const { Message, MessageAdditions, MessageOptions } = require("discord.js");
 //reply
 {
 	//function int
 	{
+		/**
+		 * 
+		 * @param {Message} message 
+		 * @param {Number} chance 
+		 * @param {MessageOptions} rply 
+		 */
 		var reply = async (message, chance, rply) => {
 			if (Math.random() * 100 <= chance) {
-				message.channel.startTyping(3);
-				message.channel.send(rply);
-				message.channel.stopTyping(true);
+				message.channel.startTyping(3)
+				.then(() => {message.channel.send(rply)})
+				.catch(console.error)
+				.then(() => {message.channel.stopTyping(true)})
+				.catch(console.error)
 			}
 		}
 	}

@@ -9,15 +9,16 @@ var setup = (message, prefix) => {
     if (message.content.toLowerCase().startsWith(`${prefix}cfsetup`)) {
         message.channel
             .send(`Creating save for ${message.author}`)
-            .then(() => mkdir(`./${message.client.user.username}/userinfo/`, (err) => { }))
-            .then(() =>
-                mkdir(`./${message.client.user.username}/userinfo/${message.author.id}`, (err) => { })
-            )
-            .then(() => {
-                mkdir(`./${message.client.user.username}/userinfo/${message.author.id}/coinflip/`, (err) => { })
-            })
-            .then(() => { writeFile(`./${message.client.user.username}/userinfo/${message.author.id}/coinflip/wins.log`, `0`, (err) => { }) })
-            .then(() => { writeFile(`./${message.client.user.username}/userinfo/${message.author.id}/coinflip/losses.log`, `0`, (err) => { }) });
+            .then(() => {mkdir(`./${message.client.user.username}/userinfo/`, (err) => { })})
+			.catch(console.error)
+            .then(() => {mkdir(`./${message.client.user.username}/userinfo/${message.author.id}`, (err) => { })})
+			.catch(console.error)
+            .then(() => {mkdir(`./${message.client.user.username}/userinfo/${message.author.id}/coinflip/`, (err) => { })})
+			.catch(console.error)
+            .then(() => {writeFile(`./${message.client.user.username}/userinfo/${message.author.id}/coinflip/wins.log`, `0`, (err) => { })})
+			.catch(console.error)
+            .then(() => {writeFile(`./${message.client.user.username}/userinfo/${message.author.id}/coinflip/losses.log`, `0`, (err) => { })})
+			.catch(console.error);
         message.channel.send(`Setup complete\nWarning: Using this command agin will reset your score`);
     }
 }
@@ -42,7 +43,8 @@ var flip = (message, prefix) => {
                         .setTitle(`You won!`)
                         .setThumbnail(`https://cdn.discordapp.com/attachments/656164355381133332/715662587471331359/ezgif-3-b3ae702d4205.gif`)
                         .addFields({ name: `The coin landed on heads`, value: `You won!` }, { name: `Wins`, value: parseInt(wincount) + 1 }, { name: `Losses`, value: losecount });
-                    message.channel.send({ embed: embed });
+                    message.channel.send({ embed: embed })
+                    .catch(console.error);
                 } else {
                     var wincount = readFileSync(coinfilew, `utf8`, (err) => { });
                     var losecount = readFileSync(coinfilel, `utf8`, (err) => { });
@@ -52,7 +54,8 @@ var flip = (message, prefix) => {
                         .setTitle(`You lost!`)
                         .setThumbnail(`https://cdn.discordapp.com/attachments/656164355381133332/715669285128634368/ezgif-3-b8913657fa57.gif`)
                         .addFields({ name: `The coin landed on tails`, value: `You lost!` }, { name: `Wins`, value: wincount }, { name: `Losses`, value: parseInt(losecount) + 1 });
-                    message.channel.send({ embed: embed });
+                    message.channel.send({ embed: embed })
+                    .catch(console.error);
                 }
             }
             if (message.content.toLowerCase().startsWith(`${prefix}coinflip tails`)) {
@@ -65,7 +68,8 @@ var flip = (message, prefix) => {
                         .setTitle(`You won!`)
                         .setThumbnail(`https://cdn.discordapp.com/attachments/656164355381133332/715669285128634368/ezgif-3-b8913657fa57.gif`)
                         .addFields({ name: `The coin landed on tails`, value: `You won!` }, { name: `Wins`, value: parseInt(wincount) + 1 }, { name: `Losses`, value: losecount });
-                    message.channel.send({ embed: embed });
+                    message.channel.send({ embed: embed })
+                    .catch(console.error);
                 } else {
                     var wincount = readFileSync(coinfilew, `utf8`, (err) => { });
                     var losecount = readFileSync(coinfilel, `utf8`, (err) => { });
@@ -75,11 +79,13 @@ var flip = (message, prefix) => {
                         .setTitle(`You lost!`)
                         .setThumbnail(`https://cdn.discordapp.com/attachments/656164355381133332/715662587471331359/ezgif-3-b3ae702d4205.gif`)
                         .addFields({ name: `The coin landed on heads`, value: `You lost!` }, { name: `Wins`, value: wincount }, { name: `Losses`, value: parseInt(losecount) + 1 });
-                    message.channel.send({ embed: embed });
+                    message.channel.send({ embed: embed })
+                    .catch(console.error);
                 }
             }
         } else {
-            message.channel.send(`Sorry, but you don't seem to have set up yet. Say \"${prefix}cfsetup\" and try again`);
+            message.channel.send(`Sorry, but you don't seem to have set up yet. Say \"${prefix}cfsetup\" and try again`)
+			.catch(console.error);
         }
     }
 }

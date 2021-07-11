@@ -15,7 +15,8 @@ var dice = (interaction) => {
     }
     interaction.reply(`Rolling ${diceCount} D${dieSides}`).then(() => {
         if (diceCount > 20) {
-            interaction.editReply(`Sorry, but you can only roll 20 dice at a time`);
+            interaction.editReply(`Sorry, but you can only roll 20 dice at a time`)
+            .catch(console.error);
         } else {
             if (dieSides === `10`) {
                 for (i = 0; i < diceCount; i++) {
@@ -24,7 +25,8 @@ var dice = (interaction) => {
                     .setTitle(`Totally legit dice`)
                     .addField(`You \"rolled\" a:`, `${Math.floor(Math.random() * 10)}`, true)
                     .addField(`\"roll\" number:`, `${i + 1}/${diceCount}`);
-                    interaction.followUp({embeds: [number10]});
+                    interaction.followUp({embeds: [number10]})
+                    .catch(console.error);
                 }
             } else if (dieSides === `100`) {
                 for (i = 0; i < diceCount; i++) {
@@ -33,7 +35,8 @@ var dice = (interaction) => {
                     .setTitle(`Totally legit dice`)
                     .addField(`You \"rolled\" a:`, `${Math.floor(Math.random() * 10) * 10}`, true)
                     .addField(`\"roll\" number:`, `${i + 1}/${diceCount}`);
-                    interaction.followUp({embeds: [number100]});
+                    interaction.followUp({embeds: [number100]})
+                    .catch(console.error);
                 }
             } else {
                 for (i = 0; i < diceCount; i++) {
@@ -42,10 +45,12 @@ var dice = (interaction) => {
                     .setTitle(`Totally legit dice`)
                     .addField(`You \"rolled\" a:`, `${Math.ceil(Math.random() * Number(dieSides))}`, true)
                     .addField(`\"roll\" number:`, `${i + 1}/${diceCount}`);
-                    interaction.followUp({embeds: [numberN]});
+                    interaction.followUp({embeds: [numberN]})
+                    .catch(console.error);
                 }
             }
         }
     })
+    .catch(console.error)
 }
 module.exports = dice;

@@ -22,7 +22,8 @@ const ticTacToe = (interaction) => {
 			interaction.user.send({content: `Something went wrong\nI might not have permission to speak here`})
 			.catch(console.error)
 		})
-	});
+	})
+    .catch(console.error);
 	
 	const button = (ID) => {return new MessageButton().setCustomID(ID).setEmoji(`<:ras:741303046574702652>`).setStyle(`SECONDARY`)}
 	
@@ -265,7 +266,8 @@ const ticTacToe = (interaction) => {
 										.catch(console.error)
 									}
 								} else {
-									BInteraction.update({content: `this mode has not been added yet. Please set the movepieces parameter to false instead`});
+									BInteraction.update({content: `this mode has not been added yet. Please set the movepieces parameter to false instead`})
+									.catch(console.error);
 								}
 							} else {
 								BInteraction.reply({content: `Sorry, but you can't do that`, ephemeral: true})

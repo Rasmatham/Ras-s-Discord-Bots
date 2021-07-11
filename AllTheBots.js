@@ -55,16 +55,16 @@
 	}
 	//logins
 	{
-		buzzBot.login(process.env.BUZZBOTTOKEN);
-		clambot.login(process.env.CLAMBOTTOKEN);
-		ebnj.login(process.env.EBNJTOKEN);
-		glados.login(process.env.GLADOSTOKEN);
-		pokebot.login(process.env.POKETOKEN);
-		artoo.login(process.env.ARTOOTOKEN);
-		random.login(process.env.RANDOMTOKEN);
-		sini.login(process.env.SINITOKEN);
-		zelda.login(process.env.ZELDATOKEN);
-		croissant.login(process.env.CROISSANTTOKEN);
+		buzzBot.login(process.env.BUZZBOTTOKEN).catch(console.error);
+		clambot.login(process.env.CLAMBOTTOKEN).catch(console.error);
+		ebnj.login(process.env.EBNJTOKEN).catch(console.error);
+		glados.login(process.env.GLADOSTOKEN).catch(console.error);
+		pokebot.login(process.env.POKETOKEN).catch(console.error);
+		artoo.login(process.env.ARTOOTOKEN).catch(console.error);
+		random.login(process.env.RANDOMTOKEN).catch(console.error);
+		sini.login(process.env.SINITOKEN).catch(console.error);
+		zelda.login(process.env.ZELDATOKEN).catch(console.error);
+		croissant.login(process.env.CROISSANTTOKEN).catch(console.error);
 		generalStuff.botReady([buzzBot, clambot, ebnj, glados, pokebot, artoo, random, sini, zelda, croissant]);
 	}
 }
@@ -185,10 +185,12 @@
 	//welcome/goodbye Message
 	{
 		glados.on(`guildMemberAdd`, (member) => {
-			member.guild.systemChannel.send({content: `Welcome to the server, #${member.guild.memberCount}\nWe currently have ${info.channelCount(member.guild).all}/500 channels used`});
+			member.guild.systemChannel.send({content: `Welcome to the server, #${member.guild.memberCount}\nWe currently have ${info.channelCount(member.guild).all}/500 channels used`})
+			.catch(console.error);
 		})
 		glados.on(`guildMemberRemove`, (member) => {
-			member.guild.systemChannel.send({content: `Bye, ${member.user.tag}`});
+			member.guild.systemChannel.send({content: `Bye, ${member.user.tag}`})
+			.catch(console.error);
 		})
 	}
 	//replies
@@ -222,7 +224,7 @@
 				//coinflip.setup(message, GLaDOSPrefix);
 				//coinflip.flip(message, GLaDOSPrefix);
 				stupidStuff.hencefortifier(message);
-				stupidStuff.espenBotReplacement(`message`, message, 10, process.env.RASID, generalStuff.messageFormat(`https://cdn.discordapp.com/attachments/735213241860620308/781189544103247922/unknown.png`));
+				stupidStuff.espenBotReplacement(`message`, message, 1, process.env.RASID, generalStuff.messageFormat(`https://cdn.discordapp.com/attachments/735213241860620308/781189544103247922/unknown.png`));
 				stupidStuff.espenBotReplacement(`reac`, message, 100, process.env.ZARLID, `🦆`);
 				//stupidStuff.userWordBan(message, `last`, `541617670533939210`);
 			})
@@ -237,7 +239,8 @@
 						let buttonInteraction = messageComponentInteraction;
 						switch(buttonInteraction.customID){
 							case `Dummy`:
-							buttonInteraction.deleteReply();
+							buttonInteraction.deleteReply()
+							.catch(console.error);
 							break;
 							default:
 							break;
@@ -249,6 +252,7 @@
 						switch(selectMenuInteraction.customID){
 							case `Dummy`:
 							selectMenuInteraction.update({content: `Seems about right`})
+							.catch(console.error)
 							break;
 							default:
 							break;

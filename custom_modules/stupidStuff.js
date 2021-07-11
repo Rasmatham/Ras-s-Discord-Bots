@@ -1,4 +1,4 @@
-const { CommandInteraction, Message, MessageActionRow, MessageButton, MessageSelectMenu } = require(`discord.js`);
+const { CommandInteraction, Message, MessageActionRow, MessageButton, MessageSelectMenu, TextChannel } = require(`discord.js`);
 const {interactionFormat, blackList } = require(`./generalUse`);
 //Frick that one rule
 {
@@ -19,9 +19,13 @@ const {interactionFormat, blackList } = require(`./generalUse`);
 						});
 					}
 				});
-				message.client.channels.cache
-				.get(textChannels[Math.floor(Math.random() * (textChannels.length - 1))])
-				.send(`<@${message.author.id}>, you did an oopsie`);
+				message.client.channels.fetch(textChannels[Math.floor(Math.random() * (textChannels.length - 1))])
+				.then((channel) => {
+					/** @type {TextChannel} */
+					const textChannel = channel
+					textChannel.send(`<@${message.author.id}>, you did an oopsie`)
+					.catch(console.error)
+				});
 			}
 		}
 	}
@@ -36,7 +40,8 @@ const {interactionFormat, blackList } = require(`./generalUse`);
 	var userWordBan = (message, word, userID) => {
 		if (message.author.id === userID) {
 			if (message.content.toLowerCase().includes(word)) {
-				message.delete;
+				message.delete()
+				.catch(console.error);
 			}
 		}
 	}
@@ -44,8 +49,8 @@ const {interactionFormat, blackList } = require(`./generalUse`);
 //smh, Espen bot doesn't work
 {
 	/**
-	* 
-	* @param {Message}interaction 
+	* @param {String} type
+	* @param {Message} message 
 	* @param {Number} chance
 	* @param {String|Number} victim
 	* @param {[]} out
@@ -55,10 +60,12 @@ const {interactionFormat, blackList } = require(`./generalUse`);
 		if (message.author.id === victim && Math.floor(Math.random() * 100) <= chance) {
 			switch(type){
 				case `message`:
-				message.channel.send(out[0], out[1]);
+				message.channel.send(out[0], out[1])
+				.catch(console.error);
 				break;
 				case `react`:
-				message.react(out);
+				message.react(out)
+				.catch(console.error);
 				break;
 			}
 		}

@@ -12,7 +12,8 @@ var xkcdFunct = (interaction) => {
             num = interaction.options.get(`xkcd_number`).value
         }
         if (num > xkcdObjOuter.num || num <= 0) {
-            interaction.reply({content: `Try a whole number from 1 to ${xkcdObjOuter.num}`, ephemeral: true});
+            interaction.reply({content: `Try a whole number from 1 to ${xkcdObjOuter.num}`, ephemeral: true})
+            .catch(console.error);
         } else {
             xkcd(num, (xkcdObj) => {
                 const xkcdEmbed = new MessageEmbed()
@@ -20,7 +21,8 @@ var xkcdFunct = (interaction) => {
                 .setURL(`https://xkcd.com/${xkcdObj.num}/`)
                 .setDescription(xkcdObj.alt)
                 .setImage(xkcdObj.img);
-                interaction.reply({embeds: [xkcdEmbed]});
+                interaction.reply({embeds: [xkcdEmbed]})
+                .catch(console.error);
             });
         }
     });

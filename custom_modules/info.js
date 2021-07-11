@@ -67,21 +67,23 @@ const { checkFor } = require(`./generalUse.js`);
 			let voiceChannels = [];
 			let Categories = [];
 			let unknown = [];
-			interaction.guild.channels.cache.map((channel) => {
-				switch (channel.type) {
-					case `text`:
-					textChannels.push(channel.name);
-					break;
-					case `voice`:
-					voiceChannels.push(channel.name);
-					break;
-					case `category`:
-					Categories.push(channel.name);
-					break;
-					default:
-					unknown.push(channel.name);
-					break;
-				}
+			interaction.guild.channels.fetch().then((channels) => {
+				channels.forEach((channel) => {
+					switch (channel.type) {
+						case `text`:
+						textChannels.push(channel.name);
+						break;
+						case `voice`:
+						voiceChannels.push(channel.name);
+						break;
+						case `category`:
+						Categories.push(channel.name);
+						break;
+						default:
+						unknown.push(channel.name);
+						break;
+					}
+				})
 			});
 			textChannels.sort();
 			voiceChannels.sort();
