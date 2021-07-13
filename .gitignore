@@ -12,3 +12,19 @@ lerna-debug.log*
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
+AllTheBots.js
+Commands.js
+custom_modules/coinflip.js
+custom_modules/containsWordFunctions.js
+custom_modules/dice.js
+custom_modules/forwardMessages.js
+custom_modules/generalUse.js
+custom_modules/info.js
+custom_modules/inspiroBot.js
+custom_modules/music.js
+custom_modules/playableMaze.js
+custom_modules/pokedex.js
+custom_modules/stupidStuff.js
+custom_modules/TicTacToe.js
+custom_modules/xkcd.js
+Pokèbot/PokeDB.js
