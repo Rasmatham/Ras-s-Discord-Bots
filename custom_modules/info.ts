@@ -1,5 +1,6 @@
-import { CommandInteraction, MessageEmbed, GuildChannelManager, Guild, User, ColorResolvable } from "discord.js";
+import { CommandInteraction, MessageEmbed, GuildChannelManager, Guild, User, ColorResolvable, GuildMember } from "discord.js";
 import { checkFor } from "./generalUse.js";
+import { writeFile, unlink } from "fs"
 //channelCount
 {
 	var channelCount = (guild: Guild) => {
@@ -31,9 +32,28 @@ import { checkFor } from "./generalUse.js";
 //userinfo
 {
 	var userInfo = (interaction: CommandInteraction) => {
-		return {content: `\`\`\`json\ninteraction.member.user\n${JSON.stringify(interaction.user, null, 2)
-		}\n\ninteraction.member\n${JSON.stringify(interaction.member, null, 2)
-		}\n\`\`\``, ephemeral: !interaction.options.get(`public`).value}
+		writeFile(`${interaction.client.user.username}/userinfo/userinfo.json`, `"interaction.user":{\n${JSON.stringify(interaction.user, null, 2)}\n},\n"interaction.member":{\n${JSON.stringify(interaction.member, null, 2)}\n}`, () => {
+			if (interaction.options.get(`public`).value as boolean) {
+				interaction.reply({files: [`${interaction.client.user.username}/userinfo/userinfo.json`]})
+				.then(() => {
+					unlink(`${interaction.client.user.username}/userinfo/userinfo.json`, () => {
+					})
+				})
+				.catch(console.error)
+			} else {
+				if(!(interaction.member instanceof GuildMember)){return}
+				interaction.member.send({files: [`${interaction.client.user.username}/userinfo/userinfo.json`]})
+				.then(() => {
+					unlink(`${interaction.client.user.username}/userinfo/userinfo.json`, () => {
+					})
+				})
+				.catch(console.error)
+				.then(() => {
+					interaction.reply({content: `You have [1] more DM!`, ephemeral: true})
+					.catch(console.error)
+				})
+			}
+		})
 	}
 }
 //serverinfo

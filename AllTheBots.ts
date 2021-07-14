@@ -277,7 +277,7 @@ require(`dotenv`).config();
 						commandInteraction.reply({content: githublink, ephemeral: true});
 						break;
 						case `userinfo`:
-						commandInteraction.reply(info.userInfo(commandInteraction));
+						info.userInfo(commandInteraction);
 						break;
 						case `serverinfo`:
 						commandInteraction.reply(info.serverInfo(commandInteraction));
