@@ -1,4 +1,4 @@
 @echo off
-tsc Commands.ts
+call tsc Commands.ts
 node Commands.js
 PAUSE

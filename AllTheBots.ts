@@ -9,26 +9,24 @@
 ╚══════════════════════════════════════════════════════════╝
 */
 
+import { ButtonInteraction, Client, ColorResolvable, CommandInteraction, DMChannel, GuildMember, Interaction, Message, MessageComponentInteraction, MessageEmbed, MessageManager } from "discord.js";
+var containsWord = require(`./custom_modules/containsWordFunctions.js`);
+var forwarding = require(`./custom_modules/forwardMessages.js`);
+var generalStuff = require(`./custom_modules/generalUse.js`);
+var stupidStuff = require(`./custom_modules/stupidStuff.js`);
+var inspiroBot = require(`./custom_modules/inspiroBot.js`);
+var coinflip = require(`./custom_modules/coinflip.js`);
+var maze = require(`./custom_modules/playableMaze.js`);
+var pokedex = require(`./custom_modules/pokedex.js`);
+var ticTacToe = require(`./custom_modules/TicTacToe.js`);
+//var music = require(`./custom_modules/music.js`);
+var dice = require(`./custom_modules/dice.js`);
+var info = require(`./custom_modules/info.js`);
+var xkcd = require(`./custom_modules/xkcd.js`);
+require(`dotenv`).config();
+
 //Common
 {
-	//Modules
-	{
-		var containsWord = require(`./custom_modules/containsWordFunctions.js`);
-		var forwarding = require(`./custom_modules/forwardMessages.js`);
-		var generalStuff = require(`./custom_modules/generalUse.js`);
-		var stupidStuff = require(`./custom_modules/stupidStuff.js`);
-		var inspiroBot = require(`./custom_modules/inspiroBot.js`);
-		var coinflip = require(`./custom_modules/coinflip.js`);
-		var maze = require(`./custom_modules/playableMaze.js`);
-		var pokedex = require(`./custom_modules/pokedex.js`);
-		var ticTacToe = require(`./custom_modules/TicTacToe.js`);
-		var music = require(`./custom_modules/music.js`);
-		var dice = require(`./custom_modules/dice.js`);
-		var info = require(`./custom_modules/info.js`);
-		var xkcd = require(`./custom_modules/xkcd.js`);
-		var {Client, MessageEmbed, MessageComponentInteraction, ButtonInteraction, SelectMenuInteraction, CommandInteraction} = require(`discord.js`);
-		require(`dotenv`).config();
-	}
 	//Other Variables
 	{
 		var buzzLink = `https://discordapp.com/oauth2/authorize?&client_id=689449074008653865&scope=bot&permissions=8`;
@@ -39,16 +37,16 @@
 		var randomLink = `https://discordapp.com/oauth2/authorize?&client_id=654787079590641713&scope=bot&permissions=8`;
 		var zeldaLink = `https://discordapp.com/oauth2/authorize?&client_id=654786965090074656&scope=bot&permissions=8`;
 		var githublink = `https://github.com/Rasmatham/Ras-s-Discord-Bots`
-		var buzzBot		= new Client({intents: generalStuff.intents, activities: [{name: `Bee Movie Game`,						type: `PLAYING`}]});
-		var clambot		= new Client({intents: generalStuff.intents, activities: [{name: `Whatever Clams is playing`,			type: `PLAYING`}]});
-		var ebnj		= new Client({intents: generalStuff.intents, activities: [{name: `Minecraft`,							type: `PLAYING`}]});
-		var glados		= new Client({intents: generalStuff.intents, activities: [{name: `Portal Bridge Constructor`,			type: `PLAYING`}]});
-		var pokebot		= new Client({intents: generalStuff.intents, activities: [{name: `Pokémon Pinball`,						type: `PLAYING`}]});
-		var artoo		= new Client({intents: generalStuff.intents, activities: [{name: `LEGO Star Wars: the Skywalker saga`,	type: `PLAYING`}]});
-		var random		= new Client({intents: generalStuff.intents, activities: [{name: `honestly, idk what to put here`,		type: `PLAYING`}]});
-		var sini		= new Client({intents: generalStuff.intents, activities: [{name: `Splatoon 3`,							type: `PLAYING`}]});
-		var zelda		= new Client({intents: generalStuff.intents, activities: [{name: `Zelda: The Wand of Gamelon`,			type: `PLAYING`}]});
-		var croissant	= new Client({intents: generalStuff.intents, activities: [{name: `Oui Oui Baguette`,					type: `PLAYING`}]});
+		var buzzBot		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `Bee Movie Game`,						type: `PLAYING`}]}});
+		var clambot		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `Whatever Clams is playing`,			type: `PLAYING`}]}});
+		var ebnj		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `Minecraft`,							type: `PLAYING`}]}});
+		var glados		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `Portal Bridge Constructor`,			type: `PLAYING`}]}});
+		var pokebot		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `Pokémon Pinball`,						type: `PLAYING`}]}});
+		var artoo		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `LEGO Star Wars: the Skywalker saga`,	type: `PLAYING`}]}});
+		var random		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `honestly, idk what to put here`,		type: `PLAYING`}]}});
+		var sini		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `Splatoon 3`,							type: `PLAYING`}]}});
+		var zelda		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `Zelda: The Wand of Gamelon`,			type: `PLAYING`}]}});
+		var croissant	= new Client({intents: generalStuff.intents, presence: {activities: [{name: `Oui Oui Baguette`,						type: `PLAYING`}]}});
 		var testChannel = `735213241860620308`;
 		var PokePrefix = `pd`;
 		var GLaDOSPrefix = `&`;
@@ -91,7 +89,8 @@
 	}
 	//replies
 	{
-		buzzBot.on(`messageCreate`, (message) => {
+		buzzBot.on(`messageCreate`, (message: Message) => {
+			if(message.channel instanceof DMChannel) {return}
 			if (generalStuff.blackList.includes(message.channel.name)) {return};
 			containsWord.replyThing(message, `exact`, 10, {content: `He makes me go buzz`}, [`ras`, `rasmatham`, `rasberry`]);
 			containsWord.replyThing(message, `exact`, 10, {content: `It's BeeMrtz, you insensitive prick!`}, [`bymrtz`]);
@@ -109,7 +108,8 @@
 {
 	//Stuff
 	{
-		clambot.on(`messageCreate`, (message) => {
+		clambot.on(`messageCreate`, (message: Message) => {
+			if(message.channel instanceof DMChannel) {return}
 			if (generalStuff.blackList.includes(message.channel.name)) {return};
 			containsWord.replyThing(message, `anywhere`, 100, {content: `PING!`}, [`<@&`]);
 			//forwarding.DMSpy(message, `764479509138636810`);
@@ -122,7 +122,8 @@
 {
 	//replies
 	{
-		ebnj.on(`messageCreate`, (message) => {
+		ebnj.on(`messageCreate`, (message: Message) => {
+			if(message.channel instanceof DMChannel) {return}
 			if (generalStuff.blackList.includes(message.channel.name)) {return};
 			containsWord.replyThing(message, `anywhere`, 100, {content: ebnjLink}, [`botlink ebnj`]);
 			containsWord.replyThing(message, `anywhere`, 100, {content: `🦆 <:Minecoins:656622021240815623>`}, [`minecoin`]);
@@ -145,7 +146,7 @@
 		var lie = `I will tell you what is not a lie\nThe cake`;
 		var ping = `P I N G\nWait\nNevermind`;
 		var stillalive = new MessageEmbed()
-		.setColor(`FFFFFF`)
+		.setColor(`FFFFFF` as ColorResolvable)
 		.setTitle(`Still alive`)
 		.addFields({
 			name: `᲼`,
@@ -184,11 +185,11 @@
 	}
 	//welcome/goodbye Message
 	{
-		glados.on(`guildMemberAdd`, (member) => {
+		glados.on(`guildMemberAdd`, (member: GuildMember) => {
 			member.guild.systemChannel.send({content: `Welcome to the server, #${member.guild.memberCount}\nWe currently have ${info.channelCount(member.guild).all}/500 channels used`})
 			.catch(console.error);
 		})
-		glados.on(`guildMemberRemove`, (member) => {
+		glados.on(`guildMemberRemove`, (member: GuildMember) => {
 			member.guild.systemChannel.send({content: `Bye, ${member.user.tag}`})
 			.catch(console.error);
 		})
@@ -197,7 +198,8 @@
 	{
 		//Stuff
 		{
-			glados.on(`messageCreate`, (message) => {
+			glados.on(`messageCreate`, (message: Message) => {
+				if(message.channel instanceof DMChannel) {return}
 				if (generalStuff.blackList.includes(message.channel.name)) {return};
 				containsWord.replyThing(message, `anywhere`, 100, {content: cake}, [`cake`, `tower 15`]);
 				containsWord.replyThing(message, `anywhere`, 100, {files: [{attachment: `./GLaDOS/files/lemonade.png`, name: `test.png`}], content: lemonrant}, [`lemon`, `🍋`]);
@@ -228,15 +230,13 @@
 				stupidStuff.espenBotReplacement(`reac`, message, 100, process.env.ZARLID, `🦆`);
 				//stupidStuff.userWordBan(message, `last`, `541617670533939210`);
 			})
-			glados.on(`interactionCreate`, (interaction) => {
+			glados.on(`interactionCreate`, (interaction: Interaction) => {
 				switch(interaction.type){
 					case `MESSAGE_COMPONENT`:
-					/** @type {MessageComponentInteraction} */
-					let messageComponentInteraction = interaction;
+					let messageComponentInteraction = interaction as MessageComponentInteraction;
 					switch(messageComponentInteraction.componentType){
 						case `BUTTON`:
-						/** @type {ButtonInteraction} */
-						let buttonInteraction = messageComponentInteraction;
+						let buttonInteraction = messageComponentInteraction as ButtonInteraction;
 						switch(buttonInteraction.customID){
 							case `Dummy`:
 							buttonInteraction.deleteReply()
@@ -247,7 +247,6 @@
 						}
 						break;
 						case `SELECT_MENU`:
-						/** @type {SelectMenuInteraction} */
 						let selectMenuInteraction = messageComponentInteraction;
 						switch(selectMenuInteraction.customID){
 							case `Dummy`:
@@ -263,8 +262,7 @@
 					}
 					break;
 					case `APPLICATION_COMMAND`:
-					/** @type {CommandInteraction} */
-					let commandInteraction = interaction;
+					let commandInteraction = interaction as CommandInteraction;
 					switch(commandInteraction.commandName){
 						case `botlink`:
 						commandInteraction.reply({content: GladosLink, ephemeral: true});
@@ -321,7 +319,7 @@
 	
 	//search
 	{
-		var sendEmbed = (message) => {
+		var sendEmbed = (message: Message) => {
 			if (message.author.id !== pokebot.user.id) {
 				if (message.content.toLowerCase().startsWith(`${PokePrefix} `)) {
 					generalStuff.sendAsWebHook(message, message.channel, pokedex.natDex(message.content.toLowerCase().split(` `)[1]), pokedex.DB.trainers[Math.round(Math.random() * pokedex.DB.trainers.length)], pokebot.user.avatarURL());
@@ -331,7 +329,8 @@
 	}
 	//Stuff
 	{
-		pokebot.on(`messageCreate`, (message) => {
+		pokebot.on(`messageCreate`, (message: Message) => {
+			if(message.channel instanceof DMChannel) {return}
 			if (generalStuff.blackList.includes(message.channel.name)) {return};
 			containsWord.replyThing(message, `anywhere`, 100, {content: pokeLink}, [`botlink pokebot`]);
 			forwarding.messageForwarding(message);
@@ -363,7 +362,8 @@
 	}
 	//replies
 	{
-		artoo.on(`messageCreate`, (message) => {
+		artoo.on(`messageCreate`, (message: Message) => {
+			if(message.channel instanceof DMChannel) {return}
 			if (generalStuff.blackList.includes(message.channel.name)) {return};
 			containsWord.replyThing(message, `anywhere`, 100, {content: r2Link}, [`botlink artoo`]);
 			containsWord.replyThing(message, `exact`, 10, {content: generalRas}, [`ras`, `rasmatham`, `rasberry`]);
@@ -377,7 +377,8 @@
 {
 	//replies
 	{
-		random.on(`messageCreate`, (message) => {
+		random.on(`messageCreate`, (message: Message) => {
+			if(message.channel instanceof DMChannel) {return}
 			if (generalStuff.blackList.includes(message.channel.name)) {return};
 			containsWord.replyThing(message, `anywhere`, 100, {content: randomLink}, [`botlink random stuff`]);
 			containsWord.replyThing(message, `anywhere`, 100, {content: `I like him`}, [`ras`, `rasmatham`, `rasberry`]);
@@ -399,7 +400,9 @@
 {
 	//Stuff
 	{
-		sini.on(`messageCreate`, (message) => {
+		sini.on(`messageCreate`, (message: Message) => {
+			if(message.channel instanceof DMChannel) {return}
+			if (generalStuff.blackList.includes(message.channel.name)) {return};
 			forwarding.messageForwarding(message);
 			//music(message, `sn;`);
 		})
@@ -409,7 +412,8 @@
 {
 	//replies
 	{
-		zelda.on(`messageCreate`, (message) => {
+		zelda.on(`messageCreate`, (message: Message) => {
+			if(message.channel instanceof DMChannel) {return}
 			if (generalStuff.blackList.includes(message.channel.name)) {return};
 			containsWord.replyThing(message, `anywhere`, 100, {content: zeldaLink}, [`botlink zelda`]);
 			containsWord.replyThing(message, `exact`, 10, {content: `Awesome dude`}, [`ras`, `rasmatham`, `rasberry`]);

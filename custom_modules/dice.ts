@@ -1,25 +1,20 @@
-const { CommandInteraction, MessageEmbed } = require(`discord.js`);
-/**
-* 
-* @param {CommandInteraction} interaction
-* @returns 
-*/
-var dice = (interaction) => {
+import { CommandInteraction, Interaction, MessageEmbed } from "discord.js";
+var dice = (interaction: CommandInteraction) => {
     let dieSides = 6
     let diceCount = 1
     if(typeof interaction.options.get(`die_sides`) != `undefined`){
-        dieSides = interaction.options.get(`die_sides`).value
+        dieSides = interaction.options.get(`die_sides`).value as number
     }
     if(typeof interaction.options.get(`dice_count`) != `undefined`){
-        diceCount = interaction.options.get(`dice_count`).value
+        diceCount = interaction.options.get(`dice_count`).value as number
     }
     interaction.reply(`Rolling ${diceCount} D${dieSides}`).then(() => {
         if (diceCount > 20) {
             interaction.editReply(`Sorry, but you can only roll 20 dice at a time`)
             .catch(console.error);
         } else {
-            if (dieSides === `10`) {
-                for (i = 0; i < diceCount; i++) {
+            if (dieSides === 10) {
+                for (let i = 0; i < diceCount; i++) {
                     var number10 = new MessageEmbed()
                     .setColor(`#0099ff`)
                     .setTitle(`Totally legit dice`)
@@ -28,8 +23,8 @@ var dice = (interaction) => {
                     interaction.followUp({embeds: [number10]})
                     .catch(console.error);
                 }
-            } else if (dieSides === `100`) {
-                for (i = 0; i < diceCount; i++) {
+            } else if (dieSides === 100) {
+                for (let i = 0; i < diceCount; i++) {
                     var number100 = new MessageEmbed()
                     .setColor(`#0099ff`)
                     .setTitle(`Totally legit dice`)
@@ -39,7 +34,7 @@ var dice = (interaction) => {
                     .catch(console.error);
                 }
             } else {
-                for (i = 0; i < diceCount; i++) {
+                for (let i = 0; i < diceCount; i++) {
                     var numberN = new MessageEmbed()
                     .setColor(`#0099ff`)
                     .setTitle(`Totally legit dice`)

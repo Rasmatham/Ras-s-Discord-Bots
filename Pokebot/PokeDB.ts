@@ -2,135 +2,135 @@ const types = {
 	bird: {
 		name: `Bird`,
 		color: `68A090`,
-		weakTo: [`?`],
-		strongTo: [`?`],
-		NoDamageTo: [`?`]
+		weakTo: [`?`] as string[],
+		strongTo: [`?`] as string[],
+		NoDamageTo: [`?`] as string[]
 	},
 	normal: {
 		name: `Normal`,
 		color: `C6C5A9`,
-		weakTo: [],
-		strongTo: [],
-		NoDamageTo: []
+		weakTo: [] as string[],
+		strongTo: [] as string[],
+		NoDamageTo: [] as string[]
 	},
 	fighting: {
 		name: `Fighting`,
 		color: `D37575`,
-		weakTo: [],
-		strongTo: [],
-		NoDamageTo: []
+		weakTo: [] as string[],
+		strongTo: [] as string[],
+		NoDamageTo: [] as string[]
 	},
 	flying: {
 		name: `Flying`,
 		color: `C5B9F1`,
-		weakTo: [],
-		strongTo: [],
-		NoDamageTo: []
+		weakTo: [] as string[],
+		strongTo: [] as string[],
+		NoDamageTo: [] as string[]
 	},
 	poison: {
 		name: `Poison`,
 		color: `BF83BE`,
-		weakTo: [],
-		strongTo: [],
-		NoDamageTo: []
+		weakTo: [] as string[],
+		strongTo: [] as string[],
+		NoDamageTo: [] as string[]
 	},
 	ground: {
 		name: `Ground`,
 		color: `EAD4A2`,
-		weakTo: [],
-		strongTo: [],
-		NoDamageTo: []
+		weakTo: [] as string[],
+		strongTo: [] as string[],
+		NoDamageTo: [] as string[]
 	},
 	rock: {
 		name: `Rock`,
 		color: `D1BF84`,
-		weakTo: [],
-		strongTo: [],
-		NoDamageTo: []
+		weakTo: [] as string[],
+		strongTo: [] as string[],
+		NoDamageTo: [] as string[]
 	},
 	bug: {
 		name: `Bug`,
 		color: `C7CF78`,
-		weakTo: [],
-		strongTo: [],
-		NoDamageTo: []
+		weakTo: [] as string[],
+		strongTo: [] as string[],
+		NoDamageTo: [] as string[]
 	},
 	ghost: {
 		name: `Ghost`,
 		color: `A193BA`,
-		weakTo: [],
-		strongTo: [],
-		NoDamageTo: []
+		weakTo: [] as string[],
+		strongTo: [] as string[],
+		NoDamageTo: [] as string[]
 	},
 	steel: {
 		name: `Steel`,
 		color: `D1D1DF`,
-		weakTo: [],
-		strongTo: [],
-		NoDamageTo: []
+		weakTo: [] as string[],
+		strongTo: [] as string[],
+		NoDamageTo: [] as string[]
 	},
 	fire: {
 		name: `Fire`,
 		color: `F3A97E`,
-		weakTo: [],
-		strongTo: [],
-		NoDamageTo: []
+		weakTo: [] as string[],
+		strongTo: [] as string[],
+		NoDamageTo: [] as string[]
 	},
 	water: {
 		name: `Water`,
 		color: `9EB9F1`,
-		weakTo: [],
-		strongTo: [],
-		NoDamageTo: []
+		weakTo: [] as string[],
+		strongTo: [] as string[],
+		NoDamageTo: [] as string[]
 	},
 	grass: {
 		name: `Grass`,
 		color: `AADA93`,
-		weakTo: [],
-		strongTo: [],
-		NoDamageTo: []
+		weakTo: [] as string[],
+		strongTo: [] as string[],
+		NoDamageTo: [] as string[]
 	},
 	electric: {
 		name: `Electric`,
 		color: `F9DD83`,
-		weakTo: [],
-		strongTo: [],
-		NoDamageTo: []
+		weakTo: [] as string[],
+		strongTo: [] as string[],
+		NoDamageTo: [] as string[]
 	},
 	psychic: {
 		name: `Psychic`,
 		color: `F790B1`,
-		weakTo: [],
-		strongTo: [],
-		NoDamageTo: []
+		weakTo: [] as string[],
+		strongTo: [] as string[],
+		NoDamageTo: [] as string[]
 	},
 	ice: {
 		name: `Ice`,
 		color: `BEE7E6`,
-		weakTo: [],
-		strongTo: [],
-		NoDamageTo: []
+		weakTo: [] as string[],
+		strongTo: [] as string[],
+		NoDamageTo: [] as string[]
 	},
 	dragon: {
 		name: `Dragon`,
 		color: `A082F4`,
-		weakTo: [],
-		strongTo: [],
-		NoDamageTo: []
+		weakTo: [] as string[],
+		strongTo: [] as string[],
+		NoDamageTo: [] as string[]
 	},
 	dark: {
 		name: `Dark`,
 		color: `A19189`,
-		weakTo: [],
-		strongTo: [],
-		NoDamageTo: []
+		weakTo: [] as string[],
+		strongTo: [] as string[],
+		NoDamageTo: [] as string[]
 	},
 	fairy: {
 		name: `Fairy`,
 		color: `F2BCC9`,
-		weakTo: [],
-		strongTo: [],
-		NoDamageTo: []
+		weakTo: [] as string[],
+		strongTo: [] as string[],
+		NoDamageTo: [] as string[]
 	}
 };
 

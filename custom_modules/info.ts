@@ -1,21 +1,8 @@
-const { CommandInteraction, MessageEmbed, GuildChannelManager } = require(`discord.js`);
-const { checkFor } = require(`./generalUse.js`);
+import { CommandInteraction, MessageEmbed, GuildChannelManager, Guild, User, ColorResolvable } from "discord.js";
+import { checkFor } from "./generalUse.js";
 //channelCount
 {
-	/**
-	* @typedef {Object} ChannelCounts
-	* @property {number} textChannels
-	* @property {number} voiceChannels
-	* @property {number} categories
-	* @property {number} unknown
-	* @property {number} all
-	*/
-	/**
-	* 
-	* @param {GuildChannelManager} guild 
-	* @returns {ChannelCounts}
-	*/
-	var channelCount = (guild) => {
+	var channelCount = (guild: Guild) => {
 		if (guild !== null) {
 			let TC = [];
 			let VC = [];
@@ -43,12 +30,7 @@ const { checkFor } = require(`./generalUse.js`);
 }
 //userinfo
 {
-	/**
-	* 
-	* @param {CommandInteraction} interaction
-	* @returns {Object} Discord codeblock with all information on a user as a string
-	*/
-	var userInfo = (interaction) => {
+	var userInfo = (interaction: CommandInteraction) => {
 		return {content: `\`\`\`json\ninteraction.member.user\n${JSON.stringify(interaction.user, null, 2)
 		}\n\ninteraction.member\n${JSON.stringify(interaction.member, null, 2)
 		}\n\`\`\``, ephemeral: !interaction.options.get(`public`).value}
@@ -56,17 +38,12 @@ const { checkFor } = require(`./generalUse.js`);
 }
 //serverinfo
 {
-	/**
-	* 
-	* @param {CommandInteraction} interaction
-	* @returns {String} List of all channels and categories on the server the message was sent
-	*/
-	var serverInfo = (interaction) => {
+	var serverInfo = (interaction: CommandInteraction) => {
 		if (interaction.guild !== null) {
-			let textChannels = [];
-			let voiceChannels = [];
-			let Categories = [];
-			let unknown = [];
+			let textChannels: string[] = [];
+			let voiceChannels: string[] = [];
+			let Categories: string[] = [];
+			let unknown: string[] = [] = [];
 			interaction.guild.channels.fetch().then((channels) => {
 				channels.forEach((channel) => {
 					switch (channel.type) {
@@ -114,16 +91,12 @@ const { checkFor } = require(`./generalUse.js`);
 }
 //join date
 {
-	/**
-	* 
-	* @param {CommandInteraction} interaction
-	* @returns {MessageEmbed} Embed containing information on when you joined the server and when you joined Discord
-	*/
-	var joindate = (interaction) => {
+	var joindate = (interaction: CommandInteraction) => {
+		if(!(interaction.member.user instanceof User)){return}
 		var ms = interaction.member.user.createdTimestamp;
 		var date = new Date(ms);
 		var embed = new MessageEmbed()
-		.setColor(`FFFFFF`)
+		.setColor(`FFFFFF` as ColorResolvable)
 		.setTitle(`You joined:`)
 		.setThumbnail(`https://cdn.discordapp.com/attachments/656164355381133332/715651846584270899/ezgif-3-ea387cdabbbe.gif`)
 		.addFields({

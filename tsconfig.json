@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "noImplicitAny": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "sourceMap": true,
+        "alwaysStrict": true,
+        "target": "ES5"
+    },
+    "include": [
+        "AllTheBots.ts",
+        "Pokebot/*.ts",
+        "custom_modules/*.ts"
+    ]
+}

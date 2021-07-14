@@ -1,12 +1,8 @@
 
-const { CommandInteraction, MessageActionRow, MessageButton, ButtonInteraction } = require(`discord.js`);
+import { CommandInteraction, MessageActionRow, MessageButton, ButtonInteraction, Interaction } from "discord.js";
 const mazeThing = require(`generate-maze`);
-/**
-* 
-* @param {CommandInteraction} interaction 
-*/
-var mazeFunction = (interaction) => {
-    const style = interaction.options.get(`style`).value
+var mazeFunction = (interaction: CommandInteraction) => {
+    const style = interaction.options.get(`style`).value as boolean
     const emotes = {
         false: {
             normal: {
@@ -107,7 +103,11 @@ var mazeFunction = (interaction) => {
     };
     
     class Cell {
-        constructor(emotes, x, y, hasPlayer, walls) {
+        private _emotes: any;
+        private _loc: number[];
+        private _hasPlayer: boolean;
+        private _walls: string;
+        constructor(emotes: any, x: number, y: number, hasPlayer: boolean, walls: `${`I`|`O`}${`I`|`O`}${`I`|`O`}${`I`|`O`}`) {
             this._emotes = emotes;
             this._loc = [x, y];
             this._hasPlayer = hasPlayer;
@@ -127,9 +127,9 @@ var mazeFunction = (interaction) => {
         }
         get walls() {
             if (this._loc[0] === 7 && this._loc[1] === 7) {
-                return this._emotes[this._hasPlayer][style].goal[this._walls];
+                return this._emotes[this._hasPlayer.toString()][style.toString()].goal[this._walls];
             } else {
-                return this._emotes[this._hasPlayer][style][this._walls];
+                return this._emotes[this._hasPlayer.toString()][style.toString()][this._walls];
             }
         }
         get boolWalls() {
@@ -137,16 +137,18 @@ var mazeFunction = (interaction) => {
         }
     }
     class Maze {
-        constructor(emotes, mazeArr) {
+        private _emotes: any;
+        private _playerLoc: number[];
+        private _cells: any[];
+        constructor(emotes: any) {
             this._emotes = emotes;
             this._playerLoc = [0, 0];
             this._cells = [];
-            this._mazeArr = mazeArr;
         }
         get cellArr() {
             return this._cells;
         }
-        addCell(x, y, walls) {
+        addCell(x: number, y: number, walls: `${`I`|`O`}${`I`|`O`}${`I`|`O`}${`I`|`O`}`) {
             this._cells.push(new Cell(this._emotes, x, y, x === 0 && y === 0, walls));
         }
         moveLeft() {
@@ -190,21 +192,20 @@ var mazeFunction = (interaction) => {
             });
         }
     }
-    const createdClass = new Maze(emotes, mazeArr);
-    var mazeArr = [];
+    const createdClass = new Maze(emotes);
     var maze = mazeThing(8, 8);
-    maze.forEach((x, i) => {
-        x.forEach((y, j) => {
+    maze.forEach((x: any, i: number) => {
+        x.forEach((y: {left: boolean, top: boolean, right: boolean, bottom: boolean}, j: number) => {
             createdClass.addCell(i, j, `${y.left
             }${y.top
             }${y.right
             }${y.bottom
-            }`.replaceAll(`true`, `I`)
-            .replaceAll(`false`, `O`), style);
+            }`.replace(/true/g, `I`)
+            .replace(/false/g, `O`) as `${`I`|`O`}${`I`|`O`}${`I`|`O`}${`I`|`O`}`);
         })
     })
     
-    var mazeMessage = (mazeObj) => {
+    var mazeMessage = (mazeObj: any) => {
         let messageText = ``;
         for (let i = 0; i < 8; i++) {
             for (let j = 0; j < 8; j++) {
@@ -237,10 +238,9 @@ var mazeFunction = (interaction) => {
         .setStyle(`SECONDARY`)
     ])
     interaction.reply({content: mazeMessage(createdClass), components: [arrows], ephemeral: true}).then(() => {
-        interaction.client.on(`interactionCreate`, (BI) => {
-            if (buttonInteraction.isButton() && interaction.id == buttonInteraction.message.interaction.id){
-                /** @type {ButtonInteraction} */
-                const buttonInteraction = BI
+        interaction.client.on(`interactionCreate`, (interaction: Interaction) => {
+            if (interaction.isButton() && interaction.id == interaction.message.interaction.id){
+                const buttonInteraction = interaction as ButtonInteraction
                 switch (buttonInteraction.customID) {
                     case `Left`:
                     createdClass.moveLeft();

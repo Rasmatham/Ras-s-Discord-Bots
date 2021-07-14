@@ -1,8 +1,5 @@
-const { Message } = require(`discord.js`);
-const req = require('node-fetch')
-/**
- * @returns {Promise<string>} A promise to a random inspirobot URL.
- */
+import { Message } from "discord.js";
+import req from "node-fetch";
 const getURL = () => {
     return req(`https://inspirobot.me/api?generate=true`)
     .then((res) => {
@@ -10,13 +7,9 @@ const getURL = () => {
     })
     .catch(console.error)
 }
-/**
- * 
- * @param {Message} message 
- */
-const sendMessage = (message) => {
+const sendMessage = (message: Message) => {
     if (!message.author.bot && (message.content.toLowerCase().includes(`inspire`) || message.content.toLowerCase().includes(`inspiration`) || message.content.toLowerCase().includes(`inspiring`))) {
-        getURL().then((url) => {
+        getURL().then((url: string) => {
             message.channel.send(url)
 			.catch(console.error)
         })

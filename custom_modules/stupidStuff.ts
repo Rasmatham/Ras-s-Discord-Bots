@@ -1,15 +1,11 @@
-const { CommandInteraction, Message, MessageActionRow, MessageButton, MessageSelectMenu, TextChannel } = require(`discord.js`);
-const {interactionFormat, blackList } = require(`./generalUse`);
+import { CommandInteraction, Emoji, EmojiIdentifierResolvable, Interaction, Message, MessageActionRow, MessageButton, MessageOptions, MessageSelectMenu, TextChannel } from "discord.js";
+import { blackList } from "./generalUse";
 //Frick that one rule
 {
-	/**
-	* 
-	* @param {Message} message 
-	*/
-	var hencefortifier = (message) => {
+	var hencefortifier = (message: Message) => {
 		if (message.author.id !== message.client.user.id && message.guild !== null &&message.content.toLowerCase().includes(`from now on`)) {
 			if(message.guild.id == `646155122992480266`){
-				let textChannels = [];
+				let textChannels: `${bigint}`[] = [];
 				message.guild.channels.cache.map((channel) => {
 					if (channel.type === `text`) {
 						blackList.forEach((bannedChannel) => {
@@ -20,10 +16,8 @@ const {interactionFormat, blackList } = require(`./generalUse`);
 					}
 				});
 				message.client.channels.fetch(textChannels[Math.floor(Math.random() * (textChannels.length - 1))])
-				.then((channel) => {
-					/** @type {TextChannel} */
-					const textChannel = channel
-					textChannel.send(`<@${message.author.id}>, you did an oopsie`)
+				.then((channel: TextChannel) => {
+					channel.send(`<@${message.author.id}>, you did an oopsie`)
 					.catch(console.error)
 				});
 			}
@@ -32,12 +26,7 @@ const {interactionFormat, blackList } = require(`./generalUse`);
 }
 //Flit no lasting! Flit no lasting! Flit no lasting!
 {
-	/**
-	* 
-	* @param {Message} message 
-	* @param {String|Number} userID
-	*/
-	var userWordBan = (message, word, userID) => {
+	var userWordBan = (message: Message, word: string, userID: `${bigint}`) => {
 		if (message.author.id === userID) {
 			if (message.content.toLowerCase().includes(word)) {
 				message.delete()
@@ -48,23 +37,15 @@ const {interactionFormat, blackList } = require(`./generalUse`);
 }
 //smh, Espen bot doesn't work
 {
-	/**
-	* @param {String} type
-	* @param {Message} message 
-	* @param {Number} chance
-	* @param {String|Number} victim
-	* @param {[]} out
-	* 
-	*/
-	var espenBotReplacement = (type, message, chance, victim, out) => {
+	var espenBotReplacement = (type: `message` | `react`, message: Message, chance: number, victim: `${bigint}`, out: MessageOptions | EmojiIdentifierResolvable) => {
 		if (message.author.id === victim && Math.floor(Math.random() * 100) <= chance) {
 			switch(type){
 				case `message`:
-				message.channel.send(out[0], out[1])
+				message.channel.send(out as MessageOptions)
 				.catch(console.error);
 				break;
 				case `react`:
-				message.react(out)
+				message.react(out as EmojiIdentifierResolvable)
 				.catch(console.error);
 				break;
 			}
@@ -73,16 +54,11 @@ const {interactionFormat, blackList } = require(`./generalUse`);
 }
 //button grid
 {
-	/**
-	* 
-	* @param {CommandInteraction} interaction 
-	* @returns 
-	*/
-	var buttonGrid = (interaction) => {
+	var buttonGrid = (interaction: CommandInteraction) => {
 		var unicodeEmoji = /^(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])$/gi;
 		var discordEmoji = /^<(a?)?:.+?:\d+>$/gi;
 		var discordEmojiNotExact = /<(a?)?:.+?:\d+>/gi;
-		let buttonContent = interaction.options.get(`button_content`).value;
+		let buttonContent = interaction.options.get(`button_content`).value as string;
 		if(buttonContent.length <= 80){
 			if(buttonContent.match(unicodeEmoji) || buttonContent.match(discordEmoji)){
 				const button = new MessageButton().setCustomID(`Dummy`).setEmoji(buttonContent).setStyle(`SECONDARY`);
@@ -98,11 +74,6 @@ const {interactionFormat, blackList } = require(`./generalUse`);
 			return {content: buttonContent, components: [bar, bar, bar, bar, bar]};
 		}
 	}
-	/**
-	* 
-	* @param {CommandInteraction} interaction 
-	* @returns 
-	*/
 	var selectMenu = () => {
 		const menu = new MessageSelectMenu().setCustomID(`Dummy`).setPlaceholder(`Choose wisely`).addOptions([
 			{

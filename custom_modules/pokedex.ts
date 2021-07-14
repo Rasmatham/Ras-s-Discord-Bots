@@ -1,13 +1,8 @@
-const { MessageEmbed, MessageAttachment } = require(`discord.js`);
-var DB = require(`../Pokèbot/PokeDB.js`);
+import { MessageEmbed, MessageAttachment } from "discord.js";
+var DB = require(`../Pokebot/PokeDB.js`);
 //dex embed
 {
-    /**
-     * 
-     * @param {Number} Query A valid entry number in teh national dex
-     * @returns {MessageEmbed}
-     */
-    var natDex = (Query) => {
+    var natDex = (Query: any) => {
         let dexNumber = 0;
         if (!isNaN(Query)) { Query = Number(Query) }
         switch (typeof Query) {

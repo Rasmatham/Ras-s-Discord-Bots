@@ -1,15 +1,9 @@
-const { Message, MessageAdditions, MessageOptions } = require("discord.js");
+import { Message, MessageAdditions, MessageOptions, User } from "discord.js";
 //reply
 {
 	//function int
 	{
-		/**
-		 * 
-		 * @param {Message} message 
-		 * @param {Number} chance 
-		 * @param {MessageOptions} rply 
-		 */
-		var reply = async (message, chance, rply) => {
+		var reply = async (message: Message, chance: number, rply: MessageOptions) => {
 			if (Math.random() * 100 <= chance) {
 				message.channel.startTyping(3)
 				.then(() => {message.channel.send(rply)})
@@ -21,25 +15,16 @@ const { Message, MessageAdditions, MessageOptions } = require("discord.js");
 	}
 	//function ext
 	{
-		/**
-		 * 
-		 * @param {Message} message Discord.js message object
-		 * @param {String} type Anywhere, exact or mention
-		 * @param {Number} chance A number between 0 and 100 that decides the percentage of times the function should send a message
-		 * @param {MessageAdditions} fileorembed Discord.js messageAdditions object (could probably also ba a messageOptions object)
-		 * @param {String} rply Message that the bot should send back
-		 * @param {String[]} triggerArr An array of trigger strings
-		 */
-		var replyThing = (message, type, chance, rply, triggerArr) => {
+		var replyThing = (message: Message, type: `anywhere` | `exact` | `mention`, chance: number, rply: MessageOptions, triggerArr: string[] | `${bigint}`[]) => {
 			if (!message.author.bot) {
 				if (type === `anywhere`) {
 					triggerArr.forEach((trigger) => {
-						if (message.content.toLowerCase().includes(trigger)) {
+						if (message.content.toLowerCase().includes(trigger as string)) {
 							reply(message, chance, rply);
 						}
 					});
 				} else if (type === `exact`) {
-					editedMessage = message.content
+					const editedMessage = message.content
 					.replace(`.`, ``)
 					.replace(`,`, ``)
 					.replace(`!`, ``)
@@ -54,7 +39,7 @@ const { Message, MessageAdditions, MessageOptions } = require("discord.js");
 					});
 				} else if (type === `mention`) {
 					triggerArr.forEach((trigger) => {
-						if (message.mentions.users.has(trigger)) {
+						if (message.mentions.users.has(trigger as `${bigint}`)) {
 							reply(message, chance, rply);
 						}
 					});
@@ -67,7 +52,7 @@ const { Message, MessageAdditions, MessageOptions } = require("discord.js");
 {
 	//function int
 	{
-		var react = (message, chance, emoteArr) => {
+		var react = (message: Message, chance: number, emoteArr: string[]) => {
 			if (Math.random() * 100 <= chance) {
 				emoteArr.forEach(emote => {
 					message.react(emote);
@@ -77,15 +62,7 @@ const { Message, MessageAdditions, MessageOptions } = require("discord.js");
 	}
 	//Function ext
 	{
-		/**
-		 * 
-		 * @param {Message} message Discord.js message object
-		 * @param {String} type Anywhere, exact or mention
-		 * @param {Number} chance A number between 0 and 100 that decides the percentage of times the function should send a message
-		 * @param {String} emoteArr An array of emotes (the number part of the ID or 😃)
-		 * @param {String[]} triggerArr An array of trigger strings
-		 */
-		var reactThing = (message, type, chance, emoteArr, triggerArr) => {
+		var reactThing = (message: Message, type: `anywhere` | `exact` | `mention`, chance: number, emoteArr: string[], triggerArr: string[] | `${bigint}`[]) => {
 			if (!message.author.bot) {
 				if (type === `anywhere`) {
 					triggerArr.forEach((trigger) => {
@@ -94,7 +71,7 @@ const { Message, MessageAdditions, MessageOptions } = require("discord.js");
 						}
 					});
 				} else if (type === `exact`) {
-					editedMessage = message.content
+					const editedMessage = message.content
 					.replace(`.`, ``)
 					.replace(`,`, ``)
 					.replace(`!`, ``)
@@ -109,7 +86,7 @@ const { Message, MessageAdditions, MessageOptions } = require("discord.js");
 					});
 				} else if (type === `mention`) {
 					triggerArr.forEach((trigger) => {
-						if (message.mentions.users.has(trigger) && Math.random() * 100 <= chance) {
+						if (message.mentions.users.has(trigger as `${bigint}`) && Math.random() * 100 <= chance) {
 							react(message, chance, emoteArr);
 						}
 					});

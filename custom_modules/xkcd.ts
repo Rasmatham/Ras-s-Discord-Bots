@@ -1,21 +1,17 @@
-const { CommandInteraction, MessageEmbed } = require(`discord.js`);
-const xkcd = require(`xkcd`);
+import { CommandInteraction, MessageEmbed } from "discord.js";
+const xkcdModule = require(`xkcd`);
 
-/**
-* 
-* @param {CommandInteraction} interaction
-*/
-var xkcdFunct = (interaction) => {
-    xkcd((xkcdObjOuter) => {
+var xkcdFunct = (interaction: CommandInteraction) => {
+    xkcdModule((xkcdObjOuter: {num: number}) => {
         let num = Math.ceil(Math.random() * (xkcdObjOuter.num + Math.random()))
         if(typeof interaction.options.get(`xkcd_number`) != `undefined`){
-            num = interaction.options.get(`xkcd_number`).value
+            num = interaction.options.get(`xkcd_number`).value as number
         }
         if (num > xkcdObjOuter.num || num <= 0) {
             interaction.reply({content: `Try a whole number from 1 to ${xkcdObjOuter.num}`, ephemeral: true})
             .catch(console.error);
         } else {
-            xkcd(num, (xkcdObj) => {
+            xkcdModule(num, (xkcdObj: {title: string, num: number, alt: string, img: string}) => {
                 const xkcdEmbed = new MessageEmbed()
                 .setTitle(xkcdObj.title)
                 .setURL(`https://xkcd.com/${xkcdObj.num}/`)
