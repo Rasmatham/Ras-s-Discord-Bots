@@ -7,10 +7,10 @@ import { blackList } from "./generalUse";
 			if(message.guild.id == `646155122992480266`){
 				let textChannels: `${bigint}`[] = [];
 				message.guild.channels.cache.map((channel) => {
-					if (channel.type === `text`) {
+					if (channel.type === `GUILD_TEXT`) {
 						blackList.forEach((bannedChannel) => {
 							if (channel.name !== bannedChannel) {
-								textChannels.push(channel.id);
+								textChannels.push(channel.id as `${bigint}`);
 							}
 						});
 					}
@@ -61,21 +61,21 @@ import { blackList } from "./generalUse";
 		let buttonContent = interaction.options.get(`button_content`).value as string;
 		if(buttonContent.length <= 80){
 			if(buttonContent.match(unicodeEmoji) || buttonContent.match(discordEmoji)){
-				const button = new MessageButton().setCustomID(`Dummy`).setEmoji(buttonContent).setStyle(`SECONDARY`);
+				const button = new MessageButton().setCustomId(`Dummy`).setEmoji(buttonContent).setStyle(`SECONDARY`);
 				const bar = new MessageActionRow().addComponents([button],[button],[button],[button],[button]);
 				return {content: buttonContent, components: [bar, bar, bar, bar, bar]};
 			} else if (buttonContent.match(discordEmojiNotExact)) {
-				const button = new MessageButton().setCustomID(`Dummy`).setLabel(buttonContent.replace(discordEmojiNotExact, ``)).setStyle(`SECONDARY`);
+				const button = new MessageButton().setCustomId(`Dummy`).setLabel(buttonContent.replace(discordEmojiNotExact, ``)).setStyle(`SECONDARY`);
 				const bar = new MessageActionRow().addComponents([button],[button],[button],[button],[button]);
 				return {content: buttonContent.replace(discordEmojiNotExact, ``), components: [bar, bar, bar, bar, bar]};
 			}
-			const button = new MessageButton().setCustomID(`Dummy`).setLabel(buttonContent).setStyle(`SECONDARY`);
+			const button = new MessageButton().setCustomId(`Dummy`).setLabel(buttonContent).setStyle(`SECONDARY`);
 			const bar = new MessageActionRow().addComponents([button],[button],[button],[button],[button]);
 			return {content: buttonContent, components: [bar, bar, bar, bar, bar]};
 		}
 	}
 	var selectMenu = () => {
-		const menu = new MessageSelectMenu().setCustomID(`Dummy`).setPlaceholder(`Choose wisely`).addOptions([
+		const menu = new MessageSelectMenu().setCustomId(`Dummy`).setPlaceholder(`Choose wisely`).addOptions([
 			{
 				label: 'Ras is cool',
 				description: 'This is the wrong answer',

@@ -9,7 +9,7 @@
 ╚══════════════════════════════════════════════════════════╝
 */
 
-import { ButtonInteraction, Client, ColorResolvable, CommandInteraction, DMChannel, GuildMember, Interaction, Message, MessageComponentInteraction, MessageEmbed, MessageManager, PartialDMChannel } from "discord.js";
+import { ButtonInteraction, Client, ColorResolvable, CommandInteraction, DMChannel, GuildMember, Interaction, Message, MessageComponentInteraction, MessageEmbed, PartialDMChannel, TextBasedChannel, TextBasedChannels } from "discord.js";
 var containsWord = require(`./custom_modules/containsWordFunctions.js`);
 var forwarding = require(`./custom_modules/forwardMessages.js`);
 var generalStuff = require(`./custom_modules/generalUse.js`);
@@ -90,7 +90,7 @@ require(`dotenv`).config();
 	//replies
 	{
 		buzzBot.on(`messageCreate`, (message: Message) => {
-			if(message.channel instanceof DMChannel) {return}
+			if (message.channel.type == `DM`) {return}
 			if (generalStuff.blackList.includes(message.channel.name)) {return};
 			containsWord.replyThing(message, `exact`, 10, {content: `He makes me go buzz`}, [`ras`, `rasmatham`, `rasberry`]);
 			containsWord.replyThing(message, `exact`, 10, {content: `It's BeeMrtz, you insensitive prick!`}, [`bymrtz`]);
@@ -109,7 +109,7 @@ require(`dotenv`).config();
 	//Stuff
 	{
 		clambot.on(`messageCreate`, (message: Message) => {
-			if(message.channel instanceof DMChannel) {return}
+			if (message.channel.type == `DM`) {return}
 			if (generalStuff.blackList.includes(message.channel.name)) {return};
 			containsWord.replyThing(message, `anywhere`, 100, {content: `PING!`}, [`<@&`]);
 			//forwarding.DMSpy(message, `764479509138636810`);
@@ -123,7 +123,7 @@ require(`dotenv`).config();
 	//replies
 	{
 		ebnj.on(`messageCreate`, (message: Message) => {
-			if(message.channel instanceof DMChannel) {return}
+			if (message.channel.type == `DM`) {return}
 			if (generalStuff.blackList.includes(message.channel.name)) {return};
 			containsWord.replyThing(message, `anywhere`, 100, {content: ebnjLink}, [`botlink ebnj`]);
 			containsWord.replyThing(message, `anywhere`, 100, {content: `🦆 <:Minecoins:656622021240815623>`}, [`minecoin`]);
@@ -199,7 +199,7 @@ require(`dotenv`).config();
 		//Stuff
 		{
 			glados.on(`messageCreate`, (message: Message) => {
-				if(message.channel instanceof DMChannel) {return}
+				if(message.channel.type == `DM`) {return}
 				if (generalStuff.blackList.includes(message.channel.name)) {return};
 				containsWord.replyThing(message, `anywhere`, 100, {content: cake}, [`cake`, `tower 15`]);
 				containsWord.replyThing(message, `anywhere`, 100, {files: [{attachment: `./GLaDOS/files/lemonade.png`, name: `test.png`}], content: lemonrant}, [`lemon`, `🍋`]);
@@ -237,7 +237,7 @@ require(`dotenv`).config();
 					switch(messageComponentInteraction.componentType){
 						case `BUTTON`:
 						let buttonInteraction = messageComponentInteraction as ButtonInteraction;
-						switch(buttonInteraction.customID){
+						switch(buttonInteraction.customId){
 							case `Dummy`:
 							buttonInteraction.deleteReply()
 							.catch(console.error);
@@ -248,7 +248,7 @@ require(`dotenv`).config();
 						break;
 						case `SELECT_MENU`:
 						let selectMenuInteraction = messageComponentInteraction;
-						switch(selectMenuInteraction.customID){
+						switch(selectMenuInteraction.customId){
 							case `Dummy`:
 							selectMenuInteraction.update({content: `Seems about right`})
 							.catch(console.error)
@@ -330,7 +330,7 @@ require(`dotenv`).config();
 	//Stuff
 	{
 		pokebot.on(`messageCreate`, (message: Message) => {
-			if(message.channel instanceof DMChannel) {return}
+			if(message.channel.type == `DM`) {return}
 			if (generalStuff.blackList.includes(message.channel.name)) {return};
 			containsWord.replyThing(message, `anywhere`, 100, {content: pokeLink}, [`botlink pokebot`]);
 			forwarding.messageForwarding(message);
@@ -363,7 +363,7 @@ require(`dotenv`).config();
 	//replies
 	{
 		artoo.on(`messageCreate`, (message: Message) => {
-			if(message.channel instanceof DMChannel) {return}
+			if(message.channel.type == `DM`) {return}
 			if (generalStuff.blackList.includes(message.channel.name)) {return};
 			containsWord.replyThing(message, `anywhere`, 100, {content: r2Link}, [`botlink artoo`]);
 			containsWord.replyThing(message, `exact`, 10, {content: generalRas}, [`ras`, `rasmatham`, `rasberry`]);
@@ -378,7 +378,7 @@ require(`dotenv`).config();
 	//replies
 	{
 		random.on(`messageCreate`, (message: Message) => {
-			if(message.channel instanceof DMChannel) {return}
+			if(message.channel.type == `DM`) {return}
 			if (generalStuff.blackList.includes(message.channel.name)) {return};
 			containsWord.replyThing(message, `anywhere`, 100, {content: randomLink}, [`botlink random stuff`]);
 			containsWord.replyThing(message, `anywhere`, 100, {content: `I like him`}, [`ras`, `rasmatham`, `rasberry`]);
@@ -401,7 +401,7 @@ require(`dotenv`).config();
 	//Stuff
 	{
 		sini.on(`messageCreate`, (message: Message) => {
-			if(message.channel instanceof DMChannel) {return}
+			if(message.channel.type == `DM`) {return}
 			if (generalStuff.blackList.includes(message.channel.name)) {return};
 			forwarding.messageForwarding(message);
 			//music(message, `sn;`);
@@ -413,7 +413,7 @@ require(`dotenv`).config();
 	//replies
 	{
 		zelda.on(`messageCreate`, (message: Message) => {
-			if(message.channel instanceof DMChannel) {return}
+			if(message.channel.type == `DM`) {return}
 			if (generalStuff.blackList.includes(message.channel.name)) {return};
 			containsWord.replyThing(message, `anywhere`, 100, {content: zeldaLink}, [`botlink zelda`]);
 			containsWord.replyThing(message, `exact`, 10, {content: `Awesome dude`}, [`ras`, `rasmatham`, `rasberry`]);

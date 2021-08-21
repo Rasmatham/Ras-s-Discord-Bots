@@ -1,9 +1,9 @@
-import { ChannelResolvable, DMChannel, Message, NewsChannel, TextChannel, ThreadChannel, VoiceChannel } from "discord.js";
-const { sendAsWebHook, blackList } = require(`./generalUse.js`);
+import { ChannelResolvable, DMChannel, Message, NewsChannel, TextBasedChannels, TextChannel, ThreadChannel, VoiceChannel } from "discord.js";
+import { sendAsWebHook, blackList } from "./generalUse.js";
 //forwarding
 {
     var messageForwarding = (message: Message) => {
-        if(message.channel instanceof DMChannel) {return}
+        if(message.channel.type == `DM`) {return}
         let bot = message.client;
         if (!message.author.bot) {
             if (message.content.startsWith(`<#`)) {
@@ -11,7 +11,7 @@ const { sendAsWebHook, blackList } = require(`./generalUse.js`);
                     if (!blackList.includes(message.channel.name) /*|| message.member.id === process.env.RASID*/ || message.member.permissions.has(`ADMINISTRATOR`)) {
                         bot.channels.fetch(message.mentions.channels.first().id).then((channel) => {
                             if(!(channel instanceof TextChannel || channel instanceof DMChannel || channel instanceof NewsChannel || channel instanceof ThreadChannel)) {return}
-                            channel.send({content: message.content.replace(message.mentions.channels.first().toString(), ``).replace(/¤/g, ``), files: message.attachments.array()})
+                            channel.send({content: message.content.replace(message.mentions.channels.first().toString(), ``).replace(/¤/g, ``), files: message.attachments.map((value) => value)})
                             .catch(console.error);
                         })
                     } else {
@@ -42,12 +42,12 @@ const { sendAsWebHook, blackList } = require(`./generalUse.js`);
 //DM spy
 {
     var DMSpy = (message: Message, ChID: `${bigint}`) => {
-        if (message.guild === null && !message.author.bot /*&& message.author.id !== process.env.RASID*/) {
+        if (message.channel.type == "DM" && !message.author.bot /*&& message.author.id !== process.env.RASID*/) {
             message.client.channels.fetch(ChID).then((channel) => {
-                if(!(channel instanceof TextChannel || channel instanceof DMChannel || channel instanceof NewsChannel || channel instanceof ThreadChannel)) {return}
+                if(!(channel instanceof TextChannel || channel instanceof NewsChannel)) {return}
                 channel.send(`\`\`\`${message.author.tag} - <@${message.author.id}>\`\`\`\nsent:`)
                 .catch(console.error);
-                sendAsWebHook(message, message.client.channels.cache.get(ChID), {content: message, files: message.attachments.array() }, message.author.username, message.author.displayAvatarURL({ format: `png`, dynamic: true }));
+                sendAsWebHook(message, channel, {content: message.content,files: message.attachments.map((value) => value)}, message.author.username , message.author.avatarURL());
                 message.channel.send(`Your message was sent to a super secret channel in Everyone Sightings`)
                 .catch(console.error);
             })
@@ -57,17 +57,23 @@ const { sendAsWebHook, blackList } = require(`./generalUse.js`);
 //Channel link
 {
     var channelLink = (message: Message, ch1: `${bigint}`, ch2: `${bigint}`) => {
-        if (!message.author.bot) {
-            switch (message.channel.id) {
-                case ch1:
-                sendAsWebHook(message, message.client.channels.cache.get(ch2), {message}, message.author.username, message.author.displayAvatarURL({ format: `png`, dynamic: true }));
-                break;
-                case ch2:
-                sendAsWebHook(message, message.client.channels.cache.get(ch1), {message}, message.author.username, message.author.displayAvatarURL({ format: `png`, dynamic: true }));
-                break;
-                default:
-                break;
-            }
+        if (!message.author.bot && (message.channel.id == ch1 || message.channel.id == ch2)) {
+            message.client.channels.fetch(ch1).then((ch1) => {
+                if(!(ch1 instanceof TextChannel || ch1 instanceof NewsChannel)) {return}
+                message.client.channels.fetch(ch2).then((ch2) => {
+                    if(!(ch2 instanceof TextChannel || ch2 instanceof NewsChannel)) {return}
+                    switch (message.channel.id) {
+                        case ch1.id:
+                        sendAsWebHook(message, ch2, {content: message.content,files: message.attachments.map((value) => value)}, message.author.username, message.author.displayAvatarURL({ format: `png`, dynamic: true }));
+                        break;
+                        case ch2.id:
+                        sendAsWebHook(message, ch1, {content: message.content,files: message.attachments.map((value) => value)}, message.author.username, message.author.displayAvatarURL({ format: `png`, dynamic: true }));
+                        break;
+                        default:
+                        break;
+                    }
+                })
+            })
         }
     }
 }

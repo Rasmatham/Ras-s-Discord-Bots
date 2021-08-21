@@ -218,22 +218,22 @@ var mazeFunction = (interaction: CommandInteraction) => {
     const arrows = new MessageActionRow()
     .addComponents([
         new MessageButton()
-        .setCustomID(`Left`)
+        .setCustomId(`Left`)
         .setEmoji(`⬅️`)
         .setStyle(`SECONDARY`)
     ],[
         new MessageButton()
-        .setCustomID(`Up`)
+        .setCustomId(`Up`)
         .setEmoji(`⬆️`)
         .setStyle(`SECONDARY`)
     ],[
         new MessageButton()
-        .setCustomID(`Down`)
+        .setCustomId(`Down`)
         .setEmoji(`⬇️`)
         .setStyle(`SECONDARY`)
     ],[
         new MessageButton()
-        .setCustomID(`Right`)
+        .setCustomId(`Right`)
         .setEmoji(`➡️`)
         .setStyle(`SECONDARY`)
     ])
@@ -241,7 +241,7 @@ var mazeFunction = (interaction: CommandInteraction) => {
         interaction.client.on(`interactionCreate`, (interaction: Interaction) => {
             if (interaction.isButton() && interaction.id == interaction.message.interaction.id){
                 const buttonInteraction = interaction as ButtonInteraction
-                switch (buttonInteraction.customID) {
+                switch (buttonInteraction.customId) {
                     case `Left`:
                     createdClass.moveLeft();
                     if (!createdClass.cellArr[63].playerState) {

@@ -1,5 +1,5 @@
-const { Client } = require(`discord.js`);
-const { intents } = require(`./custom_modules/generalUse.js`);
+import { Client } from "discord.js";
+import { intents } from "./custom_modules/generalUse.js";
 require(`dotenv`).config();
 const buzzBot = new Client({intents: intents, presence: {status: `dnd`, activities: [{name: `Doing some maintenance`, type: `PLAYING`}]}});
 const clambot = new Client({intents: intents, presence: {status: `dnd`, activities: [{name: `Doing some maintenance`, type: `PLAYING`}]}});

@@ -6,12 +6,12 @@ const ticTacToe = (interaction: CommandInteraction) => {
         const choices = new MessageActionRow()
         .addComponents([
             new MessageButton()
-            .setCustomID(`accept`)
+            .setCustomId(`accept`)
             .setEmoji(`✔️`)
             .setStyle(`SUCCESS`)
         ],[
             new MessageButton()
-            .setCustomID(`decline`)
+            .setCustomId(`decline`)
             .setEmoji(`✖️`)
             .setStyle(`DANGER`)
         ])
@@ -24,7 +24,7 @@ const ticTacToe = (interaction: CommandInteraction) => {
     })
     .catch(console.error);
     
-    const button = (ID: string) => {return new MessageButton().setCustomID(ID).setEmoji(`<:ras:741303046574702652>`).setStyle(`SECONDARY`)}
+    const button = (ID: string) => {return new MessageButton().setCustomId(ID).setEmoji(`<:ras:741303046574702652>`).setStyle(`SECONDARY`)}
     
     const row1 = new MessageActionRow().addComponents([button(`TTT1`), button(`TTT2`), button(`TTT3`)]);
     const row2 = new MessageActionRow().addComponents([button(`TTT4`), button(`TTT5`), button(`TTT6`)]);
@@ -34,7 +34,7 @@ const ticTacToe = (interaction: CommandInteraction) => {
     
     interaction.client.on(`interactionCreate`, (buttonInteraction: ButtonInteraction) => {
         if(buttonInteraction.message.mentions instanceof MessageMentions){
-            switch(buttonInteraction.customID){
+            switch(buttonInteraction.customId){
                 //================================================================================================================
                 case `accept`:
                 if(buttonInteraction.user.id == buttonInteraction.message.mentions.members.first().id){
@@ -71,7 +71,7 @@ const ticTacToe = (interaction: CommandInteraction) => {
                 break;
                 //================================================================================================================
                 default:
-                if(buttonInteraction.customID.startsWith(`TTT`)){
+                if(buttonInteraction.customId.startsWith(`TTT`)){
                     buttonInteraction.guild.members.fetch(buttonInteraction.message.content.split(` `)[3].replace(`<@`, ``).replace(`>`, ``).replace(`!`, ``) as UserResolvable)
                     .then(() => {
                         buttonInteraction.guild.members.fetch(buttonInteraction.message.content.split(` `)[6].replace(`<@`, ``).replace(`>`, ``).replace(`!`, ``) as UserResolvable)
@@ -81,13 +81,15 @@ const ticTacToe = (interaction: CommandInteraction) => {
                         const players = [buttonInteraction.guild.members.cache.get(buttonInteraction.message.content.split(` `)[3].replace(`<@`, ``).replace(`>`, ``).replace(`!`, ``) as `${bigint}`), buttonInteraction.guild.members.cache.get(buttonInteraction.message.content.split(` `)[6].replace(`<@`, ``).replace(`>`, ``).replace(`!`, ``) as `${bigint}`)]
                         const movePieces = !(buttonInteraction.message.content.includes(`no`))
                         const rows = buttonInteraction.message.components
-                        let buttons: APIButtonComponent[] = []
+                        let buttons: MessageButton[] = []
                         let O = 0
                         let X = 0
                         
                         rows.forEach((row) => {
-                            row.components.forEach((button) => {
-                                buttons.push(button as APIButtonComponent)
+                            row.components.forEach((component) => {
+                                if(component.type == `BUTTON`){
+                                buttons.push(component)
+                                }
                             })
                         })
                         
@@ -111,11 +113,11 @@ const ticTacToe = (interaction: CommandInteraction) => {
                                 if(!movePieces){
                                     const newButton = (row: number, collumn: number) => {
                                         const messageButton = BM.components[row].components[collumn] as MessageButton
-                                        return new MessageButton().setCustomID(messageButton.customID).setEmoji(messageButton.emoji.id).setStyle(style)
+                                        return new MessageButton().setCustomId(messageButton.customId).setEmoji(messageButton.emoji.id).setStyle(style)
                                     }
                                     const newCheckedButton = (row: number, collumn: number, emoji: EmojiIdentifierResolvable) => {
                                         const messageButton = BM.components[row].components[collumn] as MessageButton
-                                        return new MessageButton().setCustomID(messageButton.customID).setEmoji(emoji).setStyle(style)
+                                        return new MessageButton().setCustomId(messageButton.customId).setEmoji(emoji).setStyle(style)
                                     }
                                     
                                     let row1 = new MessageActionRow().addComponents([newButton(0, 0), newButton(0, 1), newButton(0, 2)]);
@@ -124,7 +126,7 @@ const ticTacToe = (interaction: CommandInteraction) => {
                                     
                                     if(X > O){
                                         const emoji = `⭕`
-                                        switch(buttonInteraction.customID){
+                                        switch(buttonInteraction.customId){
                                             case `TTT1`:
                                             row1 = new MessageActionRow()
                                             .addComponents([newCheckedButton(0, 0, emoji), newButton(0, 1), newButton(0, 2)])
@@ -166,7 +168,7 @@ const ticTacToe = (interaction: CommandInteraction) => {
                                         }
                                     } else {
                                         const emoji = `❌`
-                                        switch(buttonInteraction.customID){
+                                        switch(buttonInteraction.customId){
                                             case `TTT1`:
                                             row1 = new MessageActionRow()
                                             .addComponents([newCheckedButton(0, 0, emoji), newButton(0, 1), newButton(0, 2)])

@@ -1,7 +1,7 @@
-import { Message, MessageAttachment, TextChannel, WebhookClient, Client, MessageEmbed, MessageOptions, Webhook, BufferResolvable, User } from "discord.js";
+import { Message, MessageAttachment, TextChannel, WebhookClient, Client, MessageEmbed, MessageOptions, Webhook, BufferResolvable, User, Intents, NewsChannel, ThreadChannel } from "discord.js";
 //intents
 {
-	var intents = [`GUILDS`, `GUILD_MEMBERS`, `GUILD_BANS`, `GUILD_EMOJIS`, `GUILD_INTEGRATIONS`, `GUILD_WEBHOOKS`, `GUILD_INVITES`, `GUILD_VOICE_STATES`, `GUILD_PRESENCES`, `GUILD_MESSAGES`, `GUILD_MESSAGE_REACTIONS`, `GUILD_MESSAGE_TYPING`, `DIRECT_MESSAGES`, `DIRECT_MESSAGE_REACTIONS`, `DIRECT_MESSAGE_TYPING`];
+	var intents = new Intents([`GUILDS`, `GUILD_MEMBERS`, `GUILD_BANS`, `GUILD_EMOJIS_AND_STICKERS`, `GUILD_INTEGRATIONS`, `GUILD_WEBHOOKS`, `GUILD_INVITES`, `GUILD_VOICE_STATES`, `GUILD_PRESENCES`, `GUILD_MESSAGES`, `GUILD_MESSAGE_REACTIONS`, `GUILD_MESSAGE_TYPING`, `DIRECT_MESSAGES`, `DIRECT_MESSAGE_REACTIONS`, `DIRECT_MESSAGE_TYPING`]);
 }
 //Message class
 {
@@ -21,7 +21,7 @@ import { Message, MessageAttachment, TextChannel, WebhookClient, Client, Message
 }
 //send as webhook
 {
-	var sendAsWebHook = (message: Message, sendTo: TextChannel, sendMessage: MessageOptions, name: string, PFP: BufferResolvable) => {
+	var sendAsWebHook = (message: Message, sendTo: TextChannel | NewsChannel, sendMessage: MessageOptions, name: string, PFP: BufferResolvable):void => {
 		let webHookFunction = () => {
 			sendTo.fetchWebhooks()
 			.then((webHooks) => {
@@ -40,7 +40,7 @@ import { Message, MessageAttachment, TextChannel, WebhookClient, Client, Message
 				webHooks.map((webHook: Webhook) => {
 					if(webHook.owner instanceof User){
 						if (webHook.owner.id === message.client.user.id) {
-							let myWebHook = new WebhookClient(webHook.id, webHook.token)
+							let myWebHook = new WebhookClient({id: webHook.id, token: webHook.token})
 							myWebHook.edit({ name: name, avatar: PFP})
 							.then((editedWebHook) => {
 								if(typeof sendMessage.content !== `string` || sendMessage.content === ``){

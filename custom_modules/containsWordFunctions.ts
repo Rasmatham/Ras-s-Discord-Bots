@@ -5,10 +5,8 @@ import { Message, MessageAdditions, MessageOptions, User } from "discord.js";
 	{
 		var reply = async (message: Message, chance: number, rply: MessageOptions) => {
 			if (Math.random() * 100 <= chance) {
-				message.channel.startTyping(3)
-				.then(() => {message.channel.send(rply)})
-				.catch(console.error)
-				.then(() => {message.channel.stopTyping(true)})
+				message.channel.sendTyping()
+				.finally(() => {message.channel.send(rply)})
 				.catch(console.error)
 			}
 		}

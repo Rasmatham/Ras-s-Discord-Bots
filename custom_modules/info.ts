@@ -11,13 +11,13 @@ import { writeFile, unlink } from "fs"
 			let UK = [];
 			guild.channels.cache.map((channel) => {
 				switch (channel.type) {
-					case `text`:
+					case `GUILD_TEXT`:
 					TC.push(channel.name);
 					break;
-					case `voice`:
+					case `GUILD_VOICE`:
 					VC.push(channel.name);
 					break;
-					case `category`:
+					case `GUILD_CATEGORY`:
 					Cat.push(channel.name);
 					break;
 					default:
@@ -67,13 +67,13 @@ import { writeFile, unlink } from "fs"
 			interaction.guild.channels.fetch().then((channels) => {
 				channels.forEach((channel) => {
 					switch (channel.type) {
-						case `text`:
+						case `GUILD_TEXT`:
 						textChannels.push(channel.name);
 						break;
-						case `voice`:
+						case `GUILD_VOICE`:
 						voiceChannels.push(channel.name);
 						break;
-						case `category`:
+						case `GUILD_CATEGORY`:
 						Categories.push(channel.name);
 						break;
 						default:
