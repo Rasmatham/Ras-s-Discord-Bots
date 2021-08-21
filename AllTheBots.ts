@@ -9,7 +9,7 @@
 ╚══════════════════════════════════════════════════════════╝
 */
 
-import { ButtonInteraction, Client, ColorResolvable, CommandInteraction, DMChannel, GuildMember, Interaction, Message, MessageComponentInteraction, MessageEmbed, MessageManager } from "discord.js";
+import { ButtonInteraction, Client, ColorResolvable, CommandInteraction, DMChannel, GuildMember, Interaction, Message, MessageComponentInteraction, MessageEmbed, MessageManager, PartialDMChannel } from "discord.js";
 var containsWord = require(`./custom_modules/containsWordFunctions.js`);
 var forwarding = require(`./custom_modules/forwardMessages.js`);
 var generalStuff = require(`./custom_modules/generalUse.js`);

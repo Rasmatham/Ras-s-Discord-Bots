@@ -23,11 +23,12 @@ class BaseMessageComponent {
    */
 
   /**
-   * Components that can be sent in a message. This can be:
+   * Components that can be sent in a message. These can be:
    * * MessageActionRow
    * * MessageButton
    * * MessageSelectMenu
    * @typedef {MessageActionRow|MessageButton|MessageSelectMenu} MessageComponent
+   * @see {@link https://discord.com/developers/docs/interactions/message-components#component-object-component-types}
    */
 
   /**
@@ -53,11 +54,10 @@ class BaseMessageComponent {
    * Constructs a MessageComponent based on the type of the incoming data
    * @param {MessageComponentOptions} data Data for a MessageComponent
    * @param {Client|WebhookClient} [client] Client constructing this component
-   * @param {boolean} [skipValidation=false] Whether or not to validate the component type
    * @returns {?MessageComponent}
    * @private
    */
-  static create(data, client, skipValidation = false) {
+  static create(data, client) {
     let component;
     let type = data.type;
 
@@ -66,7 +66,7 @@ class BaseMessageComponent {
     switch (type) {
       case MessageComponentTypes.ACTION_ROW: {
         const MessageActionRow = require('./MessageActionRow');
-        component = new MessageActionRow(data);
+        component = new MessageActionRow(data, client);
         break;
       }
       case MessageComponentTypes.BUTTON: {
@@ -82,7 +82,7 @@ class BaseMessageComponent {
       default:
         if (client) {
           client.emit(Events.DEBUG, `[BaseMessageComponent] Received component with unknown type: ${data.type}`);
-        } else if (!skipValidation) {
+        } else {
           throw new TypeError('INVALID_TYPE', 'data.type', 'valid MessageComponentType');
         }
     }

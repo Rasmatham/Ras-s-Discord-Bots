@@ -4,9 +4,9 @@
 const MessageCollector = require('../MessageCollector');
 const MessagePayload = require('../MessagePayload');
 const SnowflakeUtil = require('../../util/SnowflakeUtil');
-const Collection = require('../../util/Collection');
+const { Collection } = require('@discordjs/collection');
 const { InteractionTypes } = require('../../util/Constants');
-const { RangeError, TypeError, Error } = require('../../errors');
+const { TypeError, Error } = require('../../errors');
 const InteractionCollector = require('../InteractionCollector');
 
 /**
@@ -22,10 +22,10 @@ class TextBasedChannel {
     this.messages = new MessageManager(this);
 
     /**
-     * The ID of the last message in the channel, if one was sent
+     * The channel's last message id, if one was sent
      * @type {?Snowflake}
      */
-    this.lastMessageID = null;
+    this.lastMessageId = null;
 
     /**
      * The timestamp when the last pinned message was pinned, if there was one
@@ -40,7 +40,7 @@ class TextBasedChannel {
    * @readonly
    */
   get lastMessage() {
-    return this.messages.resolve(this.lastMessageID);
+    return this.messages.resolve(this.lastMessageId);
   }
 
   /**
@@ -63,8 +63,9 @@ class TextBasedChannel {
    * @property {MessageMentionOptions} [allowedMentions] Which mentions should be parsed from the message content
    * (see [here](https://discord.com/developers/docs/resources/channel#allowed-mentions-object) for more details)
    * @property {FileOptions[]|BufferResolvable[]|MessageAttachment[]} [files] Files to send with the message
-   * @property {MessageActionRow[]|MessageActionRowOptions[]|MessageActionRowComponentResolvable[][]} [components]
+   * @property {MessageActionRow[]|MessageActionRowOptions[]} [components]
    * Action rows containing interactive components for the message (buttons, select menus)
+   * @property {StickerResolvable[]} [stickers=[]] Stickers to send in the message
    */
 
   /**
@@ -154,7 +155,8 @@ class TextBasedChannel {
     const GuildMember = require('../GuildMember');
 
     if (this instanceof User || this instanceof GuildMember) {
-      return this.createDM().then(dm => dm.send(options));
+      const dm = await this.createDM();
+      return dm.send(options);
     }
 
     let messagePayload;
@@ -166,94 +168,26 @@ class TextBasedChannel {
     }
 
     const { data, files } = await messagePayload.resolveFiles();
-    return this.client.api.channels[this.id].messages
-      .post({ data, files })
-      .then(d => this.client.actions.MessageCreate.handle(d).message);
-  }
+    const d = await this.client.api.channels[this.id].messages.post({ data, files });
 
-  /**
-   * Starts a typing indicator in the channel.
-   * @param {number} [count=1] The number of times startTyping should be considered to have been called
-   * @returns {Promise} Resolves once the bot stops typing gracefully, or rejects when an error occurs
-   * @example
-   * // Start typing in a channel, or increase the typing count by one
-   * channel.startTyping();
-   * @example
-   * // Start typing in a channel with a typing count of five, or set it to five
-   * channel.startTyping(5);
-   */
-  startTyping(count) {
-    if (typeof count !== 'undefined' && count < 1) throw new RangeError('TYPING_COUNT');
-    if (this.client.user._typing.has(this.id)) {
-      const entry = this.client.user._typing.get(this.id);
-      entry.count = count ?? entry.count + 1;
-      return entry.promise;
+    const existing = this.messages.cache.get(d.id);
+    if (existing) {
+      const clone = existing._clone();
+      clone._patch(d);
+      return clone;
     }
-
-    const entry = {};
-    entry.promise = new Promise((resolve, reject) => {
-      const endpoint = this.client.api.channels[this.id].typing;
-      Object.assign(entry, {
-        count: count ?? 1,
-        interval: this.client.setInterval(() => {
-          endpoint.post().catch(error => {
-            this.client.clearInterval(entry.interval);
-            this.client.user._typing.delete(this.id);
-            reject(error);
-          });
-        }, 9000),
-        resolve,
-      });
-      endpoint.post().catch(error => {
-        this.client.clearInterval(entry.interval);
-        this.client.user._typing.delete(this.id);
-        reject(error);
-      });
-      this.client.user._typing.set(this.id, entry);
-    });
-    return entry.promise;
+    return this.messages._add(d);
   }
 
   /**
-   * Stops the typing indicator in the channel.
-   * The indicator will only stop if this is called as many times as startTyping().
-   * <info>It can take a few seconds for the client user to stop typing.</info>
-   * @param {boolean} [force=false] Whether or not to reset the call count and force the indicator to stop
+   * Sends a typing indicator in the channel.
+   * @returns {Promise<void>} Resolves upon the typing status being sent
    * @example
-   * // Reduce the typing count by one and stop typing if it reached 0
-   * channel.stopTyping();
-   * @example
-   * // Force typing to fully stop regardless of typing count
-   * channel.stopTyping(true);
+   * // Start typing in a channel
+   * channel.sendTyping();
    */
-  stopTyping(force = false) {
-    if (this.client.user._typing.has(this.id)) {
-      const entry = this.client.user._typing.get(this.id);
-      entry.count--;
-      if (entry.count <= 0 || force) {
-        this.client.clearInterval(entry.interval);
-        this.client.user._typing.delete(this.id);
-        entry.resolve();
-      }
-    }
-  }
-
-  /**
-   * Whether or not the typing indicator is being shown in the channel
-   * @type {boolean}
-   * @readonly
-   */
-  get typing() {
-    return this.client.user._typing.has(this.id);
-  }
-
-  /**
-   * Number of times `startTyping` has been called
-   * @type {number}
-   * @readonly
-   */
-  get typingCount() {
-    return this.client.user._typing.get(this.id)?.count ?? 0;
+  async sendTyping() {
+    await this.client.api.channels(this.id).typing.post();
   }
 
   /**
@@ -309,9 +243,9 @@ class TextBasedChannel {
    * @returns {InteractionCollector}
    * @example
    * // Create a button interaction collector
-   * const filter = (interaction) => interaction.customID === 'button' && interaction.user.id === 'someID';
-   * const collector = channel.createMessageComponentInteractionCollector({ filter, time: 15000 });
-   * collector.on('collect', i => console.log(`Collected ${i.customID}`));
+   * const filter = (interaction) => interaction.customId === 'button' && interaction.user.id === 'someId';
+   * const collector = channel.createMessageComponentCollector({ filter, time: 15000 });
+   * collector.on('collect', i => console.log(`Collected ${i.customId}`));
    * collector.on('end', collected => console.log(`Collected ${collected.size} items`));
    */
   createMessageComponentCollector(options = {}) {
@@ -329,9 +263,9 @@ class TextBasedChannel {
    * @returns {Promise<MessageComponentInteraction>}
    * @example
    * // Collect a message component interaction
-   * const filter = (interaction) => interaction.customID === 'button' && interaction.user.id === 'someID';
-   * channel.awaitMessageComponentInteraction({ filter, time: 15000 })
-   *   .then(interaction => console.log(`${interaction.customID} was clicked!`))
+   * const filter = (interaction) => interaction.customId === 'button' && interaction.user.id === 'someId';
+   * channel.awaitMessageComponent({ filter, time: 15000 })
+   *   .then(interaction => console.log(`${interaction.customId} was clicked!`))
    *   .catch(console.error);
    */
   awaitMessageComponent(options = {}) {
@@ -351,7 +285,7 @@ class TextBasedChannel {
    * @param {Collection<Snowflake, Message>|MessageResolvable[]|number} messages
    * Messages or number of messages to delete
    * @param {boolean} [filterOld=false] Filter messages to remove those which are older than two weeks automatically
-   * @returns {Promise<Collection<Snowflake, Message>>} Deleted messages
+   * @returns {Promise<Collection<Snowflake, Message>>} Returns the deleted messages
    * @example
    * // Bulk delete messages
    * channel.bulkDelete(5)
@@ -360,23 +294,23 @@ class TextBasedChannel {
    */
   async bulkDelete(messages, filterOld = false) {
     if (Array.isArray(messages) || messages instanceof Collection) {
-      let messageIDs = messages instanceof Collection ? messages.keyArray() : messages.map(m => m.id ?? m);
+      let messageIds = messages instanceof Collection ? [...messages.keys()] : messages.map(m => m.id ?? m);
       if (filterOld) {
-        messageIDs = messageIDs.filter(id => Date.now() - SnowflakeUtil.deconstruct(id).timestamp < 1209600000);
+        messageIds = messageIds.filter(id => Date.now() - SnowflakeUtil.deconstruct(id).timestamp < 1209600000);
       }
-      if (messageIDs.length === 0) return new Collection();
-      if (messageIDs.length === 1) {
-        await this.client.api.channels(this.id).messages(messageIDs[0]).delete();
+      if (messageIds.length === 0) return new Collection();
+      if (messageIds.length === 1) {
+        await this.client.api.channels(this.id).messages(messageIds[0]).delete();
         const message = this.client.actions.MessageDelete.getMessage(
           {
-            message_id: messageIDs[0],
+            message_id: messageIds[0],
           },
           this,
         );
         return message ? new Collection([[message.id, message]]) : new Collection();
       }
-      await this.client.api.channels[this.id].messages['bulk-delete'].post({ data: { messages: messageIDs } });
-      return messageIDs.reduce(
+      await this.client.api.channels[this.id].messages['bulk-delete'].post({ data: { messages: messageIds } });
+      return messageIds.reduce(
         (col, id) =>
           col.set(
             id,
@@ -404,10 +338,7 @@ class TextBasedChannel {
         'lastMessage',
         'lastPinAt',
         'bulkDelete',
-        'startTyping',
-        'stopTyping',
-        'typing',
-        'typingCount',
+        'sendTyping',
         'createMessageCollector',
         'awaitMessages',
         'createMessageComponentCollector',

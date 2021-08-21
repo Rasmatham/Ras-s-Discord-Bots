@@ -37,11 +37,11 @@ class TeamMember extends Base {
      * The user for this Team Member
      * @type {User}
      */
-    this.user = this.client.users.add(data.user);
+    this.user = this.client.users._add(data.user);
   }
 
   /**
-   * The ID of the Team Member
+   * The Team Member's id
    * @type {Snowflake}
    * @readonly
    */
@@ -50,7 +50,7 @@ class TeamMember extends Base {
   }
 
   /**
-   * When concatenated with a string, this automatically returns the team members's mention instead of the
+   * When concatenated with a string, this automatically returns the team member's mention instead of the
    * TeamMember object.
    * @returns {string}
    * @example

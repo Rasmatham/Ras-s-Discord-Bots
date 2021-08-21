@@ -1,7 +1,7 @@
 'use strict';
 
+const { Collection } = require('@discordjs/collection');
 const Action = require('./Action');
-const Collection = require('../../util/Collection');
 const { Events } = require('../../util/Constants');
 
 class ThreadListSyncAction extends Action {
@@ -23,7 +23,7 @@ class ThreadListSyncAction extends Action {
     }
 
     const syncedThreads = data.threads.reduce((coll, rawThread) => {
-      const thread = client.channels.add(rawThread);
+      const thread = client.channels._add(rawThread);
       return coll.set(thread.id, thread);
     }, new Collection());
 
@@ -50,7 +50,7 @@ class ThreadListSyncAction extends Action {
   removeStale(channel) {
     channel.threads?.cache.forEach(thread => {
       if (!thread.archived) {
-        this.client.channels.remove(thread.id);
+        this.client.channels._remove(thread.id);
       }
     });
   }

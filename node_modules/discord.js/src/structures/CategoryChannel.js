@@ -13,7 +13,7 @@ class CategoryChannel extends GuildChannel {
    * @readonly
    */
   get children() {
-    return this.guild.channels.cache.filter(c => c.parentID === this.id);
+    return this.guild.channels.cache.filter(c => c.parentId === this.id);
   }
 
   /**
@@ -22,7 +22,7 @@ class CategoryChannel extends GuildChannel {
    * @method setParent
    * @memberof CategoryChannel
    * @instance
-   * @param {?(GuildChannel|Snowflake)} channel The channel to set as parent
+   * @param {?CategoryChannelResolvable} channel The channel to set as parent
    * @param {SetParentOptions} [options={}] The options for setting the parent
    * @returns {Promise<GuildChannel>}
    */
