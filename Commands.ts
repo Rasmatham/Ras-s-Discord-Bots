@@ -223,7 +223,7 @@ bots.forEach((bot, i) => {
 	//list commands
 	bot.on(`ready`, () => {
 		bot.application.commands.fetch().then(() => {
-			for (let command of bot.application.commands.cache){
+			for (let command of bot.application.commands.cache.map((value) => value)){
 				console.log(command)
 			}
 		})
@@ -242,10 +242,10 @@ bots.forEach((bot, i) => {
 	})*/
 	//edit specific
 	bot.on(`ready`, () => {
-		commandGroup[i].forEach((command) => {
+		commandGroup[i].forEach((command, j) => {
 			bot.application.commands.create(command.command, command.guild = null)
-			.then((command) => {console.log(`Edited ${command.name}`)})
-			.catch(console.error);
+			.then((command) => {console.log(`[${i+1}/${bots.length}][${j+1}/${commandGroup[i].length}] Edited ${command.name}`)})
+			.catch(console.error)
 		})
 	})
 });
