@@ -265,31 +265,31 @@ require(`dotenv`).config();
 					let commandInteraction = interaction as CommandInteraction;
 					switch(commandInteraction.commandName){
 						case `botlink`:
-						commandInteraction.reply({content: GladosLink, ephemeral: true});
+						commandInteraction.reply({content: GladosLink, ephemeral: true}).catch(console.error);
 						break;
 						case `sightingslink`:
-						commandInteraction.reply({content: `https://discord.gg/62jvqRv`, ephemeral: true});
+						commandInteraction.reply({content: `https://discord.gg/62jvqRv`, ephemeral: true}).catch(console.error);
 						break;
 						case `invisicolor`:
-						commandInteraction.reply({content: `#36393F`, ephemeral: true});
+						commandInteraction.reply({content: `#36393F`, ephemeral: true}).catch(console.error);
 						break;
 						case `source`:
-						commandInteraction.reply({content: githublink, ephemeral: true});
+						commandInteraction.reply({content: githublink, ephemeral: true}).catch(console.error);
 						break;
 						case `userinfo`:
 						info.userInfo(commandInteraction);
 						break;
 						case `serverinfo`:
-						commandInteraction.reply(info.serverInfo(commandInteraction));
+						commandInteraction.reply(info.serverInfo(commandInteraction)).catch(console.error);
 						break;
 						case `joindate`:
-						commandInteraction.reply(info.joindate(commandInteraction));
+						commandInteraction.reply(info.joindate(commandInteraction)).catch(console.error);
 						break;
 						case `grid`:
-						commandInteraction.reply(stupidStuff.buttonGrid(commandInteraction));
+						commandInteraction.reply(stupidStuff.buttonGrid(commandInteraction)).catch(console.error);
 						break;
 						case `selectmenu`:
-						commandInteraction.reply(stupidStuff.selectMenu(commandInteraction));
+						commandInteraction.reply(stupidStuff.selectMenu(commandInteraction)).catch(console.error);
 						break;
 						case `d`:
 						dice(commandInteraction);

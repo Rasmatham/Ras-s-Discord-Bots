@@ -1,4 +1,4 @@
-import { CommandInteraction, MessageEmbed, GuildChannelManager, Guild, User, ColorResolvable, GuildMember } from "discord.js";
+import { CommandInteraction, MessageEmbed, GuildChannelManager, Guild, User, ColorResolvable, GuildMember, InteractionReplyOptions } from "discord.js";
 import { checkFor } from "./generalUse.js";
 import { writeFile, unlink } from "fs"
 //channelCount
@@ -58,7 +58,7 @@ import { writeFile, unlink } from "fs"
 }
 //serverinfo
 {
-	var serverInfo = (interaction: CommandInteraction) => {
+	var serverInfo = (interaction: CommandInteraction):InteractionReplyOptions => {
 		if (interaction.guild !== null) {
 			let textChannels: string[] = [];
 			let voiceChannels: string[] = [];
@@ -81,25 +81,25 @@ import { writeFile, unlink } from "fs"
 						break;
 					}
 				})
-			});
-			textChannels.sort();
-			voiceChannels.sort();
-			unknown.sort();
-			return {content: `\`\`\`\n${
-				checkFor(textChannels, `Text channels:`)
-			}${
-				checkFor(voiceChannels, `Voice channels:`)
-			}${
-				checkFor(Categories, `Categories:`)
-			}${
-				checkFor(unknown, `Other channels:`)
-			}Total channels: ${
-				textChannels.length + voiceChannels.length + Categories.length + unknown.length
-			}\nChannels left: ${
-				500 - (textChannels.length + voiceChannels.length + Categories.length + unknown.length)
-			}\nmembers: ${
-				interaction.guild.memberCount
-			}\n\`\`\``};
+			})
+			.then(() => {
+				return {content: `\`\`\`\n${
+					checkFor(textChannels, `Text channels:`)
+				}${
+					checkFor(voiceChannels, `Voice channels:`)
+				}${
+					checkFor(Categories, `Categories:`)
+				}${
+					checkFor(unknown, `Other channels:`)
+				}Total channels: ${
+					textChannels.length + voiceChannels.length + Categories.length + unknown.length
+				}\nChannels left: ${
+					500 - (textChannels.length + voiceChannels.length + Categories.length + unknown.length)
+				}\nmembers: ${
+					interaction.guild.memberCount
+				}\n\`\`\``};
+			})
+			.catch(console.error)
 		} else {
 			if (interaction.member.user.id === `588511925944582186`) {
 				return {content: `stop tring to kill me, smh`};
