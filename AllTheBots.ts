@@ -1,30 +1,30 @@
 /*
-╔════════════════════════════════════════════════════╦═╦═╦═╗
-║ Command Prompt                                     ║-║▫║X║
-╠════════════════════════════════════════════════════╩═╩═╩═╣
-║ These bots were made by Rasmatham                        ║
-║ Feel free to do whatever you want with the code          ║
-║ as long as it isn't just a copy/paste of the entire file ║
-║ C:\WINDOWS\system32>echo Hello, World!                   ║
-╚══════════════════════════════════════════════════════════╝
+╔═════════════════════════════════════════════════════╦═╦═╦═╗
+║ Command Prompt                                      ║-║▫║X║
+╠═════════════════════════════════════════════════════╩═╩═╩═╣
+║ These bots were made by RasMatHam#0001                    ║
+║ Feel free to do whatever you want with the code           ║
+║ as long as it isn't just a copy/paste of the entire thing ║
+║ C:\WINDOWS\system32>echo Hello, World!                    ║
+╚═══════════════════════════════════════════════════════════╝
 */
 
-import { ButtonInteraction, Client, ColorResolvable, CommandInteraction, DMChannel, GuildMember, Interaction, Message, MessageComponentInteraction, MessageEmbed, PartialDMChannel, TextBasedChannel, TextBasedChannels } from "discord.js";
-var containsWord = require(`./custom_modules/containsWordFunctions.js`);
-var forwarding = require(`./custom_modules/forwardMessages.js`);
-var generalStuff = require(`./custom_modules/generalUse.js`);
-var stupidStuff = require(`./custom_modules/stupidStuff.js`);
-var inspiroBot = require(`./custom_modules/inspiroBot.js`);
-var coinflip = require(`./custom_modules/coinflip.js`);
-var maze = require(`./custom_modules/playableMaze.js`);
-var pokedex = require(`./custom_modules/pokedex.js`);
-var ticTacToe = require(`./custom_modules/TicTacToe.js`);
-//var music = require(`./custom_modules/music.js`);
-var dice = require(`./custom_modules/dice.js`);
-var info = require(`./custom_modules/info.js`);
-var xkcd = require(`./custom_modules/xkcd.js`);
-require(`dotenv`).config();
+import { Client, Message, MessageEmbed, ColorResolvable, GuildMember, Interaction, MessageComponentInteraction, ButtonInteraction, CommandInteraction, MessageActionRow } from "discord.js";
 
+import containsWord = require("./custom_modules/containsWordFunctions");
+import forwarding = require("./custom_modules/forwardMessages");
+import generalStuff = require("./custom_modules/generalUse");
+import stupidStuff = require("./custom_modules/stupidStuff");
+import inspiroBot = require("./custom_modules/inspiroBot");
+import coinflip = require("./custom_modules/coinflip");
+import maze = require("./custom_modules/playableMaze");
+import pokedex = require("./custom_modules/pokedex");
+import ticTacToe = require("./custom_modules/TicTacToe");
+//const music = require("./custom_modules/music`);
+import dice = require("./custom_modules/dice");
+import info = require("./custom_modules/info");
+import xkcd = require("./custom_modules/xkcd");
+require(`dotenv`).config();
 //Common
 {
 	//Other Variables
@@ -226,8 +226,8 @@ require(`dotenv`).config();
 				//coinflip.setup(message, GLaDOSPrefix);
 				//coinflip.flip(message, GLaDOSPrefix);
 				stupidStuff.hencefortifier(message);
-				stupidStuff.espenBotReplacement(`message`, message, 1, process.env.RASID, generalStuff.messageFormat(`https://cdn.discordapp.com/attachments/735213241860620308/781189544103247922/unknown.png`));
-				stupidStuff.espenBotReplacement(`reac`, message, 100, process.env.ZARLID, `🦆`);
+				stupidStuff.espenBotReplacement(`message`, message, 1, process.env.RASID as `${bigint}`, {content: `https://cdn.discordapp.com/attachments/735213241860620308/781189544103247922/unknown.png`});
+				stupidStuff.espenBotReplacement(`react`, message, 100, process.env.ZARLID as `${bigint}`, `🦆`);
 				//stupidStuff.userWordBan(message, `last`, `541617670533939210`);
 			})
 			glados.on(`interactionCreate`, (interaction: Interaction) => {
@@ -280,7 +280,7 @@ require(`dotenv`).config();
 						info.userInfo(commandInteraction);
 						break;
 						case `serverinfo`:
-						commandInteraction.reply(info.serverInfo(commandInteraction)).catch(console.error);
+						info.serverInfo(commandInteraction);
 						break;
 						case `joindate`:
 						commandInteraction.reply(info.joindate(commandInteraction)).catch(console.error);
@@ -289,19 +289,19 @@ require(`dotenv`).config();
 						commandInteraction.reply(stupidStuff.buttonGrid(commandInteraction)).catch(console.error);
 						break;
 						case `selectmenu`:
-						commandInteraction.reply(stupidStuff.selectMenu(commandInteraction)).catch(console.error);
+						commandInteraction.reply(stupidStuff.selectMenu()).catch(console.error);
 						break;
 						case `d`:
-						dice(commandInteraction);
+						dice.dice(commandInteraction);
 						break;
 						case `xkcd`:
-						xkcd(commandInteraction);
+						xkcd.xkcdFunct(commandInteraction);
 						break;
 						case `maze`:
-						maze(commandInteraction);
+						maze.mazeFunction(commandInteraction);
 						break;
 						case `tictactoe`:
-						ticTacToe(commandInteraction);
+						ticTacToe.ticTacToe(commandInteraction);
 						break;
 						default:
 						break;
@@ -322,7 +322,9 @@ require(`dotenv`).config();
 		var sendEmbed = (message: Message) => {
 			if (message.author.id !== pokebot.user.id) {
 				if (message.content.toLowerCase().startsWith(`${PokePrefix} `)) {
-					generalStuff.sendAsWebHook(message, message.channel, pokedex.natDex(message.content.toLowerCase().split(` `)[1]), pokedex.DB.trainers[Math.round(Math.random() * pokedex.DB.trainers.length)], pokebot.user.avatarURL());
+					if(message.channel.type == `GUILD_TEXT` || message.channel.type == `GUILD_NEWS`){
+						generalStuff.sendAsWebHook(message, message.channel, pokedex.natDex(message.content.toLowerCase().split(` `)[1]), pokedex.DB.trainers[Math.round(Math.random() * pokedex.DB.trainers.length)], pokebot.user.avatarURL());
+					}
 				}
 			}
 		}

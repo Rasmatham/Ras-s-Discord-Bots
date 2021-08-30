@@ -1,7 +1,7 @@
 
 import { CommandInteraction, MessageActionRow, MessageButton, ButtonInteraction, Interaction } from "discord.js";
 const mazeThing = require(`generate-maze`);
-var mazeFunction = (interaction: CommandInteraction) => {
+export var mazeFunction = (interaction: CommandInteraction) => {
     const style = interaction.options.get(`style`).value as boolean
     const emotes = {
         false: {
@@ -282,4 +282,3 @@ var mazeFunction = (interaction: CommandInteraction) => {
     })
     .catch(console.error);
 }
-module.exports = mazeFunction;

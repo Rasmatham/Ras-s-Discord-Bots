@@ -1,6 +1,6 @@
 import { APIButtonComponent, APISelectMenuComponent } from "discord-api-types/v8";
 import { CommandInteraction, User, MessageButton, MessageActionRow, ButtonInteraction, Message, GuildMember, MessageMentions, UserResolvable, MessageActionRowComponent, EmojiResolvable, Emoji, Interaction, EmojiIdentifierResolvable } from "discord.js";
-const ticTacToe = (interaction: CommandInteraction) => {
+export const ticTacToe = (interaction: CommandInteraction) => {
     interaction.guild.members.fetch(interaction.options.get(`playertwo`).user).then((playerTwo) => {
         const movePieces = interaction.options.get(`movepieces`).value;
         const choices = new MessageActionRow()
@@ -272,4 +272,3 @@ const ticTacToe = (interaction: CommandInteraction) => {
         }
     })
 }
-module.exports = ticTacToe;

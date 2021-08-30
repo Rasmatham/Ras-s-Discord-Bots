@@ -1,4 +1,4 @@
-const types = {
+export const types = {
 	bird: {
 		name: `Bird`,
 		color: `68A090`,
@@ -134,7 +134,7 @@ const types = {
 	}
 };
 
-const pokemon = {
+export const pokemon = {
 	0: {
 		name: `Missingno`,
 		reg: `0`,
@@ -6520,5 +6520,4 @@ const pokemon = {
 		}
 	}
 };
-const trainers = [`Ash Kechum`, `Red`, `Leaf`, `Blue`, `Ethan`, `Kris`, `Lyra`, `Silver`, `Brendan`, `May`, `Lucas`, `Dawn`, `Barry`, `Hilbert`, `Hilda`, `Cheren`, `Bianca`, `Nate`, `Rosa`, `Hugh`, `Calem`, `Serena`, `Elio`, `Selene`, `Lillie`, `Hau`, `Victor`, `Gloria`, `Hop`, `Bede`, `Marnie`]
-module.exports = {types, pokemon, trainers};
+export const trainers = [`Ash Kechum`, `Red`, `Leaf`, `Blue`, `Ethan`, `Kris`, `Lyra`, `Silver`, `Brendan`, `May`, `Lucas`, `Dawn`, `Barry`, `Hilbert`, `Hilda`, `Cheren`, `Bianca`, `Nate`, `Rosa`, `Hugh`, `Calem`, `Serena`, `Elio`, `Selene`, `Lillie`, `Hau`, `Victor`, `Gloria`, `Hop`, `Bede`, `Marnie`]

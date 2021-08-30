@@ -79,4 +79,3 @@ var flip = (message: Message, prefix: string) => {
         }
     }
 }
-module.exports = {setup, flip}

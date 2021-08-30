@@ -1,7 +1,7 @@
 import { CommandInteraction, MessageEmbed } from "discord.js";
 const xkcdModule = require(`xkcd`);
 
-var xkcdFunct = (interaction: CommandInteraction) => {
+export var xkcdFunct = (interaction: CommandInteraction) => {
     xkcdModule((xkcdObjOuter: {num: number}) => {
         let num = Math.ceil(Math.random() * (xkcdObjOuter.num + Math.random()))
         if(typeof interaction.options.get(`xkcd_number`) != `undefined`){
@@ -23,4 +23,3 @@ var xkcdFunct = (interaction: CommandInteraction) => {
         }
     });
 }
-module.exports = xkcdFunct;

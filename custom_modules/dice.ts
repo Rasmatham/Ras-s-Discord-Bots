@@ -1,5 +1,5 @@
 import { CommandInteraction, Interaction, MessageEmbed } from "discord.js";
-var dice = (interaction: CommandInteraction) => {
+export var dice = (interaction: CommandInteraction) => {
     let dieSides = 6
     let diceCount = 1
     if(typeof interaction.options.get(`die_sides`) != `undefined`){
@@ -48,4 +48,3 @@ var dice = (interaction: CommandInteraction) => {
     })
     .catch(console.error)
 }
-module.exports = dice;
