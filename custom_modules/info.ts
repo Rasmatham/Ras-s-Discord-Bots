@@ -2,7 +2,7 @@ import { CommandInteraction, MessageEmbed, GuildChannelManager, Guild, User, Col
 import { checkFor } from "./generalUse.js";
 import { writeFile, unlink } from "fs"
 //channelCount
-export var channelCount = (guild: Guild):{textChannels: number, voiceChannels: number, Categories: number, Unknown: number, all: number} => {
+export const channelCount = (guild: Guild):{textChannels: number, voiceChannels: number, Categories: number, Unknown: number, all: number} => {
 	if (guild !== null) {
 		let TC:string[] = [];
 		let VC:string[] = [];
@@ -28,7 +28,7 @@ export var channelCount = (guild: Guild):{textChannels: number, voiceChannels: n
 	}
 }
 //userinfo
-export var userInfo = (interaction: CommandInteraction):void => {
+export const userInfo = (interaction: CommandInteraction):void => {
 	writeFile(`${interaction.client.user.username}/userinfo/userinfo.json`, `"interaction.user":{\n${JSON.stringify(interaction.user, null, 2)}\n},\n"interaction.member":{\n${JSON.stringify(interaction.member, null, 2)}\n}`, ():void => {
 		if (interaction.options.get(`public`).value as boolean) {
 			interaction.reply({files: [`${interaction.client.user.username}/userinfo/userinfo.json`]})
@@ -53,7 +53,7 @@ export var userInfo = (interaction: CommandInteraction):void => {
 	})
 }
 //serverinfo
-export var serverInfo = (interaction: CommandInteraction):void => {
+export const serverInfo = (interaction: CommandInteraction):void => {
 	if (interaction.guild !== null) {
 		let textChannels:string[] = [];
 		let voiceChannels:string[] = [];
@@ -106,12 +106,12 @@ export var serverInfo = (interaction: CommandInteraction):void => {
 	}
 }
 //join date
-export var joindate = (interaction: CommandInteraction):{embeds: MessageEmbed[], ephemeral: boolean;
+export const joindate = (interaction: CommandInteraction):{embeds: MessageEmbed[], ephemeral: boolean;
 } => {
 	if(!(interaction.member.user instanceof User)){return}
-	var ms:number = interaction.member.user.createdTimestamp;
-	var date:Date = new Date(ms);
-	var embed:MessageEmbed = new MessageEmbed()
+	const ms:number = interaction.member.user.createdTimestamp;
+	const date:Date = new Date(ms);
+	const embed:MessageEmbed = new MessageEmbed()
 	.setColor(`FFFFFF` as ColorResolvable)
 	.setTitle(`You joined:`)
 	.setThumbnail(`https://cdn.discordapp.com/attachments/656164355381133332/715651846584270899/ezgif-3-ea387cdabbbe.gif`)

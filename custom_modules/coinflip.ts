@@ -1,6 +1,6 @@
 import { ColorResolvable, Message, MessageEmbed } from "discord.js";
-var {mkdir, writeFile, existsSync, readFileSync} = require(`fs`);
-var setup = (message: Message, prefix: string):void => {
+const {mkdir, writeFile, existsSync, readFileSync} = require(`fs`);
+const setup = (message: Message, prefix: string):void => {
 	if (message.content.toLowerCase().startsWith(`${prefix}cfsetup`)) {
 		message.channel
 		.send(`Creating save for ${message.author}`)
@@ -17,7 +17,7 @@ var setup = (message: Message, prefix: string):void => {
 		message.channel.send(`Setup complete\nWarning: Using this command agin will reset your score`);
 	}
 }
-var flip = (message: Message, prefix: string):void => {
+const flip = (message: Message, prefix: string):void => {
 	if (message.content.toLowerCase().startsWith(`${prefix}coinflip`)) {
 		const coinflippath:string = `./${message.client.user.username}/userinfo/${message.author.id}/coinflip/`;
 		const coinfilew:string = `./${message.client.user.username}/userinfo/${message.author.id}/coinflip/wins.log`;

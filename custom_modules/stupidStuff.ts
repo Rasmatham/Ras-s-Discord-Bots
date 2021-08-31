@@ -1,7 +1,7 @@
 import { CommandInteraction, Emoji, EmojiIdentifierResolvable, Interaction, InteractionReplyOptions, Message, MessageActionRow, MessageButton, MessageOptions, MessageSelectMenu, TextChannel } from "discord.js";
 import { blackList } from "./generalUse.js";
 //Frick that one rule
-export var hencefortifier = (message: Message):void => {
+export const hencefortifier = (message: Message):void => {
 	if (message.author.id !== message.client.user.id && message.guild !== null &&message.content.toLowerCase().includes(`from now on`)) {
 		if(message.guild.id == `646155122992480266`){
 			let textChannels:`${bigint}`[] = [];
@@ -23,7 +23,7 @@ export var hencefortifier = (message: Message):void => {
 	}
 }
 //Flit no lasting! Flit no lasting! Flit no lasting!
-export var userWordBan = (message: Message, word: string, userID: `${bigint}`):void => {
+export const userWordBan = (message: Message, word: string, userID: `${bigint}`):void => {
 	if (message.author.id === userID) {
 		if (message.content.toLowerCase().includes(word)) {
 			message.delete()
@@ -32,7 +32,7 @@ export var userWordBan = (message: Message, word: string, userID: `${bigint}`):v
 	}
 }
 //smh, Espen bot doesn't work
-export var espenBotReplacement = (type: `message` | `react`, message: Message, chance: number, victim: `${bigint}`, out: MessageOptions | EmojiIdentifierResolvable):void => {
+export const espenBotReplacement = (type: `message` | `react`, message: Message, chance: number, victim: `${bigint}`, out: MessageOptions | EmojiIdentifierResolvable):void => {
 	if (message.author.id === victim && Math.floor(Math.random() * 100) <= chance) {
 		switch(type){
 			case `message`:
@@ -47,11 +47,11 @@ export var espenBotReplacement = (type: `message` | `react`, message: Message, c
 	}
 }
 //button grid
-export var buttonGrid = (interaction: CommandInteraction):InteractionReplyOptions => {
-	var unicodeEmoji:RegExp = /^(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])$/gi;
-	var discordEmoji:RegExp = /^<(a?)?:.+?:\d+>$/gi;
-	var discordEmojiNotExact:RegExp = /<(a?)?:.+?:\d+>/gi;
-	let buttonContent:string = interaction.options.get(`button_content`).value as string;
+export const buttonGrid = (interaction: CommandInteraction):InteractionReplyOptions => {
+	const unicodeEmoji:RegExp = /^(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])$/gi;
+	const discordEmoji:RegExp = /^<(a?)?:.+?:\d+>$/gi;
+	const discordEmojiNotExact:RegExp = /<(a?)?:.+?:\d+>/gi;
+	const buttonContent:string = interaction.options.get(`button_content`).value as string;
 	if(buttonContent.length <= 80){
 		if(buttonContent.match(unicodeEmoji) || buttonContent.match(discordEmoji)){
 			const button:MessageButton = new MessageButton().setCustomId(`Dummy`).setEmoji(buttonContent).setStyle(`SECONDARY`);
@@ -67,7 +67,7 @@ export var buttonGrid = (interaction: CommandInteraction):InteractionReplyOption
 		return {content: buttonContent, components: [bar, bar, bar, bar, bar]};
 	}
 }
-export var selectMenu = ():InteractionReplyOptions => {
+export const selectMenu = ():InteractionReplyOptions => {
 	const menu:MessageSelectMenu = new MessageSelectMenu().setCustomId(`Dummy`).setPlaceholder(`Choose wisely`).addOptions([
 		{
 			label: 'Ras is cool',

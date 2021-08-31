@@ -1,7 +1,7 @@
 
 import { CommandInteraction, MessageActionRow, MessageButton, ButtonInteraction, Interaction } from "discord.js";
 const mazeThing = require(`generate-maze`);
-export var mazeFunction = (interaction: CommandInteraction):void => {
+export const mazeFunction = (interaction: CommandInteraction):void => {
 	const style:boolean = interaction.options.get(`style`).value as boolean
 	const emotes = {
 		false: {
@@ -193,7 +193,7 @@ export var mazeFunction = (interaction: CommandInteraction):void => {
 		}
 	}
 	const createdClass:Maze = new Maze(emotes);
-	var maze:{x: number, y: number, top: boolean, left: boolean, bottom: boolean, right: boolean, set: number}[][] = mazeThing(8, 8);
+	const maze:{x: number, y: number, top: boolean, left: boolean, bottom: boolean, right: boolean, set: number}[][] = mazeThing(8, 8);
 	maze.forEach((x: {x: number, y: number, top: boolean, left: boolean, bottom: boolean, right: boolean, set: number}[], i: number):void => {
 		x.forEach((y: {x: number, y: number, top: boolean, left: boolean, bottom: boolean, right: boolean, set: number}, j: number):void => {
 			createdClass.addCell(i, j, `${y.left
@@ -205,7 +205,7 @@ export var mazeFunction = (interaction: CommandInteraction):void => {
 		})
 	})
 	
-	var mazeMessage = (mazeObj: any):string => {
+	const mazeMessage = (mazeObj: any):string => {
 		let messageText:string = ``;
 		for (let i:number = 0; i < 8; i++) {
 			for (let j:number = 0; j < 8; j++) {

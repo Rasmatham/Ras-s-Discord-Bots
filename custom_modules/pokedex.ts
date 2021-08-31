@@ -1,7 +1,7 @@
 import { MessageEmbed, MessageAttachment, ReplyMessageOptions } from "discord.js";
-export var DB = require(`../Pokebot/PokeDB.js`);
+export const DB = require(`../Pokebot/PokeDB.js`);
 //dex embed
-export var natDex = (Query: any):ReplyMessageOptions => {
+export const natDex = (Query: any):ReplyMessageOptions => {
 	let dexNumber:number = 0;
 	if (!isNaN(Query)) { Query = Number(Query) }
 	switch (typeof Query) {
@@ -14,7 +14,7 @@ export var natDex = (Query: any):ReplyMessageOptions => {
 		}
 		case `string`:
 		Object.keys(DB.pokemon).forEach(i => {
-			let pokeObj:{
+			const pokeObj:{
 				name: string, 
 				reg:`${number}`, 
 				nat:`${number}`, 
@@ -77,15 +77,15 @@ export var natDex = (Query: any):ReplyMessageOptions => {
 		default:
 		break;
 	}
-	var secType = ():string => {
+	const secType = ():string => {
 		if (typeof DB.pokemon[dexNumber].types[1] !== `undefined`) {
 			return DB.pokemon[dexNumber].types[1].name
 		} else {
 			return `None`
 		}
 	}
-	var attachment:MessageAttachment = new MessageAttachment(`./Pokèbot/Pokemon/1-151/250px-${DB.pokemon[dexNumber].nat}${DB.pokemon[dexNumber].name}.png`);
-	var embed:MessageEmbed = new MessageEmbed()
+	const attachment:MessageAttachment = new MessageAttachment(`./Pokèbot/Pokemon/1-151/250px-${DB.pokemon[dexNumber].nat}${DB.pokemon[dexNumber].name}.png`);
+	const embed:MessageEmbed = new MessageEmbed()
 	.setColor(DB.pokemon[dexNumber].types[0].color)
 	.setTitle(DB.pokemon[dexNumber].name)
 	.addFields({ name: `National dex number:`, value: DB.pokemon[dexNumber].nat },

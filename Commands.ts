@@ -421,7 +421,7 @@ bots.forEach((bot, i):void => {
 	//list commands
 	bot.on(`ready`, ():void => {
 		bot.application.commands.fetch().then(():void => {
-			for (let command of bot.application.commands.cache.map((value) => value)){
+			for (const command of bot.application.commands.cache.map((value) => value)){
 				console.log(command)
 			}
 		})

@@ -1,9 +1,9 @@
 import { ChannelResolvable, Client, DMChannel, Message, NewsChannel, TextBasedChannels, TextChannel, ThreadChannel, VoiceChannel } from "discord.js";
 import { sendAsWebHook, blackList } from "./generalUse.js";
 //forwarding
-export var messageForwarding = (message: Message):void => {
+export const messageForwarding = (message: Message):void => {
 	if(message.channel.type == `DM`) {return}
-	let bot:Client = message.client;
+	const bot:Client = message.client;
 	if (!message.author.bot) {
 		if (message.content.startsWith(`<#`)) {
 			if ([`talk-as-${bot.user.username.toLowerCase()}`, `talk-and-dm-as-${bot.user.username.toLowerCase()}`, `dm-and-talk-as-${bot.user.username.toLowerCase()}`].includes(message.channel.name)) {
@@ -38,7 +38,7 @@ export var messageForwarding = (message: Message):void => {
 	}
 }
 //DM spy
-export var DMSpy = (message: Message, ChID: `${bigint}`):void => {
+export const DMSpy = (message: Message, ChID: `${bigint}`):void => {
 	if (message.channel.type == "DM" && !message.author.bot /*&& message.author.id !== process.env.RASID*/) {
 		message.client.channels.fetch(ChID).then((channel):void => {
 			if(!(channel instanceof TextChannel || channel instanceof NewsChannel)) {return}
@@ -51,7 +51,7 @@ export var DMSpy = (message: Message, ChID: `${bigint}`):void => {
 	}
 }
 //Channel link
-export var channelLink = (message: Message, ch1: `${bigint}`, ch2: `${bigint}`):void => {
+export const channelLink = (message: Message, ch1: `${bigint}`, ch2: `${bigint}`):void => {
 	if (!message.author.bot && (message.channel.id == ch1 || message.channel.id == ch2)) {
 		message.client.channels.fetch(ch1).then((ch1):void => {
 			if(!(ch1 instanceof TextChannel || ch1 instanceof NewsChannel)) {return}

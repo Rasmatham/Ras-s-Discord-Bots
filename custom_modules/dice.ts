@@ -1,6 +1,6 @@
 import { CommandInteraction, Interaction, MessageEmbed } from "discord.js";
 
-export var dice = (interaction: CommandInteraction):void => {
+export const dice = (interaction: CommandInteraction):void => {
 	let dieSides:number = 6
 	let diceCount:number = 1
 	if(typeof interaction.options.get(`die_sides`) != `undefined`){
@@ -16,7 +16,7 @@ export var dice = (interaction: CommandInteraction):void => {
 		} else {
 			if (dieSides === 10) {
 				for (let i:number = 0; i < diceCount; i++) {
-					var number10:MessageEmbed = new MessageEmbed()
+					const number10:MessageEmbed = new MessageEmbed()
 					.setColor(`#0099ff`)
 					.setTitle(`Totally legit dice`)
 					.addField(`You \"rolled\" a:`, `${Math.floor(Math.random() * 10)}`, true)
@@ -26,7 +26,7 @@ export var dice = (interaction: CommandInteraction):void => {
 				}
 			} else if (dieSides === 100) {
 				for (let i:number = 0; i < diceCount; i++) {
-					var number100:MessageEmbed = new MessageEmbed()
+					const number100:MessageEmbed = new MessageEmbed()
 					.setColor(`#0099ff`)
 					.setTitle(`Totally legit dice`)
 					.addField(`You \"rolled\" a:`, `${Math.floor(Math.random() * 10) * 10}`, true)
@@ -36,7 +36,7 @@ export var dice = (interaction: CommandInteraction):void => {
 				}
 			} else {
 				for (let i:number = 0; i < diceCount; i++) {
-					var numberN:MessageEmbed = new MessageEmbed()
+					const numberN:MessageEmbed = new MessageEmbed()
 					.setColor(`#0099ff`)
 					.setTitle(`Totally legit dice`)
 					.addField(`You \"rolled\" a:`, `${Math.ceil(Math.random() * Number(dieSides))}`, true)

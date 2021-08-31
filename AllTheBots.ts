@@ -27,27 +27,27 @@ require(`dotenv`).config();
 
 //Common
 //Other Variables
-var buzzLink:string = `https://discordapp.com/oauth2/authorize?&client_id=689449074008653865&scope=bot&permissions=8`;
-var ebnjLink:string = `https://discordapp.com/oauth2/authorize?&client_id=654079161723387914&scope=bot&permissions=8`;
-var GladosLink:string = `https://discordapp.com/oauth2/authorize?&client_id=680053684243398693&scope=bot&permissions=8`;
-var pokeLink:string = `https://discordapp.com/oauth2/authorize?&client_id=716002740442103899&scope=bot&permissions=8`;
-var r2Link:string = `https://discordapp.com/oauth2/authorize?&client_id=688152192196149250&scope=bot&permissions=8`;
-var randomLink:string = `https://discordapp.com/oauth2/authorize?&client_id=654787079590641713&scope=bot&permissions=8`;
-var zeldaLink:string = `https://discordapp.com/oauth2/authorize?&client_id=654786965090074656&scope=bot&permissions=8`;
-var githublink:string = `https://github.com/Rasmatham/Ras-s-Discord-Bots`
-var buzzBot:Client		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `Bee Movie Game`,						type: `PLAYING`}]}});
-var clambot:Client		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `Whatever Clams is playing`,			type: `PLAYING`}]}});
-var ebnj:Client		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `Minecraft`,							type: `PLAYING`}]}});
-var glados:Client		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `Portal Bridge Constructor`,			type: `PLAYING`}]}});
-var pokebot:Client		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `Pokémon Pinball`,						type: `PLAYING`}]}});
-var artoo:Client		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `LEGO Star Wars: the Skywalker saga`,	type: `PLAYING`}]}});
-var random:Client		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `honestly, idk what to put here`,		type: `PLAYING`}]}});
-var sini:Client		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `Splatoon 3`,							type: `PLAYING`}]}});
-var zelda:Client		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `Zelda: The Wand of Gamelon`,			type: `PLAYING`}]}});
-var croissant:Client	= new Client({intents: generalStuff.intents, presence: {activities: [{name: `Oui Oui Baguette`,						type: `PLAYING`}]}});
-var testChannel:`${bigint}` = `735213241860620308`;
-var PokePrefix:string = `pd`;
-var GLaDOSPrefix:string = `&`;
+const buzzLink:string = `https://discordapp.com/oauth2/authorize?&client_id=689449074008653865&scope=bot&permissions=8`;
+const ebnjLink:string = `https://discordapp.com/oauth2/authorize?&client_id=654079161723387914&scope=bot&permissions=8`;
+const GladosLink:string = `https://discordapp.com/oauth2/authorize?&client_id=680053684243398693&scope=bot&permissions=8`;
+const pokeLink:string = `https://discordapp.com/oauth2/authorize?&client_id=716002740442103899&scope=bot&permissions=8`;
+const r2Link:string = `https://discordapp.com/oauth2/authorize?&client_id=688152192196149250&scope=bot&permissions=8`;
+const randomLink:string = `https://discordapp.com/oauth2/authorize?&client_id=654787079590641713&scope=bot&permissions=8`;
+const zeldaLink:string = `https://discordapp.com/oauth2/authorize?&client_id=654786965090074656&scope=bot&permissions=8`;
+const githublink:string = `https://github.com/Rasmatham/Ras-s-Discord-Bots`
+const buzzBot:Client		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `Bee Movie Game`,						type: `PLAYING`}]}});
+const clambot:Client		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `Whatever Clams is playing`,			type: `PLAYING`}]}});
+const ebnj:Client		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `Minecraft`,							type: `PLAYING`}]}});
+const glados:Client		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `Portal Bridge Constructor`,			type: `PLAYING`}]}});
+const pokebot:Client		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `Pokémon Pinball`,						type: `PLAYING`}]}});
+const artoo:Client		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `LEGO Star Wars: the Skywalker saga`,	type: `PLAYING`}]}});
+const random:Client		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `honestly, idk what to put here`,		type: `PLAYING`}]}});
+const sini:Client		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `Splatoon 3`,							type: `PLAYING`}]}});
+const zelda:Client		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `Zelda: The Wand of Gamelon`,			type: `PLAYING`}]}});
+const croissant:Client	= new Client({intents: generalStuff.intents, presence: {activities: [{name: `Oui Oui Baguette`,						type: `PLAYING`}]}});
+const testChannel:`${bigint}` = `735213241860620308`;
+const PokePrefix:string = `pd`;
+const GLaDOSPrefix:string = `&`;
 //logins
 buzzBot.login(process.env.BUZZBOTTOKEN).catch(console.error);
 clambot.login(process.env.CLAMBOTTOKEN).catch(console.error);
@@ -64,9 +64,9 @@ generalStuff.botReady([buzzBot, clambot, ebnj, glados, pokebot, artoo, random, s
 
 //BuzzBot
 //long stuff
-var mrtz:string = `Did you know BeeMrtz is short for Bee Master? He just had a tiny stroke while typing it`;
+const mrtz:string = `Did you know BeeMrtz is short for Bee Master? He just had a tiny stroke while typing it`;
 //functions
-var buzzes = ():string => {
+const buzzes = ():string => {
 	let str:string = ``;
 	for (let i:number = 0; i < Math.floor(Math.random() * 9); i++) {
 		if (Math.floor(Math.random() * 2)) {
@@ -122,11 +122,11 @@ ebnj.on(`messageCreate`, (message: Message):void => {
 
 //GLaDOS
 //Long stuff (please collapse)
-var cake:string = `It is totally real (Definitely not a lie)`;
-var lemonrant:string = `All right, I've been thinking, when life gives you lemons, don't make lemonade!\nMake life take the lemons back!\nGet mad!\nI don't want your damn lemons!\nWhat am I supposed to do with these?\nDemand to see life's manager!\nMake life rue the day it thought it could give Cave Johnson lemons!\nDo you know who I am?\nI'm the man whose gonna burn your house down - with the lemons!`;
-var lie:string = `I will tell you what is not a lie\nThe cake`;
-var ping:string = `P I N G\nWait\nNevermind`;
-var stillalive:MessageEmbed = new MessageEmbed()
+const cake:string = `It is totally real (Definitely not a lie)`;
+const lemonrant:string = `All right, I've been thinking, when life gives you lemons, don't make lemonade!\nMake life take the lemons back!\nGet mad!\nI don't want your damn lemons!\nWhat am I supposed to do with these?\nDemand to see life's manager!\nMake life rue the day it thought it could give Cave Johnson lemons!\nDo you know who I am?\nI'm the man whose gonna burn your house down - with the lemons!`;
+const lie:string = `I will tell you what is not a lie\nThe cake`;
+const ping:string = `P I N G\nWait\nNevermind`;
+const stillalive:MessageEmbed = new MessageEmbed()
 .setColor(`FFFFFF` as ColorResolvable)
 .setTitle(`Still alive`)
 .addFields({
@@ -209,10 +209,10 @@ glados.on(`messageCreate`, (message: Message):void => {
 glados.on(`interactionCreate`, (interaction: Interaction):void => {
 	switch(interaction.type){
 		case `MESSAGE_COMPONENT`:
-		let messageComponentInteraction:MessageComponentInteraction = interaction as MessageComponentInteraction;
+		const messageComponentInteraction:MessageComponentInteraction = interaction as MessageComponentInteraction;
 		switch(messageComponentInteraction.componentType){
 			case `BUTTON`:
-			let buttonInteraction:ButtonInteraction = messageComponentInteraction as ButtonInteraction;
+			const buttonInteraction:ButtonInteraction = messageComponentInteraction as ButtonInteraction;
 			switch(buttonInteraction.customId){
 				case `Dummy`:
 				buttonInteraction.deleteReply()
@@ -223,7 +223,7 @@ glados.on(`interactionCreate`, (interaction: Interaction):void => {
 			}
 			break;
 			case `SELECT_MENU`:
-			let selectMenuInteraction:SelectMenuInteraction = messageComponentInteraction as SelectMenuInteraction;
+			const selectMenuInteraction:SelectMenuInteraction = messageComponentInteraction as SelectMenuInteraction;
 			switch(selectMenuInteraction.customId){
 				case `Dummy`:
 				selectMenuInteraction.update({content: `Seems about right`})
@@ -238,7 +238,7 @@ glados.on(`interactionCreate`, (interaction: Interaction):void => {
 		}
 		break;
 		case `APPLICATION_COMMAND`:
-		let commandInteraction:CommandInteraction = interaction as CommandInteraction;
+		const commandInteraction:CommandInteraction = interaction as CommandInteraction;
 		switch(commandInteraction.commandName){
 			case `botlink`:
 			commandInteraction.reply({content: GladosLink, ephemeral: true}).catch(console.error);
@@ -290,7 +290,7 @@ glados.on(`interactionCreate`, (interaction: Interaction):void => {
 
 //Pokebot
 //search
-var sendEmbed = (message: Message):void => {
+const sendEmbed = (message: Message):void => {
 	if (message.author.id !== pokebot.user.id) {
 		if (message.content.toLowerCase().startsWith(`${PokePrefix} `)) {
 			if(message.channel.type == `GUILD_TEXT` || message.channel.type == `GUILD_NEWS`){
@@ -311,10 +311,10 @@ pokebot.on(`messageCreate`, (message: Message):void => {
 
 //Artoo
 //Long stuff
-var generalRas:string = `General Ras.\nYears ago you served my father in the Clone Wars.\nNow he begs you to help him in his struggle against the Empire.\nI regret that I am unable to present my father's request to you in person, but my ship has fallen under attack, and I'm afraid my mission to bring you to Alderaan has failed.\nI have placed information vital to the survival of the Rebellion into the memory systems of this R2 unit.\nMy father will know how to retrieve it.\nYou must see this droid safely delivered to him on Alderaan.\nThis is our most desperate hour.\nHelp me, Rasmatham.\nYou're my only hope.`;
-var SWWords:string[] = [`star`, `wars`, `anakin`, `luke`, `obi`, `wan`, `kenobi`, `han`, `solo`, `leia`, `yoda`, `mace`, `windu`, `force`, `c3po`, `chewbacca`, `chewie`, `darth`, `vader`, `maul`, `sidius`, `plagueis`, `c-3po`, `r2`, `d2`, `emperor`, `palpatine`, `skywalker`, `jango`, `fett`, `padme`, `padmé`, `amidala`, `doku`, `tyranus`, `grievous`, `qui`, `gon`, `jinn`, `ackbar`, `tarkin`, `jabba`, `hut`, `lando`, `calrissian`, `boba`, `naboo`, `kashyyyk`, `alderaan`, `geonosis`, `kamino`, `dagobah`, `hoth`, `endor`, `bespin`, `mustafar`, `coruscant`, `tatooine`];
+const generalRas:string = `General Ras.\nYears ago you served my father in the Clone Wars.\nNow he begs you to help him in his struggle against the Empire.\nI regret that I am unable to present my father's request to you in person, but my ship has fallen under attack, and I'm afraid my mission to bring you to Alderaan has failed.\nI have placed information vital to the survival of the Rebellion into the memory systems of this R2 unit.\nMy father will know how to retrieve it.\nYou must see this droid safely delivered to him on Alderaan.\nThis is our most desperate hour.\nHelp me, Rasmatham.\nYou're my only hope.`;
+const SWWords:string[] = [`star`, `wars`, `anakin`, `luke`, `obi`, `wan`, `kenobi`, `han`, `solo`, `leia`, `yoda`, `mace`, `windu`, `force`, `c3po`, `chewbacca`, `chewie`, `darth`, `vader`, `maul`, `sidius`, `plagueis`, `c-3po`, `r2`, `d2`, `emperor`, `palpatine`, `skywalker`, `jango`, `fett`, `padme`, `padmé`, `amidala`, `doku`, `tyranus`, `grievous`, `qui`, `gon`, `jinn`, `ackbar`, `tarkin`, `jabba`, `hut`, `lando`, `calrissian`, `boba`, `naboo`, `kashyyyk`, `alderaan`, `geonosis`, `kamino`, `dagobah`, `hoth`, `endor`, `bespin`, `mustafar`, `coruscant`, `tatooine`];
 //functions
-var beeps = ():string => {
+const beeps = ():string => {
 	let str:string = ``;
 	for (let i:number = 0; i < Math.floor(Math.random() * 10); i++) {
 		if (Math.floor(Math.random() * 2)) {

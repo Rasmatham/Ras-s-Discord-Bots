@@ -1,9 +1,9 @@
 import { Message, MessageAttachment, TextChannel, WebhookClient, Client, MessageEmbed, MessageOptions, Webhook, BufferResolvable, User, Intents, NewsChannel, ThreadChannel } from "discord.js";
 //intent
-export var intents:Intents = new Intents([`GUILDS`, `GUILD_MEMBERS`, `GUILD_BANS`, `GUILD_EMOJIS_AND_STICKERS`, `GUILD_INTEGRATIONS`, `GUILD_WEBHOOKS`, `GUILD_INVITES`, `GUILD_VOICE_STATES`, `GUILD_PRESENCES`, `GUILD_MESSAGES`, `GUILD_MESSAGE_REACTIONS`, `GUILD_MESSAGE_TYPING`, `DIRECT_MESSAGES`, `DIRECT_MESSAGE_REACTIONS`, `DIRECT_MESSAGE_TYPING`]);
+export const intents:Intents = new Intents([`GUILDS`, `GUILD_MEMBERS`, `GUILD_BANS`, `GUILD_EMOJIS_AND_STICKERS`, `GUILD_INTEGRATIONS`, `GUILD_WEBHOOKS`, `GUILD_INVITES`, `GUILD_VOICE_STATES`, `GUILD_PRESENCES`, `GUILD_MESSAGES`, `GUILD_MESSAGE_REACTIONS`, `GUILD_MESSAGE_TYPING`, `DIRECT_MESSAGES`, `DIRECT_MESSAGE_REACTIONS`, `DIRECT_MESSAGE_TYPING`]);
 
 //Check amount
-export var checkFor = (arr: string[], str: string): string => {
+export const checkFor = (arr: string[], str: string): string => {
 	if (arr.length > 0) {
 		return `${str} ${arr.length}\n`;
 	} else {
@@ -11,8 +11,8 @@ export var checkFor = (arr: string[], str: string): string => {
 	}
 }
 //send as webhook
-export var sendAsWebHook = (message: Message, sendTo: TextChannel | NewsChannel, sendMessage: MessageOptions, name: string, PFP: BufferResolvable):void => {
-	let webHookFunction = ():void => {
+export const sendAsWebHook = (message: Message, sendTo: TextChannel | NewsChannel, sendMessage: MessageOptions, name: string, PFP: BufferResolvable):void => {
+	const webHookFunction = ():void => {
 		sendTo.fetchWebhooks()
 		.then((webHooks):void => {
 			if (webHooks.size <= 0) {
@@ -30,7 +30,7 @@ export var sendAsWebHook = (message: Message, sendTo: TextChannel | NewsChannel,
 			webHooks.map((webHook: Webhook):void => {
 				if(webHook.owner instanceof User){
 					if (webHook.owner.id === message.client.user.id) {
-						let myWebHook:WebhookClient = new WebhookClient({id: webHook.id, token: webHook.token})
+						const myWebHook:WebhookClient = new WebhookClient({id: webHook.id, token: webHook.token})
 						myWebHook.edit({ name: name, avatar: PFP})
 						.then((editedWebHook):void => {
 							if(typeof sendMessage.content !== `string` || sendMessage.content === ``){
@@ -63,7 +63,7 @@ export var sendAsWebHook = (message: Message, sendTo: TextChannel | NewsChannel,
 	webHookFunction()
 }
 //Bot check
-export var botReady = (bots: Client[]):void => {
+export const botReady = (bots: Client[]):void => {
 	bots.forEach((bot):void => {
 		/*bot.on('debug', console.log)
 		.on('warn', console.log)*/
@@ -73,4 +73,4 @@ export var botReady = (bots: Client[]):void => {
 	})
 }
 
-export var blackList:string[] = [`announcements`, `6-hour-cooldown`, `rules`, `polls`, `stalking-tips`, `rules-for-new-mods`, `serious`, `gif-only-conversation`, `love-advice`, `inspiration`];
+export const blackList:string[] = [`announcements`, `6-hour-cooldown`, `rules`, `polls`, `stalking-tips`, `rules-for-new-mods`, `serious`, `gif-only-conversation`, `love-advice`, `inspiration`];

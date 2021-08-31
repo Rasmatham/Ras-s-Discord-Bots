@@ -2,7 +2,7 @@ import { Message, MessageAdditions, MessageOptions, User } from "discord.js";
 //reply
 
 //function int
-var reply = async (message: Message, chance: number, rply: MessageOptions):Promise<void> => {
+const reply = async (message: Message, chance: number, rply: MessageOptions):Promise<void> => {
 	if (Math.random() * 100 <= chance) {
 		message.channel.sendTyping()
 		.finally(():void => {message.channel.send(rply)})
@@ -10,7 +10,7 @@ var reply = async (message: Message, chance: number, rply: MessageOptions):Promi
 	}
 }
 //function ext
-export var replyThing = (message: Message, type: `anywhere` | `exact` | `mention`, chance: number, rply: MessageOptions, triggerArr: string[] | `${bigint}`[]):void => {
+export const replyThing = (message: Message, type: `anywhere` | `exact` | `mention`, chance: number, rply: MessageOptions, triggerArr: string[] | `${bigint}`[]):void => {
 	if (!message.author.bot) {
 		if (type === `anywhere`) {
 			triggerArr.forEach((trigger):void => {
@@ -44,7 +44,7 @@ export var replyThing = (message: Message, type: `anywhere` | `exact` | `mention
 //react
 
 //function int
-var react = (message: Message, chance: number, emoteArr: string[]):void => {
+const react = (message: Message, chance: number, emoteArr: string[]):void => {
 	if (Math.random() * 100 <= chance) {
 		emoteArr.forEach(emote => {
 			message.react(emote);
@@ -52,7 +52,7 @@ var react = (message: Message, chance: number, emoteArr: string[]):void => {
 	}
 }
 //Function ext
-export var reactThing = (message: Message, type: `anywhere` | `exact` | `mention`, chance: number, emoteArr: string[], triggerArr: string[] | `${bigint}`[]):void => {
+export const reactThing = (message: Message, type: `anywhere` | `exact` | `mention`, chance: number, emoteArr: string[], triggerArr: string[] | `${bigint}`[]):void => {
 	if (!message.author.bot) {
 		if (type === `anywhere`) {
 			triggerArr.forEach((trigger):void => {
