@@ -1,16 +1,16 @@
-import { Client } from "discord.js";
+import { ApplicationCommand, ApplicationCommandOptionType, Client, Guild, GuildResolvable } from "discord.js";
 import { intents } from "./custom_modules/generalUse.js";
 require(`dotenv`).config();
-const buzzBot = new Client({intents: intents, presence: {status: `dnd`, activities: [{name: `Doing some maintenance`, type: `PLAYING`}]}});
-const clambot = new Client({intents: intents, presence: {status: `dnd`, activities: [{name: `Doing some maintenance`, type: `PLAYING`}]}});
-const ebnj = new Client({intents: intents, presence: {status: `dnd`, activities: [{name: `Doing some maintenance`, type: `PLAYING`}]}});
-const glados = new Client({intents: intents, presence: {status: `dnd`, activities: [{name: `Doing some maintenance`, type: `PLAYING`}]}});
-const pokebot = new Client({intents: intents, presence: {status: `dnd`, activities: [{name: `Doing some maintenance`, type: `PLAYING`}]}});
-const artoo = new Client({intents: intents, presence: {status: `dnd`, activities: [{name: `Doing some maintenance`, type: `PLAYING`}]}});
-const random = new Client({intents: intents, presence: {status: `dnd`, activities: [{name: `Doing some maintenance`, type: `PLAYING`}]}});
-const sini = new Client({intents: intents, presence: {status: `dnd`, activities: [{name: `Doing some maintenance`, type: `PLAYING`}]}});
-const zelda = new Client({intents: intents, presence: {status: `dnd`, activities: [{name: `Doing some maintenance`, type: `PLAYING`}]}});
-const croissant = new Client({intents: intents, presence: {status: `dnd`, activities: [{name: `Doing some maintenance`, type: `PLAYING`}]}});
+const buzzBot:Client = new Client({intents: intents, presence: {status: `dnd`, activities: [{name: `Doing some maintenance`, type: `PLAYING`}]}});
+const clambot:Client = new Client({intents: intents, presence: {status: `dnd`, activities: [{name: `Doing some maintenance`, type: `PLAYING`}]}});
+const ebnj:Client = new Client({intents: intents, presence: {status: `dnd`, activities: [{name: `Doing some maintenance`, type: `PLAYING`}]}});
+const glados:Client = new Client({intents: intents, presence: {status: `dnd`, activities: [{name: `Doing some maintenance`, type: `PLAYING`}]}});
+const pokebot:Client = new Client({intents: intents, presence: {status: `dnd`, activities: [{name: `Doing some maintenance`, type: `PLAYING`}]}});
+const artoo:Client = new Client({intents: intents, presence: {status: `dnd`, activities: [{name: `Doing some maintenance`, type: `PLAYING`}]}});
+const random:Client = new Client({intents: intents, presence: {status: `dnd`, activities: [{name: `Doing some maintenance`, type: `PLAYING`}]}});
+const sini:Client = new Client({intents: intents, presence: {status: `dnd`, activities: [{name: `Doing some maintenance`, type: `PLAYING`}]}});
+const zelda:Client = new Client({intents: intents, presence: {status: `dnd`, activities: [{name: `Doing some maintenance`, type: `PLAYING`}]}});
+const croissant:Client = new Client({intents: intents, presence: {status: `dnd`, activities: [{name: `Doing some maintenance`, type: `PLAYING`}]}});
 
 buzzBot.login(process.env.BUZZBOTTOKEN).catch(console.error);
 clambot.login(process.env.CLAMBOTTOKEN).catch(console.error);
@@ -23,16 +23,88 @@ sini.login(process.env.SINITOKEN).catch(console.error);
 zelda.login(process.env.ZELDATOKEN).catch(console.error);
 croissant.login(process.env.CROISSANTTOKEN).catch(console.error);
 
-const buzzBotCommands = [
+const buzzBotCommands:{
+	id:`${bigint}`, 
+	guild?:Guild,
+	command:{
+		name:string, 
+		description:string, 
+		defaultPermission:boolean,
+		options?:{
+			name:string,
+			type:ApplicationCommandOptionType,
+			description:string,
+			required:boolean,
+			choices?: {
+				name: string,
+				value: string|number
+			}[]
+		}[]
+	}
+}[] = [
 	
 ];
-const clambotCommands = [
+const clambotCommands:{
+	id:`${bigint}`, 
+	guild?:Guild,
+	command:{
+		name:string, 
+		description:string, 
+		defaultPermission:boolean,
+		options?:{
+			name:string,
+			type:ApplicationCommandOptionType,
+			description:string,
+			required:boolean,
+			choices?: {
+				name: string,
+				value: string|number
+			}[]
+		}[]
+	}
+}[] = [
 	
 ];
-const ebnjCommands = [
+const ebnjCommands:{
+	id:`${bigint}`, 
+	guild?:Guild,
+	command:{
+		name:string, 
+		description:string, 
+		defaultPermission:boolean,
+		options?:{
+			name:string,
+			type:ApplicationCommandOptionType,
+			description:string,
+			required:boolean,
+			choices?: {
+				name: string,
+				value: string|number
+			}[]
+		}[]
+	}
+}[] = [
 	
 ];
-const gladosCommands = [
+const gladosCommands:{
+	id:`${bigint}`, 
+	guild?:Guild,
+	command:{
+		name:string, 
+		description:string, 
+		defaultPermission:boolean,
+		options?:{
+			name:string,
+			type:ApplicationCommandOptionType,
+			description:string,
+			required:boolean,
+			choices?: {
+				name: string,
+				value: string|number
+			}[]
+		}[]
+	}
+}[] = [
 	{
 		id: `862460436048642098`,
 		command: {
@@ -198,31 +270,157 @@ const gladosCommands = [
 		}
 	}
 ];
-const pokebotCommands = [
+const pokebotCommands:{
+	id:`${bigint}`, 
+	guild?:Guild,
+	command:{
+		name:string, 
+		description:string, 
+		defaultPermission:boolean,
+		options?:{
+			name:string,
+			type:ApplicationCommandOptionType,
+			description:string,
+			required:boolean,
+			choices?: {
+				name: string,
+				value: string|number
+			}[]
+		}[]
+	}
+}[] = [
 	
 ];
-const artooCommands = [
+const artooCommands:{
+	id:`${bigint}`, 
+	guild?:Guild,
+	command:{
+		name:string, 
+		description:string, 
+		defaultPermission:boolean,
+		options?:{
+			name:string,
+			type:ApplicationCommandOptionType,
+			description:string,
+			required:boolean,
+			choices?: {
+				name: string,
+				value: string|number
+			}[]
+		}[]
+	}
+}[] = [
 	
 ];
-const randomCommands = [
+const randomCommands:{
+	id:`${bigint}`, 
+	guild?:Guild,
+	command:{
+		name:string, 
+		description:string, 
+		defaultPermission:boolean,
+		options?:{
+			name:string,
+			type:ApplicationCommandOptionType,
+			description:string,
+			required:boolean,
+			choices?: {
+				name: string,
+				value: string|number
+			}[]
+		}[]
+	}
+}[] = [
 	
 ];
-const siniCommands = [
+const siniCommands:{
+	id:`${bigint}`, 
+	guild?:Guild,
+	command:{
+		name:string, 
+		description:string, 
+		defaultPermission:boolean,
+		options?:{
+			name:string,
+			type:ApplicationCommandOptionType,
+			description:string,
+			required:boolean,
+			choices?: {
+				name: string,
+				value: string|number
+			}[]
+		}[]
+	}
+}[] = [
 	
 ];
-const zeldaCommands = [
+const zeldaCommands:{
+	id:`${bigint}`, 
+	guild?:Guild,
+	command:{
+		name:string, 
+		description:string, 
+		defaultPermission:boolean,
+		options?:{
+			name:string,
+			type:ApplicationCommandOptionType,
+			description:string,
+			required:boolean,
+			choices?: {
+				name: string,
+				value: string|number
+			}[]
+		}[]
+	}
+}[] = [
 	
 ];
-const croissantCommands = [
+const croissantCommands:{
+	id:`${bigint}`, 
+	guild?:Guild,
+	command:{
+		name:string, 
+		description:string, 
+		defaultPermission:boolean,
+		options?:{
+			name:string,
+			type:ApplicationCommandOptionType,
+			description:string,
+			required:boolean,
+			choices?: {
+				name: string,
+				value: string|number
+			}[]
+		}[]
+	}
+}[] = [
 	
 ];
-const bots = [buzzBot, clambot, ebnj, glados, pokebot, artoo, random, sini, zelda, croissant];
-const commandGroup = [buzzBotCommands, clambotCommands, ebnjCommands, gladosCommands, pokebotCommands, artooCommands, randomCommands, siniCommands, zeldaCommands, croissantCommands];
+const bots:Client[] = [buzzBot, clambot, ebnj, glados, pokebot, artoo, random, sini, zelda, croissant];
+const commandGroup:{
+	id:`${bigint}`, 
+	guild?:Guild,
+	command:{
+		name:string, 
+		description:string, 
+		defaultPermission:boolean,
+		options?:{
+			name:string,
+			type:ApplicationCommandOptionType,
+			description:string,
+			required:boolean,
+			choices?: {
+				name: string,
+				value: string|number
+			}[]
+		}[]
+	}
+}[][] = [buzzBotCommands, clambotCommands, ebnjCommands, gladosCommands, pokebotCommands, artooCommands, randomCommands, siniCommands, zeldaCommands, croissantCommands];
 
-bots.forEach((bot, i) => {
+bots.forEach((bot, i):void => {
 	//list commands
-	bot.on(`ready`, () => {
-		bot.application.commands.fetch().then(() => {
+	bot.on(`ready`, ():void => {
+		bot.application.commands.fetch().then(():void => {
 			for (let command of bot.application.commands.cache.map((value) => value)){
 				console.log(command)
 			}
@@ -230,21 +428,21 @@ bots.forEach((bot, i) => {
 		.catch(console.error)
 	})
 	//Replace all
-	/*bot.on(`ready`, () => {
-		bot.application.commands.fetch().then((command) => {
+	/*bot.on(`ready`, ():void => {
+		bot.application.commands.fetch().then((command):void => {
 			console.log(`${bot.user.tag} is active`);
-			commandGroup[i].forEach((command, j) => {
+			commandGroup[i].forEach((command, j):void => {
 				bot.application.commands.create(command.command, command.guild = null)
-				.then((command) => {console.log(`[${j + 1}/${commandGroup[i].length}] Command: "${command.name}" updated`)})
+				.then((command):void => {console.log(`[${j + 1}/${commandGroup[i].length}] Command: "${command.name}" updated`)})
 				.catch(console.error)
 			})
 		})
 	})*/
 	//edit specific
-	bot.on(`ready`, () => {
-		commandGroup[i].forEach((command, j) => {
+	bot.on(`ready`, ():void => {
+		commandGroup[i].forEach((command, j):void => {
 			bot.application.commands.create(command.command, command.guild = null)
-			.then((command) => {console.log(`[${i+1}/${bots.length}][${j+1}/${commandGroup[i].length}] Edited ${command.name}`)})
+			.then((command):void => {console.log(`[${i+1}/${bots.length}][${j+1}/${commandGroup[i].length}] Edited ${command.name}`)})
 			.catch(console.error)
 		})
 	})

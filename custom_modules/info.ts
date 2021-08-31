@@ -1,14 +1,14 @@
 import { CommandInteraction, MessageEmbed, GuildChannelManager, Guild, User, ColorResolvable, GuildMember, InteractionReplyOptions } from "discord.js";
-const { checkFor } = require("./generalUse.js");
+import { checkFor } from "./generalUse.js";
 import { writeFile, unlink } from "fs"
 //channelCount
-export var channelCount = (guild: Guild) => {
+export var channelCount = (guild: Guild):{textChannels: number, voiceChannels: number, Categories: number, Unknown: number, all: number} => {
 	if (guild !== null) {
-		let TC = [];
-		let VC = [];
-		let Cat = [];
-		let UK = [];
-		guild.channels.cache.map((channel) => {
+		let TC:string[] = [];
+		let VC:string[] = [];
+		let Cat:string[] = [];
+		let UK:string[] = [];
+		guild.channels.cache.map((channel):void => {
 			switch (channel.type) {
 				case `GUILD_TEXT`:
 				TC.push(channel.name);
@@ -28,24 +28,24 @@ export var channelCount = (guild: Guild) => {
 	}
 }
 //userinfo
-export var userInfo = (interaction: CommandInteraction) => {
-	writeFile(`${interaction.client.user.username}/userinfo/userinfo.json`, `"interaction.user":{\n${JSON.stringify(interaction.user, null, 2)}\n},\n"interaction.member":{\n${JSON.stringify(interaction.member, null, 2)}\n}`, () => {
+export var userInfo = (interaction: CommandInteraction):void => {
+	writeFile(`${interaction.client.user.username}/userinfo/userinfo.json`, `"interaction.user":{\n${JSON.stringify(interaction.user, null, 2)}\n},\n"interaction.member":{\n${JSON.stringify(interaction.member, null, 2)}\n}`, ():void => {
 		if (interaction.options.get(`public`).value as boolean) {
 			interaction.reply({files: [`${interaction.client.user.username}/userinfo/userinfo.json`]})
-			.then(() => {
-				unlink(`${interaction.client.user.username}/userinfo/userinfo.json`, () => {
+			.then(():void => {
+				unlink(`${interaction.client.user.username}/userinfo/userinfo.json`, ():void => {
 				})
 			})
 			.catch(console.error)
 		} else {
 			if(!(interaction.member instanceof GuildMember)){return}
 			interaction.member.send({files: [`${interaction.client.user.username}/userinfo/userinfo.json`]})
-			.then(() => {
-				unlink(`${interaction.client.user.username}/userinfo/userinfo.json`, () => {
+			.then(():void => {
+				unlink(`${interaction.client.user.username}/userinfo/userinfo.json`, ():void => {
 				})
 			})
 			.catch(console.error)
-			.then(() => {
+			.then(():void => {
 				interaction.reply({content: `You have [1] more DM!`, ephemeral: true})
 				.catch(console.error)
 			})
@@ -55,12 +55,12 @@ export var userInfo = (interaction: CommandInteraction) => {
 //serverinfo
 export var serverInfo = (interaction: CommandInteraction):void => {
 	if (interaction.guild !== null) {
-		let textChannels: string[] = [];
-		let voiceChannels: string[] = [];
-		let Categories: string[] = [];
-		let unknown: string[] = [] = [];
-		interaction.guild.channels.fetch().then((channels) => {
-			channels.forEach((channel) => {
+		let textChannels:string[] = [];
+		let voiceChannels:string[] = [];
+		let Categories:string[] = [];
+		let unknown:string[] = [] = [];
+		interaction.guild.channels.fetch().then((channels):void => {
+			channels.forEach((channel):void => {
 				switch (channel.type) {
 					case `GUILD_TEXT`:
 					textChannels.push(channel.name);
@@ -77,23 +77,24 @@ export var serverInfo = (interaction: CommandInteraction):void => {
 				}
 			})
 		})
-		.then(() => {
-			const content = `\`\`\`\n${
-				checkFor(textChannels, `Text channels:`)
-			}${
-				checkFor(voiceChannels, `Voice channels:`)
-			}${
-				checkFor(Categories, `Categories:`)
-			}${
-				checkFor(unknown, `Other channels:`)
-			}Total channels: ${
-				textChannels.length + voiceChannels.length + Categories.length + unknown.length
-			}\nChannels left: ${
-				500 - (textChannels.length + voiceChannels.length + Categories.length + unknown.length)
-			}\nmembers: ${
-				interaction.guild.memberCount
-			}\n\`\`\``;
-			interaction.reply({content: content});
+		.then(():void => {
+			interaction.reply({
+				content: `\`\`\`\n${
+					checkFor(textChannels, `Text channels:`)
+				}${
+					checkFor(voiceChannels, `Voice channels:`)
+				}${
+					checkFor(Categories, `Categories:`)
+				}${
+					checkFor(unknown, `Other channels:`)
+				}Total channels: ${
+					textChannels.length + voiceChannels.length + Categories.length + unknown.length
+				}\nChannels left: ${
+					500 - (textChannels.length + voiceChannels.length + Categories.length + unknown.length)
+				}\nmembers: ${
+					interaction.guild.memberCount
+				}\n\`\`\``
+			});
 		})
 		.catch(console.error)
 	} else {
@@ -105,11 +106,12 @@ export var serverInfo = (interaction: CommandInteraction):void => {
 	}
 }
 //join date
-export var joindate = (interaction: CommandInteraction) => {
+export var joindate = (interaction: CommandInteraction):{embeds: MessageEmbed[], ephemeral: boolean;
+} => {
 	if(!(interaction.member.user instanceof User)){return}
-	var ms = interaction.member.user.createdTimestamp;
-	var date = new Date(ms);
-	var embed = new MessageEmbed()
+	var ms:number = interaction.member.user.createdTimestamp;
+	var date:Date = new Date(ms);
+	var embed:MessageEmbed = new MessageEmbed()
 	.setColor(`FFFFFF` as ColorResolvable)
 	.setTitle(`You joined:`)
 	.setThumbnail(`https://cdn.discordapp.com/attachments/656164355381133332/715651846584270899/ezgif-3-ea387cdabbbe.gif`)

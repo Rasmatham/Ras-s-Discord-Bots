@@ -1,6 +1,6 @@
 import { Message, MessageAttachment, TextChannel, WebhookClient, Client, MessageEmbed, MessageOptions, Webhook, BufferResolvable, User, Intents, NewsChannel, ThreadChannel } from "discord.js";
 //intent
-export var intents = new Intents([`GUILDS`, `GUILD_MEMBERS`, `GUILD_BANS`, `GUILD_EMOJIS_AND_STICKERS`, `GUILD_INTEGRATIONS`, `GUILD_WEBHOOKS`, `GUILD_INVITES`, `GUILD_VOICE_STATES`, `GUILD_PRESENCES`, `GUILD_MESSAGES`, `GUILD_MESSAGE_REACTIONS`, `GUILD_MESSAGE_TYPING`, `DIRECT_MESSAGES`, `DIRECT_MESSAGE_REACTIONS`, `DIRECT_MESSAGE_TYPING`]);
+export var intents:Intents = new Intents([`GUILDS`, `GUILD_MEMBERS`, `GUILD_BANS`, `GUILD_EMOJIS_AND_STICKERS`, `GUILD_INTEGRATIONS`, `GUILD_WEBHOOKS`, `GUILD_INVITES`, `GUILD_VOICE_STATES`, `GUILD_PRESENCES`, `GUILD_MESSAGES`, `GUILD_MESSAGE_REACTIONS`, `GUILD_MESSAGE_TYPING`, `DIRECT_MESSAGES`, `DIRECT_MESSAGE_REACTIONS`, `DIRECT_MESSAGE_TYPING`]);
 
 //Check amount
 export var checkFor = (arr: string[], str: string): string => {
@@ -12,27 +12,27 @@ export var checkFor = (arr: string[], str: string): string => {
 }
 //send as webhook
 export var sendAsWebHook = (message: Message, sendTo: TextChannel | NewsChannel, sendMessage: MessageOptions, name: string, PFP: BufferResolvable):void => {
-	let webHookFunction = () => {
+	let webHookFunction = ():void => {
 		sendTo.fetchWebhooks()
-		.then((webHooks) => {
+		.then((webHooks):void => {
 			if (webHooks.size <= 0) {
 				sendTo.createWebhook(`${message.client.user.username}-Webhook`)
-				.then(() => {
+				.then(():void => {
 					webHookFunction()
 				})
-				.catch((err) => {
+				.catch((err):void => {
 					console.error(err)
 					message.channel.send(`Something went wrong`)
 					.catch(console.error)
 				})
 			}
-			let i = 0;
-			webHooks.map((webHook: Webhook) => {
+			let i:number = 0;
+			webHooks.map((webHook: Webhook):void => {
 				if(webHook.owner instanceof User){
 					if (webHook.owner.id === message.client.user.id) {
-						let myWebHook = new WebhookClient({id: webHook.id, token: webHook.token})
+						let myWebHook:WebhookClient = new WebhookClient({id: webHook.id, token: webHook.token})
 						myWebHook.edit({ name: name, avatar: PFP})
-						.then((editedWebHook) => {
+						.then((editedWebHook):void => {
 							if(typeof sendMessage.content !== `string` || sendMessage.content === ``){
 								sendMessage.content = ` `;
 								editedWebHook.send(sendMessage)
@@ -45,10 +45,10 @@ export var sendAsWebHook = (message: Message, sendTo: TextChannel | NewsChannel,
 						.catch(console.error)
 					} else if (i >= webHooks.size - 1) {
 						sendTo.createWebhook(`${message.client.user.username}-Webhook`)
-						.then(() => {
+						.then(():void => {
 							webHookFunction()
 						})
-						.catch((err) => {
+						.catch((err):void => {
 							console.error(err)
 							message.channel.send(`Something went wrong`)
 							.catch(console.error)
@@ -63,11 +63,11 @@ export var sendAsWebHook = (message: Message, sendTo: TextChannel | NewsChannel,
 	webHookFunction()
 }
 //Bot check
-export var botReady = (bots: Client[]) => {
-	bots.forEach((bot) => {
+export var botReady = (bots: Client[]):void => {
+	bots.forEach((bot):void => {
 		/*bot.on('debug', console.log)
 		.on('warn', console.log)*/
-		bot.on(`ready`, () => {
+		bot.on(`ready`, ():void => {
 			console.log(`${bot.user.username} is online`);
 		})
 	})

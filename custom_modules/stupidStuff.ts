@@ -1,13 +1,13 @@
-import { CommandInteraction, Emoji, EmojiIdentifierResolvable, Interaction, Message, MessageActionRow, MessageButton, MessageOptions, MessageSelectMenu, TextChannel } from "discord.js";
-const { blackList } = require("./generalUse.js");
+import { CommandInteraction, Emoji, EmojiIdentifierResolvable, Interaction, InteractionReplyOptions, Message, MessageActionRow, MessageButton, MessageOptions, MessageSelectMenu, TextChannel } from "discord.js";
+import { blackList } from "./generalUse.js";
 //Frick that one rule
-export var hencefortifier = (message: Message) => {
+export var hencefortifier = (message: Message):void => {
 	if (message.author.id !== message.client.user.id && message.guild !== null &&message.content.toLowerCase().includes(`from now on`)) {
 		if(message.guild.id == `646155122992480266`){
-			let textChannels: `${bigint}`[] = [];
-			message.guild.channels.cache.map((channel) => {
+			let textChannels:`${bigint}`[] = [];
+			message.guild.channels.cache.map((channel):void => {
 				if (channel.type === `GUILD_TEXT`) {
-					blackList.forEach((bannedChannel:string) => {
+					blackList.forEach((bannedChannel:string):void => {
 						if (channel.name !== bannedChannel) {
 							textChannels.push(channel.id as `${bigint}`);
 						}
@@ -15,7 +15,7 @@ export var hencefortifier = (message: Message) => {
 				}
 			});
 			message.client.channels.fetch(textChannels[Math.floor(Math.random() * (textChannels.length - 1))])
-			.then((channel: TextChannel) => {
+			.then((channel: TextChannel):void => {
 				channel.send(`<@${message.author.id}>, you did an oopsie`)
 				.catch(console.error)
 			});
@@ -23,7 +23,7 @@ export var hencefortifier = (message: Message) => {
 	}
 }
 //Flit no lasting! Flit no lasting! Flit no lasting!
-export var userWordBan = (message: Message, word: string, userID: `${bigint}`) => {
+export var userWordBan = (message: Message, word: string, userID: `${bigint}`):void => {
 	if (message.author.id === userID) {
 		if (message.content.toLowerCase().includes(word)) {
 			message.delete()
@@ -32,7 +32,7 @@ export var userWordBan = (message: Message, word: string, userID: `${bigint}`) =
 	}
 }
 //smh, Espen bot doesn't work
-export var espenBotReplacement = (type: `message` | `react`, message: Message, chance: number, victim: `${bigint}`, out: MessageOptions | EmojiIdentifierResolvable) => {
+export var espenBotReplacement = (type: `message` | `react`, message: Message, chance: number, victim: `${bigint}`, out: MessageOptions | EmojiIdentifierResolvable):void => {
 	if (message.author.id === victim && Math.floor(Math.random() * 100) <= chance) {
 		switch(type){
 			case `message`:
@@ -47,28 +47,28 @@ export var espenBotReplacement = (type: `message` | `react`, message: Message, c
 	}
 }
 //button grid
-export var buttonGrid = (interaction: CommandInteraction) => {
-	var unicodeEmoji = /^(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])$/gi;
-	var discordEmoji = /^<(a?)?:.+?:\d+>$/gi;
-	var discordEmojiNotExact = /<(a?)?:.+?:\d+>/gi;
-	let buttonContent = interaction.options.get(`button_content`).value as string;
+export var buttonGrid = (interaction: CommandInteraction):InteractionReplyOptions => {
+	var unicodeEmoji:RegExp = /^(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])$/gi;
+	var discordEmoji:RegExp = /^<(a?)?:.+?:\d+>$/gi;
+	var discordEmojiNotExact:RegExp = /<(a?)?:.+?:\d+>/gi;
+	let buttonContent:string = interaction.options.get(`button_content`).value as string;
 	if(buttonContent.length <= 80){
 		if(buttonContent.match(unicodeEmoji) || buttonContent.match(discordEmoji)){
-			const button = new MessageButton().setCustomId(`Dummy`).setEmoji(buttonContent).setStyle(`SECONDARY`);
-			const bar = new MessageActionRow().addComponents([button],[button],[button],[button],[button]);
+			const button:MessageButton = new MessageButton().setCustomId(`Dummy`).setEmoji(buttonContent).setStyle(`SECONDARY`);
+			const bar:MessageActionRow = new MessageActionRow().addComponents([button],[button],[button],[button],[button]);
 			return {content: buttonContent, components: [bar, bar, bar, bar, bar]};
 		} else if (buttonContent.match(discordEmojiNotExact)) {
-			const button = new MessageButton().setCustomId(`Dummy`).setLabel(buttonContent.replace(discordEmojiNotExact, ``)).setStyle(`SECONDARY`);
-			const bar = new MessageActionRow().addComponents([button],[button],[button],[button],[button]);
+			const button:MessageButton = new MessageButton().setCustomId(`Dummy`).setLabel(buttonContent.replace(discordEmojiNotExact, ``)).setStyle(`SECONDARY`);
+			const bar:MessageActionRow = new MessageActionRow().addComponents([button],[button],[button],[button],[button]);
 			return {content: buttonContent.replace(discordEmojiNotExact, ``), components: [bar, bar, bar, bar, bar]};
 		}
-		const button = new MessageButton().setCustomId(`Dummy`).setLabel(buttonContent).setStyle(`SECONDARY`);
-		const bar = new MessageActionRow().addComponents([button],[button],[button],[button],[button]);
+		const button:MessageButton = new MessageButton().setCustomId(`Dummy`).setLabel(buttonContent).setStyle(`SECONDARY`);
+		const bar:MessageActionRow = new MessageActionRow().addComponents([button],[button],[button],[button],[button]);
 		return {content: buttonContent, components: [bar, bar, bar, bar, bar]};
 	}
 }
-export var selectMenu = () => {
-	const menu = new MessageSelectMenu().setCustomId(`Dummy`).setPlaceholder(`Choose wisely`).addOptions([
+export var selectMenu = ():InteractionReplyOptions => {
+	const menu:MessageSelectMenu = new MessageSelectMenu().setCustomId(`Dummy`).setPlaceholder(`Choose wisely`).addOptions([
 		{
 			label: 'Ras is cool',
 			description: 'This is the wrong answer',
@@ -80,6 +80,6 @@ export var selectMenu = () => {
 			value: 'second_option',
 		},
 	]);
-	const bar = new MessageActionRow().addComponents([menu]);
+	const bar:MessageActionRow = new MessageActionRow().addComponents([menu]);
 	return {content: `sample menus:`, components: [bar]};
 }

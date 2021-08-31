@@ -2,10 +2,10 @@ import { Message, MessageAdditions, MessageOptions, User } from "discord.js";
 //reply
 
 //function int
-var reply = async (message: Message, chance: number, rply: MessageOptions) => {
+var reply = async (message: Message, chance: number, rply: MessageOptions):Promise<void> => {
 	if (Math.random() * 100 <= chance) {
 		message.channel.sendTyping()
-		.finally(() => {message.channel.send(rply)})
+		.finally(():void => {message.channel.send(rply)})
 		.catch(console.error)
 	}
 }
@@ -13,27 +13,27 @@ var reply = async (message: Message, chance: number, rply: MessageOptions) => {
 export var replyThing = (message: Message, type: `anywhere` | `exact` | `mention`, chance: number, rply: MessageOptions, triggerArr: string[] | `${bigint}`[]):void => {
 	if (!message.author.bot) {
 		if (type === `anywhere`) {
-			triggerArr.forEach((trigger) => {
+			triggerArr.forEach((trigger):void => {
 				if (message.content.toLowerCase().includes(trigger as string)) {
 					reply(message, chance, rply);
 				}
 			});
 		} else if (type === `exact`) {
-			const editedMessage = message.content
+			const editedMessage:string = message.content
 			.replace(`.`, ``)
 			.replace(`,`, ``)
 			.replace(`!`, ``)
 			.replace(`?`, ``)
 			.replace(`:`, ``);
-			message.content.split(` `).forEach((word) => {
-				triggerArr.forEach((trigger) => {
+			message.content.split(` `).forEach((word):void => {
+				triggerArr.forEach((trigger):void => {
 					if (word === trigger) {
 						reply(message, chance, rply);
 					}
 				});
 			});
 		} else if (type === `mention`) {
-			triggerArr.forEach((trigger) => {
+			triggerArr.forEach((trigger):void => {
 				if (message.mentions.users.has(trigger as `${bigint}`)) {
 					reply(message, chance, rply);
 				}
@@ -44,7 +44,7 @@ export var replyThing = (message: Message, type: `anywhere` | `exact` | `mention
 //react
 
 //function int
-var react = (message: Message, chance: number, emoteArr: string[]) => {
+var react = (message: Message, chance: number, emoteArr: string[]):void => {
 	if (Math.random() * 100 <= chance) {
 		emoteArr.forEach(emote => {
 			message.react(emote);
@@ -52,30 +52,30 @@ var react = (message: Message, chance: number, emoteArr: string[]) => {
 	}
 }
 //Function ext
-export var reactThing = (message: Message, type: `anywhere` | `exact` | `mention`, chance: number, emoteArr: string[], triggerArr: string[] | `${bigint}`[]) => {
+export var reactThing = (message: Message, type: `anywhere` | `exact` | `mention`, chance: number, emoteArr: string[], triggerArr: string[] | `${bigint}`[]):void => {
 	if (!message.author.bot) {
 		if (type === `anywhere`) {
-			triggerArr.forEach((trigger) => {
+			triggerArr.forEach((trigger):void => {
 				if (message.content.toLowerCase().includes(trigger) && Math.random() * 100 <= chance) {
 					react(message, chance, emoteArr);
 				}
 			});
 		} else if (type === `exact`) {
-			const editedMessage = message.content
+			const editedMessage:string = message.content
 			.replace(`.`, ``)
 			.replace(`,`, ``)
 			.replace(`!`, ``)
 			.replace(`?`, ``)
 			.replace(`:`, ``);
-			message.content.split(` `).forEach((word) => {
-				triggerArr.forEach((trigger) => {
+			message.content.split(` `).forEach((word):void => {
+				triggerArr.forEach((trigger):void => {
 					if (word === trigger) {
 						react(message, chance, emoteArr);
 					}
 				});
 			});
 		} else if (type === `mention`) {
-			triggerArr.forEach((trigger) => {
+			triggerArr.forEach((trigger):void => {
 				if (message.mentions.users.has(trigger as `${bigint}`) && Math.random() * 100 <= chance) {
 					react(message, chance, emoteArr);
 				}

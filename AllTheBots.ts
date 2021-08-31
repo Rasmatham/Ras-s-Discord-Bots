@@ -9,7 +9,7 @@
 ╚═══════════════════════════════════════════════════════════╝
 */
 
-import { Client, Message, MessageEmbed, ColorResolvable, GuildMember, Interaction, MessageComponentInteraction, ButtonInteraction, CommandInteraction, MessageActionRow } from "discord.js";
+import { Client, Message, MessageEmbed, ColorResolvable, GuildMember, Interaction, MessageComponentInteraction, ButtonInteraction, CommandInteraction, MessageActionRow, SelectMenuInteraction } from "discord.js";
 
 import containsWord = require("./custom_modules/containsWordFunctions");
 import forwarding = require("./custom_modules/forwardMessages");
@@ -20,7 +20,7 @@ import coinflip = require("./custom_modules/coinflip");
 import maze = require("./custom_modules/playableMaze");
 import pokedex = require("./custom_modules/pokedex");
 import ticTacToe = require("./custom_modules/TicTacToe");
-//const music = require("./custom_modules/music`);
+//import music = require("./custom_modules/music`);
 import dice = require("./custom_modules/dice");
 import info = require("./custom_modules/info");
 import xkcd = require("./custom_modules/xkcd");
@@ -29,27 +29,27 @@ require(`dotenv`).config();
 {
 	//Other Variables
 	{
-		var buzzLink = `https://discordapp.com/oauth2/authorize?&client_id=689449074008653865&scope=bot&permissions=8`;
-		var ebnjLink = `https://discordapp.com/oauth2/authorize?&client_id=654079161723387914&scope=bot&permissions=8`;
-		var GladosLink = `https://discordapp.com/oauth2/authorize?&client_id=680053684243398693&scope=bot&permissions=8`;
-		var pokeLink = `https://discordapp.com/oauth2/authorize?&client_id=716002740442103899&scope=bot&permissions=8`;
-		var r2Link = `https://discordapp.com/oauth2/authorize?&client_id=688152192196149250&scope=bot&permissions=8`;
-		var randomLink = `https://discordapp.com/oauth2/authorize?&client_id=654787079590641713&scope=bot&permissions=8`;
-		var zeldaLink = `https://discordapp.com/oauth2/authorize?&client_id=654786965090074656&scope=bot&permissions=8`;
-		var githublink = `https://github.com/Rasmatham/Ras-s-Discord-Bots`
-		var buzzBot		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `Bee Movie Game`,						type: `PLAYING`}]}});
-		var clambot		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `Whatever Clams is playing`,			type: `PLAYING`}]}});
-		var ebnj		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `Minecraft`,							type: `PLAYING`}]}});
-		var glados		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `Portal Bridge Constructor`,			type: `PLAYING`}]}});
-		var pokebot		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `Pokémon Pinball`,						type: `PLAYING`}]}});
-		var artoo		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `LEGO Star Wars: the Skywalker saga`,	type: `PLAYING`}]}});
-		var random		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `honestly, idk what to put here`,		type: `PLAYING`}]}});
-		var sini		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `Splatoon 3`,							type: `PLAYING`}]}});
-		var zelda		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `Zelda: The Wand of Gamelon`,			type: `PLAYING`}]}});
-		var croissant	= new Client({intents: generalStuff.intents, presence: {activities: [{name: `Oui Oui Baguette`,						type: `PLAYING`}]}});
-		var testChannel = `735213241860620308`;
-		var PokePrefix = `pd`;
-		var GLaDOSPrefix = `&`;
+		var buzzLink:string = `https://discordapp.com/oauth2/authorize?&client_id=689449074008653865&scope=bot&permissions=8`;
+		var ebnjLink:string = `https://discordapp.com/oauth2/authorize?&client_id=654079161723387914&scope=bot&permissions=8`;
+		var GladosLink:string = `https://discordapp.com/oauth2/authorize?&client_id=680053684243398693&scope=bot&permissions=8`;
+		var pokeLink:string = `https://discordapp.com/oauth2/authorize?&client_id=716002740442103899&scope=bot&permissions=8`;
+		var r2Link:string = `https://discordapp.com/oauth2/authorize?&client_id=688152192196149250&scope=bot&permissions=8`;
+		var randomLink:string = `https://discordapp.com/oauth2/authorize?&client_id=654787079590641713&scope=bot&permissions=8`;
+		var zeldaLink:string = `https://discordapp.com/oauth2/authorize?&client_id=654786965090074656&scope=bot&permissions=8`;
+		var githublink:string = `https://github.com/Rasmatham/Ras-s-Discord-Bots`
+		var buzzBot:Client		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `Bee Movie Game`,						type: `PLAYING`}]}});
+		var clambot:Client		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `Whatever Clams is playing`,			type: `PLAYING`}]}});
+		var ebnj:Client		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `Minecraft`,							type: `PLAYING`}]}});
+		var glados:Client		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `Portal Bridge Constructor`,			type: `PLAYING`}]}});
+		var pokebot:Client		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `Pokémon Pinball`,						type: `PLAYING`}]}});
+		var artoo:Client		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `LEGO Star Wars: the Skywalker saga`,	type: `PLAYING`}]}});
+		var random:Client		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `honestly, idk what to put here`,		type: `PLAYING`}]}});
+		var sini:Client		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `Splatoon 3`,							type: `PLAYING`}]}});
+		var zelda:Client		= new Client({intents: generalStuff.intents, presence: {activities: [{name: `Zelda: The Wand of Gamelon`,			type: `PLAYING`}]}});
+		var croissant:Client	= new Client({intents: generalStuff.intents, presence: {activities: [{name: `Oui Oui Baguette`,						type: `PLAYING`}]}});
+		var testChannel:`${bigint}` = `735213241860620308`;
+		var PokePrefix:string = `pd`;
+		var GLaDOSPrefix:string = `&`;
 	}
 	//logins
 	{
@@ -70,13 +70,13 @@ require(`dotenv`).config();
 {
 	//long stuff
 	{
-		var mrtz = `Did you know BeeMrtz is short for Bee Master? He just had a tiny stroke while typing it`;
+		var mrtz:string = `Did you know BeeMrtz is short for Bee Master? He just had a tiny stroke while typing it`;
 	}
 	//functions
 	{
-		var buzzes = () => {
-			let str = ``;
-			for (let i = 0; i < Math.floor(Math.random() * 9); i++) {
+		var buzzes = ():string => {
+			let str:string = ``;
+			for (let i:number = 0; i < Math.floor(Math.random() * 9); i++) {
 				if (Math.floor(Math.random() * 2)) {
 					str = `${str}buzz `;
 				} else {
@@ -89,7 +89,7 @@ require(`dotenv`).config();
 	}
 	//replies
 	{
-		buzzBot.on(`messageCreate`, (message: Message) => {
+		buzzBot.on(`messageCreate`, (message: Message):void => {
 			if (message.channel.type == `DM`) {return}
 			if (generalStuff.blackList.includes(message.channel.name)) {return};
 			containsWord.replyThing(message, `exact`, 10, {content: `He makes me go buzz`}, [`ras`, `rasmatham`, `rasberry`]);
@@ -108,7 +108,7 @@ require(`dotenv`).config();
 {
 	//Stuff
 	{
-		clambot.on(`messageCreate`, (message: Message) => {
+		clambot.on(`messageCreate`, (message: Message):void => {
 			if (message.channel.type == `DM`) {return}
 			if (generalStuff.blackList.includes(message.channel.name)) {return};
 			containsWord.replyThing(message, `anywhere`, 100, {content: `PING!`}, [`<@&`]);
@@ -122,7 +122,7 @@ require(`dotenv`).config();
 {
 	//replies
 	{
-		ebnj.on(`messageCreate`, (message: Message) => {
+		ebnj.on(`messageCreate`, (message: Message):void => {
 			if (message.channel.type == `DM`) {return}
 			if (generalStuff.blackList.includes(message.channel.name)) {return};
 			containsWord.replyThing(message, `anywhere`, 100, {content: ebnjLink}, [`botlink ebnj`]);
@@ -141,11 +141,11 @@ require(`dotenv`).config();
 {
 	//Long stuff (please collapse)
 	{
-		var cake = `It is totally real (Definitely not a lie)`;
-		var lemonrant = `All right, I've been thinking, when life gives you lemons, don't make lemonade!\nMake life take the lemons back!\nGet mad!\nI don't want your damn lemons!\nWhat am I supposed to do with these?\nDemand to see life's manager!\nMake life rue the day it thought it could give Cave Johnson lemons!\nDo you know who I am?\nI'm the man whose gonna burn your house down - with the lemons!`;
-		var lie = `I will tell you what is not a lie\nThe cake`;
-		var ping = `P I N G\nWait\nNevermind`;
-		var stillalive = new MessageEmbed()
+		var cake:string = `It is totally real (Definitely not a lie)`;
+		var lemonrant:string = `All right, I've been thinking, when life gives you lemons, don't make lemonade!\nMake life take the lemons back!\nGet mad!\nI don't want your damn lemons!\nWhat am I supposed to do with these?\nDemand to see life's manager!\nMake life rue the day it thought it could give Cave Johnson lemons!\nDo you know who I am?\nI'm the man whose gonna burn your house down - with the lemons!`;
+		var lie:string = `I will tell you what is not a lie\nThe cake`;
+		var ping:string = `P I N G\nWait\nNevermind`;
+		var stillalive:MessageEmbed = new MessageEmbed()
 		.setColor(`FFFFFF` as ColorResolvable)
 		.setTitle(`Still alive`)
 		.addFields({
@@ -185,11 +185,11 @@ require(`dotenv`).config();
 	}
 	//welcome/goodbye Message
 	{
-		glados.on(`guildMemberAdd`, (member: GuildMember) => {
+		glados.on(`guildMemberAdd`, (member: GuildMember):void => {
 			member.guild.systemChannel.send({content: `Welcome to the server, #${member.guild.memberCount}\nWe currently have ${info.channelCount(member.guild).all}/500 channels used`})
 			.catch(console.error);
 		})
-		glados.on(`guildMemberRemove`, (member: GuildMember) => {
+		glados.on(`guildMemberRemove`, (member: GuildMember):void => {
 			member.guild.systemChannel.send({content: `Bye, ${member.user.tag}`})
 			.catch(console.error);
 		})
@@ -198,7 +198,7 @@ require(`dotenv`).config();
 	{
 		//Stuff
 		{
-			glados.on(`messageCreate`, (message: Message) => {
+			glados.on(`messageCreate`, (message: Message):void => {
 				if(message.channel.type == `DM`) {return}
 				if (generalStuff.blackList.includes(message.channel.name)) {return};
 				containsWord.replyThing(message, `anywhere`, 100, {content: cake}, [`cake`, `tower 15`]);
@@ -230,13 +230,13 @@ require(`dotenv`).config();
 				stupidStuff.espenBotReplacement(`react`, message, 100, process.env.ZARLID as `${bigint}`, `🦆`);
 				//stupidStuff.userWordBan(message, `last`, `541617670533939210`);
 			})
-			glados.on(`interactionCreate`, (interaction: Interaction) => {
+			glados.on(`interactionCreate`, (interaction: Interaction):void => {
 				switch(interaction.type){
 					case `MESSAGE_COMPONENT`:
-					let messageComponentInteraction = interaction as MessageComponentInteraction;
+					let messageComponentInteraction:MessageComponentInteraction = interaction as MessageComponentInteraction;
 					switch(messageComponentInteraction.componentType){
 						case `BUTTON`:
-						let buttonInteraction = messageComponentInteraction as ButtonInteraction;
+						let buttonInteraction:ButtonInteraction = messageComponentInteraction as ButtonInteraction;
 						switch(buttonInteraction.customId){
 							case `Dummy`:
 							buttonInteraction.deleteReply()
@@ -247,7 +247,7 @@ require(`dotenv`).config();
 						}
 						break;
 						case `SELECT_MENU`:
-						let selectMenuInteraction = messageComponentInteraction;
+						let selectMenuInteraction:SelectMenuInteraction = messageComponentInteraction as SelectMenuInteraction;
 						switch(selectMenuInteraction.customId){
 							case `Dummy`:
 							selectMenuInteraction.update({content: `Seems about right`})
@@ -262,7 +262,7 @@ require(`dotenv`).config();
 					}
 					break;
 					case `APPLICATION_COMMAND`:
-					let commandInteraction = interaction as CommandInteraction;
+					let commandInteraction:CommandInteraction = interaction as CommandInteraction;
 					switch(commandInteraction.commandName){
 						case `botlink`:
 						commandInteraction.reply({content: GladosLink, ephemeral: true}).catch(console.error);
@@ -319,7 +319,7 @@ require(`dotenv`).config();
 	
 	//search
 	{
-		var sendEmbed = (message: Message) => {
+		var sendEmbed = (message: Message):void => {
 			if (message.author.id !== pokebot.user.id) {
 				if (message.content.toLowerCase().startsWith(`${PokePrefix} `)) {
 					if(message.channel.type == `GUILD_TEXT` || message.channel.type == `GUILD_NEWS`){
@@ -331,7 +331,7 @@ require(`dotenv`).config();
 	}
 	//Stuff
 	{
-		pokebot.on(`messageCreate`, (message: Message) => {
+		pokebot.on(`messageCreate`, (message: Message):void => {
 			if(message.channel.type == `DM`) {return}
 			if (generalStuff.blackList.includes(message.channel.name)) {return};
 			containsWord.replyThing(message, `anywhere`, 100, {content: pokeLink}, [`botlink pokebot`]);
@@ -345,14 +345,14 @@ require(`dotenv`).config();
 {
 	//Long stuff
 	{
-		var generalRas = `General Ras.\nYears ago you served my father in the Clone Wars.\nNow he begs you to help him in his struggle against the Empire.\nI regret that I am unable to present my father's request to you in person, but my ship has fallen under attack, and I'm afraid my mission to bring you to Alderaan has failed.\nI have placed information vital to the survival of the Rebellion into the memory systems of this R2 unit.\nMy father will know how to retrieve it.\nYou must see this droid safely delivered to him on Alderaan.\nThis is our most desperate hour.\nHelp me, Rasmatham.\nYou're my only hope.`;
-		var SWWords = [`star`, `wars`, `anakin`, `luke`, `obi`, `wan`, `kenobi`, `han`, `solo`, `leia`, `yoda`, `mace`, `windu`, `force`, `c3po`, `chewbacca`, `chewie`, `darth`, `vader`, `maul`, `sidius`, `plagueis`, `c-3po`, `r2`, `d2`, `emperor`, `palpatine`, `skywalker`, `jango`, `fett`, `padme`, `padmé`, `amidala`, `doku`, `tyranus`, `grievous`, `qui`, `gon`, `jinn`, `ackbar`, `tarkin`, `jabba`, `hut`, `lando`, `calrissian`, `boba`, `naboo`, `kashyyyk`, `alderaan`, `geonosis`, `kamino`, `dagobah`, `hoth`, `endor`, `bespin`, `mustafar`, `coruscant`, `tatooine`];
+		var generalRas:string = `General Ras.\nYears ago you served my father in the Clone Wars.\nNow he begs you to help him in his struggle against the Empire.\nI regret that I am unable to present my father's request to you in person, but my ship has fallen under attack, and I'm afraid my mission to bring you to Alderaan has failed.\nI have placed information vital to the survival of the Rebellion into the memory systems of this R2 unit.\nMy father will know how to retrieve it.\nYou must see this droid safely delivered to him on Alderaan.\nThis is our most desperate hour.\nHelp me, Rasmatham.\nYou're my only hope.`;
+		var SWWords:string[] = [`star`, `wars`, `anakin`, `luke`, `obi`, `wan`, `kenobi`, `han`, `solo`, `leia`, `yoda`, `mace`, `windu`, `force`, `c3po`, `chewbacca`, `chewie`, `darth`, `vader`, `maul`, `sidius`, `plagueis`, `c-3po`, `r2`, `d2`, `emperor`, `palpatine`, `skywalker`, `jango`, `fett`, `padme`, `padmé`, `amidala`, `doku`, `tyranus`, `grievous`, `qui`, `gon`, `jinn`, `ackbar`, `tarkin`, `jabba`, `hut`, `lando`, `calrissian`, `boba`, `naboo`, `kashyyyk`, `alderaan`, `geonosis`, `kamino`, `dagobah`, `hoth`, `endor`, `bespin`, `mustafar`, `coruscant`, `tatooine`];
 	}
 	//functions
 	{
-		var beeps = () => {
-			let str = ``;
-			for (let i = 0; i < Math.floor(Math.random() * 10); i++) {
+		var beeps = ():string => {
+			let str:string = ``;
+			for (let i:number = 0; i < Math.floor(Math.random() * 10); i++) {
 				if (Math.floor(Math.random() * 2)) {
 					str = `${str}beep `
 				} else {
@@ -364,7 +364,7 @@ require(`dotenv`).config();
 	}
 	//replies
 	{
-		artoo.on(`messageCreate`, (message: Message) => {
+		artoo.on(`messageCreate`, (message: Message):void => {
 			if(message.channel.type == `DM`) {return}
 			if (generalStuff.blackList.includes(message.channel.name)) {return};
 			containsWord.replyThing(message, `anywhere`, 100, {content: r2Link}, [`botlink artoo`]);
@@ -379,7 +379,7 @@ require(`dotenv`).config();
 {
 	//replies
 	{
-		random.on(`messageCreate`, (message: Message) => {
+		random.on(`messageCreate`, (message: Message):void => {
 			if(message.channel.type == `DM`) {return}
 			if (generalStuff.blackList.includes(message.channel.name)) {return};
 			containsWord.replyThing(message, `anywhere`, 100, {content: randomLink}, [`botlink random stuff`]);
@@ -402,7 +402,7 @@ require(`dotenv`).config();
 {
 	//Stuff
 	{
-		sini.on(`messageCreate`, (message: Message) => {
+		sini.on(`messageCreate`, (message: Message):void => {
 			if(message.channel.type == `DM`) {return}
 			if (generalStuff.blackList.includes(message.channel.name)) {return};
 			forwarding.messageForwarding(message);
@@ -414,7 +414,7 @@ require(`dotenv`).config();
 {
 	//replies
 	{
-		zelda.on(`messageCreate`, (message: Message) => {
+		zelda.on(`messageCreate`, (message: Message):void => {
 			if(message.channel.type == `DM`) {return}
 			if (generalStuff.blackList.includes(message.channel.name)) {return};
 			containsWord.replyThing(message, `anywhere`, 100, {content: zeldaLink}, [`botlink zelda`]);
