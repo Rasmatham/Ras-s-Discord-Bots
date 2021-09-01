@@ -131,7 +131,7 @@ export const mazeFunction = (interaction: CommandInteraction):void => {
 		}
 		get walls() {
 			if (this._loc[0] === 7 && this._loc[1] === 7) {
-				return this._emotes[boolToInt(this._hasPlayer)][style].goal[this._walls as `${`OOII`|`OIII`|`IOII`}`];
+				return this._emotes[boolToInt(this._hasPlayer)][style].goal[this._walls as `OOII`|`OIII`|`IOII`];
 			} else {
 				return this._emotes[boolToInt(this._hasPlayer)][style][this._walls];
 			}

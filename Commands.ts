@@ -242,10 +242,10 @@ const gladosCommands:{
 				required: true,
 				choices: [{
 					name: `normal`,
-					value: 0
+					value: `0`
 				},{
 					name: `zelda`,
-					value: 1
+					value: `1`
 				}]
 			}]
 		}
@@ -450,22 +450,22 @@ bots.forEach((bot, i):void => {
 			.catch(console.error);
 	});
 	//Replace all
-	/*bot.on(`ready`, ():void => {
-		bot.application.commands.fetch().then((command):void => {
+	bot.on(`ready`, ():void => {
+		bot.application.commands.fetch().then(():void => {
 			console.log(`${bot.user.tag} is active`);
 			commandGroup[i].forEach((command, j):void => {
 				bot.application.commands.create(command.command, command.guild = null)
-				.then((command):void => {console.log(`[${j + 1}/${commandGroup[i].length}] Command: "${command.name}" updated`)})
-				.catch(console.error)
-			})
-		})
-	})*/
+					.then((command):void => {console.log(`[${j + 1}/${commandGroup[i].length}] Command: "${command.name}" updated`);})
+					.catch(console.error);
+			});
+		});
+	});
 	//edit specific
-	bot.on(`ready`, ():void => {
+	/*bot.on(`ready`, ():void => {
 		commandGroup[i].forEach((command, j):void => {
 			bot.application.commands.create(command.command, command.guild = null)
 				.then((command):void => {console.log(`[${i+1}/${bots.length}][${j+1}/${commandGroup[i].length}] Edited ${command.name}`);})
 				.catch(console.error);
 		});
-	});
+	});*/
 });
