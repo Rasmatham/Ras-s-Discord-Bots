@@ -1,3 +1,5 @@
+type dexEntriesType = {re: string, bl: string, yr: string, go: string, si: string, cr: string, ru: string, sa: string, em: string, fr: string, lg: string, di: string, pe: string, pl: string, hg: string, ss: string, wh: string, b2: string, w2: string, x: string, y: string, or: string, as: string, su: string, mo: string, us: string, um: string, lgp: string, lge: string, sw: string, sh: string};
+type pokeObjType = {name: string, reg:string, nat:string, rarity:number, types:[{name: string, color: string}, {name: string, color: string}]|[{name: string, color: string}], height:[string, string], weight:[string, string], dexEntries:dexEntriesType}
 export const types = {
 	bird: {
 		name: `Bird`,
@@ -134,8 +136,8 @@ export const types = {
 	}
 };
 
-export const pokemon = {
-	0: {
+export const pokemon:pokeObjType[] = [
+	{
 		name: `Missingno`,
 		reg: `0`,
 		nat: `0`,
@@ -177,7 +179,7 @@ export const pokemon = {
 			sh: `?`
 		}
 	},
-	1: {
+	{
 		name: `Bulbasaur`,
 		reg: `001`,
 		nat: `001`,
@@ -219,7 +221,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	2: {
+	{
 		name: `Ivysaur`,
 		reg: `002`,
 		nat: `002`,
@@ -261,7 +263,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	3: {
+	{
 		name: `Venusaur`,
 		reg: `003`,
 		nat: `003`,
@@ -303,7 +305,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	4: {
+	{
 		name: `Charmander`,
 		reg: `004`,
 		nat: `004`,
@@ -345,7 +347,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	5: {
+	{
 		name: `Charmeleon`,
 		reg: `005`,
 		nat: `005`,
@@ -387,7 +389,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	6: {
+	{
 		name: `Charizard`,
 		reg: `006`,
 		nat: `006`,
@@ -429,7 +431,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	7: {
+	{
 		name: `Squirtle`,
 		reg: `007`,
 		nat: `007`,
@@ -471,7 +473,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	8: {
+	{
 		name: `Wartortle`,
 		reg: `008`,
 		nat: `008`,
@@ -513,7 +515,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	9: {
+	{
 		name: `Blastoise`,
 		reg: `009`,
 		nat: `009`,
@@ -555,7 +557,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	10: {
+	{
 		name: `Caterpie`,
 		reg: `010`,
 		nat: `010`,
@@ -597,7 +599,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	11: {
+	{
 		name: `Metapod`,
 		reg: `011`,
 		nat: `011`,
@@ -639,7 +641,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	12: {
+	{
 		name: `Butterfree`,
 		reg: `012`,
 		nat: `012`,
@@ -681,7 +683,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	13: {
+	{
 		name: `Weedle`,
 		reg: `013`,
 		nat: `013`,
@@ -723,7 +725,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	14: {
+	{
 		name: `Kakuna`,
 		reg: `014`,
 		nat: `014`,
@@ -765,7 +767,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	15: {
+	{
 		name: `Beedrill`,
 		reg: `015`,
 		nat: `015`,
@@ -807,7 +809,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	16: {
+	{
 		name: `Pidgey`,
 		reg: `016`,
 		nat: `016`,
@@ -849,7 +851,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	17: {
+	{
 		name: `Pidgeotto`,
 		reg: `017`,
 		nat: `017`,
@@ -891,7 +893,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	18: {
+	{
 		name: `Pidgeot`,
 		reg: `018`,
 		nat: `018`,
@@ -933,7 +935,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	19: {
+	{
 		name: `Rattata`,
 		reg: `019`,
 		nat: `019`,
@@ -975,7 +977,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	20: {
+	{
 		name: `Raticate`,
 		reg: `020`,
 		nat: `020`,
@@ -1017,7 +1019,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	21: {
+	{
 		name: `Spearow`,
 		reg: `021`,
 		nat: `021`,
@@ -1059,7 +1061,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	22: {
+	{
 		name: `Fearow`,
 		reg: `022`,
 		nat: `022`,
@@ -1101,7 +1103,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	23: {
+	{
 		name: `Ekans`,
 		reg: `023`,
 		nat: `023`,
@@ -1143,7 +1145,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	24: {
+	{
 		name: `Arbok`,
 		reg: `024`,
 		nat: `024`,
@@ -1185,7 +1187,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	25: {
+	{
 		name: `Pikachu`,
 		reg: `025`,
 		nat: `025`,
@@ -1227,7 +1229,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	26: {
+	{
 		name: `Raichu`,
 		reg: `026`,
 		nat: `026`,
@@ -1269,7 +1271,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	27: {
+	{
 		name: `Sandshrew`,
 		reg: `027`,
 		nat: `027`,
@@ -1311,7 +1313,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	28: {
+	{
 		name: `Sandslash`,
 		reg: `028`,
 		nat: `028`,
@@ -1353,7 +1355,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	29: {
+	{
 		name: `Nidoran`,
 		reg: `029`,
 		nat: `029`,
@@ -1395,7 +1397,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	30: {
+	{
 		name: `Nidorina`,
 		reg: `030`,
 		nat: `030`,
@@ -1437,7 +1439,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	31: {
+	{
 		name: `Nidoqueen`,
 		reg: `031`,
 		nat: `031`,
@@ -1479,7 +1481,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	32: {
+	{
 		name: `Nidoran`,
 		reg: `032`,
 		nat: `032`,
@@ -1521,7 +1523,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	33: {
+	{
 		name: `Nidorino`,
 		reg: `033`,
 		nat: `033`,
@@ -1563,7 +1565,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	34: {
+	{
 		name: `Nidoking`,
 		reg: `034`,
 		nat: `034`,
@@ -1605,7 +1607,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	35: {
+	{
 		name: `Clefairy`,
 		reg: `035`,
 		nat: `035`,
@@ -1647,7 +1649,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	36: {
+	{
 		name: `Clefable`,
 		reg: `036`,
 		nat: `036`,
@@ -1689,7 +1691,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	37: {
+	{
 		name: `Vulpix`,
 		reg: `037`,
 		nat: `037`,
@@ -1731,7 +1733,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	38: {
+	{
 		name: `Ninetales`,
 		reg: `038`,
 		nat: `038`,
@@ -1773,7 +1775,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	39: {
+	{
 		name: `Jigglypuff`,
 		reg: `039`,
 		nat: `039`,
@@ -1815,7 +1817,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	40: {
+	{
 		name: `Wigglytuff`,
 		reg: `040`,
 		nat: `040`,
@@ -1857,7 +1859,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	41: {
+	{
 		name: `Zubat`,
 		reg: `041`,
 		nat: `041`,
@@ -1899,7 +1901,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	42: {
+	{
 		name: `Golbat`,
 		reg: `042`,
 		nat: `042`,
@@ -1941,7 +1943,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	43: {
+	{
 		name: `Oddish`,
 		reg: `043`,
 		nat: `043`,
@@ -1983,7 +1985,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	44: {
+	{
 		name: `Gloom`,
 		reg: `044`,
 		nat: `044`,
@@ -2025,7 +2027,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	45: {
+	{
 		name: `Vileplume`,
 		reg: `045`,
 		nat: `045`,
@@ -2067,7 +2069,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	46: {
+	{
 		name: `Paras`,
 		reg: `046`,
 		nat: `046`,
@@ -2109,7 +2111,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	47: {
+	{
 		name: `Parasect`,
 		reg: `047`,
 		nat: `047`,
@@ -2151,7 +2153,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	48: {
+	{
 		name: `Venonat`,
 		reg: `048`,
 		nat: `048`,
@@ -2193,7 +2195,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	49: {
+	{
 		name: `Venomoth`,
 		reg: `049`,
 		nat: `049`,
@@ -2235,7 +2237,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	50: {
+	{
 		name: `Diglett`,
 		reg: `050`,
 		nat: `050`,
@@ -2277,7 +2279,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	51: {
+	{
 		name: `Dugtrio`,
 		reg: `051`,
 		nat: `051`,
@@ -2319,7 +2321,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	52: {
+	{
 		name: `Meowth`,
 		reg: `052`,
 		nat: `052`,
@@ -2361,7 +2363,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	53: {
+	{
 		name: `Persian`,
 		reg: `053`,
 		nat: `053`,
@@ -2403,7 +2405,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	54: {
+	{
 		name: `Psyduck`,
 		reg: `054`,
 		nat: `054`,
@@ -2445,7 +2447,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	55: {
+	{
 		name: `Golduck`,
 		reg: `055`,
 		nat: `055`,
@@ -2487,7 +2489,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	56: {
+	{
 		name: `Mankey`,
 		reg: `056`,
 		nat: `056`,
@@ -2529,7 +2531,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	57: {
+	{
 		name: `Primeape`,
 		reg: `057`,
 		nat: `057`,
@@ -2571,7 +2573,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	58: {
+	{
 		name: `Growlithe`,
 		reg: `058`,
 		nat: `058`,
@@ -2613,7 +2615,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	59: {
+	{
 		name: `Arcanine`,
 		reg: `059`,
 		nat: `059`,
@@ -2655,7 +2657,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	60: {
+	{
 		name: `Poliwag`,
 		reg: `060`,
 		nat: `060`,
@@ -2697,7 +2699,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	61: {
+	{
 		name: `Poliwhirl`,
 		reg: `061`,
 		nat: `061`,
@@ -2739,7 +2741,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	62: {
+	{
 		name: `Poliwrath`,
 		reg: `062`,
 		nat: `062`,
@@ -2781,7 +2783,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	63: {
+	{
 		name: `Abra`,
 		reg: `063`,
 		nat: `063`,
@@ -2823,7 +2825,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	64: {
+	{
 		name: `Kadabra`,
 		reg: `064`,
 		nat: `064`,
@@ -2865,7 +2867,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	65: {
+	{
 		name: `Alakazam`,
 		reg: `065`,
 		nat: `065`,
@@ -2907,7 +2909,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	66: {
+	{
 		name: `Machop`,
 		reg: `066`,
 		nat: `066`,
@@ -2949,7 +2951,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	67: {
+	{
 		name: `Machoke`,
 		reg: `067`,
 		nat: `067`,
@@ -2991,7 +2993,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	68: {
+	{
 		name: `Machamp`,
 		reg: `068`,
 		nat: `068`,
@@ -3033,7 +3035,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	69: {
+	{
 		name: `Bellsprout`,
 		reg: `069`,
 		nat: `069`,
@@ -3075,7 +3077,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	70: {
+	{
 		name: `Weepinbell`,
 		reg: `070`,
 		nat: `070`,
@@ -3117,7 +3119,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	71: {
+	{
 		name: `Victreebel`,
 		reg: `071`,
 		nat: `071`,
@@ -3159,7 +3161,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	72: {
+	{
 		name: `Tentacool`,
 		reg: `072`,
 		nat: `072`,
@@ -3201,7 +3203,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	73: {
+	{
 		name: `Tentacruel`,
 		reg: `073`,
 		nat: `073`,
@@ -3243,7 +3245,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	74: {
+	{
 		name: `Geodude`,
 		reg: `074`,
 		nat: `074`,
@@ -3285,7 +3287,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	75: {
+	{
 		name: `Graveler`,
 		reg: `075`,
 		nat: `075`,
@@ -3327,7 +3329,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	76: {
+	{
 		name: `Golem`,
 		reg: `076`,
 		nat: `076`,
@@ -3369,7 +3371,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	77: {
+	{
 		name: `Ponyta`,
 		reg: `077`,
 		nat: `077`,
@@ -3411,7 +3413,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	78: {
+	{
 		name: `Rapidash`,
 		reg: `078`,
 		nat: `078`,
@@ -3453,7 +3455,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	79: {
+	{
 		name: `Slowpoke`,
 		reg: `079`,
 		nat: `079`,
@@ -3495,7 +3497,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	80: {
+	{
 		name: `Slowbro`,
 		reg: `080`,
 		nat: `080`,
@@ -3537,12 +3539,12 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	81: {
+	{
 		name: `Magnemite`,
 		reg: `081`,
 		nat: `081`,
 		rarity: 0,
-		types: [types.electric, `Steel`],
+		types: [types.electric, types.steel],
 		height: [`impheight`, `metheight`],
 		weight: [`impweight`, `metweight`],
 		dexEntries: {
@@ -3579,12 +3581,12 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	82: {
+	{
 		name: `Magneton`,
 		reg: `082`,
 		nat: `082`,
 		rarity: 0,
-		types: [types.electric, `Steel`],
+		types: [types.electric, types.steel],
 		height: [`impheight`, `metheight`],
 		weight: [`impweight`, `metweight`],
 		dexEntries: {
@@ -3621,7 +3623,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	83: {
+	{
 		name: `Farfetch'd`,
 		reg: `083`,
 		nat: `083`,
@@ -3663,7 +3665,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	84: {
+	{
 		name: `Doduo`,
 		reg: `084`,
 		nat: `084`,
@@ -3705,7 +3707,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	85: {
+	{
 		name: `Dodrio`,
 		reg: `085`,
 		nat: `085`,
@@ -3747,7 +3749,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	86: {
+	{
 		name: `Seel`,
 		reg: `086`,
 		nat: `086`,
@@ -3789,7 +3791,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	87: {
+	{
 		name: `Dewgong`,
 		reg: `087`,
 		nat: `087`,
@@ -3831,7 +3833,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	88: {
+	{
 		name: `Grimer`,
 		reg: `088`,
 		nat: `088`,
@@ -3873,7 +3875,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	89: {
+	{
 		name: `Muk`,
 		reg: `089`,
 		nat: `089`,
@@ -3915,7 +3917,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	90: {
+	{
 		name: `Shellder`,
 		reg: `090`,
 		nat: `090`,
@@ -3957,7 +3959,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	91: {
+	{
 		name: `Cloyster`,
 		reg: `091`,
 		nat: `091`,
@@ -3999,7 +4001,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	92: {
+	{
 		name: `Gastly`,
 		reg: `092`,
 		nat: `092`,
@@ -4041,7 +4043,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	93: {
+	{
 		name: `Haunter`,
 		reg: `093`,
 		nat: `093`,
@@ -4083,7 +4085,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	94: {
+	{
 		name: `Gengar`,
 		reg: `094`,
 		nat: `094`,
@@ -4125,7 +4127,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	95: {
+	{
 		name: `Onix`,
 		reg: `095`,
 		nat: `095`,
@@ -4167,7 +4169,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	96: {
+	{
 		name: `Drowzee`,
 		reg: `096`,
 		nat: `096`,
@@ -4209,7 +4211,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	97: {
+	{
 		name: `Hypno`,
 		reg: `097`,
 		nat: `097`,
@@ -4251,7 +4253,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	98: {
+	{
 		name: `Krabby`,
 		reg: `098`,
 		nat: `098`,
@@ -4293,7 +4295,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	99: {
+	{
 		name: `Kingler`,
 		reg: `099`,
 		nat: `099`,
@@ -4335,7 +4337,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	100: {
+	{
 		name: `Voltorb`,
 		reg: `100`,
 		nat: `100`,
@@ -4377,7 +4379,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	101: {
+	{
 		name: `Electrode`,
 		reg: `101`,
 		nat: `101`,
@@ -4419,7 +4421,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	102: {
+	{
 		name: `Exeggcute`,
 		reg: `102`,
 		nat: `102`,
@@ -4461,7 +4463,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	103: {
+	{
 		name: `Exeggutor`,
 		reg: `103`,
 		nat: `103`,
@@ -4503,7 +4505,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	104: {
+	{
 		name: `Cubone`,
 		reg: `104`,
 		nat: `104`,
@@ -4545,7 +4547,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	105: {
+	{
 		name: `Marowak`,
 		reg: `105`,
 		nat: `105`,
@@ -4587,7 +4589,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	106: {
+	{
 		name: `Hitmonlee`,
 		reg: `106`,
 		nat: `106`,
@@ -4629,7 +4631,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	107: {
+	{
 		name: `Hitmonchan`,
 		reg: `107`,
 		nat: `107`,
@@ -4671,7 +4673,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	108: {
+	{
 		name: `Lickitung`,
 		reg: `108`,
 		nat: `108`,
@@ -4713,7 +4715,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	109: {
+	{
 		name: `Koffing`,
 		reg: `109`,
 		nat: `109`,
@@ -4755,7 +4757,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	110: {
+	{
 		name: `Weezing`,
 		reg: `110`,
 		nat: `110`,
@@ -4797,7 +4799,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	111: {
+	{
 		name: `Ryhorn`,
 		reg: `111`,
 		nat: `111`,
@@ -4839,7 +4841,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	112: {
+	{
 		name: `Rhydon`,
 		reg: `112`,
 		nat: `112`,
@@ -4881,7 +4883,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	113: {
+	{
 		name: `Chansey`,
 		reg: `113`,
 		nat: `113`,
@@ -4923,7 +4925,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	114: {
+	{
 		name: `Tangela`,
 		reg: `114`,
 		nat: `114`,
@@ -4965,7 +4967,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	115: {
+	{
 		name: `Kangaskhan`,
 		reg: `115`,
 		nat: `115`,
@@ -5007,7 +5009,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	116: {
+	{
 		name: `Horsea`,
 		reg: `116`,
 		nat: `116`,
@@ -5049,7 +5051,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	117: {
+	{
 		name: `Seadra`,
 		reg: `117`,
 		nat: `117`,
@@ -5091,7 +5093,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	118: {
+	{
 		name: `Goldeen`,
 		reg: `118`,
 		nat: `118`,
@@ -5133,7 +5135,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	119: {
+	{
 		name: `Seaking`,
 		reg: `119`,
 		nat: `119`,
@@ -5175,7 +5177,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	120: {
+	{
 		name: `Staryu`,
 		reg: `120`,
 		nat: `120`,
@@ -5217,7 +5219,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	121: {
+	{
 		name: `Starmie`,
 		reg: `121`,
 		nat: `121`,
@@ -5259,7 +5261,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	122: {
+	{
 		name: `Mr. Mime`,
 		reg: `122`,
 		nat: `122`,
@@ -5301,7 +5303,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	123: {
+	{
 		name: `Scyther`,
 		reg: `123`,
 		nat: `123`,
@@ -5343,7 +5345,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	124: {
+	{
 		name: `Jynx`,
 		reg: `124`,
 		nat: `124`,
@@ -5385,7 +5387,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	125: {
+	{
 		name: `Electabuzz`,
 		reg: `125`,
 		nat: `125`,
@@ -5427,7 +5429,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	126: {
+	{
 		name: `Magmar`,
 		reg: `126`,
 		nat: `126`,
@@ -5469,7 +5471,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	127: {
+	{
 		name: `Pinsir`,
 		reg: `127`,
 		nat: `127`,
@@ -5511,7 +5513,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	128: {
+	{
 		name: `Tauros`,
 		reg: `128`,
 		nat: `128`,
@@ -5553,7 +5555,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	129: {
+	{
 		name: `Magikarp`,
 		reg: `129`,
 		nat: `129`,
@@ -5595,7 +5597,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	130: {
+	{
 		name: `Gyarados`,
 		reg: `130`,
 		nat: `130`,
@@ -5637,7 +5639,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	131: {
+	{
 		name: `Lapras`,
 		reg: `131`,
 		nat: `131`,
@@ -5679,7 +5681,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	132: {
+	{
 		name: `Ditto`,
 		reg: `132`,
 		nat: `132`,
@@ -5721,7 +5723,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	133: {
+	{
 		name: `Eevee`,
 		reg: `133`,
 		nat: `133`,
@@ -5763,7 +5765,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	134: {
+	{
 		name: `Vaporeon`,
 		reg: `134`,
 		nat: `134`,
@@ -5805,7 +5807,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	135: {
+	{
 		name: `Jolteon`,
 		reg: `135`,
 		nat: `135`,
@@ -5847,7 +5849,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	136: {
+	{
 		name: `Flareon`,
 		reg: `136`,
 		nat: `136`,
@@ -5889,7 +5891,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	137: {
+	{
 		name: `Porygon`,
 		reg: `137`,
 		nat: `137`,
@@ -5931,7 +5933,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	138: {
+	{
 		name: `Omanyte`,
 		reg: `138`,
 		nat: `138`,
@@ -5973,7 +5975,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	139: {
+	{
 		name: `Omastar`,
 		reg: `139`,
 		nat: `139`,
@@ -6015,7 +6017,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	140: {
+	{
 		name: `Kabuto`,
 		reg: `140`,
 		nat: `140`,
@@ -6057,7 +6059,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	141: {
+	{
 		name: `Kabutops`,
 		reg: `141`,
 		nat: `141`,
@@ -6099,7 +6101,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	142: {
+	{
 		name: `Aerodactyl`,
 		reg: `142`,
 		nat: `142`,
@@ -6141,7 +6143,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	143: {
+	{
 		name: `Snorlax`,
 		reg: `143`,
 		nat: `143`,
@@ -6183,7 +6185,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	144: {
+	{
 		name: `Articuno`,
 		reg: `144`,
 		nat: `144`,
@@ -6225,7 +6227,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	145: {
+	{
 		name: `Zapdos`,
 		reg: `145`,
 		nat: `145`,
@@ -6267,7 +6269,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	146: {
+	{
 		name: `Moltres`,
 		reg: `146`,
 		nat: `146`,
@@ -6309,7 +6311,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	147: {
+	{
 		name: `Dratini`,
 		reg: `147`,
 		nat: `147`,
@@ -6351,7 +6353,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	148: {
+	{
 		name: `Dragonair`,
 		reg: `148`,
 		nat: `148`,
@@ -6393,7 +6395,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	149: {
+	{
 		name: `Dragonite`,
 		reg: `149`,
 		nat: `149`,
@@ -6435,7 +6437,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	150: {
+	{
 		name: `Mewtwo`,
 		reg: `150`,
 		nat: `150`,
@@ -6477,7 +6479,7 @@ export const pokemon = {
 			sh: ``
 		}
 	},
-	151: {
+	{
 		name: `Mew`,
 		reg: `151`,
 		nat: `151`,
@@ -6519,5 +6521,5 @@ export const pokemon = {
 			sh: ``
 		}
 	}
-};
-export const trainers:string[] = [`Ash Kechum`, `Red`, `Leaf`, `Blue`, `Ethan`, `Kris`, `Lyra`, `Silver`, `Brendan`, `May`, `Lucas`, `Dawn`, `Barry`, `Hilbert`, `Hilda`, `Cheren`, `Bianca`, `Nate`, `Rosa`, `Hugh`, `Calem`, `Serena`, `Elio`, `Selene`, `Lillie`, `Hau`, `Victor`, `Gloria`, `Hop`, `Bede`, `Marnie`]
+];
+export const trainerList:string[] = [`Ash Kechum`, `Red`, `Leaf`, `Blue`, `Ethan`, `Kris`, `Lyra`, `Silver`, `Brendan`, `May`, `Lucas`, `Dawn`, `Barry`, `Hilbert`, `Hilda`, `Cheren`, `Bianca`, `Nate`, `Rosa`, `Hugh`, `Calem`, `Serena`, `Elio`, `Selene`, `Lillie`, `Hau`, `Victor`, `Gloria`, `Hop`, `Bede`, `Marnie`];

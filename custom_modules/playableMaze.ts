@@ -1,11 +1,15 @@
 
-import { CommandInteraction, MessageActionRow, MessageButton, ButtonInteraction, Interaction } from "discord.js";
-const mazeThing = require(`generate-maze`);
+type emoteList ={OOOO: EmojiIdentifierResolvable, OOOI: EmojiIdentifierResolvable, OOIO: EmojiIdentifierResolvable, OOII: EmojiIdentifierResolvable, OIOO: EmojiIdentifierResolvable, OIOI: EmojiIdentifierResolvable, OIIO: EmojiIdentifierResolvable, OIII: EmojiIdentifierResolvable, IOOO: EmojiIdentifierResolvable, IOOI: EmojiIdentifierResolvable, IOIO: EmojiIdentifierResolvable, IOII: EmojiIdentifierResolvable, IIOO: EmojiIdentifierResolvable, IIOI: EmojiIdentifierResolvable, IIIO: EmojiIdentifierResolvable, IIII: EmojiIdentifierResolvable, goal: {OOII: EmojiIdentifierResolvable, OIII: EmojiIdentifierResolvable, IOII: EmojiIdentifierResolvable}};
+type emoteTypeList = [emoteList[], emoteList[]];
+import { CommandInteraction, MessageActionRow, MessageButton, ButtonInteraction, Interaction, EmojiIdentifierResolvable } from "discord.js";
+import { boolToInt } from "./generalUse";
+// eslint-disable-next-line @typescript-eslint/no-var-requires, quotes
+const mazeThing = require("generate-maze");
 export const mazeFunction = (interaction: CommandInteraction):void => {
-	const style:boolean = interaction.options.get(`style`).value as boolean
-	const emotes = {
-		false: {
-			normal: {
+	const style:number = interaction.options.get(`style`).value as number;
+	const emotes:emoteTypeList = [
+		[
+			{
 				OOOO: `<:0000:733748791806525522>`,
 				OOOI: `<:0001:733748792138137702>`,
 				OOIO: `<:0010:733748792158847047>`,
@@ -28,7 +32,7 @@ export const mazeFunction = (interaction: CommandInteraction):void => {
 					IOII: `<:G1011:826100214707519519>`,
 				},
 			},
-			zelda: {
+			{
 				OOOO: `<:0000Z:738891841667334214>`,
 				OOOI: `<:0001Z:738891841553956884>`,
 				OOIO: `<:0010Z:738891841570865153>`,
@@ -51,9 +55,9 @@ export const mazeFunction = (interaction: CommandInteraction):void => {
 					IOII: `<:G1011Z:826100258018820186>`,
 				},
 			},
-		},
-		true: {
-			normal: {
+		],
+		[
+			{
 				OOOO: `<:0000:739569121695498341>`,
 				OOOI: `<:0001:739569121695367280>`,
 				OOIO: `<:0010:739569121905213440>`,
@@ -76,7 +80,7 @@ export const mazeFunction = (interaction: CommandInteraction):void => {
 					IOII: `<:G1011:826101334834020362>`,
 				},
 			},
-			zelda: {
+			{
 				OOOO: `<:0000Z:739569256521269372>`,
 				OOOI: `<:0001Z:739569256559149056>`,
 				OOIO: `<:0010Z:739569256550629417>`,
@@ -99,15 +103,15 @@ export const mazeFunction = (interaction: CommandInteraction):void => {
 					IOII: `<:G1011Z:826101295357755442>`,
 				},
 			},
-		},
-	};
+		]
+	];
 	
 	class Cell {
-		private _emotes: any;
+		private _emotes:emoteTypeList;
 		private _loc: number[];
 		private _hasPlayer: boolean;
-		private _walls: string;
-		constructor(emotes: any, x: number, y: number, hasPlayer: boolean, walls: `${`I`|`O`}${`I`|`O`}${`I`|`O`}${`I`|`O`}`) {
+		private _walls: `${`I`|`O`}${`I`|`O`}${`I`|`O`}${`I`|`O`}`;
+		constructor(emotes:emoteTypeList, x: number, y: number, hasPlayer: boolean, walls: `${`I`|`O`}${`I`|`O`}${`I`|`O`}${`I`|`O`}`) {
 			this._emotes = emotes;
 			this._loc = [x, y];
 			this._hasPlayer = hasPlayer;
@@ -127,9 +131,9 @@ export const mazeFunction = (interaction: CommandInteraction):void => {
 		}
 		get walls() {
 			if (this._loc[0] === 7 && this._loc[1] === 7) {
-				return this._emotes[this._hasPlayer.toString()][style.toString()].goal[this._walls];
+				return this._emotes[boolToInt(this._hasPlayer)][style].goal[this._walls as `${`OOII`|`OIII`|`IOII`}`];
 			} else {
-				return this._emotes[this._hasPlayer.toString()][style.toString()][this._walls];
+				return this._emotes[boolToInt(this._hasPlayer)][style][this._walls];
 			}
 		}
 		get boolWalls() {
@@ -137,10 +141,10 @@ export const mazeFunction = (interaction: CommandInteraction):void => {
 		}
 	}
 	class Maze {
-		private _emotes: any;
+		private _emotes:emoteTypeList;
 		private _playerLoc: number[];
-		private _cells: any[];
-		constructor(emotes: any) {
+		private _cells: Cell[];
+		constructor(emotes:emoteTypeList) {
 			this._emotes = emotes;
 			this._playerLoc = [0, 0];
 			this._cells = [];
@@ -152,7 +156,7 @@ export const mazeFunction = (interaction: CommandInteraction):void => {
 			this._cells.push(new Cell(this._emotes, x, y, x === 0 && y === 0, walls));
 		}
 		moveLeft() {
-			let lock:boolean = true;
+			let lock = true;
 			this._cells.forEach((cell, i):void => {
 				if (cell.playerState && cell.y > 0 && lock && cell.boolWalls[0] === `O`) {
 					cell.movePlayer();
@@ -162,7 +166,7 @@ export const mazeFunction = (interaction: CommandInteraction):void => {
 			});
 		}
 		moveUp() {
-			let lock:boolean = true;
+			let lock = true;
 			this._cells.forEach((cell, i):void => {
 				if (cell.playerState && cell.x > 0 && lock && cell.boolWalls[1] === `O`) {
 					cell.movePlayer();
@@ -172,7 +176,7 @@ export const mazeFunction = (interaction: CommandInteraction):void => {
 			});
 		}
 		moveDown() {
-			let lock:boolean = true;
+			let lock = true;
 			this._cells.forEach((cell, i):void => {
 				if (cell.playerState && cell.x < 7 && lock && cell.boolWalls[3] === `O`) {
 					cell.movePlayer();
@@ -182,7 +186,7 @@ export const mazeFunction = (interaction: CommandInteraction):void => {
 			});
 		}
 		moveRight() {
-			let lock:boolean = true;
+			let lock = true;
 			this._cells.forEach((cell, i):void => {
 				if (cell.playerState && cell.y < 7 && lock && cell.boolWalls[2] === `O`) {
 					cell.movePlayer();
@@ -201,84 +205,84 @@ export const mazeFunction = (interaction: CommandInteraction):void => {
 			}${y.right
 			}${y.bottom
 			}`.replace(/true/g, `I`)
-			.replace(/false/g, `O`) as `${`I`|`O`}${`I`|`O`}${`I`|`O`}${`I`|`O`}`);
-		})
-	})
+				.replace(/false/g, `O`) as `${`I`|`O`}${`I`|`O`}${`I`|`O`}${`I`|`O`}`);
+		});
+	});
 	
-	const mazeMessage = (mazeObj: any):string => {
-		let messageText:string = ``;
-		for (let i:number = 0; i < 8; i++) {
-			for (let j:number = 0; j < 8; j++) {
+	const mazeMessage = (mazeObj: Maze):string => {
+		let messageText = ``;
+		for (let i = 0; i < 8; i++) {
+			for (let j = 0; j < 8; j++) {
 				messageText = `${messageText}${mazeObj.cellArr[i * 8 + j].walls}`;
 			}
 			messageText = `${messageText}\n`;
 		}
 		return messageText;
-	}
+	};
 	const arrows:MessageActionRow = new MessageActionRow()
-	.addComponents([
-		new MessageButton()
-		.setCustomId(`Left`)
-		.setEmoji(`⬅️`)
-		.setStyle(`SECONDARY`)
-	],[
-		new MessageButton()
-		.setCustomId(`Up`)
-		.setEmoji(`⬆️`)
-		.setStyle(`SECONDARY`)
-	],[
-		new MessageButton()
-		.setCustomId(`Down`)
-		.setEmoji(`⬇️`)
-		.setStyle(`SECONDARY`)
-	],[
-		new MessageButton()
-		.setCustomId(`Right`)
-		.setEmoji(`➡️`)
-		.setStyle(`SECONDARY`)
-	])
+		.addComponents([
+			new MessageButton()
+				.setCustomId(`Left`)
+				.setEmoji(`⬅️`)
+				.setStyle(`SECONDARY`)
+		],[
+			new MessageButton()
+				.setCustomId(`Up`)
+				.setEmoji(`⬆️`)
+				.setStyle(`SECONDARY`)
+		],[
+			new MessageButton()
+				.setCustomId(`Down`)
+				.setEmoji(`⬇️`)
+				.setStyle(`SECONDARY`)
+		],[
+			new MessageButton()
+				.setCustomId(`Right`)
+				.setEmoji(`➡️`)
+				.setStyle(`SECONDARY`)
+		]);
 	interaction.reply({content: mazeMessage(createdClass), components: [arrows], ephemeral: true}).then(():void => {
 		interaction.client.on(`interactionCreate`, (interaction: Interaction):void => {
 			if (interaction.isButton() && interaction.id == interaction.message.interaction.id){
-				const buttonInteraction:ButtonInteraction = interaction as ButtonInteraction
+				const buttonInteraction:ButtonInteraction = interaction as ButtonInteraction;
 				switch (buttonInteraction.customId) {
-					case `Left`:
+				case `Left`:
 					createdClass.moveLeft();
 					if (!createdClass.cellArr[63].playerState) {
 						buttonInteraction.update(mazeMessage(createdClass))
-						.catch(console.error);
+							.catch(console.error);
 					}
 					break;
-					case `Up`:
+				case `Up`:
 					createdClass.moveUp();
 					if (!createdClass.cellArr[63].playerState) {
 						buttonInteraction.update(mazeMessage(createdClass))
-						.catch(console.error);
+							.catch(console.error);
 					}
 					break;
-					case `Down`:
+				case `Down`:
 					createdClass.moveDown();
 					if (!createdClass.cellArr[63].playerState) {
 						buttonInteraction.update(mazeMessage(createdClass))
-						.catch(console.error);
+							.catch(console.error);
 					}
 					break;
-					case `Right`:
+				case `Right`:
 					createdClass.moveRight();
 					if (!createdClass.cellArr[63].playerState) {
 						buttonInteraction.update(mazeMessage(createdClass))
-						.catch(console.error);
+							.catch(console.error);
 					}
 					break;
-					default:
+				default:
 					break;
 				}
 				if (createdClass.cellArr[63].playerState) {
 					buttonInteraction.update({content: `**Congratulations!**\nYou managed to navigate through a maze even one of my ~~test subjects~~paid workers could finish!`, components: []})
-					.catch(console.error);
+						.catch(console.error);
 				} 
 			}
-		})
+		});
 	})
-	.catch(console.error);
-}
+		.catch(console.error);
+};

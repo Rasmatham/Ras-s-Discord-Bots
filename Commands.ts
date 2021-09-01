@@ -1,5 +1,6 @@
-import { ApplicationCommand, ApplicationCommandOptionType, Client, Guild, GuildResolvable } from "discord.js";
+import { ApplicationCommandOptionType, Client, Guild } from "discord.js";
 import { intents } from "./custom_modules/generalUse.js";
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 require(`dotenv`).config();
 const buzzBot:Client = new Client({intents: intents, presence: {status: `dnd`, activities: [{name: `Doing some maintenance`, type: `PLAYING`}]}});
 const clambot:Client = new Client({intents: intents, presence: {status: `dnd`, activities: [{name: `Doing some maintenance`, type: `PLAYING`}]}});
@@ -108,45 +109,45 @@ const gladosCommands:{
 	{
 		id: `862460436048642098`,
 		command: {
-			name: 'botlink',
-			description: 'Link to add this bot to another server',
+			name: `botlink`,
+			description: `Link to add this bot to another server`,
 			defaultPermission: true
 		}
 	},
 	{
 		id: `862460436423376947`,
 		command: {
-			name: 'sightingslink',
-			description: 'Sends a link to the server this bot is mainly developed for',
+			name: `sightingslink`,
+			description: `Sends a link to the server this bot is mainly developed for`,
 			defaultPermission: true
 		}
 	},
 	{
 		id: `862460437420310569`,
 		command: {
-			name: 'inviscolor',
-			description: 'Sends the hex color code for the backround color of Discord',
+			name: `inviscolor`,
+			description: `Sends the hex color code for the backround color of Discord`,
 			defaultPermission: true
 		}
 	},
 	{
 		id: `862460438318415872`,
 		command: {
-			name: 'source',
-			description: 'Sends a link to a GitHub repository for this bot',
+			name: `source`,
+			description: `Sends a link to a GitHub repository for this bot`,
 			defaultPermission: true
 		}
 	},
 	{
 		id: `862460439157014558`,
 		command: {
-			name: 'userinfo',
-			description: 'Sends all information a bot can get to you (Made to show that bots can\'t get any private information',
+			name: `userinfo`,
+			description: `Sends all information a bot can get to you (Made to show that bots can't get any private information`,
 			defaultPermission: true,
 			options: [{
-				name: 'public',
-				type: 'BOOLEAN',
-				description: 'Should the message be shown to everyone?',
+				name: `public`,
+				type: `BOOLEAN`,
+				description: `Should the message be shown to everyone?`,
 				required: true
 			}]
 		}
@@ -154,21 +155,21 @@ const gladosCommands:{
 	{
 		id: `862460522665738271`,
 		command: {
-			name: 'serverinfo',
-			description: 'Sends some of the statistical information of the server',
+			name: `serverinfo`,
+			description: `Sends some of the statistical information of the server`,
 			defaultPermission: true
 		}
 	},
 	{
 		id: `862460523509841941`,
 		command: {
-			name: 'joindate',
-			description: 'Shows when you joined Discord',
+			name: `joindate`,
+			description: `Shows when you joined Discord`,
 			defaultPermission: true,
 			options: [{
-				name: 'public',
-				type: 'BOOLEAN',
-				description: 'Should the message be shown to everyone?',
+				name: `public`,
+				type: `BOOLEAN`,
+				description: `Should the message be shown to everyone?`,
 				required: true
 			}]
 		}
@@ -176,13 +177,13 @@ const gladosCommands:{
 	{
 		id: `862460524235194399`,
 		command: {
-			name: 'grid',
-			description: 'This is just a test command made to show off buttons',
+			name: `grid`,
+			description: `This is just a test command made to show off buttons`,
 			defaultPermission: true,
 			options: [{
-				name: 'button_content',
-				type: 'STRING',
-				description: 'What text/emoji should the buttons display?',
+				name: `button_content`,
+				type: `STRING`,
+				description: `What text/emoji should the buttons display?`,
 				required: true,
 			}]
 		}
@@ -190,26 +191,26 @@ const gladosCommands:{
 	{
 		id: `862460525329121280`,
 		command: {
-			name: 'selectmenu',
-			description: 'This is just a test command made to show off select menus',
+			name: `selectmenu`,
+			description: `This is just a test command made to show off select menus`,
 			defaultPermission: true
 		}
 	},
 	{
 		id: `862460525891289100`,
 		command: {
-			name: 'd',
-			description: 'Rolls a die',
+			name: `d`,
+			description: `Rolls a die`,
 			defaultPermission: true,
 			options: [{
-				name: 'die_sides',
-				type: 'INTEGER',
-				description: 'How many sides should the individul die have?',
+				name: `die_sides`,
+				type: `INTEGER`,
+				description: `How many sides should the individul die have?`,
 				required: false,
 			},{
-				name: 'dice_count',
-				type: 'INTEGER',
-				description: 'How many dice should be thrown?',
+				name: `dice_count`,
+				type: `INTEGER`,
+				description: `How many dice should be thrown?`,
 				required: false,
 			}]
 		}
@@ -217,13 +218,13 @@ const gladosCommands:{
 	{
 		id: `862460609714192414`,
 		command: {
-			name: 'xkcd',
-			description: 'A test Sends a random XKCD',
+			name: `xkcd`,
+			description: `A test Sends a random XKCD`,
 			defaultPermission: true,
 			options: [{
-				name: 'xkcd_number',
-				type: 'INTEGER',
-				description: 'Which XKCD comic do you want?',
+				name: `xkcd_number`,
+				type: `INTEGER`,
+				description: `Which XKCD comic do you want?`,
 				required: false,
 			}]
 		}
@@ -231,20 +232,20 @@ const gladosCommands:{
 	{
 		id: `862460610435612682`,
 		command: {
-			name: 'maze',
-			description: 'A playable maze game',
+			name: `maze`,
+			description: `A playable maze game`,
 			defaultPermission: true,
 			options: [{
-				name: 'style',
-				type: 'STRING',
-				description: 'What style of maze do you want?',
+				name: `style`,
+				type: `STRING`,
+				description: `What style of maze do you want?`,
 				required: true,
 				choices: [{
-					name: 'normal',
-					value: `normal`
+					name: `normal`,
+					value: 0
 				},{
 					name: `zelda`,
-					value: `zelda`
+					value: 1
 				}]
 			}]
 		}
@@ -266,6 +267,27 @@ const gladosCommands:{
 				type: `BOOLEAN`,
 				description: `should you move pieces aftee both players has laid down three pieces?`,
 				required: true
+			}]
+		}
+	},
+	{
+		id: `0`,
+		command: {
+			name: `coinflip`,
+			description: `flips a coin for you`,
+			defaultPermission: true,
+			options: [{
+				name: `side`,
+				type: `STRING`,
+				description: `Invite a second player to play`,
+				required: true,
+				choices: [{
+					name: `heads`,
+					value: `heads`
+				},{
+					name: `tails`,
+					value: `tails`
+				}]
 			}]
 		}
 	}
@@ -422,11 +444,11 @@ bots.forEach((bot, i):void => {
 	bot.on(`ready`, ():void => {
 		bot.application.commands.fetch().then(():void => {
 			for (const command of bot.application.commands.cache.map((value) => value)){
-				console.log(command)
+				console.log(command);
 			}
 		})
-		.catch(console.error)
-	})
+			.catch(console.error);
+	});
 	//Replace all
 	/*bot.on(`ready`, ():void => {
 		bot.application.commands.fetch().then((command):void => {
@@ -442,8 +464,8 @@ bots.forEach((bot, i):void => {
 	bot.on(`ready`, ():void => {
 		commandGroup[i].forEach((command, j):void => {
 			bot.application.commands.create(command.command, command.guild = null)
-			.then((command):void => {console.log(`[${i+1}/${bots.length}][${j+1}/${commandGroup[i].length}] Edited ${command.name}`)})
-			.catch(console.error)
-		})
-	})
+				.then((command):void => {console.log(`[${i+1}/${bots.length}][${j+1}/${commandGroup[i].length}] Edited ${command.name}`);})
+				.catch(console.error);
+		});
+	});
 });

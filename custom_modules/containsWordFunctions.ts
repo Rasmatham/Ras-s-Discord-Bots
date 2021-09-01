@@ -1,14 +1,14 @@
-import { Message, MessageAdditions, MessageOptions, User } from "discord.js";
+import { Message, MessageOptions } from "discord.js";
 //reply
 
 //function int
 const reply = async (message: Message, chance: number, rply: MessageOptions):Promise<void> => {
 	if (Math.random() * 100 <= chance) {
 		message.channel.sendTyping()
-		.finally(():void => {message.channel.send(rply)})
-		.catch(console.error)
+			.finally(():void => {message.channel.send(rply);})
+			.catch(console.error);
 	}
-}
+};
 //function ext
 export const replyThing = (message: Message, type: `anywhere` | `exact` | `mention`, chance: number, rply: MessageOptions, triggerArr: string[] | `${bigint}`[]):void => {
 	if (!message.author.bot) {
@@ -19,12 +19,6 @@ export const replyThing = (message: Message, type: `anywhere` | `exact` | `menti
 				}
 			});
 		} else if (type === `exact`) {
-			const editedMessage:string = message.content
-			.replace(`.`, ``)
-			.replace(`,`, ``)
-			.replace(`!`, ``)
-			.replace(`?`, ``)
-			.replace(`:`, ``);
 			message.content.split(` `).forEach((word):void => {
 				triggerArr.forEach((trigger):void => {
 					if (word === trigger) {
@@ -40,7 +34,7 @@ export const replyThing = (message: Message, type: `anywhere` | `exact` | `menti
 			});
 		}
 	}
-}
+};
 //react
 
 //function int
@@ -48,9 +42,9 @@ const react = (message: Message, chance: number, emoteArr: string[]):void => {
 	if (Math.random() * 100 <= chance) {
 		emoteArr.forEach(emote => {
 			message.react(emote);
-		})
+		});
 	}
-}
+};
 //Function ext
 export const reactThing = (message: Message, type: `anywhere` | `exact` | `mention`, chance: number, emoteArr: string[], triggerArr: string[] | `${bigint}`[]):void => {
 	if (!message.author.bot) {
@@ -61,12 +55,6 @@ export const reactThing = (message: Message, type: `anywhere` | `exact` | `menti
 				}
 			});
 		} else if (type === `exact`) {
-			const editedMessage:string = message.content
-			.replace(`.`, ``)
-			.replace(`,`, ``)
-			.replace(`!`, ``)
-			.replace(`?`, ``)
-			.replace(`:`, ``);
 			message.content.split(` `).forEach((word):void => {
 				triggerArr.forEach((trigger):void => {
 					if (word === trigger) {
@@ -82,4 +70,4 @@ export const reactThing = (message: Message, type: `anywhere` | `exact` | `menti
 			});
 		}
 	}
-}
+};
