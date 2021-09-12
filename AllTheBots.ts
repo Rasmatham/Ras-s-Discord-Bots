@@ -10,33 +10,21 @@
 */
 
 import { Client, Message, MessageEmbed, ColorResolvable, GuildMember, Interaction, MessageComponentInteraction, ButtonInteraction, CommandInteraction, SelectMenuInteraction } from "discord.js";
-// eslint-disable-next-line quotes
-import containsWord = require("./custom_modules/containsWordFunctions");
-// eslint-disable-next-line quotes
-import forwarding = require("./custom_modules/forwardMessages");
-// eslint-disable-next-line quotes
-import generalStuff = require("./custom_modules/generalUse");
-// eslint-disable-next-line quotes
-import stupidStuff = require("./custom_modules/stupidStuff");
-// eslint-disable-next-line quotes
-import inspiroBot = require("./custom_modules/inspiroBot");
-// eslint-disable-next-line quotes
-import coinflip = require("./custom_modules/coinflip");
-// eslint-disable-next-line quotes
-import maze = require("./custom_modules/playableMaze");
-// eslint-disable-next-line quotes
-import pokedex = require("./custom_modules/pokedex");
-// eslint-disable-next-line quotes
-import ticTacToe = require("./custom_modules/TicTacToe");
-//import music = require("./custom_modules/music`);
-// eslint-disable-next-line quotes
-import dice = require("./custom_modules/dice");
-// eslint-disable-next-line quotes
-import info = require("./custom_modules/info");
-// eslint-disable-next-line quotes
-import xkcd = require("./custom_modules/xkcd");
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-require(`dotenv`).config();
+import * as containsWord from "./custom_modules/containsWordFunctions";
+import * as forwarding from "./custom_modules/forwardMessages";
+import * as generalStuff from "./custom_modules/generalUse";
+import * as stupidStuff from "./custom_modules/stupidStuff";
+import * as inspiroBot from "./custom_modules/inspiroBot";
+import * as coinflip from "./custom_modules/coinflip";
+import * as maze from "./custom_modules/playableMaze";
+import * as pokedex from "./custom_modules/pokedex";
+import * as ticTacToe from "./custom_modules/TicTacToe";
+//import music from "./custom_modules/music`);
+import * as dice from "./custom_modules/dice";
+import * as info from "./custom_modules/info";
+import * as xkcd from "./custom_modules/xkcd";
+import * as dotenv from "dotenv";
+dotenv.config();
 
 //Common
 //Other Variables
@@ -228,25 +216,18 @@ glados.on(`messageCreate`, (message: Message):void => {
 	//stupidStuff.userWordBan(message, `last`, `541617670533939210`);
 });
 glados.on(`interactionCreate`, (interaction: Interaction):void => {
-	switch(interaction.type){
-	case `MESSAGE_COMPONENT`:
-		// eslint-disable-next-line no-case-declarations
+	if(interaction.type == `MESSAGE_COMPONENT`){
 		const messageComponentInteraction:MessageComponentInteraction = interaction as MessageComponentInteraction;
-		switch(messageComponentInteraction.componentType){
-		case `BUTTON`:
-			// eslint-disable-next-line no-case-declarations
+		if(messageComponentInteraction.componentType == `BUTTON`){
 			const buttonInteraction:ButtonInteraction = messageComponentInteraction as ButtonInteraction;
 			switch(buttonInteraction.customId){
 			case `Dummy`:
 				buttonInteraction.deleteReply()
 					.catch(console.error);
 				break;
-			default:
-				break;
 			}
-			break;
-		case `SELECT_MENU`:
-			// eslint-disable-next-line no-case-declarations
+		}
+		else if(messageComponentInteraction.componentType == `SELECT_MENU`){
 			const selectMenuInteraction:SelectMenuInteraction = messageComponentInteraction as SelectMenuInteraction;
 			switch(selectMenuInteraction.customId){
 			case `Dummy`:
@@ -256,13 +237,9 @@ glados.on(`interactionCreate`, (interaction: Interaction):void => {
 			default:
 				break;
 			}
-			break;
-		default:
-			break;
 		}
-		break;
-	case `APPLICATION_COMMAND`:
-		// eslint-disable-next-line no-case-declarations
+	}
+	else if (interaction.type == `APPLICATION_COMMAND`){
 		const commandInteraction:CommandInteraction = interaction as CommandInteraction;
 		switch(commandInteraction.commandName){
 		case `botlink`:
@@ -310,9 +287,6 @@ glados.on(`interactionCreate`, (interaction: Interaction):void => {
 		default:
 			break;
 		}
-		break;
-	default:
-		break;
 	}
 });
 

@@ -1,7 +1,7 @@
 import { ApplicationCommandOptionType, Client, Guild } from "discord.js";
 import { intents } from "./custom_modules/generalUse.js";
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-require(`dotenv`).config();
+import * as dotenv from "dotenv";
+dotenv.config();
 const buzzBot:Client = new Client({intents: intents, presence: {status: `dnd`, activities: [{name: `Doing some maintenance`, type: `PLAYING`}]}});
 const clambot:Client = new Client({intents: intents, presence: {status: `dnd`, activities: [{name: `Doing some maintenance`, type: `PLAYING`}]}});
 const ebnj:Client = new Client({intents: intents, presence: {status: `dnd`, activities: [{name: `Doing some maintenance`, type: `PLAYING`}]}});
