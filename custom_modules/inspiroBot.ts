@@ -1,6 +1,6 @@
-import { Message } from "discord.js";
+import {Message} from "discord.js";
 import req from "node-fetch";
-export const getURL = ():Promise<string|void> => {
+export const getURL = ():Promise<string | void> => {
 	return req(`https://inspirobot.me/api?generate=true`)
 		.then((res):Promise<string> => {
 			return res.text();

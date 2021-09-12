@@ -1,9 +1,9 @@
-import { CommandInteraction, EmojiIdentifierResolvable, InteractionReplyOptions, Message, MessageActionRow, MessageButton, MessageOptions, MessageSelectMenu, TextChannel } from "discord.js";
-import { blackList } from "./generalUse.js";
+import {CommandInteraction, EmojiIdentifierResolvable, InteractionReplyOptions, Message, MessageActionRow, MessageButton, MessageOptions, MessageSelectMenu, TextChannel} from "discord.js";
+import {blackList} from "./generalUse.js";
 //Frick that one rule
 export const hencefortifier = (message: Message):void => {
 	if (message.author.id !== message.client.user.id && message.guild !== null &&message.content.toLowerCase().includes(`from now on`)) {
-		if(message.guild.id == `646155122992480266`){
+		if (message.guild.id == `646155122992480266`) {
 			const textChannels:`${bigint}`[] = [];
 			message.guild.channels.cache.map((channel):void => {
 				if (channel.type === `GUILD_TEXT`) {
@@ -16,7 +16,9 @@ export const hencefortifier = (message: Message):void => {
 			});
 			message.client.channels.fetch(textChannels[Math.floor(Math.random() * (textChannels.length - 1))])
 				.then((channel: TextChannel):void => {
-					channel.send(`<@${message.author.id}>, you did an oopsie`)
+					channel.send(`<@${
+						message.author.id
+					}>, you did an oopsie`)
 						.catch(console.error);
 				});
 		}
@@ -34,7 +36,7 @@ export const userWordBan = (message: Message, word: string, userID: `${bigint}`)
 //smh, Espen bot doesn't work
 export const espenBotReplacement = (type: `message` | `react`, message: Message, chance: number, victim: `${bigint}`, out: MessageOptions | EmojiIdentifierResolvable):void => {
 	if (message.author.id === victim && Math.floor(Math.random() * 100) <= chance) {
-		switch(type){
+		switch(type) {
 		case `message`:
 			message.channel.send(out as MessageOptions)
 				.catch(console.error);
@@ -52,19 +54,89 @@ export const buttonGrid = (interaction: CommandInteraction):InteractionReplyOpti
 	const discordEmoji = /^<(a?)?:.+?:\d+>$/gi;
 	const discordEmojiNotExact = /<(a?)?:.+?:\d+>/gi;
 	const buttonContent:string = interaction.options.get(`button_content`).value as string;
-	if(buttonContent.length <= 80){
-		if(buttonContent.match(unicodeEmoji) || buttonContent.match(discordEmoji)){
+	if (buttonContent.length <= 80) {
+		if (buttonContent.match(unicodeEmoji) || buttonContent.match(discordEmoji)) {
 			const button:MessageButton = new MessageButton().setCustomId(`Dummy`).setEmoji(buttonContent).setStyle(`SECONDARY`);
-			const bar:MessageActionRow = new MessageActionRow().addComponents([button],[button],[button],[button],[button]);
-			return {content: buttonContent, components: [bar, bar, bar, bar, bar]};
-		} else if (buttonContent.match(discordEmojiNotExact)) {
+			const bar:MessageActionRow = new MessageActionRow().addComponents([
+				button
+			],
+			[
+				button
+			],
+			[
+				button
+			],
+			[
+				button
+			],
+			[
+				button
+			]);
+			return {
+				content: buttonContent,
+				components: [
+					bar,
+					bar,
+					bar,
+					bar,
+					bar
+				]
+			};
+		}
+		else if (buttonContent.match(discordEmojiNotExact)) {
 			const button:MessageButton = new MessageButton().setCustomId(`Dummy`).setLabel(buttonContent.replace(discordEmojiNotExact, ``)).setStyle(`SECONDARY`);
-			const bar:MessageActionRow = new MessageActionRow().addComponents([button],[button],[button],[button],[button]);
-			return {content: buttonContent.replace(discordEmojiNotExact, ``), components: [bar, bar, bar, bar, bar]};
+			const bar:MessageActionRow = new MessageActionRow().addComponents([
+				button
+			],
+			[
+				button
+			],
+			[
+				button
+			],
+			[
+				button
+			],
+			[
+				button
+			]);
+			return {
+				content: buttonContent.replace(discordEmojiNotExact, ``),
+				components: [
+					bar,
+					bar,
+					bar,
+					bar,
+					bar
+				]
+			};
 		}
 		const button:MessageButton = new MessageButton().setCustomId(`Dummy`).setLabel(buttonContent).setStyle(`SECONDARY`);
-		const bar:MessageActionRow = new MessageActionRow().addComponents([button],[button],[button],[button],[button]);
-		return {content: buttonContent, components: [bar, bar, bar, bar, bar]};
+		const bar:MessageActionRow = new MessageActionRow().addComponents([
+			button
+		],
+		[
+			button
+		],
+		[
+			button
+		],
+		[
+			button
+		],
+		[
+			button
+		]);
+		return {
+			content: buttonContent,
+			components: [
+				bar,
+				bar,
+				bar,
+				bar,
+				bar
+			]
+		};
 	}
 };
 export const selectMenu = ():InteractionReplyOptions => {
@@ -80,6 +152,13 @@ export const selectMenu = ():InteractionReplyOptions => {
 			value: `second_option`,
 		},
 	]);
-	const bar:MessageActionRow = new MessageActionRow().addComponents([menu]);
-	return {content: `sample menus:`, components: [bar]};
+	const bar:MessageActionRow = new MessageActionRow().addComponents([
+		menu
+	]);
+	return {
+		content: `sample menus:`,
+		components: [
+			bar
+		]
+	};
 };

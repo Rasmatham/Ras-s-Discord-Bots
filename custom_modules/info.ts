@@ -1,8 +1,14 @@
-import { CommandInteraction, MessageEmbed, Guild, User, ColorResolvable, GuildMember } from "discord.js";
-import { checkFor } from "./generalUse.js";
-import { writeFile, unlink } from "fs";
+import {CommandInteraction, MessageEmbed, Guild, User, ColorResolvable, GuildMember} from "discord.js";
+import {checkFor} from "./generalUse.js";
+import {writeFile, unlink} from "fs";
 //channelCount
-export const channelCount = (guild: Guild):{textChannels: number, voiceChannels: number, Categories: number, Unknown: number, all: number} => {
+export const channelCount = (guild: Guild):{
+	textChannels: number,
+	voiceChannels: number,
+	Categories: number,
+	Unknown: number,
+	all: number
+} => {
 	if (guild !== null) {
 		const TC:string[] = [];
 		const VC:string[] = [];
@@ -24,27 +30,60 @@ export const channelCount = (guild: Guild):{textChannels: number, voiceChannels:
 				break;
 			}
 		});
-		return {textChannels: TC.length, voiceChannels: VC.length, Categories: Cat.length, Unknown: UK.length, all: TC.length+VC.length+Cat.length+UK.length};
+		return {
+			textChannels: TC.length,
+			voiceChannels: VC.length,
+			Categories: Cat.length,
+			Unknown: UK.length,
+			all: TC.length+VC.length+Cat.length+UK.length
+		};
 	}
 };
 //userinfo
 export const userInfo = (interaction: CommandInteraction):void => {
-	writeFile(`${interaction.client.user.username}/userinfo/userinfo.json`, `"interaction.user":{\n${JSON.stringify(interaction.user, null, 2)}\n},\n"interaction.member":{\n${JSON.stringify(interaction.member, null, 2)}\n}`, ():void => {
+	writeFile(`${
+		interaction.client.user.username
+	}/userinfo/userinfo.json`, `"interaction.user":{\n${
+		JSON.stringify(interaction.user, null, 2)
+	}\n},\n"interaction.member":{\n${
+		JSON.stringify(interaction.member, null, 2)
+	}\n}`, ():void => {
 		if (interaction.options.get(`public`).value as boolean) {
-			interaction.reply({files: [`${interaction.client.user.username}/userinfo/userinfo.json`]})
+			interaction.reply({
+				files: [
+					`${
+						interaction.client.user.username
+					}/userinfo/userinfo.json`
+				]
+			})
 				.then(():void => {
-					unlink(`${interaction.client.user.username}/userinfo/userinfo.json`, console.error);
+					unlink(`${
+						interaction.client.user.username
+					}/userinfo/userinfo.json`, console.error);
 				})
 				.catch(console.error);
-		} else {
-			if(!(interaction.member instanceof GuildMember)){return;}
-			interaction.member.send({files: [`${interaction.client.user.username}/userinfo/userinfo.json`]})
+		}
+		else {
+			if (!(interaction.member instanceof GuildMember)) {
+				return;
+			}
+			interaction.member.send({
+				files: [
+					`${
+						interaction.client.user.username
+					}/userinfo/userinfo.json`
+				]})
 				.then(():void => {
-					unlink(`${interaction.client.user.username}/userinfo/userinfo.json`, console.error);
+					unlink(`${
+						interaction.client.user.username
+					}/userinfo/userinfo.json`, console.error);
 				})
 				.catch(console.error)
 				.then(():void => {
-					interaction.reply({content: `You have [1] more DM!`, ephemeral: true})
+					interaction.reply({
+						content: `You have [1] more DM!`,
+						ephemeral: true
+					})
 						.catch(console.error);
 				});
 		}
@@ -95,18 +134,28 @@ export const serverInfo = (interaction: CommandInteraction):void => {
 				});
 			})
 			.catch(console.error);
-	} else {
+	}
+	else {
 		if (interaction.member.user.id === `588511925944582186`) {
-			interaction.reply({content: `stop tring to kill me, smh`});
-		} else {
-			interaction.reply({content: `I'm sorry, Dave, but I'm afraid I can't let you do that`});
+			interaction.reply({
+				content: `stop tring to kill me, smh`
+			});
+		}
+		else {
+			interaction.reply({
+				content: `I'm sorry, Dave, but I'm afraid I can't let you do that`
+			});
 		}
 	}
 };
 //join date
-export const joindate = (interaction: CommandInteraction):{embeds: MessageEmbed[], ephemeral: boolean;
+export const joindate = (interaction: CommandInteraction):{
+	embeds: MessageEmbed[],
+	ephemeral: boolean
 } => {
-	if(!(interaction.member.user instanceof User)){return;}
+	if (!(interaction.member.user instanceof User)) {
+		return;
+	}
 	const ms:number = interaction.member.user.createdTimestamp;
 	const date:Date = new Date(ms);
 	const embed:MessageEmbed = new MessageEmbed()
@@ -115,7 +164,9 @@ export const joindate = (interaction: CommandInteraction):{embeds: MessageEmbed[
 		.setThumbnail(`https://cdn.discordapp.com/attachments/656164355381133332/715651846584270899/ezgif-3-ea387cdabbbe.gif`)
 		.addFields({
 			name: `Date`,
-			value: date.toLocaleDateString(`en-GB`, { timeZone: `utc` }),
+			value: date.toLocaleDateString(`en-GB`, {
+				timeZone: `utc` 
+			}),
 		},
 		{
 			name: `Time`,
@@ -125,5 +176,10 @@ export const joindate = (interaction: CommandInteraction):{embeds: MessageEmbed[
 			}),
 		}
 		);
-	return {embeds: [embed], ephemeral: !interaction.options.get(`public`).value};
+	return {
+		embeds: [
+			embed
+		],
+		ephemeral: !interaction.options.get(`public`).value
+	};
 };

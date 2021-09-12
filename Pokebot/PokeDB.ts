@@ -1,12 +1,79 @@
-type dexEntriesType = {re: string, bl: string, yr: string, go: string, si: string, cr: string, ru: string, sa: string, em: string, fr: string, lg: string, di: string, pe: string, pl: string, hg: string, ss: string, wh: string, b2: string, w2: string, x: string, y: string, or: string, as: string, su: string, mo: string, us: string, um: string, lgp: string, lge: string, sw: string, sh: string};
-type pokeObjType = {name: string, reg:string, nat:string, rarity:number, types:[{name: string, color: string}, {name: string, color: string}]|[{name: string, color: string}], height:[string, string], weight:[string, string], dexEntries:dexEntriesType}
+type dexEntriesType = {
+	re: string,
+	bl: string,
+	yr: string,
+	go: string,
+	si: string,
+	cr: string,
+	ru: string,
+	sa: string,
+	em: string,
+	fr: string,
+	lg: string,
+	di: string,
+	pe: string,
+	pl: string,
+	hg: string,
+	ss: string,
+	wh: string,
+	b2: string,
+	w2: string,
+	x: string,
+	y: string,
+	or: string,
+	as: string,
+	su: string,
+	mo: string,
+	us: string,
+	um: string,
+	lgp: string,
+	lge: string,
+	sw: string,
+	sh: string
+};
+type pokeObjType = {
+	name: string,
+	reg:string,
+	nat:string,
+	rarity:number,
+	types:[
+		{
+			name: string,
+			color: string
+		},
+		{
+			name: string,
+			color: string
+		}
+	] | [
+		{
+			name: string,
+			color: string
+		}
+	],
+	height:[
+		string,
+		string
+	],
+	weight:[
+		string,
+		string
+	],
+	dexEntries:dexEntriesType
+}
 export const types = {
 	bird: {
 		name: `Bird`,
 		color: `68A090`,
-		weakTo: [`?`] as string[],
-		strongTo: [`?`] as string[],
-		NoDamageTo: [`?`] as string[]
+		weakTo: [
+			`?`
+		] as string[],
+		strongTo: [
+			`?`
+		] as string[],
+		NoDamageTo: [
+			`?`
+		] as string[]
 	},
 	normal: {
 		name: `Normal`,
@@ -142,9 +209,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `0`,
 		nat: `0`,
 		rarity: 0,
-		types: [types.bird, types.normal],
-		height: [`?`, `?`],
-		weight: [`?`, `?`],
+		types: [
+			types.bird,
+			types.normal
+		],
+		height: [
+			`?`,
+			`?`
+		],
+		weight: [
+			`?`,
+			`?`
+		],
 		dexEntries: {
 			re: `?`,
 			bl: `?`,
@@ -184,9 +260,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `001`,
 		nat: `001`,
 		rarity: 0,
-		types: [types.grass, types.poison],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.grass,
+			types.poison
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -226,9 +311,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `002`,
 		nat: `002`,
 		rarity: 0,
-		types: [types.grass, types.poison],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.grass,
+			types.poison
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -268,9 +362,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `003`,
 		nat: `003`,
 		rarity: 0,
-		types: [types.grass, types.poison],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.grass,
+			types.poison
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -310,9 +413,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `004`,
 		nat: `004`,
 		rarity: 0,
-		types: [types.fire],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.fire
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -352,9 +463,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `005`,
 		nat: `005`,
 		rarity: 0,
-		types: [types.fire],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.fire
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -394,9 +513,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `006`,
 		nat: `006`,
 		rarity: 0,
-		types: [types.fire, types.flying],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.fire,
+			types.flying
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -436,9 +564,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `007`,
 		nat: `007`,
 		rarity: 0,
-		types: [types.water],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.water
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -478,9 +614,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `008`,
 		nat: `008`,
 		rarity: 0,
-		types: [types.water],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.water
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -520,9 +664,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `009`,
 		nat: `009`,
 		rarity: 0,
-		types: [types.water],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.water
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -562,9 +714,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `010`,
 		nat: `010`,
 		rarity: 0,
-		types: [types.bug],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.bug
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -604,9 +764,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `011`,
 		nat: `011`,
 		rarity: 0,
-		types: [types.bug],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.bug
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -646,9 +814,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `012`,
 		nat: `012`,
 		rarity: 0,
-		types: [types.bug, types.flying],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.bug,
+			types.flying
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -688,9 +865,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `013`,
 		nat: `013`,
 		rarity: 0,
-		types: [types.bug, types.poison],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.bug,
+			types.poison
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -730,9 +916,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `014`,
 		nat: `014`,
 		rarity: 0,
-		types: [types.bug, types.poison],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.bug,
+			types.poison
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -772,9 +967,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `015`,
 		nat: `015`,
 		rarity: 0,
-		types: [types.bug, types.poison],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.bug,
+			types.poison
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -814,9 +1018,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `016`,
 		nat: `016`,
 		rarity: 0,
-		types: [types.normal, types.flying],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.normal,
+			types.flying
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -856,9 +1069,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `017`,
 		nat: `017`,
 		rarity: 0,
-		types: [types.normal, types.flying],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.normal,
+			types.flying
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -898,9 +1120,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `018`,
 		nat: `018`,
 		rarity: 0,
-		types: [types.normal, types.flying],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.normal,
+			types.flying
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -940,9 +1171,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `019`,
 		nat: `019`,
 		rarity: 0,
-		types: [types.normal],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.normal
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -982,9 +1221,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `020`,
 		nat: `020`,
 		rarity: 0,
-		types: [types.normal],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.normal
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -1024,9 +1271,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `021`,
 		nat: `021`,
 		rarity: 0,
-		types: [types.normal, types.flying],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.normal,
+			types.flying
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -1066,9 +1322,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `022`,
 		nat: `022`,
 		rarity: 0,
-		types: [types.normal, types.flying],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.normal,
+			types.flying
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -1108,9 +1373,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `023`,
 		nat: `023`,
 		rarity: 0,
-		types: [types.poison],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.poison
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -1150,9 +1423,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `024`,
 		nat: `024`,
 		rarity: 0,
-		types: [types.poison],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.poison
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -1192,9 +1473,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `025`,
 		nat: `025`,
 		rarity: 0,
-		types: [types.electric],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.electric
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -1234,9 +1523,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `026`,
 		nat: `026`,
 		rarity: 0,
-		types: [types.electric],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.electric
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -1276,9 +1573,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `027`,
 		nat: `027`,
 		rarity: 0,
-		types: [types.ground],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.ground
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -1318,9 +1623,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `028`,
 		nat: `028`,
 		rarity: 0,
-		types: [types.ground],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.ground
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -1360,9 +1673,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `029`,
 		nat: `029`,
 		rarity: 0,
-		types: [types.poison],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.poison
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -1402,9 +1723,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `030`,
 		nat: `030`,
 		rarity: 0,
-		types: [types.poison],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.poison
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -1444,9 +1773,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `031`,
 		nat: `031`,
 		rarity: 0,
-		types: [types.poison, types.ground],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.poison,
+			types.ground
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -1486,9 +1824,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `032`,
 		nat: `032`,
 		rarity: 0,
-		types: [types.poison],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.poison
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -1528,9 +1874,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `033`,
 		nat: `033`,
 		rarity: 0,
-		types: [types.poison],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.poison
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -1570,9 +1924,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `034`,
 		nat: `034`,
 		rarity: 0,
-		types: [types.poison, types.ground],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.poison,
+			types.ground
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -1612,9 +1975,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `035`,
 		nat: `035`,
 		rarity: 0,
-		types: [types.fairy],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.fairy
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -1654,9 +2025,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `036`,
 		nat: `036`,
 		rarity: 0,
-		types: [types.fairy],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.fairy
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -1696,9 +2075,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `037`,
 		nat: `037`,
 		rarity: 0,
-		types: [types.fire],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.fire
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -1738,9 +2125,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `038`,
 		nat: `038`,
 		rarity: 0,
-		types: [types.fire],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.fire
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -1780,9 +2175,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `039`,
 		nat: `039`,
 		rarity: 0,
-		types: [types.normal, types.fairy],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.normal,
+			types.fairy
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -1822,9 +2226,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `040`,
 		nat: `040`,
 		rarity: 0,
-		types: [types.normal, types.fairy],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.normal,
+			types.fairy
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -1864,9 +2277,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `041`,
 		nat: `041`,
 		rarity: 0,
-		types: [types.poison, types.flying],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.poison,
+			types.flying
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -1906,9 +2328,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `042`,
 		nat: `042`,
 		rarity: 0,
-		types: [types.poison, types.flying],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.poison,
+			types.flying
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -1948,9 +2379,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `043`,
 		nat: `043`,
 		rarity: 0,
-		types: [types.grass, types.poison],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.grass,
+			types.poison
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -1990,9 +2430,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `044`,
 		nat: `044`,
 		rarity: 0,
-		types: [types.grass, types.poison],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.grass,
+			types.poison
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -2032,9 +2481,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `045`,
 		nat: `045`,
 		rarity: 0,
-		types: [types.grass, types.poison],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.grass,
+			types.poison
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -2074,9 +2532,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `046`,
 		nat: `046`,
 		rarity: 0,
-		types: [types.bug, types.grass],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.bug,
+			types.grass
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -2116,9 +2583,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `047`,
 		nat: `047`,
 		rarity: 0,
-		types: [types.bug, types.grass],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.bug,
+			types.grass
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -2158,9 +2634,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `048`,
 		nat: `048`,
 		rarity: 0,
-		types: [types.bug, types.poison],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.bug,
+			types.poison
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -2200,9 +2685,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `049`,
 		nat: `049`,
 		rarity: 0,
-		types: [types.bug, types.poison],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.bug,
+			types.poison
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -2242,9 +2736,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `050`,
 		nat: `050`,
 		rarity: 0,
-		types: [types.ground],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.ground
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -2284,9 +2786,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `051`,
 		nat: `051`,
 		rarity: 0,
-		types: [types.ground],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.ground
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -2326,9 +2836,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `052`,
 		nat: `052`,
 		rarity: 0,
-		types: [types.normal],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.normal
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -2368,9 +2886,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `053`,
 		nat: `053`,
 		rarity: 0,
-		types: [types.normal],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.normal
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -2410,9 +2936,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `054`,
 		nat: `054`,
 		rarity: 0,
-		types: [types.water],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.water
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -2452,9 +2986,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `055`,
 		nat: `055`,
 		rarity: 0,
-		types: [types.water],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.water
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -2494,9 +3036,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `056`,
 		nat: `056`,
 		rarity: 0,
-		types: [types.fighting],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.fighting
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -2536,9 +3086,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `057`,
 		nat: `057`,
 		rarity: 0,
-		types: [types.fighting],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.fighting
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -2578,9 +3136,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `058`,
 		nat: `058`,
 		rarity: 0,
-		types: [types.fire],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.fire
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -2620,9 +3186,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `059`,
 		nat: `059`,
 		rarity: 0,
-		types: [types.fire],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.fire
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -2662,9 +3236,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `060`,
 		nat: `060`,
 		rarity: 0,
-		types: [types.water],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.water
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -2704,9 +3286,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `061`,
 		nat: `061`,
 		rarity: 0,
-		types: [types.water],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.water
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -2746,9 +3336,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `062`,
 		nat: `062`,
 		rarity: 0,
-		types: [types.water, types.fighting],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.water,
+			types.fighting
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -2788,9 +3387,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `063`,
 		nat: `063`,
 		rarity: 0,
-		types: [types.psychic],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.psychic
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -2830,9 +3437,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `064`,
 		nat: `064`,
 		rarity: 0,
-		types: [types.psychic],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.psychic
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -2872,9 +3487,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `065`,
 		nat: `065`,
 		rarity: 0,
-		types: [types.psychic],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.psychic
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -2914,9 +3537,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `066`,
 		nat: `066`,
 		rarity: 0,
-		types: [types.fighting],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.fighting
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -2956,9 +3587,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `067`,
 		nat: `067`,
 		rarity: 0,
-		types: [types.fighting],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.fighting
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -2998,9 +3637,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `068`,
 		nat: `068`,
 		rarity: 0,
-		types: [types.fighting],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.fighting
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -3040,9 +3687,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `069`,
 		nat: `069`,
 		rarity: 0,
-		types: [types.grass, types.poison],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.grass,
+			types.poison
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -3082,9 +3738,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `070`,
 		nat: `070`,
 		rarity: 0,
-		types: [types.grass, types.poison],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.grass,
+			types.poison
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -3124,9 +3789,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `071`,
 		nat: `071`,
 		rarity: 0,
-		types: [types.grass, types.poison],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.grass,
+			types.poison
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -3166,9 +3840,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `072`,
 		nat: `072`,
 		rarity: 0,
-		types: [types.water, types.poison],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.water,
+			types.poison
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -3208,9 +3891,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `073`,
 		nat: `073`,
 		rarity: 0,
-		types: [types.water, types.poison],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.water,
+			types.poison
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -3250,9 +3942,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `074`,
 		nat: `074`,
 		rarity: 0,
-		types: [types.rock, types.ground],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.rock,
+			types.ground
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -3292,9 +3993,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `075`,
 		nat: `075`,
 		rarity: 0,
-		types: [types.rock, types.ground],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.rock,
+			types.ground
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -3334,9 +4044,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `076`,
 		nat: `076`,
 		rarity: 0,
-		types: [types.rock, types.ground],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.rock,
+			types.ground
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -3376,9 +4095,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `077`,
 		nat: `077`,
 		rarity: 0,
-		types: [types.fire],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.fire
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -3418,9 +4145,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `078`,
 		nat: `078`,
 		rarity: 0,
-		types: [types.fire],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.fire
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -3460,9 +4195,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `079`,
 		nat: `079`,
 		rarity: 0,
-		types: [types.water, types.psychic],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.water,
+			types.psychic
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -3502,9 +4246,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `080`,
 		nat: `080`,
 		rarity: 0,
-		types: [types.water, types.psychic],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.water,
+			types.psychic
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -3544,9 +4297,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `081`,
 		nat: `081`,
 		rarity: 0,
-		types: [types.electric, types.steel],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.electric,
+			types.steel
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -3586,9 +4348,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `082`,
 		nat: `082`,
 		rarity: 0,
-		types: [types.electric, types.steel],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.electric,
+			types.steel
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -3628,9 +4399,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `083`,
 		nat: `083`,
 		rarity: 0,
-		types: [types.normal, types.flying],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.normal,
+			types.flying
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -3670,9 +4450,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `084`,
 		nat: `084`,
 		rarity: 0,
-		types: [types.normal, types.flying],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.normal,
+			types.flying
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -3712,9 +4501,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `085`,
 		nat: `085`,
 		rarity: 0,
-		types: [types.normal, types.flying],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.normal,
+			types.flying
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -3754,9 +4552,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `086`,
 		nat: `086`,
 		rarity: 0,
-		types: [types.water],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.water
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -3796,9 +4602,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `087`,
 		nat: `087`,
 		rarity: 0,
-		types: [types.water, types.ice],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.water,
+			types.ice
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -3838,9 +4653,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `088`,
 		nat: `088`,
 		rarity: 0,
-		types: [types.poison],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.poison
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -3880,9 +4703,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `089`,
 		nat: `089`,
 		rarity: 0,
-		types: [types.poison],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.poison
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -3922,9 +4753,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `090`,
 		nat: `090`,
 		rarity: 0,
-		types: [types.water],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.water
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -3964,9 +4803,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `091`,
 		nat: `091`,
 		rarity: 0,
-		types: [types.water, types.ice],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.water,
+			types.ice
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -4006,9 +4854,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `092`,
 		nat: `092`,
 		rarity: 0,
-		types: [types.ghost, types.poison],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.ghost,
+			types.poison
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -4048,9 +4905,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `093`,
 		nat: `093`,
 		rarity: 0,
-		types: [types.ghost, types.poison],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.ghost,
+			types.poison
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -4090,9 +4956,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `094`,
 		nat: `094`,
 		rarity: 0,
-		types: [types.ghost, types.poison],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.ghost,
+			types.poison
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -4132,9 +5007,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `095`,
 		nat: `095`,
 		rarity: 0,
-		types: [types.rock, types.ground],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.rock,
+			types.ground
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -4174,9 +5058,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `096`,
 		nat: `096`,
 		rarity: 0,
-		types: [types.psychic],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.psychic
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -4216,9 +5108,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `097`,
 		nat: `097`,
 		rarity: 0,
-		types: [types.psychic],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.psychic
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -4258,9 +5158,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `098`,
 		nat: `098`,
 		rarity: 0,
-		types: [types.water],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.water
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -4300,9 +5208,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `099`,
 		nat: `099`,
 		rarity: 0,
-		types: [types.water],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.water
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -4342,9 +5258,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `100`,
 		nat: `100`,
 		rarity: 0,
-		types: [types.electric],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.electric
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -4384,9 +5308,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `101`,
 		nat: `101`,
 		rarity: 0,
-		types: [types.electric],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.electric
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -4426,9 +5358,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `102`,
 		nat: `102`,
 		rarity: 0,
-		types: [types.grass, types.psychic],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.grass,
+			types.psychic
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -4468,9 +5409,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `103`,
 		nat: `103`,
 		rarity: 0,
-		types: [types.grass, types.psychic],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.grass,
+			types.psychic
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -4510,9 +5460,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `104`,
 		nat: `104`,
 		rarity: 0,
-		types: [types.ground],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.ground
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -4552,9 +5510,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `105`,
 		nat: `105`,
 		rarity: 0,
-		types: [types.ground],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.ground
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -4594,9 +5560,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `106`,
 		nat: `106`,
 		rarity: 0,
-		types: [types.fighting],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.fighting
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -4636,9 +5610,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `107`,
 		nat: `107`,
 		rarity: 0,
-		types: [types.fighting],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.fighting
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -4678,9 +5660,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `108`,
 		nat: `108`,
 		rarity: 0,
-		types: [types.normal],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.normal
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -4720,9 +5710,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `109`,
 		nat: `109`,
 		rarity: 0,
-		types: [types.poison],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.poison
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -4762,9 +5760,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `110`,
 		nat: `110`,
 		rarity: 0,
-		types: [types.poison],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.poison
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -4804,9 +5810,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `111`,
 		nat: `111`,
 		rarity: 0,
-		types: [types.ground, types.rock],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.ground,
+			types.rock
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -4846,9 +5861,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `112`,
 		nat: `112`,
 		rarity: 0,
-		types: [types.ground, types.rock],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.ground,
+			types.rock
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -4888,9 +5912,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `113`,
 		nat: `113`,
 		rarity: 0,
-		types: [types.normal],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.normal
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -4930,9 +5962,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `114`,
 		nat: `114`,
 		rarity: 0,
-		types: [types.grass],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.grass
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -4972,9 +6012,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `115`,
 		nat: `115`,
 		rarity: 0,
-		types: [types.normal],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.normal
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -5014,9 +6062,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `116`,
 		nat: `116`,
 		rarity: 0,
-		types: [types.water],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.water
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -5056,9 +6112,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `117`,
 		nat: `117`,
 		rarity: 0,
-		types: [types.water],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.water
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -5098,9 +6162,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `118`,
 		nat: `118`,
 		rarity: 0,
-		types: [types.water],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.water
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -5140,9 +6212,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `119`,
 		nat: `119`,
 		rarity: 0,
-		types: [types.water],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.water
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -5182,9 +6262,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `120`,
 		nat: `120`,
 		rarity: 0,
-		types: [types.water],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.water
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -5224,9 +6312,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `121`,
 		nat: `121`,
 		rarity: 0,
-		types: [types.water, types.psychic],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.water,
+			types.psychic
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -5266,9 +6363,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `122`,
 		nat: `122`,
 		rarity: 0,
-		types: [types.psychic, types.fairy],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.psychic,
+			types.fairy
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -5308,9 +6414,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `123`,
 		nat: `123`,
 		rarity: 0,
-		types: [types.bug, types.flying],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.bug,
+			types.flying
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -5350,9 +6465,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `124`,
 		nat: `124`,
 		rarity: 0,
-		types: [types.ice, types.psychic],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.ice,
+			types.psychic
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -5392,9 +6516,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `125`,
 		nat: `125`,
 		rarity: 0,
-		types: [types.electric],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.electric
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -5434,9 +6566,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `126`,
 		nat: `126`,
 		rarity: 0,
-		types: [types.fire],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.fire
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -5476,9 +6616,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `127`,
 		nat: `127`,
 		rarity: 0,
-		types: [types.bug],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.bug
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -5518,9 +6666,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `128`,
 		nat: `128`,
 		rarity: 0,
-		types: [types.normal],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.normal
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -5560,9 +6716,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `129`,
 		nat: `129`,
 		rarity: 0,
-		types: [types.water],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.water
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -5602,9 +6766,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `130`,
 		nat: `130`,
 		rarity: 0,
-		types: [types.water, types.flying],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.water,
+			types.flying
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -5644,9 +6817,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `131`,
 		nat: `131`,
 		rarity: 0,
-		types: [types.water, types.ice],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.water,
+			types.ice
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -5686,9 +6868,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `132`,
 		nat: `132`,
 		rarity: 0,
-		types: [types.normal],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.normal
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -5728,9 +6918,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `133`,
 		nat: `133`,
 		rarity: 0,
-		types: [types.normal],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.normal
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -5770,9 +6968,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `134`,
 		nat: `134`,
 		rarity: 0,
-		types: [types.water],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.water
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -5812,9 +7018,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `135`,
 		nat: `135`,
 		rarity: 0,
-		types: [types.electric],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.electric
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -5854,9 +7068,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `136`,
 		nat: `136`,
 		rarity: 0,
-		types: [types.fire],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.fire
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -5896,9 +7118,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `137`,
 		nat: `137`,
 		rarity: 0,
-		types: [types.normal],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.normal
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -5938,9 +7168,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `138`,
 		nat: `138`,
 		rarity: 0,
-		types: [types.rock, types.water],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.rock,
+			types.water
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -5980,9 +7219,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `139`,
 		nat: `139`,
 		rarity: 0,
-		types: [types.rock, types.water],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.rock,
+			types.water
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -6022,9 +7270,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `140`,
 		nat: `140`,
 		rarity: 0,
-		types: [types.rock, types.water],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.rock,
+			types.water
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -6064,9 +7321,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `141`,
 		nat: `141`,
 		rarity: 0,
-		types: [types.rock, types.water],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.rock,
+			types.water
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -6106,9 +7372,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `142`,
 		nat: `142`,
 		rarity: 0,
-		types: [types.rock, types.flying],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.rock,
+			types.flying
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -6148,9 +7423,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `143`,
 		nat: `143`,
 		rarity: 0,
-		types: [types.normal],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.normal
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -6190,9 +7473,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `144`,
 		nat: `144`,
 		rarity: 0,
-		types: [types.ice, types.flying],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.ice,
+			types.flying
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -6232,9 +7524,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `145`,
 		nat: `145`,
 		rarity: 0,
-		types: [types.electric, types.flying],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.electric,
+			types.flying
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -6274,9 +7575,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `146`,
 		nat: `146`,
 		rarity: 0,
-		types: [types.fire, types.flying],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.fire,
+			types.flying
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -6316,9 +7626,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `147`,
 		nat: `147`,
 		rarity: 0,
-		types: [types.dragon],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.dragon
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -6358,9 +7676,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `148`,
 		nat: `148`,
 		rarity: 0,
-		types: [types.dragon],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.dragon
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -6400,9 +7726,18 @@ export const pokemon:pokeObjType[] = [
 		reg: `149`,
 		nat: `149`,
 		rarity: 0,
-		types: [types.dragon, types.flying],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.dragon,
+			types.flying
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -6442,9 +7777,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `150`,
 		nat: `150`,
 		rarity: 0,
-		types: [types.psychic],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.psychic
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -6484,9 +7827,17 @@ export const pokemon:pokeObjType[] = [
 		reg: `151`,
 		nat: `151`,
 		rarity: 0,
-		types: [types.psychic],
-		height: [`impheight`, `metheight`],
-		weight: [`impweight`, `metweight`],
+		types: [
+			types.psychic
+		],
+		height: [
+			`impheight`,
+			`metheight`
+		],
+		weight: [
+			`impweight`,
+			`metweight`
+		],
 		dexEntries: {
 			re: ``,
 			bl: ``,
@@ -6522,4 +7873,36 @@ export const pokemon:pokeObjType[] = [
 		}
 	}
 ];
-export const trainerList:string[] = [`Ash Kechum`, `Red`, `Leaf`, `Blue`, `Ethan`, `Kris`, `Lyra`, `Silver`, `Brendan`, `May`, `Lucas`, `Dawn`, `Barry`, `Hilbert`, `Hilda`, `Cheren`, `Bianca`, `Nate`, `Rosa`, `Hugh`, `Calem`, `Serena`, `Elio`, `Selene`, `Lillie`, `Hau`, `Victor`, `Gloria`, `Hop`, `Bede`, `Marnie`];
+export const trainerList:string[] = [
+	`Ash Kechum`,
+	`Red`,
+	`Leaf`,
+	`Blue`,
+	`Ethan`,
+	`Kris`,
+	`Lyra`,
+	`Silver`,
+	`Brendan`,
+	`May`,
+	`Lucas`,
+	`Dawn`,
+	`Barry`,
+	`Hilbert`,
+	`Hilda`,
+	`Cheren`,
+	`Bianca`,
+	`Nate`,
+	`Rosa`,
+	`Hugh`,
+	`Calem`,
+	`Serena`,
+	`Elio`,
+	`Selene`,
+	`Lillie`,
+	`Hau`,
+	`Victor`,
+	`Gloria`,
+	`Hop`,
+	`Bede`,
+	`Marnie`
+];

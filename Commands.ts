@@ -1,17 +1,127 @@
-import { ApplicationCommandOptionType, Client, Guild } from "discord.js";
-import { intents } from "./custom_modules/generalUse.js";
+import {ApplicationCommandOptionType, Client, Guild} from "discord.js";
+import {intents} from "./custom_modules/generalUse.js";
 import * as dotenv from "dotenv";
 dotenv.config();
-const buzzBot:Client = new Client({intents: intents, presence: {status: `dnd`, activities: [{name: `Doing some maintenance`, type: `PLAYING`}]}});
-const clambot:Client = new Client({intents: intents, presence: {status: `dnd`, activities: [{name: `Doing some maintenance`, type: `PLAYING`}]}});
-const ebnj:Client = new Client({intents: intents, presence: {status: `dnd`, activities: [{name: `Doing some maintenance`, type: `PLAYING`}]}});
-const glados:Client = new Client({intents: intents, presence: {status: `dnd`, activities: [{name: `Doing some maintenance`, type: `PLAYING`}]}});
-const pokebot:Client = new Client({intents: intents, presence: {status: `dnd`, activities: [{name: `Doing some maintenance`, type: `PLAYING`}]}});
-const artoo:Client = new Client({intents: intents, presence: {status: `dnd`, activities: [{name: `Doing some maintenance`, type: `PLAYING`}]}});
-const random:Client = new Client({intents: intents, presence: {status: `dnd`, activities: [{name: `Doing some maintenance`, type: `PLAYING`}]}});
-const sini:Client = new Client({intents: intents, presence: {status: `dnd`, activities: [{name: `Doing some maintenance`, type: `PLAYING`}]}});
-const zelda:Client = new Client({intents: intents, presence: {status: `dnd`, activities: [{name: `Doing some maintenance`, type: `PLAYING`}]}});
-const croissant:Client = new Client({intents: intents, presence: {status: `dnd`, activities: [{name: `Doing some maintenance`, type: `PLAYING`}]}});
+const buzzBot:Client = new Client({
+	intents: intents,
+	presence: {
+		status: `dnd`,
+		activities: [
+			{
+				name: `Doing some maintenance`,
+				type: `PLAYING`
+			}
+		]
+	}
+});
+const clambot:Client = new Client({
+	intents: intents,
+	presence: {
+		status: `dnd`,
+		activities: [
+			{
+				name: `Doing some maintenance`,
+				type: `PLAYING`
+			}
+		]
+	}
+});
+const ebnj:Client = new Client({
+	intents: intents,
+	presence: {
+		status: `dnd`,
+		activities: [
+			{
+				name: `Doing some maintenance`,
+				type: `PLAYING`
+			}
+		]
+	}
+});
+const glados:Client = new Client({
+	intents: intents,
+	presence: {
+		status: `dnd`,
+		activities: [
+			{
+				name: `Doing some maintenance`,
+				type: `PLAYING`
+			}
+		]
+	}
+});
+const pokebot:Client = new Client({
+	intents: intents,
+	presence: {
+		status: `dnd`,
+		activities: [
+			{
+				name: `Doing some maintenance`,
+				type: `PLAYING`
+			}
+		]
+	}
+});
+const artoo:Client = new Client({
+	intents: intents,
+	presence: {
+		status: `dnd`,
+		activities: [
+			{
+				name: `Doing some maintenance`,
+				type: `PLAYING`
+			}
+		]
+	}
+});
+const random:Client = new Client({
+	intents: intents,
+	presence: {
+		status: `dnd`,
+		activities: [
+			{
+				name: `Doing some maintenance`,
+				type: `PLAYING`
+			}
+		]
+	}
+});
+const sini:Client = new Client({
+	intents: intents,
+	presence: {
+		status: `dnd`,
+		activities: [
+			{
+				name: `Doing some maintenance`,
+				type: `PLAYING`
+			}
+		]
+	}
+});
+const zelda:Client = new Client({
+	intents: intents,
+	presence: {
+		status: `dnd`,
+		activities: [
+			{
+				name: `Doing some maintenance`,
+				type: `PLAYING`
+			}
+		]
+	}
+});
+const croissant:Client = new Client({
+	intents: intents,
+	presence: {
+		status: `dnd`,
+		activities: [
+			{
+				name: `Doing some maintenance`,
+				type: `PLAYING`
+			}
+		]
+	}
+});
 
 buzzBot.login(process.env.BUZZBOTTOKEN).catch(console.error);
 clambot.login(process.env.CLAMBOTTOKEN).catch(console.error);
@@ -25,7 +135,9 @@ zelda.login(process.env.ZELDATOKEN).catch(console.error);
 croissant.login(process.env.CROISSANTTOKEN).catch(console.error);
 
 const buzzBotCommands:{
-	id:`${bigint}`, 
+	id:`${
+		bigint
+	}`, 
 	guild?:Guild,
 	command:{
 		name:string, 
@@ -38,7 +150,7 @@ const buzzBotCommands:{
 			required:boolean,
 			choices?: {
 				name: string,
-				value: string|number
+				value: string | number
 			}[]
 		}[]
 	}
@@ -46,7 +158,9 @@ const buzzBotCommands:{
 	
 ];
 const clambotCommands:{
-	id:`${bigint}`, 
+	id:`${
+		bigint
+	}`, 
 	guild?:Guild,
 	command:{
 		name:string, 
@@ -59,7 +173,7 @@ const clambotCommands:{
 			required:boolean,
 			choices?: {
 				name: string,
-				value: string|number
+				value: string | number
 			}[]
 		}[]
 	}
@@ -67,7 +181,9 @@ const clambotCommands:{
 	
 ];
 const ebnjCommands:{
-	id:`${bigint}`, 
+	id:`${
+		bigint
+	}`, 
 	guild?:Guild,
 	command:{
 		name:string, 
@@ -80,7 +196,7 @@ const ebnjCommands:{
 			required:boolean,
 			choices?: {
 				name: string,
-				value: string|number
+				value: string | number
 			}[]
 		}[]
 	}
@@ -88,7 +204,9 @@ const ebnjCommands:{
 	
 ];
 const gladosCommands:{
-	id:`${bigint}`, 
+	id:`${
+		bigint
+	}`, 
 	guild?:Guild,
 	command:{
 		name:string, 
@@ -101,7 +219,7 @@ const gladosCommands:{
 			required:boolean,
 			choices?: {
 				name: string,
-				value: string|number
+				value: string | number
 			}[]
 		}[]
 	}
@@ -144,12 +262,14 @@ const gladosCommands:{
 			name: `userinfo`,
 			description: `Sends all information a bot can get to you (Made to show that bots can't get any private information`,
 			defaultPermission: true,
-			options: [{
-				name: `public`,
-				type: `BOOLEAN`,
-				description: `Should the message be shown to everyone?`,
-				required: true
-			}]
+			options: [
+				{
+					name: `public`,
+					type: `BOOLEAN`,
+					description: `Should the message be shown to everyone?`,
+					required: true
+				}
+			]
 		}
 	},
 	{
@@ -166,12 +286,14 @@ const gladosCommands:{
 			name: `joindate`,
 			description: `Shows when you joined Discord`,
 			defaultPermission: true,
-			options: [{
-				name: `public`,
-				type: `BOOLEAN`,
-				description: `Should the message be shown to everyone?`,
-				required: true
-			}]
+			options: [
+				{
+					name: `public`,
+					type: `BOOLEAN`,
+					description: `Should the message be shown to everyone?`,
+					required: true
+				}
+			]
 		}
 	},
 	{
@@ -180,12 +302,14 @@ const gladosCommands:{
 			name: `grid`,
 			description: `This is just a test command made to show off buttons`,
 			defaultPermission: true,
-			options: [{
-				name: `button_content`,
-				type: `STRING`,
-				description: `What text/emoji should the buttons display?`,
-				required: true,
-			}]
+			options: [
+				{
+					name: `button_content`,
+					type: `STRING`,
+					description: `What text/emoji should the buttons display?`,
+					required: true,
+				}
+			]
 		}
 	},
 	{
@@ -202,17 +326,20 @@ const gladosCommands:{
 			name: `d`,
 			description: `Rolls a die`,
 			defaultPermission: true,
-			options: [{
-				name: `die_sides`,
-				type: `INTEGER`,
-				description: `How many sides should the individul die have?`,
-				required: false,
-			},{
-				name: `dice_count`,
-				type: `INTEGER`,
-				description: `How many dice should be thrown?`,
-				required: false,
-			}]
+			options: [
+				{
+					name: `die_sides`,
+					type: `INTEGER`,
+					description: `How many sides should the individul die have?`,
+					required: false,
+				},
+				{
+					name: `dice_count`,
+					type: `INTEGER`,
+					description: `How many dice should be thrown?`,
+					required: false,
+				}
+			]
 		}
 	},
 	{
@@ -221,12 +348,14 @@ const gladosCommands:{
 			name: `xkcd`,
 			description: `A test Sends a random XKCD`,
 			defaultPermission: true,
-			options: [{
-				name: `xkcd_number`,
-				type: `INTEGER`,
-				description: `Which XKCD comic do you want?`,
-				required: false,
-			}]
+			options: [
+				{
+					name: `xkcd_number`,
+					type: `INTEGER`,
+					description: `Which XKCD comic do you want?`,
+					required: false,
+				}
+			]
 		}
 	},
 	{
@@ -235,19 +364,24 @@ const gladosCommands:{
 			name: `maze`,
 			description: `A playable maze game`,
 			defaultPermission: true,
-			options: [{
-				name: `style`,
-				type: `STRING`,
-				description: `What style of maze do you want?`,
-				required: true,
-				choices: [{
-					name: `normal`,
-					value: `0`
-				},{
-					name: `zelda`,
-					value: `1`
-				}]
-			}]
+			options: [
+				{
+					name: `style`,
+					type: `STRING`,
+					description: `What style of maze do you want?`,
+					required: true,
+					choices: [
+						{
+							name: `normal`,
+							value: `0`
+						},
+						{
+							name: `zelda`,
+							value: `1`
+						}
+					]
+				}
+			]
 		}
 	},
 	{
@@ -256,18 +390,20 @@ const gladosCommands:{
 			name: `tictactoe`,
 			description: `Starts a game of Tic Tac Toe`,
 			defaultPermission: true,
-			options: [{
-				name: `playertwo`,
-				type: `USER`,
-				description: `Invite a second player to play`,
-				required: true,
-			},
-			{
-				name: `movepieces`,
-				type: `BOOLEAN`,
-				description: `should you move pieces aftee both players has laid down three pieces?`,
-				required: true
-			}]
+			options: [
+				{
+					name: `playertwo`,
+					type: `USER`,
+					description: `Invite a second player to play`,
+					required: true,
+				},
+				{
+					name: `movepieces`,
+					type: `BOOLEAN`,
+					description: `should you move pieces aftee both players has laid down three pieces?`,
+					required: true
+				}
+			]
 		}
 	},
 	{
@@ -276,24 +412,31 @@ const gladosCommands:{
 			name: `coinflip`,
 			description: `flips a coin for you`,
 			defaultPermission: true,
-			options: [{
-				name: `side`,
-				type: `STRING`,
-				description: `Invite a second player to play`,
-				required: true,
-				choices: [{
-					name: `heads`,
-					value: `heads`
-				},{
-					name: `tails`,
-					value: `tails`
-				}]
-			}]
+			options: [
+				{
+					name: `side`,
+					type: `STRING`,
+					description: `Invite a second player to play`,
+					required: true,
+					choices: [
+						{
+							name: `heads`,
+							value: `heads`
+						},
+						{
+							name: `tails`,
+							value: `tails`
+						}
+					]
+				}
+			]
 		}
 	}
 ];
 const pokebotCommands:{
-	id:`${bigint}`, 
+	id:`${
+		bigint
+	}`, 
 	guild?:Guild,
 	command:{
 		name:string, 
@@ -306,7 +449,7 @@ const pokebotCommands:{
 			required:boolean,
 			choices?: {
 				name: string,
-				value: string|number
+				value: string | number
 			}[]
 		}[]
 	}
@@ -314,7 +457,9 @@ const pokebotCommands:{
 	
 ];
 const artooCommands:{
-	id:`${bigint}`, 
+	id:`${
+		bigint
+	}`, 
 	guild?:Guild,
 	command:{
 		name:string, 
@@ -327,7 +472,7 @@ const artooCommands:{
 			required:boolean,
 			choices?: {
 				name: string,
-				value: string|number
+				value: string | number
 			}[]
 		}[]
 	}
@@ -335,7 +480,9 @@ const artooCommands:{
 	
 ];
 const randomCommands:{
-	id:`${bigint}`, 
+	id:`${
+		bigint
+	}`, 
 	guild?:Guild,
 	command:{
 		name:string, 
@@ -348,7 +495,7 @@ const randomCommands:{
 			required:boolean,
 			choices?: {
 				name: string,
-				value: string|number
+				value: string | number
 			}[]
 		}[]
 	}
@@ -356,7 +503,9 @@ const randomCommands:{
 	
 ];
 const siniCommands:{
-	id:`${bigint}`, 
+	id:`${
+		bigint
+	}`, 
 	guild?:Guild,
 	command:{
 		name:string, 
@@ -369,7 +518,7 @@ const siniCommands:{
 			required:boolean,
 			choices?: {
 				name: string,
-				value: string|number
+				value: string | number
 			}[]
 		}[]
 	}
@@ -377,7 +526,9 @@ const siniCommands:{
 	
 ];
 const zeldaCommands:{
-	id:`${bigint}`, 
+	id:`${
+		bigint
+	}`, 
 	guild?:Guild,
 	command:{
 		name:string, 
@@ -390,7 +541,7 @@ const zeldaCommands:{
 			required:boolean,
 			choices?: {
 				name: string,
-				value: string|number
+				value: string | number
 			}[]
 		}[]
 	}
@@ -398,7 +549,9 @@ const zeldaCommands:{
 	
 ];
 const croissantCommands:{
-	id:`${bigint}`, 
+	id:`${
+		bigint
+	}`, 
 	guild?:Guild,
 	command:{
 		name:string, 
@@ -411,16 +564,29 @@ const croissantCommands:{
 			required:boolean,
 			choices?: {
 				name: string,
-				value: string|number
+				value: string | number
 			}[]
 		}[]
 	}
 }[] = [
 	
 ];
-const bots:Client[] = [buzzBot, clambot, ebnj, glados, pokebot, artoo, random, sini, zelda, croissant];
+const bots:Client[] = [
+	buzzBot,
+	clambot,
+	ebnj,
+	glados,
+	pokebot,
+	artoo,
+	random,
+	sini,
+	zelda,
+	croissant
+];
 const commandGroup:{
-	id:`${bigint}`, 
+	id:`${
+		bigint
+	}`, 
 	guild?:Guild,
 	command:{
 		name:string, 
@@ -433,17 +599,28 @@ const commandGroup:{
 			required:boolean,
 			choices?: {
 				name: string,
-				value: string|number
+				value: string | number
 			}[]
 		}[]
 	}
-}[][] = [buzzBotCommands, clambotCommands, ebnjCommands, gladosCommands, pokebotCommands, artooCommands, randomCommands, siniCommands, zeldaCommands, croissantCommands];
+}[][] = [
+	buzzBotCommands,
+	clambotCommands,
+	ebnjCommands,
+	gladosCommands,
+	pokebotCommands,
+	artooCommands,
+	randomCommands,
+	siniCommands,
+	zeldaCommands,
+	croissantCommands
+];
 
 bots.forEach((bot, i):void => {
 	//list commands
 	bot.on(`ready`, ():void => {
 		bot.application.commands.fetch().then(():void => {
-			for (const command of bot.application.commands.cache.map((value) => value)){
+			for (const command of bot.application.commands.cache.map((value) => value)) {
 				console.log(command);
 			}
 		})
@@ -452,10 +629,20 @@ bots.forEach((bot, i):void => {
 	//Replace all
 	bot.on(`ready`, ():void => {
 		bot.application.commands.fetch().then(():void => {
-			console.log(`${bot.user.tag} is active`);
+			console.log(`${
+				bot.user.tag
+			} is active`);
 			commandGroup[i].forEach((command, j):void => {
 				bot.application.commands.create(command.command, command.guild = null)
-					.then((command):void => {console.log(`[${j + 1}/${commandGroup[i].length}] Command: "${command.name}" updated`);})
+					.then((command):void => {
+						console.log(`[${
+							j + 1
+						}/${
+							commandGroup[i].length
+						}] Command: "${
+							command.name
+						}" updated`);
+					})
 					.catch(console.error);
 			});
 		});
@@ -464,7 +651,19 @@ bots.forEach((bot, i):void => {
 	/*bot.on(`ready`, ():void => {
 		commandGroup[i].forEach((command, j):void => {
 			bot.application.commands.create(command.command, command.guild = null)
-				.then((command):void => {console.log(`[${i+1}/${bots.length}][${j+1}/${commandGroup[i].length}] Edited ${command.name}`);})
+				.then((command):void => {
+					console.log(`[${
+						i+1
+					}/${
+						bots.length
+					}][${
+						j+1
+					}/${
+						commandGroup[i].length
+					}] Edited ${
+						command.name
+					}`);
+				})
 				.catch(console.error);
 		});
 	});*/

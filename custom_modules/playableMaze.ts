@@ -1,8 +1,51 @@
 
-type emoteList ={OOOO: EmojiIdentifierResolvable, OOOI: EmojiIdentifierResolvable, OOIO: EmojiIdentifierResolvable, OOII: EmojiIdentifierResolvable, OIOO: EmojiIdentifierResolvable, OIOI: EmojiIdentifierResolvable, OIIO: EmojiIdentifierResolvable, OIII: EmojiIdentifierResolvable, IOOO: EmojiIdentifierResolvable, IOOI: EmojiIdentifierResolvable, IOIO: EmojiIdentifierResolvable, IOII: EmojiIdentifierResolvable, IIOO: EmojiIdentifierResolvable, IIOI: EmojiIdentifierResolvable, IIIO: EmojiIdentifierResolvable, IIII: EmojiIdentifierResolvable, goal: {OOII: EmojiIdentifierResolvable, OIII: EmojiIdentifierResolvable, IOII: EmojiIdentifierResolvable}};
-type emoteTypeList = [emoteList[], emoteList[]];
-import { CommandInteraction, MessageActionRow, MessageButton, ButtonInteraction, Interaction, EmojiIdentifierResolvable } from "discord.js";
-import { boolToInt } from "./generalUse";
+type emoteList ={
+	OOOO: EmojiIdentifierResolvable,
+	OOOI: EmojiIdentifierResolvable,
+	OOIO: EmojiIdentifierResolvable,
+	OOII: EmojiIdentifierResolvable,
+	OIOO: EmojiIdentifierResolvable,
+	OIOI: EmojiIdentifierResolvable,
+	OIIO: EmojiIdentifierResolvable,
+	OIII: EmojiIdentifierResolvable,
+	IOOO: EmojiIdentifierResolvable,
+	IOOI: EmojiIdentifierResolvable,
+	IOIO: EmojiIdentifierResolvable,
+	IOII: EmojiIdentifierResolvable,
+	IIOO: EmojiIdentifierResolvable,
+	IIOI: EmojiIdentifierResolvable,
+	IIIO: EmojiIdentifierResolvable,
+	IIII: EmojiIdentifierResolvable,
+	goal: {
+		OOII: EmojiIdentifierResolvable,
+		OIII: EmojiIdentifierResolvable,
+		IOII: EmojiIdentifierResolvable
+	}
+};
+type emoteTypeList = [
+	emoteList[],
+	emoteList[]
+];
+type mazeObj = {
+	x: number,
+	y: number,
+	top: boolean,
+	left: boolean,
+	bottom: boolean,
+	right: boolean,
+	set: number
+};
+type halfBitAsString = `${
+	`I` | `O`
+}${
+	`I` | `O`
+}${
+	`I` | `O`
+}${
+	`I` | `O`
+}`;
+import {CommandInteraction, MessageActionRow, MessageButton, ButtonInteraction, Interaction, EmojiIdentifierResolvable} from "discord.js";
+import {boolToInt} from "./generalUse";
 // eslint-disable-next-line @typescript-eslint/no-var-requires, quotes
 const mazeThing = require("generate-maze");
 export const mazeFunction = (interaction: CommandInteraction):void => {
@@ -110,10 +153,13 @@ export const mazeFunction = (interaction: CommandInteraction):void => {
 		private _emotes:emoteTypeList;
 		private _loc: number[];
 		private _hasPlayer: boolean;
-		private _walls: `${`I`|`O`}${`I`|`O`}${`I`|`O`}${`I`|`O`}`;
-		constructor(emotes:emoteTypeList, x: number, y: number, hasPlayer: boolean, walls: `${`I`|`O`}${`I`|`O`}${`I`|`O`}${`I`|`O`}`) {
+		private _walls: halfBitAsString;
+		constructor(emotes:emoteTypeList, x: number, y: number, hasPlayer: boolean, walls: halfBitAsString) {
 			this._emotes = emotes;
-			this._loc = [x, y];
+			this._loc = [
+				x,
+				y
+			];
 			this._hasPlayer = hasPlayer;
 			this._walls = walls;
 		}
@@ -131,8 +177,9 @@ export const mazeFunction = (interaction: CommandInteraction):void => {
 		}
 		get walls() {
 			if (this._loc[0] === 7 && this._loc[1] === 7) {
-				return this._emotes[boolToInt(this._hasPlayer)][style].goal[this._walls as `OOII`|`OIII`|`IOII`];
-			} else {
+				return this._emotes[boolToInt(this._hasPlayer)][style].goal[this._walls as `OOII` | `OIII` | `IOII`];
+			}
+			else {
 				return this._emotes[boolToInt(this._hasPlayer)][style][this._walls];
 			}
 		}
@@ -146,13 +193,16 @@ export const mazeFunction = (interaction: CommandInteraction):void => {
 		private _cells: Cell[];
 		constructor(emotes:emoteTypeList) {
 			this._emotes = emotes;
-			this._playerLoc = [0, 0];
+			this._playerLoc = [
+				0,
+				0
+			];
 			this._cells = [];
 		}
 		get cellArr() {
 			return this._cells;
 		}
-		addCell(x: number, y: number, walls: `${`I`|`O`}${`I`|`O`}${`I`|`O`}${`I`|`O`}`) {
+		addCell(x: number, y: number, walls: halfBitAsString) {
 			this._cells.push(new Cell(this._emotes, x, y, x === 0 && y === 0, walls));
 		}
 		moveLeft() {
@@ -197,15 +247,19 @@ export const mazeFunction = (interaction: CommandInteraction):void => {
 		}
 	}
 	const createdClass:Maze = new Maze(emotes);
-	const maze:{x: number, y: number, top: boolean, left: boolean, bottom: boolean, right: boolean, set: number}[][] = mazeThing(8, 8);
-	maze.forEach((x: {x: number, y: number, top: boolean, left: boolean, bottom: boolean, right: boolean, set: number}[], i: number):void => {
-		x.forEach((y: {x: number, y: number, top: boolean, left: boolean, bottom: boolean, right: boolean, set: number}, j: number):void => {
-			createdClass.addCell(i, j, `${y.left
-			}${y.top
-			}${y.right
-			}${y.bottom
+	const maze:mazeObj[][] = mazeThing(8, 8);
+	maze.forEach((x: mazeObj[], i: number):void => {
+		x.forEach((y: mazeObj, j: number):void => {
+			createdClass.addCell(i, j, `${
+				y.left
+			}${
+				y.top
+			}${
+				y.right
+			}${
+				y.bottom
 			}`.replace(/true/g, `I`)
-				.replace(/false/g, `O`) as `${`I`|`O`}${`I`|`O`}${`I`|`O`}${`I`|`O`}`);
+				.replace(/false/g, `O`) as halfBitAsString);
 		});
 	});
 	
@@ -213,9 +267,15 @@ export const mazeFunction = (interaction: CommandInteraction):void => {
 		let messageText = ``;
 		for (let i = 0; i < 8; i++) {
 			for (let j = 0; j < 8; j++) {
-				messageText = `${messageText}${mazeObj.cellArr[i * 8 + j].walls}`;
+				messageText = `${
+					messageText
+				}${
+					mazeObj.cellArr[i * 8 + j].walls
+				}`;
 			}
-			messageText = `${messageText}\n`;
+			messageText = `${
+				messageText
+			}\n`;
 		}
 		return messageText;
 	};
@@ -241,9 +301,15 @@ export const mazeFunction = (interaction: CommandInteraction):void => {
 				.setEmoji(`➡️`)
 				.setStyle(`SECONDARY`)
 		]);
-	interaction.reply({content: mazeMessage(createdClass), components: [arrows], ephemeral: true}).then(():void => {
+	interaction.reply({
+		content: mazeMessage(createdClass),
+		components: [
+			arrows
+		],
+		ephemeral: true
+	}).then(():void => {
 		interaction.client.on(`interactionCreate`, (interaction: Interaction):void => {
-			if (interaction.isButton() && interaction.id == interaction.message.interaction.id){
+			if (interaction.isButton() && interaction.id == interaction.message.interaction.id) {
 				const buttonInteraction:ButtonInteraction = interaction as ButtonInteraction;
 				switch (buttonInteraction.customId) {
 				case `Left`:
@@ -278,7 +344,10 @@ export const mazeFunction = (interaction: CommandInteraction):void => {
 					break;
 				}
 				if (createdClass.cellArr[63].playerState) {
-					buttonInteraction.update({content: `**Congratulations!**\nYou managed to navigate through a maze even one of my ~~test subjects~~paid workers could finish!`, components: []})
+					buttonInteraction.update({
+						content: `**Congratulations!**\nYou managed to navigate through a maze even one of my ~~test subjects~~paid workers could finish!`,
+						components: []
+					})
 						.catch(console.error);
 				} 
 			}
