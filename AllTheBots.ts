@@ -162,16 +162,20 @@ sini.login(process.env.SINITOKEN).catch(console.error);
 zelda.login(process.env.ZELDATOKEN).catch(console.error);
 croissant.login(process.env.CROISSANTTOKEN).catch(console.error);
 generalStuff.botReady([
-	buzzBot,
-	clambot,
-	ebnj,
-	glados,
-	pokebot,
-	artoo,
-	random,
-	sini,
-	zelda,
-	croissant
+	{
+		bots: [
+			buzzBot,
+			clambot,
+			ebnj,
+			glados,
+			pokebot,
+			artoo,
+			random,
+			sini,
+			zelda,
+			croissant
+		]
+	}
 ]);
 
 
@@ -285,7 +289,7 @@ buzzBot.on(`messageCreate`, (message: Message):void => {
 			]
 		}
 	]);
-	forwarding.messageForwarding(message);
+	forwarding.messageForwarding([{message: message}]);
 	//music(message, `bb;`);
 });
 
@@ -311,7 +315,7 @@ clambot.on(`messageCreate`, (message: Message):void => {
 		}
 	]);
 	//forwarding.DMSpy(message, `764479509138636810`);
-	forwarding.messageForwarding(message);
+	forwarding.messageForwarding([{message: message}]);
 	//music(message, `cb;`);
 });
 
@@ -412,7 +416,7 @@ ebnj.on(`messageCreate`, (message: Message):void => {
 			]
 		}
 	]);
-	forwarding.messageForwarding(message);
+	forwarding.messageForwarding([{message: message}]);
 	//music(message, `eb;`);
 });
 
@@ -475,7 +479,7 @@ glados.on(`guildMemberAdd`, (member: GuildMember):void => {
 		content: `Welcome to the server, #${
 			member.guild.memberCount
 		}\nWe currently have ${
-			info.channelCount(member.guild).all
+			info.channelCount({guild: member.guild}).all
 		}/500 channels used`
 	})
 		.catch(console.error);
@@ -683,16 +687,32 @@ glados.on(`messageCreate`, (message: Message):void => {
 			]
 		}
 	]);
-	forwarding.channelLink(message, `842486821510447115`, `842486725347508266`);
-	inspiroBot.sendMessage(message);
+	forwarding.channelLink([{message: message, ch1: `842486821510447115`, ch2: `842486725347508266`}]);
+	inspiroBot.sendMessage([{message: message}]);
 	//forwarding.DMSpy(message, `741333824494895144`);
-	forwarding.messageForwarding(message);
+	forwarding.messageForwarding([{message: message}]);
 	//music(message, GLaDOSPrefix);
-	stupidStuff.hencefortifier(message);
-	stupidStuff.espenBotReplacement(`message`, message, 1, process.env.RASID as `${bigint}`, {
-		content: `https://cdn.discordapp.com/attachments/735213241860620308/781189544103247922/unknown.png`
-	});
-	stupidStuff.espenBotReplacement(`react`, message, 100, process.env.ZARLID as `${bigint}`, `🦆`);
+	stupidStuff.hencefortifier([{message: message}]);
+	stupidStuff.espenBotReplacement([
+		{
+			type: `message`,
+			message: message,
+			chance: 1,
+			victim: process.env.RASID as `${bigint}`,
+			out: {
+				content: `https://cdn.discordapp.com/attachments/735213241860620308/781189544103247922/unknown.png`
+			}
+		}
+	]);
+	stupidStuff.espenBotReplacement([
+		{
+			type: `react`,
+			message: message,
+			chance: 100,
+			victim: process.env.ZARLID as `${bigint}`,
+			out: `🦆`
+		}
+	]);
 	//stupidStuff.userWordBan(message, `last`, `541617670533939210`);
 });
 glados.on(`interactionCreate`, (interaction: Interaction):void => {
@@ -749,34 +769,34 @@ glados.on(`interactionCreate`, (interaction: Interaction):void => {
 			}).catch(console.error);
 			break;
 		case `userinfo`:
-			info.userInfo(commandInteraction);
+			info.userInfo([{interaction: commandInteraction}]);
 			break;
 		case `serverinfo`:
-			info.serverInfo(commandInteraction);
+			info.serverInfo([{interaction: commandInteraction}]);
 			break;
 		case `joindate`:
-			commandInteraction.reply(info.joindate(commandInteraction)).catch(console.error);
+			commandInteraction.reply(info.joindate({interaction: commandInteraction})).catch(console.error);
 			break;
 		case `grid`:
-			commandInteraction.reply(stupidStuff.buttonGrid(commandInteraction)).catch(console.error);
+			commandInteraction.reply(stupidStuff.buttonGrid({interaction: commandInteraction})).catch(console.error);
 			break;
 		case `selectmenu`:
 			commandInteraction.reply(stupidStuff.selectMenu()).catch(console.error);
 			break;
 		case `d`:
-			dice.dice(commandInteraction);
+			dice.dice([{interaction: commandInteraction}]);
 			break;
 		case `xkcd`:
-			xkcd.xkcdFunct(commandInteraction);
+			xkcd.xkcdFunct([{interaction: commandInteraction}]);
 			break;
 		case `maze`:
-			maze.mazeFunction(commandInteraction);
+			maze.mazeFunction([{interaction: commandInteraction}]);
 			break;
 		case `tictactoe`:
-			ticTacToe.ticTacToe(commandInteraction);
+			ticTacToe.ticTacToe([{interaction: commandInteraction}]);
 			break;
 		case `coinflip`:
-			coinflip.flip(commandInteraction);
+			coinflip.flip([{interaction: commandInteraction}]);
 			break;
 		default:
 			break;
@@ -796,7 +816,7 @@ const sendEmbed = (message: Message):void => {
 					{
 						message: message,
 						sendTo: message.channel,
-						sendMessage: pokedex.natDex(message.content.toLowerCase().split(` `)[1]),
+						sendMessage: pokedex.natDex({query: message.content.toLowerCase().split(` `)[1]}),
 						name: pokedex.trainers[Math.round(Math.random() * pokedex.trainers.length)],
 						PFP: pokebot.user.avatarURL()
 					}
@@ -825,7 +845,7 @@ pokebot.on(`messageCreate`, (message: Message):void => {
 			]
 		}
 	]);
-	forwarding.messageForwarding(message);
+	forwarding.messageForwarding([{message: message}]);
 	//music(message, PokePrefix);
 	sendEmbed(message);
 });
@@ -951,7 +971,7 @@ artoo.on(`messageCreate`, (message: Message):void => {
 			triggers: SWWords
 		}
 	]);
-	forwarding.messageForwarding(message);
+	forwarding.messageForwarding([{message: message}]);
 	//music(message, `r2;`);
 });
 
@@ -1103,7 +1123,7 @@ random.on(`messageCreate`, (message: Message):void => {
 			]
 		}
 	]);
-	forwarding.messageForwarding(message);
+	forwarding.messageForwarding([{message: message}]);
 	//music(message, `random;`);
 });
 
@@ -1116,7 +1136,7 @@ sini.on(`messageCreate`, (message: Message):void => {
 	if (generalStuff.blackList.includes(message.channel.name)) {
 		return;
 	}
-	forwarding.messageForwarding(message);
+	forwarding.messageForwarding([{message: message}]);
 	//music(message, `sn;`);
 });
 
@@ -1196,6 +1216,6 @@ zelda.on(`messageCreate`, (message: Message):void => {
 			]
 		}
 	]);
-	forwarding.messageForwarding(message);
+	forwarding.messageForwarding([{message: message}]);
 	//music(message, `zd;`);
 });

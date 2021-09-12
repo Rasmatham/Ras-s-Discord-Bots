@@ -19,12 +19,17 @@ export const intents:Intents = new Intents([
 ]);
 
 //Check amount
-export const checkFor = (arr: string[], str: string): string => {
-	if (arr.length > 0) {
+export const checkFor = (
+	inObj: {
+		arr: string[],
+		str: string
+	}
+):string => {
+	if (inObj.arr.length > 0) {
 		return `${
-			str
+			inObj.str
 		} ${
-			arr.length
+			inObj.arr.length
 		}\n`;
 	}
 	else {
@@ -106,20 +111,30 @@ export const sendAsWebHook = (
 	});
 };
 //Bot check
-export const botReady = (bots: Client[]):void => {
-	bots.forEach((bot):void => {
+export const botReady = (
+	inObjs: {
+		bots: Client[]
+	}[]
+):void => {
+	inObjs.forEach((inObj) => {
+		inObj.bots.forEach((bot):void => {
 		/*bot.on('debug', console.log)
 		.on('warn', console.log)*/
-		bot.on(`ready`, ():void => {
-			console.log(`${
-				bot.user.username
-			} is online`);
+			bot.on(`ready`, ():void => {
+				console.log(`${
+					bot.user.username
+				} is online`);
+			});
 		});
 	});
 };
 //bool to int
-export const boolToInt = (bool:boolean):0|1 => {
-	if (bool) {
+export const boolToInt = (
+	inObj: {
+		bool:boolean
+	}
+):0|1 => {
+	if (inObj.bool) {
 		return 1;
 	}
 	else {

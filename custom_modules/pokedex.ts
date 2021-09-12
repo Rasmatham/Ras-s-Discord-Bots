@@ -22,15 +22,15 @@ type pokeObjType = {
 	]
 }
 //dex embed
-export const natDex = (Query: string | number):ReplyMessageOptions => {
+export const natDex = (inObj: {query: string | number}):ReplyMessageOptions => {
 	let dexNumber = 0 as pokeRange;
-	if (!isNaN(Number(Query))) {
-		Query = Number(Query);
+	if (!isNaN(Number(inObj.query))) {
+		inObj.query = Number(inObj.query);
 	}
-	switch (typeof Query) {
+	switch (typeof inObj.query) {
 	case `number`:
-		if (Number(Query) <= 151 && Number(Query) > 0) {
-			dexNumber = Number(Query) as pokeRange;
+		if (Number(inObj.query) <= 151 && Number(inObj.query) > 0) {
+			dexNumber = Number(inObj.query) as pokeRange;
 			break;
 		}
 		else {
@@ -39,7 +39,7 @@ export const natDex = (Query: string | number):ReplyMessageOptions => {
 	case `string`:
 		Object.keys(pokemon).forEach(i => {
 			const pokeObj:pokeObjType = pokemon[Number(i) as pokeRange] as pokeObjType;
-			if (Query === pokeObj.name.toLowerCase()) {
+			if (inObj.query === pokeObj.name.toLowerCase()) {
 				dexNumber = Number(pokeObj.nat) as pokeRange;
 			}
 		});
