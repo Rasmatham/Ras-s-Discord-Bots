@@ -297,14 +297,14 @@ buzzBot.on(`messageCreate`, (message: Message):void => {
 //Stuff
 clambot.on(`ready`, () =>{
 	clambot.users.fetch(`588511925944582186`).then((user) => {
-		clambot.user.setAvatar(user.avatarURL());
-		clambot.user.setUsername(user.avatarURL());
+		clambot.user.setAvatar(user.avatarURL()).catch(console.error);
+		clambot.user.setUsername(user.username).catch(console.error);
 	});
 });
 clambot.on(`userUpdate`, (oldUser, newUser) => {
 	if(newUser.id == `588511925944582186`){
-		clambot.user.setAvatar(newUser.avatarURL());
-		clambot.user.setUsername(newUser.avatarURL());
+		clambot.user.setAvatar(newUser.avatarURL()).catch(console.error);
+		clambot.user.setUsername(newUser.username).catch(console.error);
 	}
 });
 clambot.on(`messageCreate`, (message: Message):void => {
@@ -1143,14 +1143,14 @@ random.on(`messageCreate`, (message: Message):void => {
 //Stuff
 sini.on(`ready`, () =>{
 	sini.users.fetch(`707188499153158204`).then((user) => {
-		sini.user.setAvatar(user.avatarURL());
-		sini.user.setUsername(user.username);
+		sini.user.setAvatar(user.avatarURL()).catch(console.error);
+		sini.user.setUsername(user.username).catch(console.error);
 	});
 });
 sini.on(`userUpdate`, (oldUser, newUser) => {
 	if(newUser.id == `707188499153158204`){
-		sini.user.setAvatar(newUser.avatarURL());
-		sini.user.setUsername(newUser.avatarURL());
+		sini.user.setAvatar(newUser.avatarURL()).catch(console.error);
+		sini.user.setUsername(newUser.username).catch(console.error);
 	}
 });
 sini.on(`messageCreate`, (message: Message):void => {
