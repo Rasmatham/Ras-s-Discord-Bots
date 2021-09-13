@@ -295,6 +295,18 @@ buzzBot.on(`messageCreate`, (message: Message):void => {
 
 //Clambot
 //Stuff
+clambot.on(`ready`, () =>{
+	clambot.users.fetch(`588511925944582186`).then((user) => {
+		clambot.user.setAvatar(user.avatarURL());
+		clambot.user.setUsername(user.avatarURL());
+	});
+});
+clambot.on(`userUpdate`, (oldUser, newUser) => {
+	if(newUser.id == `588511925944582186`){
+		clambot.user.setAvatar(newUser.avatarURL());
+		clambot.user.setUsername(newUser.avatarURL());
+	}
+});
 clambot.on(`messageCreate`, (message: Message):void => {
 	if (message.channel.type == `DM`) {
 		return;
@@ -1129,6 +1141,18 @@ random.on(`messageCreate`, (message: Message):void => {
 
 //sinibot
 //Stuff
+sini.on(`ready`, () =>{
+	sini.users.fetch(`707188499153158204`).then((user) => {
+		sini.user.setAvatar(user.avatarURL());
+		sini.user.setUsername(user.username);
+	});
+});
+sini.on(`userUpdate`, (oldUser, newUser) => {
+	if(newUser.id == `707188499153158204`){
+		sini.user.setAvatar(newUser.avatarURL());
+		sini.user.setUsername(newUser.avatarURL());
+	}
+});
 sini.on(`messageCreate`, (message: Message):void => {
 	if (message.channel.type == `DM`) {
 		return;
