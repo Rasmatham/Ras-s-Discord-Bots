@@ -1,7 +1,10 @@
+//#region imports
 import {CommandInteraction, MessageEmbed, Guild, User, ColorResolvable, GuildMember} from "discord.js";
 import {checkFor} from "./generalUse.js";
 import {writeFile, unlink} from "fs";
-//channelCount
+//#endregion
+
+//#region channelCount
 export const channelCount = (
 	inObj: {
 		guild: Guild
@@ -43,7 +46,9 @@ export const channelCount = (
 		};
 	}
 };
-//userinfo
+//#endregion
+
+//#region userinfo
 export const userInfo = (
 	inObjs: {
 		interaction: CommandInteraction
@@ -99,7 +104,9 @@ export const userInfo = (
 		});
 	});
 };
-//serverinfo
+//#endregion
+
+//#region serverinfo
 export const serverInfo = (
 	inObjs: {
 		interaction: CommandInteraction
@@ -164,7 +171,9 @@ export const serverInfo = (
 		}
 	});
 };
-//join date
+//#endregion
+
+//#region join date
 export const joindate = (
 	inObj: {
 		interaction: CommandInteraction
@@ -203,3 +212,4 @@ export const joindate = (
 		ephemeral: !inObj.interaction.options.get(`public`).value
 	};
 };
+//#endregion

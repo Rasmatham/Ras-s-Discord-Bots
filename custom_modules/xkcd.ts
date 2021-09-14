@@ -1,7 +1,10 @@
+//#region imports
 import {CommandInteraction, MessageEmbed} from "discord.js";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const xkcdModule = require(`xkcd`);
+//#endregion
 
+//#region send xkcd message
 export const xkcdFunct = (inObjs: {interaction: CommandInteraction}[]):void => {
 	inObjs.forEach((inObj) => {
 		xkcdModule((xkcdObjOuter: {
@@ -45,3 +48,4 @@ export const xkcdFunct = (inObjs: {interaction: CommandInteraction}[]):void => {
 		});
 	});
 };
+//#endregion

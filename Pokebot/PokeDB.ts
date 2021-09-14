@@ -1,3 +1,4 @@
+//#region type definitions
 type dexEntriesType = {
 	re: string,
 	bl: string,
@@ -61,6 +62,9 @@ type pokeObjType = {
 	],
 	dexEntries:dexEntriesType
 }
+//#endregion
+
+//#region types
 export const types = {
 	bird: {
 		name: `Bird`,
@@ -202,7 +206,9 @@ export const types = {
 		NoDamageTo: [] as string[]
 	}
 };
+//#endregion
 
+//#region pokemon
 export const pokemon:pokeObjType[] = [
 	{
 		name: `Missingno`,
@@ -7873,6 +7879,9 @@ export const pokemon:pokeObjType[] = [
 		}
 	}
 ];
+//#endregion
+
+//#region trainers
 export const trainerList:string[] = [
 	`Ash Kechum`,
 	`Red`,
@@ -7906,3 +7915,4 @@ export const trainerList:string[] = [
 	`Bede`,
 	`Marnie`
 ];
+//#endregion

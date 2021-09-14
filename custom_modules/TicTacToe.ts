@@ -1,4 +1,8 @@
+//#region imports
 import {CommandInteraction, User, MessageButton, MessageActionRow, ButtonInteraction, Message, GuildMember, MessageMentions, UserResolvable, EmojiIdentifierResolvable, MessageButtonStyle} from "discord.js";
+//#endregion
+
+//#region tic tac toe game
 export const ticTacToe = (
 	inObjs: {
 		interaction: CommandInteraction
@@ -501,3 +505,4 @@ export const ticTacToe = (
 		});
 	});
 };
+//#endregion

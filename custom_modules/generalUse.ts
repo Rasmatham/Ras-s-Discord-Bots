@@ -1,5 +1,8 @@
+//#region imports
 import {Message, TextChannel, WebhookClient, Client, MessageOptions, Webhook, BufferResolvable, User, Intents, NewsChannel} from "discord.js";
-//intent
+//#endregion
+
+//#region intent
 export const intents:Intents = new Intents([
 	`GUILDS`,
 	`GUILD_MEMBERS`,
@@ -17,8 +20,9 @@ export const intents:Intents = new Intents([
 	`DIRECT_MESSAGE_REACTIONS`,
 	`DIRECT_MESSAGE_TYPING`
 ]);
+//#endregion
 
-//Check amount
+//#region Check amount
 export const checkFor = (
 	inObj: {
 		arr: string[],
@@ -36,7 +40,9 @@ export const checkFor = (
 		return ``;
 	}
 };
-//send as webhook
+//#endregion
+
+//#region send as webhook
 export const sendAsWebHook = (
 	inObjs: {
 		message: Message,
@@ -110,7 +116,9 @@ export const sendAsWebHook = (
 		webHookFunction();
 	});
 };
-//Bot check
+//#endregion
+
+//#region Bot check
 export const botReady = (
 	inObjs: {
 		bots: Client[]
@@ -128,7 +136,9 @@ export const botReady = (
 		});
 	});
 };
-//bool to int
+//#endregion
+
+//#region bool to int
 export const boolToInt = (
 	inObj: {
 		bool:boolean
@@ -141,7 +151,9 @@ export const boolToInt = (
 		return 0;
 	}
 };
+//#endregion
 
+//#region blacklist
 export const blackList:string[] = [
 	`announcements`,
 	`6-hour-cooldown`,
@@ -154,3 +166,4 @@ export const blackList:string[] = [
 	`love-advice`,
 	`inspiration`
 ];
+//#endregion

@@ -1,5 +1,9 @@
+//#region imports
 import {ColorResolvable, CommandInteraction, MessageEmbed} from "discord.js";
 import {mkdirSync, existsSync, readFileSync, writeFileSync} from "fs";
+//#endregion
+
+//#region setup
 const setup = (
 	inObjs: {
 		interaction: CommandInteraction
@@ -28,6 +32,9 @@ const setup = (
 		}/coinflip/losses.log`, `0`);
 	});
 };
+//#endregion
+
+//#region game code
 export const flip = (
 	inObjs: {
 		interaction: CommandInteraction
@@ -172,3 +179,4 @@ export const flip = (
 		}
 	});
 };
+//#endregion

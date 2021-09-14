@@ -1,5 +1,8 @@
+//#region imports
 import {Message, MessageOptions} from "discord.js";
-//reply
+//#endregion
+
+//#region reply
 
 //function int
 const reply = async (
@@ -82,7 +85,10 @@ export const replyThing = (
 		}
 	});
 };
-	//react
+
+//#endregion
+
+//#region react
 	
 //function int
 const react = (
@@ -161,3 +167,5 @@ export const reactThing = (
 		}
 	});
 };
+
+//#endregion

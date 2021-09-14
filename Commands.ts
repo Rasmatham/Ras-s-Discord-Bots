@@ -1,7 +1,35 @@
+//#region imports
 import {ApplicationCommandOptionType, Client, Guild} from "discord.js";
 import {intents} from "./custom_modules/generalUse.js";
 import * as dotenv from "dotenv";
 dotenv.config();
+//#endregion
+
+//#region type definitions
+type commandObject = {
+	id:`${
+		bigint
+	}`, 
+	guild?:Guild,
+	command:{
+		name:string, 
+		description:string, 
+		defaultPermission:boolean,
+		options?:{
+			name:string,
+			type:ApplicationCommandOptionType,
+			description:string,
+			required:boolean,
+			choices?: {
+				name: string,
+				value: string | number
+			}[]
+		}[]
+	}
+}
+//#endregion
+
+//#region instantiating clients
 const buzzBot:Client = new Client({
 	intents: intents,
 	presence: {
@@ -122,7 +150,9 @@ const croissant:Client = new Client({
 		]
 	}
 });
+//#endregion
 
+//#region logins
 buzzBot.login(process.env.BUZZBOTTOKEN).catch(console.error);
 clambot.login(process.env.CLAMBOTTOKEN).catch(console.error);
 ebnj.login(process.env.EBNJTOKEN).catch(console.error);
@@ -133,97 +163,19 @@ random.login(process.env.RANDOMTOKEN).catch(console.error);
 sini.login(process.env.SINITOKEN).catch(console.error);
 zelda.login(process.env.ZELDATOKEN).catch(console.error);
 croissant.login(process.env.CROISSANTTOKEN).catch(console.error);
+//#endregion
 
-const buzzBotCommands:{
-	id:`${
-		bigint
-	}`, 
-	guild?:Guild,
-	command:{
-		name:string, 
-		description:string, 
-		defaultPermission:boolean,
-		options?:{
-			name:string,
-			type:ApplicationCommandOptionType,
-			description:string,
-			required:boolean,
-			choices?: {
-				name: string,
-				value: string | number
-			}[]
-		}[]
-	}
-}[] = [
-	
+//#region commands
+const buzzBotCommands:commandObject[] = [	
 ];
-const clambotCommands:{
-	id:`${
-		bigint
-	}`, 
-	guild?:Guild,
-	command:{
-		name:string, 
-		description:string, 
-		defaultPermission:boolean,
-		options?:{
-			name:string,
-			type:ApplicationCommandOptionType,
-			description:string,
-			required:boolean,
-			choices?: {
-				name: string,
-				value: string | number
-			}[]
-		}[]
-	}
-}[] = [
-	
+
+const clambotCommands:commandObject[] = [	
 ];
-const ebnjCommands:{
-	id:`${
-		bigint
-	}`, 
-	guild?:Guild,
-	command:{
-		name:string, 
-		description:string, 
-		defaultPermission:boolean,
-		options?:{
-			name:string,
-			type:ApplicationCommandOptionType,
-			description:string,
-			required:boolean,
-			choices?: {
-				name: string,
-				value: string | number
-			}[]
-		}[]
-	}
-}[] = [
-	
+
+const ebnjCommands:commandObject[] = [	
 ];
-const gladosCommands:{
-	id:`${
-		bigint
-	}`, 
-	guild?:Guild,
-	command:{
-		name:string, 
-		description:string, 
-		defaultPermission:boolean,
-		options?:{
-			name:string,
-			type:ApplicationCommandOptionType,
-			description:string,
-			required:boolean,
-			choices?: {
-				name: string,
-				value: string | number
-			}[]
-		}[]
-	}
-}[] = [
+
+const gladosCommands:commandObject[] = [
 	{
 		id: `862460436048642098`,
 		command: {
@@ -433,144 +385,27 @@ const gladosCommands:{
 		}
 	}
 ];
-const pokebotCommands:{
-	id:`${
-		bigint
-	}`, 
-	guild?:Guild,
-	command:{
-		name:string, 
-		description:string, 
-		defaultPermission:boolean,
-		options?:{
-			name:string,
-			type:ApplicationCommandOptionType,
-			description:string,
-			required:boolean,
-			choices?: {
-				name: string,
-				value: string | number
-			}[]
-		}[]
-	}
-}[] = [
-	
+
+const pokebotCommands:commandObject[] = [
 ];
-const artooCommands:{
-	id:`${
-		bigint
-	}`, 
-	guild?:Guild,
-	command:{
-		name:string, 
-		description:string, 
-		defaultPermission:boolean,
-		options?:{
-			name:string,
-			type:ApplicationCommandOptionType,
-			description:string,
-			required:boolean,
-			choices?: {
-				name: string,
-				value: string | number
-			}[]
-		}[]
-	}
-}[] = [
-	
+
+const artooCommands:commandObject[] = [	
 ];
-const randomCommands:{
-	id:`${
-		bigint
-	}`, 
-	guild?:Guild,
-	command:{
-		name:string, 
-		description:string, 
-		defaultPermission:boolean,
-		options?:{
-			name:string,
-			type:ApplicationCommandOptionType,
-			description:string,
-			required:boolean,
-			choices?: {
-				name: string,
-				value: string | number
-			}[]
-		}[]
-	}
-}[] = [
-	
+
+const randomCommands:commandObject[] = [	
 ];
-const siniCommands:{
-	id:`${
-		bigint
-	}`, 
-	guild?:Guild,
-	command:{
-		name:string, 
-		description:string, 
-		defaultPermission:boolean,
-		options?:{
-			name:string,
-			type:ApplicationCommandOptionType,
-			description:string,
-			required:boolean,
-			choices?: {
-				name: string,
-				value: string | number
-			}[]
-		}[]
-	}
-}[] = [
-	
+
+const siniCommands:commandObject[] = [
 ];
-const zeldaCommands:{
-	id:`${
-		bigint
-	}`, 
-	guild?:Guild,
-	command:{
-		name:string, 
-		description:string, 
-		defaultPermission:boolean,
-		options?:{
-			name:string,
-			type:ApplicationCommandOptionType,
-			description:string,
-			required:boolean,
-			choices?: {
-				name: string,
-				value: string | number
-			}[]
-		}[]
-	}
-}[] = [
-	
+
+const zeldaCommands:commandObject[] = [
 ];
-const croissantCommands:{
-	id:`${
-		bigint
-	}`, 
-	guild?:Guild,
-	command:{
-		name:string, 
-		description:string, 
-		defaultPermission:boolean,
-		options?:{
-			name:string,
-			type:ApplicationCommandOptionType,
-			description:string,
-			required:boolean,
-			choices?: {
-				name: string,
-				value: string | number
-			}[]
-		}[]
-	}
-}[] = [
-	
+
+const croissantCommands:commandObject[] = [
 ];
+//#endregion
+
+//#region arrays
 const bots:Client[] = [
 	buzzBot,
 	clambot,
@@ -615,7 +450,9 @@ const commandGroup:{
 	zeldaCommands,
 	croissantCommands
 ];
+//#endregion
 
+//#region the stuff that creates/edits the commands
 bots.forEach((bot, i):void => {
 	//list commands
 	bot.on(`ready`, ():void => {
@@ -668,3 +505,4 @@ bots.forEach((bot, i):void => {
 		});
 	});*/
 });
+//#endregion

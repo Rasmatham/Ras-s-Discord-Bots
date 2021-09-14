@@ -1,4 +1,4 @@
-
+//#region type definitions
 type emoteList ={
 	OOOO: EmojiIdentifierResolvable,
 	OOOI: EmojiIdentifierResolvable,
@@ -35,19 +35,17 @@ type mazeObj = {
 	right: boolean,
 	set: number
 };
-type halfBitAsString = `${
-	`I` | `O`
-}${
-	`I` | `O`
-}${
-	`I` | `O`
-}${
-	`I` | `O`
-}`;
+type halfBitAsString = `${ `I` | `O` }${ `I` | `O` }${ `I` | `O` }${ `I` | `O` }`;
+//#endregion
+
+//#region imports
 import {CommandInteraction, MessageActionRow, MessageButton, ButtonInteraction, Interaction, EmojiIdentifierResolvable} from "discord.js";
 import {boolToInt} from "./generalUse";
 // eslint-disable-next-line @typescript-eslint/no-var-requires, quotes
 const mazeThing = require("generate-maze");
+//#endregion
+
+//#region maze generator
 export const mazeFunction = (
 	inObjs: {
 		interaction: CommandInteraction
@@ -365,3 +363,4 @@ export const mazeFunction = (
 			.catch(console.error);
 	});
 };
+//#endregion

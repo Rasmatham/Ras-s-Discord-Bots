@@ -1,6 +1,9 @@
+//#region imports
 import {CommandInteraction, EmojiIdentifierResolvable, InteractionReplyOptions, Message, MessageActionRow, MessageButton, MessageOptions, MessageSelectMenu, TextChannel} from "discord.js";
 import {blackList} from "./generalUse.js";
-//Frick that one rule
+//#endregion
+
+//#region Frick that one rule
 export const hencefortifier = (
 	inObjs: {
 		message: Message
@@ -30,7 +33,9 @@ export const hencefortifier = (
 		}
 	});
 };
-//Flit no lasting! Flit no lasting! Flit no lasting!
+//#endregion
+
+//#region Flit no lasting! Flit no lasting! Flit no lasting!
 export const userWordBan = (
 	inObjs: {
 		message: Message,
@@ -47,7 +52,9 @@ export const userWordBan = (
 		}
 	});
 };
-//smh, Espen bot doesn't work
+//#endregion
+
+//#region smh, Espen bot doesn't work
 export const espenBotReplacement = (
 	inObjs: {
 		type: `message` | `react`,
@@ -72,7 +79,9 @@ export const espenBotReplacement = (
 		}
 	});
 };
-//button grid
+//#endregion
+
+//#region interaction tests
 export const buttonGrid = (
 	inObj: {
 		interaction: CommandInteraction
@@ -190,3 +199,4 @@ export const selectMenu = ():InteractionReplyOptions => {
 		]
 	};
 };
+//#endregion

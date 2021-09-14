@@ -1,5 +1,8 @@
+//#region imports
 import {CommandInteraction, MessageEmbed} from "discord.js";
+//#endregion
 
+//#region die roller
 export const dice = (
 	inObjs: {
 		interaction: CommandInteraction
@@ -92,3 +95,4 @@ export const dice = (
 			.catch(console.error);
 	});
 };
+//#endregion

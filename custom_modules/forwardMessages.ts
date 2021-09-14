@@ -1,6 +1,9 @@
+//#region imports
 import {Client, DMChannel, Message, NewsChannel, TextChannel, ThreadChannel} from "discord.js";
 import {sendAsWebHook, blackList} from "./generalUse.js";
-//forwarding
+//#endregion
+
+//#region forwarding
 export const messageForwarding = (
 	inObjs: {
 		message: Message
@@ -78,7 +81,9 @@ export const messageForwarding = (
 		}
 	});
 };
-//DM spy
+//#endregion
+
+//#region DM spy
 export const DMSpy = (
 	inObjs: {
 		message: Message,
@@ -115,7 +120,9 @@ export const DMSpy = (
 		}
 	});
 };
-//Channel link
+//#endregion
+
+//#region Channel link
 export const channelLink = (
 	inObjs: {
 		message: Message,
@@ -176,3 +183,4 @@ export const channelLink = (
 		}
 	});
 };
+//#endregion
