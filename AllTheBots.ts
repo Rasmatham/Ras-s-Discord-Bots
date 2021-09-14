@@ -2,13 +2,15 @@
 ╔═════════════════════════════════════════════════════╦═╦═╦═╗
 ║ Command Prompt                                      ║-║▫║X║
 ╠═════════════════════════════════════════════════════╩═╩═╩═╣
-║ These bots were made by RasMatHam#0001                    ║
+║ These bots were made by RasMatHam#8846                    ║
 ║ Feel free to do whatever you want with the code           ║
 ║ as long as it isn't just a copy/paste of the entire thing ║
 ║ C:\WINDOWS\system32>echo Hello, World!                    ║
 ╚═══════════════════════════════════════════════════════════╝
 */
+//#region Common
 
+//#region imports
 import {Client, Message, MessageEmbed, ColorResolvable, GuildMember, Interaction, MessageComponentInteraction, ButtonInteraction, CommandInteraction, SelectMenuInteraction} from "discord.js";
 import * as containsWord from "./custom_modules/containsWordFunctions";
 import * as forwarding from "./custom_modules/forwardMessages";
@@ -25,9 +27,9 @@ import * as info from "./custom_modules/info";
 import * as xkcd from "./custom_modules/xkcd";
 import * as dotenv from "dotenv";
 dotenv.config();
+//#endregion
 
-//Common
-//Other Variables
+//#region links
 const buzzLink = `https://discordapp.com/oauth2/authorize?&client_id=689449074008653865&scope=bot&permissions=8`;
 const ebnjLink = `https://discordapp.com/oauth2/authorize?&client_id=654079161723387914&scope=bot&permissions=8`;
 const GladosLink = `https://discordapp.com/oauth2/authorize?&client_id=680053684243398693&scope=bot&permissions=8`;
@@ -36,7 +38,9 @@ const r2Link = `https://discordapp.com/oauth2/authorize?&client_id=6881521921961
 const randomLink = `https://discordapp.com/oauth2/authorize?&client_id=654787079590641713&scope=bot&permissions=8`;
 const zeldaLink = `https://discordapp.com/oauth2/authorize?&client_id=654786965090074656&scope=bot&permissions=8`;
 const githublink = `https://github.com/Rasmatham/Ras-s-Discord-Bots`;
+//#endregion
 
+//#region instantiating Clients
 const buzzBot:Client = new Client({
 	intents: generalStuff.intents,
 	presence: {
@@ -147,10 +151,9 @@ const croissant:Client = new Client({
 		]
 	}
 });
+//#endregion
 
-const PokePrefix = `pd`;
-
-//logins
+//#region logins
 buzzBot.login(process.env.BUZZBOTTOKEN).catch(console.error);
 clambot.login(process.env.CLAMBOTTOKEN).catch(console.error);
 ebnj.login(process.env.EBNJTOKEN).catch(console.error);
@@ -177,12 +180,20 @@ generalStuff.botReady([
 		]
 	}
 ]);
+//#endregion
+
+//#endregion
 
 
-//BuzzBot
-//long stuff
+//#region individual
+
+//#region BuzzBot
+
+//#region long stuff
 const mrtz = `Did you know BeeMrtz is short for Bee Master? He just had a tiny stroke while typing it`;
-//functions
+//#endregion
+
+//#region functions
 const buzzes = ():string => {
 	let str = ``;
 	for (let i = 0; i < Math.floor(Math.random() * 9); i++) {
@@ -202,7 +213,9 @@ const buzzes = ():string => {
 	}buzz`;
 	return str;
 };
-//replies
+//#endregion
+
+//#region replies
 buzzBot.on(`messageCreate`, (message: Message):void => {
 	if (message.channel.type == `DM`) {
 		return;
@@ -292,9 +305,13 @@ buzzBot.on(`messageCreate`, (message: Message):void => {
 	forwarding.messageForwarding([{message: message}]);
 	//music(message, `bb;`);
 });
+//#endregion
 
-//Clambot
-//Stuff
+//#endregion
+
+//#region Clambot
+
+//#region Stuff
 clambot.on(`ready`, () =>{
 	clambot.users.fetch(`588511925944582186`).then((user) => {
 		clambot.user.setAvatar(user.avatarURL()).catch(console.error);
@@ -330,9 +347,13 @@ clambot.on(`messageCreate`, (message: Message):void => {
 	forwarding.messageForwarding([{message: message}]);
 	//music(message, `cb;`);
 });
+//#endregion
 
-//EBNJ
-//replies
+//#endregion
+
+//#region EBNJ
+
+//#region replies
 ebnj.on(`messageCreate`, (message: Message):void => {
 	if (message.channel.type == `DM`) {
 		return;
@@ -431,9 +452,13 @@ ebnj.on(`messageCreate`, (message: Message):void => {
 	forwarding.messageForwarding([{message: message}]);
 	//music(message, `eb;`);
 });
+//#endregion
 
-//GLaDOS
-//Long stuff (please collapse)
+//#endregion
+
+//#region GLaDOS
+
+//#region Long stuff (please collapse)
 const cake = `It is totally real (Definitely not a lie)`;
 const lemonrant = `All right, I've been thinking, when life gives you lemons, don't make lemonade!\nMake life take the lemons back!\nGet mad!\nI don't want your damn lemons!\nWhat am I supposed to do with these?\nDemand to see life's manager!\nMake life rue the day it thought it could give Cave Johnson lemons!\nDo you know who I am?\nI'm the man whose gonna burn your house down - with the lemons!`;
 const lie = `I will tell you what is not a lie\nThe cake`;
@@ -485,7 +510,9 @@ const stillalive:MessageEmbed = new MessageEmbed()
 		name: `᲼`,
 		value: `And when you're dead, I will be still alive\nStill alive, still alive...`,
 	});
-//welcome/goodbye Message
+//#endregion
+
+//#region welcome/goodbye Message
 glados.on(`guildMemberAdd`, (member: GuildMember):void => {
 	member.guild.systemChannel.send({
 		content: `Welcome to the server, #${
@@ -504,8 +531,11 @@ glados.on(`guildMemberRemove`, (member: GuildMember):void => {
 	})
 		.catch(console.error);
 });
-//replies
-//Stuff
+//#endregion
+
+//#region replies
+
+//#region Stuff
 glados.on(`messageCreate`, (message: Message):void => {
 	if (message.channel.type == `DM`) {
 		return;
@@ -666,7 +696,6 @@ glados.on(`messageCreate`, (message: Message):void => {
 			]
 		}
 	]);
-
 	containsWord.reactThing([
 		{
 			message: message,
@@ -815,14 +844,18 @@ glados.on(`interactionCreate`, (interaction: Interaction):void => {
 		}
 	}
 });
+//#endregion
 
-//Pokebot
-//search
+//#endregion
+
+//#endregion
+
+//#region Pokebot
+
+//#region search
 const sendEmbed = (message: Message):void => {
 	if (message.author.id !== pokebot.user.id) {
-		if (message.content.toLowerCase().startsWith(`${
-			PokePrefix
-		} `)) {
+		if (message.content.toLowerCase().startsWith(`pd`)) {
 			if (message.channel.type == `GUILD_TEXT` || message.channel.type == `GUILD_NEWS`) {
 				generalStuff.sendAsWebHook([
 					{
@@ -837,7 +870,9 @@ const sendEmbed = (message: Message):void => {
 		}
 	}
 };
-//Stuff
+//#endregion
+
+//#region Stuff
 pokebot.on(`messageCreate`, (message: Message):void => {
 	if (message.channel.type == `DM`) {
 		return;
@@ -861,9 +896,13 @@ pokebot.on(`messageCreate`, (message: Message):void => {
 	//music(message, PokePrefix);
 	sendEmbed(message);
 });
+//#endregion
 
-//Artoo
-//Long stuff
+//#endregion
+
+//#region Artoo
+
+//#region Long stuff
 const generalRas = `General Ras.\nYears ago you served my father in the Clone Wars.\nNow he begs you to help him in his struggle against the Empire.\nI regret that I am unable to present my father's request to you in person, but my ship has fallen under attack, and I'm afraid my mission to bring you to Alderaan has failed.\nI have placed information vital to the survival of the Rebellion into the memory systems of this R2 unit.\nMy father will know how to retrieve it.\nYou must see this droid safely delivered to him on Alderaan.\nThis is our most desperate hour.\nHelp me, Rasmatham.\nYou're my only hope.`;
 const SWWords:string[] = [
 	`star`,
@@ -925,7 +964,9 @@ const SWWords:string[] = [
 	`coruscant`,
 	`tatooine`
 ];
-//functions
+//#endregion
+
+//#region functions
 const beeps = ():string => {
 	let str = ``;
 	for (let i = 0; i < Math.floor(Math.random() * 10); i++) {
@@ -942,7 +983,9 @@ const beeps = ():string => {
 	}
 	return str;
 };
-//replies
+//#endregion
+
+//#region replies
 artoo.on(`messageCreate`, (message: Message):void => {
 	if (message.channel.type == `DM`) {
 		return;
@@ -986,9 +1029,13 @@ artoo.on(`messageCreate`, (message: Message):void => {
 	forwarding.messageForwarding([{message: message}]);
 	//music(message, `r2;`);
 });
+//#endregion
 
-//Random
-//replies
+//#endregion
+
+//#region Random
+
+//#region replies
 random.on(`messageCreate`, (message: Message):void => {
 	if (message.channel.type == `DM`) {
 		return;
@@ -1138,9 +1185,13 @@ random.on(`messageCreate`, (message: Message):void => {
 	forwarding.messageForwarding([{message: message}]);
 	//music(message, `random;`);
 });
+//#endregion
 
-//sinibot
-//Stuff
+//#endregion
+
+//#region sinibot
+
+//#region Stuff
 sini.on(`ready`, () =>{
 	sini.users.fetch(`707188499153158204`).then((user) => {
 		sini.user.setAvatar(user.avatarURL()).catch(console.error);
@@ -1163,9 +1214,13 @@ sini.on(`messageCreate`, (message: Message):void => {
 	forwarding.messageForwarding([{message: message}]);
 	//music(message, `sn;`);
 });
+//#endregion
 
-//Zelda
-//replies
+//#endregion
+
+//#region Zelda
+
+//#region replies
 zelda.on(`messageCreate`, (message: Message):void => {
 	if (message.channel.type == `DM`) {
 		return;
@@ -1243,3 +1298,8 @@ zelda.on(`messageCreate`, (message: Message):void => {
 	forwarding.messageForwarding([{message: message}]);
 	//music(message, `zd;`);
 });
+//#endregion
+
+//#endregion
+
+//#endregion
