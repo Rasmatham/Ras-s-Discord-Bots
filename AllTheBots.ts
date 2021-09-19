@@ -314,14 +314,14 @@ buzzBot.on(`messageCreate`, (message: Message):void => {
 //#region Stuff
 clambot.on(`ready`, () =>{
 	clambot.users.fetch(`588511925944582186`).then((user) => {
-		clambot.user.setAvatar(user.avatarURL()).catch(console.error);
-		clambot.user.setUsername(user.username).catch(console.error);
+		clambot.user.setAvatar(user.avatarURL()).catch(() => console.log(`[${user.tag}] You're probably changing the avatar too fast`));
+		clambot.user.setUsername(user.username).catch(() => console.log(`[${user.tag}] You're probably changing the username too fast`));
 	});
 });
 clambot.on(`userUpdate`, (oldUser, newUser) => {
 	if(newUser.id == `588511925944582186`){
-		clambot.user.setAvatar(newUser.avatarURL()).catch(console.error);
-		clambot.user.setUsername(newUser.username).catch(console.error);
+		clambot.user.setAvatar(newUser.avatarURL()).catch(() => console.log(`[${newUser.tag}] You're probably changing the avatar too fast`));
+		clambot.user.setUsername(newUser.username).catch(() => console.log(`[${newUser.tag}] You're probably changing the username too fast`));
 	}
 });
 clambot.on(`messageCreate`, (message: Message):void => {
@@ -848,6 +848,14 @@ glados.on(`interactionCreate`, (interaction: Interaction):void => {
 
 //#endregion
 
+//#region ghost message thing
+glados.on(`messageDelete`, (message):void => {
+	if((Math.floor(new Date().getTime() / 1000) - Math.floor(message.createdTimestamp / 1000)) < 10){
+		message.channel.send(`${message.author.tag} deleted a message within 10 seconds of sending it`);
+	}
+});
+//#endregion
+
 //#endregion
 
 //#region Pokebot
@@ -1194,14 +1202,14 @@ random.on(`messageCreate`, (message: Message):void => {
 //#region Stuff
 sini.on(`ready`, () =>{
 	sini.users.fetch(`707188499153158204`).then((user) => {
-		sini.user.setAvatar(user.avatarURL()).catch(console.error);
-		sini.user.setUsername(user.username).catch(console.error);
+		sini.user.setAvatar(user.avatarURL()).catch(() => console.log(`[${user.tag}] You're probably changing the avatar too fast`));
+		sini.user.setUsername(user.username).catch(() => console.log(`[${user.tag}] You're probably changing the username too fast`));
 	});
 });
 sini.on(`userUpdate`, (oldUser, newUser) => {
 	if(newUser.id == `707188499153158204`){
-		sini.user.setAvatar(newUser.avatarURL()).catch(console.error);
-		sini.user.setUsername(newUser.username).catch(console.error);
+		sini.user.setAvatar(newUser.avatarURL()).catch(() => console.log(`[${newUser.tag}] You're probably changing the avatar too fast`));
+		sini.user.setUsername(newUser.username).catch(() => console.log(`[${newUser.tag}] You're probably changing the username too fast`));
 	}
 });
 sini.on(`messageCreate`, (message: Message):void => {
