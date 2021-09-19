@@ -651,17 +651,6 @@ glados.on(`messageCreate`, (message: Message):void => {
 		{
 			message: message,
 			type: `exact`,
-			reply: {
-				content: `He's my daddy 😉`
-			},
-			triggers: [
-				`quinn`,
-				`quinnsnipe`
-			]
-		},
-		{
-			message: message,
-			type: `exact`,
 			chance: 10,
 			reply: {
 				content: `He's a superior lifeform`
