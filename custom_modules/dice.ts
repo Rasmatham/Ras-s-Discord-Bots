@@ -11,10 +11,10 @@ export const dice = (
 	inObjs.forEach((inObj) => {
 		let dieSides = 6;
 		let diceCount = 1;
-		if (typeof inObj.interaction.options.get(`die_sides`) != `undefined`) {
+		if (inObj.interaction.options.get(`die_sides`) != null) {
 			dieSides = inObj.interaction.options.get(`die_sides`).value as number;
 		}
-		if (typeof inObj.interaction.options.get(`dice_count`) != `undefined`) {
+		if (inObj.interaction.options.get(`dice_count`) != null) {
 			diceCount = inObj.interaction.options.get(`dice_count`).value as number;
 		}
 		inObj.interaction.reply(`Rolling ${
