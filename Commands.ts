@@ -195,7 +195,7 @@ const gladosCommands:commandObject[] = [
 	{
 		id: `862460437420310569`,
 		command: {
-			name: `inviscolor`,
+			name: `invisicolor`,
 			description: `Sends the hex color code for the backround color of Discord`,
 			defaultPermission: true
 		}
@@ -465,10 +465,13 @@ bots.forEach((bot, i):void => {
 	});
 	//Replace all
 	bot.on(`ready`, ():void => {
-		bot.application.commands.fetch().then(():void => {
+		bot.application.commands.fetch().then((/*commands*/):void => {
 			console.log(`${
 				bot.user.tag
 			} is active`);
+			/*commands.map((command) => command).forEach((command) => {
+				command.delete();
+			});*/
 			commandGroup[i].forEach((command, j):void => {
 				bot.application.commands.create(command.command, command.guild = null)
 					.then((command):void => {
