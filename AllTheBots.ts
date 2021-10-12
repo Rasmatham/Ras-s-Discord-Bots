@@ -750,11 +750,12 @@ glados.on(`interactionCreate`, (interaction: Interaction):void => {
 		const messageComponentInteraction:MessageComponentInteraction = interaction as MessageComponentInteraction;
 		if (messageComponentInteraction.componentType == `BUTTON`) {
 			const buttonInteraction:ButtonInteraction = messageComponentInteraction as ButtonInteraction;
-			switch(buttonInteraction.customId) {
-			case `Dummy`:
-				buttonInteraction.deleteReply()
+			if (buttonInteraction.customId.toLowerCase().includes(`dummy`)) {
+				buttonInteraction.reply({
+					content: `That button worked`,
+					ephemeral: true
+				})
 					.catch(console.error);
-				break;
 			}
 		}
 		else if (messageComponentInteraction.componentType == `SELECT_MENU`) {

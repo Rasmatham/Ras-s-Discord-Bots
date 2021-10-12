@@ -93,85 +93,97 @@ export const buttonGrid = (
 	const buttonContent:string = inObj.interaction.options.get(`button_content`).value as string;
 	if (buttonContent.length <= 80) {
 		if (buttonContent.match(unicodeEmoji) || buttonContent.match(discordEmoji)) {
-			const button:MessageButton = new MessageButton().setCustomId(`Dummy`).setEmoji(buttonContent).setStyle(`SECONDARY`);
-			const bar:MessageActionRow = new MessageActionRow().addComponents([
-				button
-			],
-			[
-				button
-			],
-			[
-				button
-			],
-			[
-				button
-			],
-			[
-				button
-			]);
+			const button = (id:string):MessageButton => {
+				return new MessageButton().setCustomId(id).setEmoji(buttonContent).setStyle(`SECONDARY`);
+			};
+			const bar = (rowNumber:string):MessageActionRow => {
+				return new MessageActionRow().addComponents([
+					button(`Dummy: ` + rowNumber + `-1`)
+				],
+				[
+					button(`Dummy: ` + rowNumber + `-2`)
+				],
+				[
+					button(`Dummy: ` + rowNumber + `-3`)
+				],
+				[
+					button(`Dummy: ` + rowNumber + `-4`)
+				],
+				[
+					button(`Dummy: ` + rowNumber + `-5`)
+				]);
+			};
 			return {
 				content: buttonContent,
 				components: [
-					bar,
-					bar,
-					bar,
-					bar,
-					bar
+					bar(`1`),
+					bar(`2`),
+					bar(`3`),
+					bar(`4`),
+					bar(`5`)
 				]
 			};
 		}
 		else if (buttonContent.match(discordEmojiNotExact)) {
-			const button:MessageButton = new MessageButton().setCustomId(`Dummy`).setLabel(buttonContent.replace(discordEmojiNotExact, ``)).setStyle(`SECONDARY`);
-			const bar:MessageActionRow = new MessageActionRow().addComponents([
-				button
-			],
-			[
-				button
-			],
-			[
-				button
-			],
-			[
-				button
-			],
-			[
-				button
-			]);
+			const button = (id:string):MessageButton => {
+				return new MessageButton().setCustomId(id).setLabel(buttonContent.replace(discordEmojiNotExact, ``)).setStyle(`SECONDARY`);
+			};
+			const bar = (rowNumber:string):MessageActionRow => {
+				return new MessageActionRow().addComponents([
+					button(`Dummy: ` + rowNumber + `-1`)
+				],
+				[
+					button(`Dummy: ` + rowNumber + `-2`)
+				],
+				[
+					button(`Dummy: ` + rowNumber + `-3`)
+				],
+				[
+					button(`Dummy: ` + rowNumber + `-4`)
+				],
+				[
+					button(`Dummy: ` + rowNumber + `-5`)
+				]);
+			};
 			return {
 				content: buttonContent.replace(discordEmojiNotExact, ``),
 				components: [
-					bar,
-					bar,
-					bar,
-					bar,
-					bar
+					bar(`1`),
+					bar(`2`),
+					bar(`3`),
+					bar(`4`),
+					bar(`5`)
 				]
 			};
 		}
-		const button:MessageButton = new MessageButton().setCustomId(`Dummy`).setLabel(buttonContent).setStyle(`SECONDARY`);
-		const bar:MessageActionRow = new MessageActionRow().addComponents([
-			button
-		],
-		[
-			button
-		],
-		[
-			button
-		],
-		[
-			button
-		],
-		[
-			button
-		]);
+		const button = (id:string):MessageButton => {
+			return new MessageButton().setCustomId(id).setLabel(buttonContent).setStyle(`SECONDARY`);
+		};
+		const bar = (rowNumber:string):MessageActionRow => {
+			return new MessageActionRow().addComponents([
+				button(`Dummy: ` + rowNumber + `-1`)
+			],
+			[
+				button(`Dummy: ` + rowNumber + `-2`)
+			],
+			[
+				button(`Dummy: ` + rowNumber + `-3`)
+			],
+			[
+				button(`Dummy: ` + rowNumber + `-4`)
+			],
+			[
+				button(`Dummy: ` + rowNumber + `-5`)
+			]);
+		};
 		return {
 			content: buttonContent,
 			components: [
-				bar,
-				bar,
-				bar,
-				bar,
-				bar
+				bar(`1`),
+				bar(`2`),
+				bar(`3`),
+				bar(`4`),
+				bar(`5`)
 			]
 		};
 	}
