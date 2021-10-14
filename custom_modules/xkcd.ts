@@ -11,7 +11,7 @@ export const xkcdFunct = (inObjs: {interaction: CommandInteraction}[]):void => {
 		num: number
 	}):void => {
 			let num:number = Math.ceil(Math.random() * (xkcdObjOuter.num + Math.random()));
-			if (typeof inObj.interaction.options.get(`xkcd_number`) != `undefined`) {
+			if (inObj.interaction.options.get(`xkcd_number`) != null) {
 				num = inObj.interaction.options.get(`xkcd_number`).value as number;
 			}
 			if (num > xkcdObjOuter.num || num <= 0) {
