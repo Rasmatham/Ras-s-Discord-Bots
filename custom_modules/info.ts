@@ -1,7 +1,6 @@
 //#region imports
-import {CommandInteraction, MessageEmbed, Guild, User, ColorResolvable, GuildMember} from "discord.js";
+import {CommandInteraction, MessageEmbed, Guild, User, ColorResolvable, InteractionReplyOptions, MessageAttachment} from "discord.js";
 import {checkFor} from "./generalUse.js";
-import {writeFile, unlink} from "fs";
 //#endregion
 
 //#region channelCount
@@ -49,60 +48,18 @@ export const channelCount = (
 //#endregion
 
 //#region userinfo
-export const userInfo = (
-	inObjs: {
+export const userInfo = async (
+	inObj: {
 		interaction: CommandInteraction
-	}[]
-):void => {
-	inObjs.forEach((inObj) => {
-		writeFile(`${
-			inObj.interaction.client.user.username
-		}/userinfo/userinfo.json`, `"interaction.user":{\n${
-			JSON.stringify(inObj.interaction.user, null, 2)
-		}\n},\n"interaction.member":{\n${
-			JSON.stringify(inObj.interaction.member, null, 2)
-		}\n}`, ():void => {
-			if (inObj.interaction.options.get(`public`).value as boolean) {
-				inObj.interaction.reply({
-					files: [
-						`${
-							inObj.interaction.client.user.username
-						}/userinfo/userinfo.json`
-					]
-				})
-					.then(():void => {
-						unlink(`${
-							inObj.interaction.client.user.username
-						}/userinfo/userinfo.json`, console.error);
-					})
-					.catch(console.error);
-			}
-			else {
-				if (!(inObj.interaction.member instanceof GuildMember)) {
-					return;
-				}
-				inObj.interaction.member.send({
-					files: [
-						`${
-							inObj.interaction.client.user.username
-						}/userinfo/userinfo.json`
-					]})
-					.then(():void => {
-						unlink(`${
-							inObj.interaction.client.user.username
-						}/userinfo/userinfo.json`, console.error);
-					})
-					.catch(console.error)
-					.then(():void => {
-						inObj.interaction.reply({
-							content: `You have [1] more DM!`,
-							ephemeral: true
-						})
-							.catch(console.error);
-					});
-			}
-		});
-	});
+	}
+):Promise<InteractionReplyOptions> => {
+	return {
+		content: `test`,
+		files: [
+			new MessageAttachment(Buffer.from(JSON.stringify(await inObj.interaction.guild.members.fetch(inObj.interaction.user), null, 2)), `user.json`),
+			new MessageAttachment(Buffer.from(JSON.stringify(await inObj.interaction.user.fetch(true), null, 2)), `member.json`)
+		]
+	} as InteractionReplyOptions;
 };
 //#endregion
 

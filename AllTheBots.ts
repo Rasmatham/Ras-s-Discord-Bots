@@ -800,7 +800,9 @@ glados.on(`interactionCreate`, (interaction: Interaction):void => {
 			}).catch(console.error);
 			break;
 		case `userinfo`:
-			info.userInfo([{interaction: commandInteraction}]);
+			info.userInfo({interaction: commandInteraction}).then((message) => {
+				commandInteraction.reply(message);
+			});
 			break;
 		case `serverinfo`:
 			info.serverInfo([{interaction: commandInteraction}]);
