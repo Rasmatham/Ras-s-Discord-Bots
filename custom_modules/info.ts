@@ -73,7 +73,7 @@ export const serverInfo = (
 		if (inObj.interaction.guild !== null) {
 			const textChannels:string[] = [];
 			const voiceChannels:string[] = [];
-			const Categories:string[] = [];
+			const categories:string[] = [];
 			const unknown:string[] = [];
 			inObj.interaction.guild.channels.fetch().then((channels):void => {
 				channels.forEach((channel):void => {
@@ -85,7 +85,7 @@ export const serverInfo = (
 						voiceChannels.push(channel.name);
 						break;
 					case `GUILD_CATEGORY`:
-						Categories.push(channel.name);
+						categories.push(channel.name);
 						break;
 					default:
 						unknown.push(channel.name);
@@ -94,22 +94,51 @@ export const serverInfo = (
 				});
 			})
 				.then(():void => {
+					const embed = new MessageEmbed().addFields(checkFor(
+						[
+							{
+								arr: textChannels,
+								str: `Text channels`,
+								inline: true
+							},
+							{
+								arr: voiceChannels,
+								str: `Voice channels`,
+								inline: true
+							},
+							{
+								arr: categories,
+								str: `Categories`,
+								inline: true
+							},
+							{
+								arr: unknown,
+								str: `Other channels`,
+								inline: true
+							},
+						]
+					)).addFields(
+						[
+							{
+								name: `Total channels`,
+								value: (textChannels.length + voiceChannels.length + categories.length + unknown.length).toString(),
+								inline: true
+							},
+							{
+								name: `Channels left`,
+								value: (500 - (textChannels.length + voiceChannels.length + categories.length + unknown.length)).toString(),
+								inline: true
+							},
+							{
+								name: `Members`,
+								value: inObj.interaction.guild.memberCount.toString(),
+								inline: true
+							},
+						]
+					).setThumbnail(inObj.interaction.guild.iconURL())
+						.setColor(`#0099FF`);
 					inObj.interaction.reply({
-						content: `\`\`\`\n${
-							checkFor({arr: textChannels, str: `Text channels:`})
-						}${
-							checkFor({arr:voiceChannels, str: `Voice channels:`})
-						}${
-							checkFor({arr: Categories, str: `Categories:`})
-						}${
-							checkFor({arr: unknown, str: `Other channels:`})
-						}Total channels: ${
-							textChannels.length + voiceChannels.length + Categories.length + unknown.length
-						}\nChannels left: ${
-							500 - (textChannels.length + voiceChannels.length + Categories.length + unknown.length)
-						}\nmembers: ${
-							inObj.interaction.guild.memberCount
-						}\n\`\`\``
+						embeds: [embed]
 					});
 				})
 				.catch(console.error);

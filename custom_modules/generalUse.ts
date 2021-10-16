@@ -1,5 +1,5 @@
 //#region imports
-import {Message, TextChannel, WebhookClient, Client, MessageOptions, Webhook, BufferResolvable, User, Intents, NewsChannel} from "discord.js";
+import {Message, TextChannel, WebhookClient, Client, MessageOptions, Webhook, BufferResolvable, User, Intents, NewsChannel, EmbedFieldData} from "discord.js";
 //#endregion
 
 //#region intent
@@ -24,21 +24,22 @@ export const intents:Intents = new Intents([
 
 //#region Check amount
 export const checkFor = (
-	inObj: {
+	inObjs: {
 		arr: string[],
-		str: string
-	}
-):string => {
-	if (inObj.arr.length > 0) {
-		return `${
-			inObj.str
-		} ${
-			inObj.arr.length
-		}\n`;
-	}
-	else {
-		return ``;
-	}
+		str: string,
+		inline?:boolean
+	}[]
+):EmbedFieldData[] => {
+	const out:EmbedFieldData[] = [];
+	inObjs.forEach((inObj) => {
+		if (inObj.arr.length > 0) {
+			if (inObj.inline == null) {
+				inObj.inline = true;
+			}
+			out.push({name: inObj.str, value: inObj.arr.length.toString(), inline:inObj.inline});
+		}
+	});
+	return out;
 };
 //#endregion
 
