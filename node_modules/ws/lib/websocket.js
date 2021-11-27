@@ -58,6 +58,7 @@ class WebSocket extends EventEmitter {
     this._closeMessage = EMPTY_BUFFER;
     this._closeTimer = null;
     this._extensions = {};
+    this._paused = false;
     this._protocol = '';
     this._readyState = WebSocket.CONNECTING;
     this._receiver = null;
@@ -122,6 +123,13 @@ class WebSocket extends EventEmitter {
    */
   get extensions() {
     return Object.keys(this._extensions).join();
+  }
+
+  /**
+   * @type {Boolean}
+   */
+  get isPaused() {
+    return this._paused;
   }
 
   /**
@@ -313,6 +321,23 @@ class WebSocket extends EventEmitter {
   }
 
   /**
+   * Pause the socket.
+   *
+   * @public
+   */
+  pause() {
+    if (
+      this.readyState === WebSocket.CONNECTING ||
+      this.readyState === WebSocket.CLOSED
+    ) {
+      return;
+    }
+
+    this._paused = true;
+    this._socket.pause();
+  }
+
+  /**
    * Send a ping.
    *
    * @param {*} [data] The data to send
@@ -374,6 +399,23 @@ class WebSocket extends EventEmitter {
 
     if (mask === undefined) mask = !this._isServer;
     this._sender.pong(data || EMPTY_BUFFER, mask, cb);
+  }
+
+  /**
+   * Resume the socket.
+   *
+   * @public
+   */
+  resume() {
+    if (
+      this.readyState === WebSocket.CONNECTING ||
+      this.readyState === WebSocket.CLOSED
+    ) {
+      return;
+    }
+
+    this._paused = false;
+    if (!this._receiver._writableState.needDrain) this._socket.resume();
   }
 
   /**
@@ -518,6 +560,7 @@ Object.defineProperty(WebSocket.prototype, 'CLOSED', {
   'binaryType',
   'bufferedAmount',
   'extensions',
+  'isPaused',
   'protocol',
   'readyState',
   'url'
@@ -630,19 +673,26 @@ function initAsClient(websocket, address, protocols, options) {
 
   const isSecure = parsedUrl.protocol === 'wss:';
   const isUnixSocket = parsedUrl.protocol === 'ws+unix:';
+  let invalidURLMessage;
 
   if (parsedUrl.protocol !== 'ws:' && !isSecure && !isUnixSocket) {
-    throw new SyntaxError(
-      'The URL\'s protocol must be one of "ws:", "wss:", or "ws+unix:"'
-    );
+    invalidURLMessage =
+      'The URL\'s protocol must be one of "ws:", "wss:", or "ws+unix:"';
+  } else if (isUnixSocket && !parsedUrl.pathname) {
+    invalidURLMessage = "The URL's pathname is empty";
+  } else if (parsedUrl.hash) {
+    invalidURLMessage = 'The URL contains a fragment identifier';
   }
 
-  if (isUnixSocket && !parsedUrl.pathname) {
-    throw new SyntaxError("The URL's pathname is empty");
-  }
+  if (invalidURLMessage) {
+    const err = new SyntaxError(invalidURLMessage);
 
-  if (parsedUrl.hash) {
-    throw new SyntaxError('The URL contains a fragment identifier');
+    if (websocket._redirects === 0) {
+      throw err;
+    } else {
+      emitErrorAndClose(websocket, err);
+      return;
+    }
   }
 
   const defaultPort = isSecure ? 443 : 80;
@@ -724,9 +774,7 @@ function initAsClient(websocket, address, protocols, options) {
     if (req === null || req.aborted) return;
 
     req = websocket._req = null;
-    websocket._readyState = WebSocket.CLOSING;
-    websocket.emit('error', err);
-    websocket.emitClose();
+    emitErrorAndClose(websocket, err);
   });
 
   req.on('response', (res) => {
@@ -746,7 +794,15 @@ function initAsClient(websocket, address, protocols, options) {
 
       req.abort();
 
-      const addr = new URL(location, address);
+      let addr;
+
+      try {
+        addr = new URL(location, address);
+      } catch (e) {
+        const err = new SyntaxError(`Invalid URL: ${location}`);
+        emitErrorAndClose(websocket, err);
+        return;
+      }
 
       initAsClient(websocket, addr, protocols, options);
     } else if (!websocket.emit('unexpected-response', req, res)) {
@@ -847,6 +903,19 @@ function initAsClient(websocket, address, protocols, options) {
       skipUTF8Validation: opts.skipUTF8Validation
     });
   });
+}
+
+/**
+ * Emit the `'error'` and `'close'` event.
+ *
+ * @param {WebSocket} websocket The WebSocket instance
+ * @param {Error} The error to emit
+ * @private
+ */
+function emitErrorAndClose(websocket, err) {
+  websocket._readyState = WebSocket.CLOSING;
+  websocket.emit('error', err);
+  websocket.emitClose();
 }
 
 /**
@@ -975,7 +1044,9 @@ function receiverOnConclude(code, reason) {
  * @private
  */
 function receiverOnDrain() {
-  this[kWebSocket]._socket.resume();
+  const websocket = this[kWebSocket];
+
+  if (!websocket.isPaused) websocket._socket.resume();
 }
 
 /**
