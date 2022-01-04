@@ -39,7 +39,7 @@ type halfBitAsString = `${ `I` | `O` }${ `I` | `O` }${ `I` | `O` }${ `I` | `O` }
 //#endregion
 
 //#region imports
-import {CommandInteraction, MessageActionRow, MessageButton, ButtonInteraction, EmojiIdentifierResolvable, Interaction} from "discord.js";
+import {CommandInteraction, MessageActionRow, MessageButton, ButtonInteraction, EmojiIdentifierResolvable, Interaction, CommandInteractionOption} from "discord.js";
 import {boolToInt} from "./generalUse";
 // eslint-disable-next-line @typescript-eslint/no-var-requires, quotes
 const mazeThing = require("generate-maze");
@@ -52,7 +52,8 @@ export const mazeFunction = (
 	}[]
 ):void => {
 	inObjs.forEach((inObj) => {
-		const style:number = inObj.interaction.options.get(`style`).value as number;
+		const styleOption = inObj.interaction.options.get(`style`) as CommandInteractionOption;
+		const style:number = styleOption.value as number;
 		const emotes:emoteTypeList = [
 			[
 				{

@@ -32,26 +32,19 @@ type dexEntriesType = {
 	sw: string,
 	sh: string
 };
-type pokeObjType = {
+export type pokeType = {
+	name: string,
+	color: string,
+	weakTo?: string[],
+	strongTo?: string[],
+	NoDamageTo?: string[]
+};
+export type pokeObjType = {
 	name: string,
 	reg:string,
 	nat:string,
 	rarity:number,
-	types:[
-		{
-			name: string,
-			color: string
-		},
-		{
-			name: string,
-			color: string
-		}
-	] | [
-		{
-			name: string,
-			color: string
-		}
-	],
+	types:[pokeType,pokeType] | [pokeType],
 	height:[
 		string,
 		string

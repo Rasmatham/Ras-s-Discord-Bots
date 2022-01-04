@@ -1,31 +1,32 @@
 //#region imports
-import {ApplicationCommandOptionType, Client, Guild} from "discord.js";
+import {ApplicationCommandDataResolvable, ApplicationCommandOptionType, Client, Guild} from "discord.js";
 import {intents} from "./custom_modules/generalUse.js";
 import * as dotenv from "dotenv";
 dotenv.config();
 //#endregion
 
 //#region type definitions
+type Command = {
+	name:string, 
+	description:string, 
+	defaultPermission:boolean,
+	options?:{
+		name:string,
+		type:ApplicationCommandOptionType,
+		description:string,
+		required:boolean,
+		choices?: {
+			name: string,
+			value: string | number
+		}[]
+	}[]
+}
 type commandObject = {
 	id:`${
 		bigint
 	}`, 
 	guild?:Guild,
-	command:{
-		name:string, 
-		description:string, 
-		defaultPermission:boolean,
-		options?:{
-			name:string,
-			type:ApplicationCommandOptionType,
-			description:string,
-			required:boolean,
-			choices?: {
-				name: string,
-				value: string | number
-			}[]
-		}[]
-	}
+	command:Command
 }
 //#endregion
 
@@ -473,7 +474,7 @@ bots.forEach((bot, i):void => {
 				command.delete();
 			});*/
 			commandGroup[i].forEach((command, j):void => {
-				bot.application.commands.create(command.command, command.guild = null)
+				bot.application.commands.create(command.command as ApplicationCommandDataResolvable, command.guild = null)
 					.then((command):void => {
 						console.log(`[${
 							j + 1

@@ -1,5 +1,5 @@
 //#region imports
-import {CommandInteraction, MessageEmbed} from "discord.js";
+import {CommandInteraction, CommandInteractionOption, MessageEmbed} from "discord.js";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const xkcdModule = require(`xkcd`);
 //#endregion
@@ -12,7 +12,7 @@ export const xkcdFunct = (inObjs: {interaction: CommandInteraction}[]):void => {
 	}):void => {
 			let num:number = Math.ceil(Math.random() * (xkcdObjOuter.num + Math.random()));
 			if (inObj.interaction.options.get(`xkcd_number`) != null) {
-				num = inObj.interaction.options.get(`xkcd_number`).value as number;
+				num = (inObj.interaction.options.get(`xkcd_number`) as CommandInteractionOption).value as number;
 			}
 			if (num > xkcdObjOuter.num || num <= 0) {
 				inObj.interaction.reply({

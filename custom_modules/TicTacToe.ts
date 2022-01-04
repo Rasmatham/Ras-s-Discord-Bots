@@ -1,5 +1,6 @@
 //#region imports
-import {CommandInteraction, User, MessageButton, MessageActionRow, ButtonInteraction, Message, GuildMember, MessageMentions, UserResolvable, EmojiIdentifierResolvable, MessageButtonStyle} from "discord.js";
+import { APIPartialEmoji } from "discord-api-types";
+import {CommandInteraction, User, MessageButton, MessageActionRow, ButtonInteraction, Message, GuildMember, MessageMentions, UserResolvable, EmojiIdentifierResolvable, MessageButtonStyle, Guild, Collection, CommandInteractionOption} from "discord.js";
 //#endregion
 
 //#region tic tac toe game
@@ -9,7 +10,7 @@ export const ticTacToe = (
 	}[]
 ):void => {
 	inObjs.forEach((inObj) => {
-		inObj.interaction.guild.members.fetch(inObj.interaction.options.get(`playertwo`).user).then((playerTwo):void => {
+		(inObj.interaction.guild as Guild).members.fetch((inObj.interaction.options.get(`playertwo`) as CommandInteractionOption).user as User).then((playerTwo):void => {
 			const choices:MessageActionRow = new MessageActionRow()
 				.addComponents([
 					new MessageButton()
@@ -69,20 +70,26 @@ export const ticTacToe = (
 			row3
 		];
 	
-		inObj.interaction.client.on(`interactionCreate`, (buttonInteraction: ButtonInteraction):void => {
+		inObj.interaction.client.on(`interactionCreate`, (interaction):void => {
+			const buttonInteraction = interaction as ButtonInteraction;
+			const mentions = buttonInteraction.message.mentions as MessageMentions;
+			const memberMentions = mentions.members as Collection<string, GuildMember>;
+			const firstMemberMention = memberMentions.first() as GuildMember;
+			const lastMemberMention = memberMentions.last() as GuildMember;
+			const buttonGuild = buttonInteraction.guild as Guild;
 			if (buttonInteraction.message.mentions instanceof MessageMentions) {
 				switch(buttonInteraction.customId) {
 				//================================================================================================================
 				case `accept`:
-					if (buttonInteraction.user.id == buttonInteraction.message.mentions.members.first().id) {
+					if (buttonInteraction.user.id == firstMemberMention.id) {
 						console.log(buttonInteraction.user);
-						console.log(buttonInteraction.message.mentions.members.first());
+						console.log(firstMemberMention);
 						const players:[
 						User,
 						User
 					] = [
-						buttonInteraction.message.mentions.users.first(),
-						buttonInteraction.message.mentions.users.last()
+						firstMemberMention.user,
+						lastMemberMention.user
 					];
 						const randomNumber:number = Math.round(Math.random());
 						const randomOrder:[
@@ -125,7 +132,7 @@ export const ticTacToe = (
 					break;
 				//================================================================================================================
 				case `decline`:
-					if (buttonInteraction.user.id == buttonInteraction.message.mentions.users.first().id) {
+					if (buttonInteraction.user.id == firstMemberMention.user.id) {
 						buttonInteraction.update({
 							content: `The request was declined`,
 							components: []
@@ -143,9 +150,9 @@ export const ticTacToe = (
 				//================================================================================================================
 				default:
 					if (buttonInteraction.customId.startsWith(`TTT`)) {
-						buttonInteraction.guild.members.fetch(buttonInteraction.message.content.split(` `)[3].replace(`<@`, ``).replace(`>`, ``).replace(`!`, ``) as UserResolvable)
+						buttonGuild.members.fetch(buttonInteraction.message.content.split(` `)[3].replace(`<@`, ``).replace(`>`, ``).replace(`!`, ``) as UserResolvable)
 							.then(():void => {
-								buttonInteraction.guild.members.fetch(buttonInteraction.message.content.split(` `)[6].replace(`<@`, ``).replace(`>`, ``).replace(`!`, ``) as UserResolvable);
+								buttonGuild.members.fetch(buttonInteraction.message.content.split(` `)[6].replace(`<@`, ``).replace(`>`, ``).replace(`!`, ``) as UserResolvable);
 							})
 							.catch(console.error)
 							.then(():void => {
@@ -153,8 +160,8 @@ export const ticTacToe = (
 								GuildMember,
 								GuildMember
 							] = [
-								buttonInteraction.guild.members.cache.get(buttonInteraction.message.content.split(` `)[3].replace(`<@`, ``).replace(`>`, ``).replace(`!`, ``) as `${bigint}`),
-								buttonInteraction.guild.members.cache.get(buttonInteraction.message.content.split(` `)[6].replace(`<@`, ``).replace(`>`, ``).replace(`!`, ``) as `${bigint}`)
+								buttonGuild.members.cache.get(buttonInteraction.message.content.split(` `)[3].replace(`<@`, ``).replace(`>`, ``).replace(`!`, ``) as `${bigint}`) as GuildMember,
+								buttonGuild.members.cache.get(buttonInteraction.message.content.split(` `)[6].replace(`<@`, ``).replace(`>`, ``).replace(`!`, ``) as `${bigint}`) as GuildMember
 							];
 								const movePieces = !(buttonInteraction.message.content.includes(`no`));
 								const rows:MessageActionRow[] = buttonInteraction.message.components as MessageActionRow[];
@@ -171,220 +178,223 @@ export const ticTacToe = (
 								});
 						
 								buttons.forEach((button):void => {
-									switch(button.emoji.name) {
-									case `⭕`:
-										O++;
-										break;
-									case `❌`:
-										X++;
-										break;
-									default:
-										break;
+									if(button.emoji != null){
+										switch(button.emoji.name) {
+										case `⭕`:
+											O++;
+											break;
+										case `❌`:
+											X++;
+											break;
+										default:
+											break;
+										}
 									}
 								});
 								if (buttonInteraction.user.id == players[0].id && buttonInteraction.component instanceof MessageButton) {
-									if (buttonInteraction.component.emoji.id == `741303046574702652`) {
-										const style:MessageButtonStyle = `SECONDARY`;
-										const BM:Message = buttonInteraction.message as Message;
+									if(buttonInteraction.component.emoji != null){
+										if (buttonInteraction.component.emoji.id == `741303046574702652`) {
+											const style:MessageButtonStyle = `SECONDARY`;
+											const BM:Message = buttonInteraction.message as Message;
 								
-										if (!movePieces) {
-											const newButton = (row: number, collumn: number):MessageButton => {
-												const messageButton:MessageButton = BM.components[row].components[collumn] as MessageButton;
-												return new MessageButton().setCustomId(messageButton.customId).setEmoji(messageButton.emoji.id).setStyle(style);
-											};
-											const newCheckedButton = (row: number, collumn: number, emoji: EmojiIdentifierResolvable):MessageButton => {
-												const messageButton:MessageButton = BM.components[row].components[collumn] as MessageButton;
-												return new MessageButton().setCustomId(messageButton.customId).setEmoji(emoji).setStyle(style);
-											};
+											if (!movePieces) {
+												const newButton = (row: number, collumn: number):MessageButton => {
+													const messageButton:MessageButton = BM.components[row].components[collumn] as MessageButton;
+													return new MessageButton().setCustomId(messageButton.customId as string).setEmoji((messageButton.emoji as APIPartialEmoji).id as string).setStyle(style);
+												};
+												const newCheckedButton = (row: number, collumn: number, emoji: EmojiIdentifierResolvable):MessageButton => {
+													const messageButton:MessageButton = BM.components[row].components[collumn] as MessageButton;
+													return new MessageButton().setCustomId(messageButton.customId as string).setEmoji(emoji).setStyle(style);
+												};
 									
-											let row1:MessageActionRow = new MessageActionRow().addComponents([
-												newButton(0, 0),
-												newButton(0, 1),
-												newButton(0, 2)
-											]);
-											let row2:MessageActionRow = new MessageActionRow().addComponents([
-												newButton(1, 0),
-												newButton(1, 1),
-												newButton(1, 2)
-											]);
-											let row3:MessageActionRow = new MessageActionRow().addComponents([
-												newButton(2, 0),
-												newButton(2, 1),
-												newButton(2, 2)
-											]);
+												let row1:MessageActionRow = new MessageActionRow().addComponents([
+													newButton(0, 0),
+													newButton(0, 1),
+													newButton(0, 2)
+												]);
+												let row2:MessageActionRow = new MessageActionRow().addComponents([
+													newButton(1, 0),
+													newButton(1, 1),
+													newButton(1, 2)
+												]);
+												let row3:MessageActionRow = new MessageActionRow().addComponents([
+													newButton(2, 0),
+													newButton(2, 1),
+													newButton(2, 2)
+												]);
 									
-											if (X > O) {
-												const emoji:EmojiIdentifierResolvable = `⭕`;
-												switch(buttonInteraction.customId) {
-												case `TTT1`:
-													row1 = new MessageActionRow()
-														.addComponents([
-															newCheckedButton(0, 0, emoji),
-															newButton(0, 1),
-															newButton(0, 2)
-														]);
-													break;
-												case `TTT2`:
-													row1 = new MessageActionRow()
-														.addComponents([
-															newButton(0, 0),
-															newCheckedButton(0, 1, emoji),
-															newButton(0, 2)
-														]);
-													break;
-												case `TTT3`:
-													row1 = new MessageActionRow()
-														.addComponents([
-															newButton(0, 0),
-															newButton(0, 1),
-															newCheckedButton(0, 2, emoji)
-														]);
-													break;
-												case `TTT4`:
-													row2 = new MessageActionRow()
-														.addComponents([
-															newCheckedButton(1, 0, emoji),
-															newButton(1, 1),
-															newButton(1, 2)
-														]);
-													break;
-												case `TTT5`:
-													row2 = new MessageActionRow()
-														.addComponents([
-															newButton(1, 0),
-															newCheckedButton(1, 1, emoji),
-															newButton(1, 2)
-														]);
-													break;
-												case `TTT6`:
-													row2 = new MessageActionRow()
-														.addComponents([
-															newButton(1, 0),
-															newButton(1, 1),
-															newCheckedButton(1, 2, emoji)
-														]);
-													break;
-												case `TTT7`:
-													row3 = new MessageActionRow()
-														.addComponents([
-															newCheckedButton(2, 0, emoji),
-															newButton(2, 1),
-															newButton(2, 2)
-														]);
-													break;
-												case `TTT8`:
-													row3 = new MessageActionRow()
-														.addComponents([
-															newButton(2, 0),
-															newCheckedButton(2, 1, emoji),
-															newButton(2, 2)
-														]);
-													break;
-												case `TTT9`:
-													row3 = new MessageActionRow()
-														.addComponents([
-															newButton(2, 0),
-															newButton(2, 1),
-															newCheckedButton(2, 2, emoji)
-														]);
-													break;
-												default:
-													break;
+												if (X > O) {
+													const emoji:EmojiIdentifierResolvable = `⭕`;
+													switch(buttonInteraction.customId) {
+													case `TTT1`:
+														row1 = new MessageActionRow()
+															.addComponents([
+																newCheckedButton(0, 0, emoji),
+																newButton(0, 1),
+																newButton(0, 2)
+															]);
+														break;
+													case `TTT2`:
+														row1 = new MessageActionRow()
+															.addComponents([
+																newButton(0, 0),
+																newCheckedButton(0, 1, emoji),
+																newButton(0, 2)
+															]);
+														break;
+													case `TTT3`:
+														row1 = new MessageActionRow()
+															.addComponents([
+																newButton(0, 0),
+																newButton(0, 1),
+																newCheckedButton(0, 2, emoji)
+															]);
+														break;
+													case `TTT4`:
+														row2 = new MessageActionRow()
+															.addComponents([
+																newCheckedButton(1, 0, emoji),
+																newButton(1, 1),
+																newButton(1, 2)
+															]);
+														break;
+													case `TTT5`:
+														row2 = new MessageActionRow()
+															.addComponents([
+																newButton(1, 0),
+																newCheckedButton(1, 1, emoji),
+																newButton(1, 2)
+															]);
+														break;
+													case `TTT6`:
+														row2 = new MessageActionRow()
+															.addComponents([
+																newButton(1, 0),
+																newButton(1, 1),
+																newCheckedButton(1, 2, emoji)
+															]);
+														break;
+													case `TTT7`:
+														row3 = new MessageActionRow()
+															.addComponents([
+																newCheckedButton(2, 0, emoji),
+																newButton(2, 1),
+																newButton(2, 2)
+															]);
+														break;
+													case `TTT8`:
+														row3 = new MessageActionRow()
+															.addComponents([
+																newButton(2, 0),
+																newCheckedButton(2, 1, emoji),
+																newButton(2, 2)
+															]);
+														break;
+													case `TTT9`:
+														row3 = new MessageActionRow()
+															.addComponents([
+																newButton(2, 0),
+																newButton(2, 1),
+																newCheckedButton(2, 2, emoji)
+															]);
+														break;
+													default:
+														break;
+													}
 												}
-											}
-											else {
-												const emoji:EmojiIdentifierResolvable = `❌`;
-												switch(buttonInteraction.customId) {
-												case `TTT1`:
-													row1 = new MessageActionRow()
-														.addComponents([
-															newCheckedButton(0, 0, emoji),
-															newButton(0, 1),
-															newButton(0, 2)
-														]);
-													break;
-												case `TTT2`:
-													row1 = new MessageActionRow()
-														.addComponents([
-															newButton(0, 0),
-															newCheckedButton(0, 1, emoji),
-															newButton(0, 2)
-														]);
-													break;
-												case `TTT3`:
-													row1 = new MessageActionRow()
-														.addComponents([
-															newButton(0, 0),
-															newButton(0, 1),
-															newCheckedButton(0, 2, emoji)
-														]);
-													break;
-												case `TTT4`:
-													row2 = new MessageActionRow()
-														.addComponents([
-															newCheckedButton(1, 0, emoji),
-															newButton(1, 1),
-															newButton(1, 2)
-														]);
-													break;
-												case `TTT5`:
-													row2 = new MessageActionRow()
-														.addComponents([
-															newButton(1, 0),
-															newCheckedButton(1, 1, emoji),
-															newButton(1, 2)
-														]);
-													break;
-												case `TTT6`:
-													row2 = new MessageActionRow()
-														.addComponents([
-															newButton(1, 0),
-															newButton(1, 1),
-															newCheckedButton(1, 2, emoji)
-														]);
-													break;
-												case `TTT7`:
-													row3 = new MessageActionRow()
-														.addComponents([
-															newCheckedButton(2, 0, emoji),
-															newButton(2, 1),
-															newButton(2, 2)
-														]);
-													break;
-												case `TTT8`:
-													row3 = new MessageActionRow()
-														.addComponents([
-															newButton(2, 0),
-															newCheckedButton(2, 1, emoji),
-															newButton(2, 2)
-														]);
-													break;
-												case `TTT9`:
-													row3 = new MessageActionRow()
-														.addComponents([
-															newButton(2, 0),
-															newButton(2, 1),
-															newCheckedButton(2, 2, emoji)
-														]);
-													break;
-												default:
-													break;
+												else {
+													const emoji:EmojiIdentifierResolvable = `❌`;
+													switch(buttonInteraction.customId) {
+													case `TTT1`:
+														row1 = new MessageActionRow()
+															.addComponents([
+																newCheckedButton(0, 0, emoji),
+																newButton(0, 1),
+																newButton(0, 2)
+															]);
+														break;
+													case `TTT2`:
+														row1 = new MessageActionRow()
+															.addComponents([
+																newButton(0, 0),
+																newCheckedButton(0, 1, emoji),
+																newButton(0, 2)
+															]);
+														break;
+													case `TTT3`:
+														row1 = new MessageActionRow()
+															.addComponents([
+																newButton(0, 0),
+																newButton(0, 1),
+																newCheckedButton(0, 2, emoji)
+															]);
+														break;
+													case `TTT4`:
+														row2 = new MessageActionRow()
+															.addComponents([
+																newCheckedButton(1, 0, emoji),
+																newButton(1, 1),
+																newButton(1, 2)
+															]);
+														break;
+													case `TTT5`:
+														row2 = new MessageActionRow()
+															.addComponents([
+																newButton(1, 0),
+																newCheckedButton(1, 1, emoji),
+																newButton(1, 2)
+															]);
+														break;
+													case `TTT6`:
+														row2 = new MessageActionRow()
+															.addComponents([
+																newButton(1, 0),
+																newButton(1, 1),
+																newCheckedButton(1, 2, emoji)
+															]);
+														break;
+													case `TTT7`:
+														row3 = new MessageActionRow()
+															.addComponents([
+																newCheckedButton(2, 0, emoji),
+																newButton(2, 1),
+																newButton(2, 2)
+															]);
+														break;
+													case `TTT8`:
+														row3 = new MessageActionRow()
+															.addComponents([
+																newButton(2, 0),
+																newCheckedButton(2, 1, emoji),
+																newButton(2, 2)
+															]);
+														break;
+													case `TTT9`:
+														row3 = new MessageActionRow()
+															.addComponents([
+																newButton(2, 0),
+																newButton(2, 1),
+																newCheckedButton(2, 2, emoji)
+															]);
+														break;
+													default:
+														break;
+													}
 												}
-											}
-											const newButtons:MessageActionRow[] = [
-												row1,
-												row2,
-												row3
-											];
-											const buttonArray:string[] = [];
-											const winBoard = (rows: MessageActionRow[]):boolean => {
-												rows.forEach((row):void => {
-													row.components.forEach((button: MessageButton):void => {
-														buttonArray.push(button.emoji.name);
+												const newButtons:MessageActionRow[] = [
+													row1,
+													row2,
+													row3
+												];
+												const buttonArray:string[] = [];
+												const winBoard = (rows: MessageActionRow[]):boolean => {
+													rows.forEach((row):void => {
+														row.components.forEach((button):void => {
+															buttonArray.push(((button as MessageButton).emoji as APIPartialEmoji).name as string);
+														});
 													});
-												});
-												if (buttonArray[0] != `ras` || buttonArray[4] != `ras` || buttonArray[8] != `ras`) {
-													return (buttonArray[0] == `❌` && buttonArray[1] == `❌` && buttonArray[2] == `❌`) ||
+													if (buttonArray[0] != `ras` || buttonArray[4] != `ras` || buttonArray[8] != `ras`) {
+														return (buttonArray[0] == `❌` && buttonArray[1] == `❌` && buttonArray[2] == `❌`) ||
 													(buttonArray[0] == `❌` && buttonArray[3] == `❌` && buttonArray[6] == `❌`) ||
 													(buttonArray[8] == `❌` && buttonArray[7] == `❌` && buttonArray[6] == `❌`) ||
 													(buttonArray[8] == `❌` && buttonArray[5] == `❌` && buttonArray[2] == `❌`) ||
@@ -400,29 +410,58 @@ export const ticTacToe = (
 													(buttonArray[4] == `⭕` && buttonArray[1] == `⭕` && buttonArray[7] == `⭕`) ||
 													(buttonArray[4] == `⭕` && buttonArray[2] == `⭕` && buttonArray[6] == `⭕`) ||
 													(buttonArray[4] == `⭕` && buttonArray[3] == `⭕` && buttonArray[5] == `⭕`);
-												}
-											};
-											if (!winBoard(newButtons)) {
-												if (buttonArray.indexOf(`ras`) >= 0) {
-													buttonInteraction.update({
-														components: []
-													})
-														.then(():void => {
-															buttonInteraction.editReply({
-																content: `(no alternate rules) ${
-																	players[1]
-																} is playing. ${
-																	players[0]
-																} Please wait until your turn.`,
-																components: newButtons
-															})
-																.catch(console.error);
+													}
+													return false;
+												};
+												if (!winBoard(newButtons)) {
+													if (buttonArray.indexOf(`ras`) >= 0) {
+														buttonInteraction.update({
+															components: []
 														})
-														.catch(console.error);
+															.then(():void => {
+																buttonInteraction.editReply({
+																	content: `(no alternate rules) ${
+																		players[1]
+																	} is playing. ${
+																		players[0]
+																	} Please wait until your turn.`,
+																	components: newButtons
+																})
+																	.catch(console.error);
+															})
+															.catch(console.error);
+													}
+													else {
+														buttonInteraction.update({
+															content: `Looks like it ended in a tie\n${
+																buttonArray[0].replace(`ras`, `▫️`)
+															}${
+																buttonArray[1].replace(`ras`, `▫️`)
+															}${
+																buttonArray[2].replace(`ras`, `▫️`)
+															}\n${
+																buttonArray[3].replace(`ras`, `▫️`)
+															}${
+																buttonArray[4].replace(`ras`, `▫️`)
+															}${
+																buttonArray[5].replace(`ras`, `▫️`)
+															}\n${
+																buttonArray[6].replace(`ras`, `▫️`)
+															}${
+																buttonArray[7].replace(`ras`, `▫️`)
+															}${
+																buttonArray[8].replace(`ras`, `▫️`)
+															}`,
+															components: []
+														})
+															.catch(console.error);
+													}
 												}
 												else {
 													buttonInteraction.update({
-														content: `Looks like it ended in a tie\n${
+														content: `<@${
+															players[0]
+														}> won!\n${
 															buttonArray[0].replace(`ras`, `▫️`)
 														}${
 															buttonArray[1].replace(`ras`, `▫️`)
@@ -448,37 +487,10 @@ export const ticTacToe = (
 											}
 											else {
 												buttonInteraction.update({
-													content: `<@${
-														players[0]
-													}> won!\n${
-														buttonArray[0].replace(`ras`, `▫️`)
-													}${
-														buttonArray[1].replace(`ras`, `▫️`)
-													}${
-														buttonArray[2].replace(`ras`, `▫️`)
-													}\n${
-														buttonArray[3].replace(`ras`, `▫️`)
-													}${
-														buttonArray[4].replace(`ras`, `▫️`)
-													}${
-														buttonArray[5].replace(`ras`, `▫️`)
-													}\n${
-														buttonArray[6].replace(`ras`, `▫️`)
-													}${
-														buttonArray[7].replace(`ras`, `▫️`)
-													}${
-														buttonArray[8].replace(`ras`, `▫️`)
-													}`,
-													components: []
+													content: `this mode has not been added yet. Please set the movepieces parameter to false instead`
 												})
 													.catch(console.error);
 											}
-										}
-										else {
-											buttonInteraction.update({
-												content: `this mode has not been added yet. Please set the movepieces parameter to false instead`
-											})
-												.catch(console.error);
 										}
 									}
 									else {

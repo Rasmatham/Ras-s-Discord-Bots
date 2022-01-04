@@ -6,7 +6,10 @@
 		"preserveConstEnums": true,
 		"sourceMap": true,
 		"alwaysStrict": true,
-		"target": "ES5"
+		"target": "ES6",
+		"strict":true,
+		"forceConsistentCasingInFileNames": true,
+		"importHelpers": true
 	},
 	"include": [
 		"AllTheBots.ts",

@@ -1,5 +1,5 @@
 //#region imports
-import {Message, TextChannel, WebhookClient, Client, MessageOptions, Webhook, BufferResolvable, User, Intents, NewsChannel, EmbedFieldData} from "discord.js";
+import {Message, TextChannel, WebhookClient, Client, MessageOptions, Webhook, BufferResolvable, User, Intents, NewsChannel, EmbedFieldData, ClientUser} from "discord.js";
 //#endregion
 
 //#region intent
@@ -57,9 +57,10 @@ export const sendAsWebHook = (
 		const webHookFunction = ():void => {
 			inObj.sendTo.fetchWebhooks()
 				.then((webHooks):void => {
+					const user = inObj.message.client.user as ClientUser;
 					if (webHooks.size <= 0) {
 						inObj.sendTo.createWebhook(`${
-							inObj.message.client.user.username
+							user.username
 						}-Webhook`)
 							.then(():void => {
 								webHookFunction();
@@ -73,10 +74,10 @@ export const sendAsWebHook = (
 					let i = 0;
 					webHooks.map((webHook: Webhook):void => {
 						if (webHook.owner instanceof User) {
-							if (webHook.owner.id === inObj.message.client.user.id) {
+							if (webHook.owner.id === user.id) {
 								const myWebHook:WebhookClient = new WebhookClient({
 									id: webHook.id,
-									token: webHook.token
+									token: webHook.token as string
 								});
 								myWebHook.edit({
 									name: inObj.name,
@@ -97,7 +98,7 @@ export const sendAsWebHook = (
 							}
 							else if (i >= webHooks.size - 1) {
 								inObj.sendTo.createWebhook(`${
-									inObj.message.client.user.username
+									user.username
 								}-Webhook`)
 									.then(():void => {
 										webHookFunction();
@@ -131,7 +132,7 @@ export const botReady = (
 		.on('warn', console.log)*/
 			bot.on(`ready`, ():void => {
 				console.log(`${
-					bot.user.username
+					bot.user != null ? bot.user.username : `unknown bot/user`
 				} is online`);
 			});
 		});

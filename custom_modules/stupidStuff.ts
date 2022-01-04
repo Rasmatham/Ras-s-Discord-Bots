@@ -1,5 +1,5 @@
 //#region imports
-import {CommandInteraction, EmojiIdentifierResolvable, InteractionReplyOptions, Message, MessageActionRow, MessageButton, MessageOptions, MessageSelectMenu, TextChannel} from "discord.js";
+import {CommandInteraction, CommandInteractionOption, EmojiIdentifierResolvable, InteractionReplyOptions, Message, MessageActionRow, MessageButton, MessageOptions, MessageSelectMenu, TextChannel} from "discord.js";
 import {blackList} from "./generalUse.js";
 //#endregion
 
@@ -10,25 +10,30 @@ export const hencefortifier = (
 	}[]
 ):void => {
 	inObjs.forEach((inObj) => {
-		if (inObj.message.author.id !== inObj.message.client.user.id && inObj.message.guild !== null && inObj.message.content.toLowerCase().includes(`from now on`)) {
-			if (inObj.message.guild.id == `646155122992480266`) {
-				const textChannels:`${bigint}`[] = [];
-				inObj.message.guild.channels.cache.map((channel):void => {
-					if (channel.type === `GUILD_TEXT`) {
-						blackList.forEach((bannedChannel:string):void => {
-							if (channel.name !== bannedChannel) {
-								textChannels.push(channel.id as `${bigint}`);
+		if (inObj.message.client.user != null) {
+			if (inObj.message.author.id !== inObj.message.client.user.id && inObj.message.guild !== null && inObj.message.content.toLowerCase().includes(`from now on`)) {
+				if (inObj.message.guild.id == `646155122992480266`) {
+					const textChannels:`${bigint}`[] = [];
+					inObj.message.guild.channels.cache.map((channel):void => {
+						if (channel.type === `GUILD_TEXT`) {
+							blackList.forEach((bannedChannel:string):void => {
+								if (channel.name !== bannedChannel) {
+									textChannels.push(channel.id as `${bigint}`);
+								}
+							});
+						}
+					});
+					inObj.message.client.channels.fetch(textChannels[Math.floor(Math.random() * (textChannels.length - 1))])
+						.then((channel):void => {
+							if (channel != null){
+								channel = channel as TextChannel;
+								channel.send(`<@${
+									inObj.message.author.id
+								}>, you did an oopsie`)
+									.catch(console.error);
 							}
 						});
-					}
-				});
-				inObj.message.client.channels.fetch(textChannels[Math.floor(Math.random() * (textChannels.length - 1))])
-					.then((channel: TextChannel):void => {
-						channel.send(`<@${
-							inObj.message.author.id
-						}>, you did an oopsie`)
-							.catch(console.error);
-					});
+				}
 			}
 		}
 	});
@@ -86,11 +91,12 @@ export const buttonGrid = (
 	inObj: {
 		interaction: CommandInteraction
 	}
-):InteractionReplyOptions => {
+):InteractionReplyOptions | void => {
 	const unicodeEmoji = /^(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])$/gi;
 	const discordEmoji = /^<(a?)?:.+?:\d+>$/gi;
 	const discordEmojiNotExact = /<(a?)?:.+?:\d+>/gi;
-	const buttonContent:string = inObj.interaction.options.get(`button_content`).value as string;
+	const buttonContentOption = inObj.interaction.options.get(`button_content`) as CommandInteractionOption;
+	const buttonContent:string = buttonContentOption.value as string;
 	if (buttonContent.length <= 80) {
 		if (buttonContent.match(unicodeEmoji) || buttonContent.match(discordEmoji)) {
 			const button = (id:string):MessageButton => {

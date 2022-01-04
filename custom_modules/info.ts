@@ -1,5 +1,5 @@
 //#region imports
-import {CommandInteraction, MessageEmbed, Guild, User, ColorResolvable, InteractionReplyOptions, MessageAttachment} from "discord.js";
+import {CommandInteraction, MessageEmbed, Guild, User, ColorResolvable, InteractionReplyOptions, MessageAttachment, CommandInteractionOption, GuildMember} from "discord.js";
 import {checkFor} from "./generalUse.js";
 //#endregion
 
@@ -9,11 +9,11 @@ export const channelCount = (
 		guild: Guild
 	}
 ):{
-	textChannels: number,
-	voiceChannels: number,
-	Categories: number,
-	Unknown: number,
-	all: number
+	textChannels: number | `unknown`,
+	voiceChannels: number | `unknown`,
+	Categories: number | `unknown`,
+	Unknown: number | `unknown`,
+	all: number | `unknown`
 } => {
 	if (inObj.guild !== null) {
 		const TC:string[] = [];
@@ -44,6 +44,13 @@ export const channelCount = (
 			all: TC.length+VC.length+Cat.length+UK.length
 		};
 	}
+	return {
+		textChannels: `unknown`,
+		voiceChannels: `unknown`,
+		Categories: `unknown`,
+		Unknown: `unknown`,
+		all: `unknown`
+	};
 };
 //#endregion
 
@@ -53,10 +60,11 @@ export const userInfo = async (
 		interaction: CommandInteraction
 	}
 ):Promise<InteractionReplyOptions> => {
+	const guild = inObj.interaction.guild as Guild;
 	return {
 		content: `test`,
 		files: [
-			new MessageAttachment(Buffer.from(JSON.stringify(await inObj.interaction.guild.members.fetch(inObj.interaction.user), null, 2)), `user.json`),
+			new MessageAttachment(Buffer.from(JSON.stringify(await guild.members.fetch(inObj.interaction.user), null, 2)), `user.json`),
 			new MessageAttachment(Buffer.from(JSON.stringify(await inObj.interaction.user.fetch(true), null, 2)), `member.json`)
 		]
 	} as InteractionReplyOptions;
@@ -70,6 +78,7 @@ export const serverInfo = (
 	}[]
 ):void => {
 	inObjs.forEach((inObj) => {
+		const guild = inObj.interaction.guild as Guild;
 		if (inObj.interaction.guild !== null) {
 			const textChannels:string[] = [];
 			const voiceChannels:string[] = [];
@@ -131,11 +140,11 @@ export const serverInfo = (
 							},
 							{
 								name: `Members`,
-								value: inObj.interaction.guild.memberCount.toString(),
+								value: guild.memberCount.toString(),
 								inline: true
 							},
 						]
-					).setThumbnail(inObj.interaction.guild.iconURL())
+					).setThumbnail(guild.iconURL() as string)
 						.setColor(`#0099FF`);
 					inObj.interaction.reply({
 						embeds: [embed]
@@ -144,7 +153,7 @@ export const serverInfo = (
 				.catch(console.error);
 		}
 		else {
-			if (inObj.interaction.member.user.id === `588511925944582186`) {
+			if ((inObj.interaction.member as GuildMember).user.id === `588511925944582186`) {
 				inObj.interaction.reply({
 					content: `stop tring to kill me, smh`
 				});
@@ -168,10 +177,10 @@ export const joindate = (
 	embeds: MessageEmbed[],
 	ephemeral: boolean
 } => {
-	if (!(inObj.interaction.member.user instanceof User)) {
-		return;
+	if (!((inObj.interaction.member as GuildMember).user instanceof User)) {
+		return {embeds: [new MessageEmbed], ephemeral: true};
 	}
-	const ms:number = inObj.interaction.member.user.createdTimestamp;
+	const ms:number = (inObj.interaction.member as GuildMember).user.createdTimestamp;
 	const date:Date = new Date(ms);
 	const embed:MessageEmbed = new MessageEmbed()
 		.setColor(`FFFFFF` as ColorResolvable)
@@ -191,11 +200,12 @@ export const joindate = (
 			}),
 		}
 		);
+	const empherealOption = inObj.interaction.options.get(`public`) as CommandInteractionOption;
 	return {
 		embeds: [
 			embed
 		],
-		ephemeral: !inObj.interaction.options.get(`public`).value
+		ephemeral: !empherealOption.value
 	};
 };
 //#endregion

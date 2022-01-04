@@ -11,7 +11,7 @@
 //#region Common
 
 //#region imports
-import {Client, Message, MessageEmbed, ColorResolvable, GuildMember, Interaction, MessageComponentInteraction, ButtonInteraction, CommandInteraction, SelectMenuInteraction} from "discord.js";
+import {Client, Message, MessageEmbed, ColorResolvable, GuildMember, Interaction, MessageComponentInteraction, ButtonInteraction, CommandInteraction, SelectMenuInteraction, PartialGuildMember, BufferResolvable, InteractionReplyOptions} from "discord.js";
 import * as containsWord from "./custom_modules/containsWordFunctions";
 import * as forwarding from "./custom_modules/forwardMessages";
 import * as generalStuff from "./custom_modules/generalUse";
@@ -313,15 +313,19 @@ buzzBot.on(`messageCreate`, (message: Message):void => {
 
 //#region Stuff
 clambot.on(`ready`, () =>{
-	clambot.users.fetch(`588511925944582186`).then((user) => {
-		clambot.user.setAvatar(user.avatarURL()).catch(() => console.log(`[${user.tag}] You're probably changing the avatar too fast`));
-		clambot.user.setUsername(user.username).catch(() => console.log(`[${user.tag}] You're probably changing the username too fast`));
+	clambot.users.fetch(`588511925944582186`).then((fetchedUser) => {
+		if(clambot.user != null){
+			clambot.user.setAvatar(fetchedUser.avatarURL()).catch(() => console.log(`[${fetchedUser.tag}] You're probably changing the avatar too fast`));
+			clambot.user.setUsername(fetchedUser.username).catch(() => console.log(`[${fetchedUser.tag}] You're probably changing the username too fast`));
+		}
 	});
 });
 clambot.on(`userUpdate`, (oldUser, newUser) => {
-	if(newUser.id == `588511925944582186`){
-		clambot.user.setAvatar(newUser.avatarURL()).catch(() => console.log(`[${newUser.tag}] You're probably changing the avatar too fast`));
-		clambot.user.setUsername(newUser.username).catch(() => console.log(`[${newUser.tag}] You're probably changing the username too fast`));
+	if(clambot.user != null){
+		if(newUser.id == `588511925944582186`){
+			clambot.user.setAvatar(newUser.avatarURL()).catch(() => console.log(`[${newUser.tag}] You're probably changing the avatar too fast`));
+			clambot.user.setUsername(newUser.username).catch(() => console.log(`[${newUser.tag}] You're probably changing the username too fast`));
+		}
 	}
 });
 clambot.on(`messageCreate`, (message: Message):void => {
@@ -514,22 +518,26 @@ const stillalive:MessageEmbed = new MessageEmbed()
 
 //#region welcome/goodbye Message
 glados.on(`guildMemberAdd`, (member: GuildMember):void => {
-	member.guild.systemChannel.send({
-		content: `Welcome to the server, #${
-			member.guild.memberCount
-		}\nWe currently have ${
-			info.channelCount({guild: member.guild}).all
-		}/500 channels used`
-	})
-		.catch(console.error);
+	if(member.guild.systemChannel != null){
+		member.guild.systemChannel.send({
+			content: `Welcome to the server, #${
+				member.guild.memberCount
+			}\nWe currently have ${
+				info.channelCount({guild: member.guild}).all
+			}/500 channels used`
+		})
+			.catch(console.error);
+	}
 });
-glados.on(`guildMemberRemove`, (member: GuildMember):void => {
-	member.guild.systemChannel.send({
-		content: `Bye, ${
-			member.user.tag
-		}`
-	})
-		.catch(console.error);
+glados.on(`guildMemberRemove`, (member: GuildMember|PartialGuildMember):void => {
+	if(member.guild.systemChannel != null){
+		member.guild.systemChannel.send({
+			content: `Bye, ${
+				member.user.tag
+			}`
+		})
+			.catch(console.error);
+	}
 });
 //#endregion
 
@@ -811,7 +819,7 @@ glados.on(`interactionCreate`, (interaction: Interaction):void => {
 			commandInteraction.reply(info.joindate({interaction: commandInteraction})).catch(console.error);
 			break;
 		case `grid`:
-			commandInteraction.reply(stupidStuff.buttonGrid({interaction: commandInteraction})).catch(console.error);
+			commandInteraction.reply(stupidStuff.buttonGrid({interaction: commandInteraction}) as InteractionReplyOptions).catch(console.error);
 			break;
 		case `selectmenu`:
 			commandInteraction.reply(stupidStuff.selectMenu()).catch(console.error);
@@ -843,7 +851,9 @@ glados.on(`interactionCreate`, (interaction: Interaction):void => {
 //#region ghost message thing
 glados.on(`messageDelete`, (message):void => {
 	if((Math.floor(new Date().getTime() / 1000) - Math.floor(message.createdTimestamp / 1000)) < 10){
-		message.channel.send(`${message.author.tag} deleted a message within 10 seconds of sending it`);
+		if(message.author != null){
+			message.channel.send(`${message.author.tag} deleted a message within 10 seconds of sending it`);
+		}
 	}
 });
 //#endregion
@@ -854,18 +864,20 @@ glados.on(`messageDelete`, (message):void => {
 
 //#region search
 const sendEmbed = (message: Message):void => {
-	if (message.author.id !== pokebot.user.id) {
-		if (message.content.toLowerCase().startsWith(`pd`)) {
-			if (message.channel.type == `GUILD_TEXT` || message.channel.type == `GUILD_NEWS`) {
-				generalStuff.sendAsWebHook([
-					{
-						message: message,
-						sendTo: message.channel,
-						sendMessage: pokedex.natDex({query: message.content.toLowerCase().split(` `)[1]}),
-						name: pokedex.trainers[Math.round(Math.random() * pokedex.trainers.length)],
-						PFP: pokebot.user.avatarURL()
-					}
-				]);
+	if(pokebot.user != null){
+		if (message.author.id !== pokebot.user.id) {
+			if (message.content.toLowerCase().startsWith(`pd`)) {
+				if (message.channel.type == `GUILD_TEXT` || message.channel.type == `GUILD_NEWS`) {
+					generalStuff.sendAsWebHook([
+						{
+							message: message,
+							sendTo: message.channel,
+							sendMessage: pokedex.natDex({query: message.content.toLowerCase().split(` `)[1]}),
+							name: pokedex.trainers[Math.round(Math.random() * pokedex.trainers.length)],
+							PFP: pokebot.user.avatarURL() as BufferResolvable
+						}
+					]);
+				}
 			}
 		}
 	}
@@ -1194,14 +1206,18 @@ random.on(`messageCreate`, (message: Message):void => {
 //#region Stuff
 sini.on(`ready`, () =>{
 	sini.users.fetch(`707188499153158204`).then((user) => {
-		sini.user.setAvatar(user.avatarURL()).catch(() => console.log(`[${user.tag}] You're probably changing the avatar too fast`));
-		sini.user.setUsername(user.username).catch(() => console.log(`[${user.tag}] You're probably changing the username too fast`));
+		if(sini.user != null){
+			sini.user.setAvatar(user.avatarURL()).catch(() => console.log(`[${user.tag}] You're probably changing the avatar too fast`));
+			sini.user.setUsername(user.username).catch(() => console.log(`[${user.tag}] You're probably changing the username too fast`));
+		}
 	});
 });
 sini.on(`userUpdate`, (oldUser, newUser) => {
-	if(newUser.id == `707188499153158204`){
-		sini.user.setAvatar(newUser.avatarURL()).catch(() => console.log(`[${newUser.tag}] You're probably changing the avatar too fast`));
-		sini.user.setUsername(newUser.username).catch(() => console.log(`[${newUser.tag}] You're probably changing the username too fast`));
+	if(sini.user != null){
+		if(newUser.id == `707188499153158204`){
+			sini.user.setAvatar(newUser.avatarURL()).catch(() => console.log(`[${newUser.tag}] You're probably changing the avatar too fast`));
+			sini.user.setUsername(newUser.username).catch(() => console.log(`[${newUser.tag}] You're probably changing the username too fast`));
+		}
 	}
 });
 sini.on(`messageCreate`, (message: Message):void => {

@@ -123,9 +123,10 @@ export const reactThing = (
 			inObj.chance = 100;
 		}
 		if (!inObj.message.author.bot) {
+			const chance = inObj.chance as number;
 			if (inObj.type === `anywhere`) {
 				inObj.triggers.forEach((trigger):void => {
-					if (inObj.message.content.toLowerCase().includes(trigger) && Math.random() * 100 <= inObj.chance) {
+					if (inObj.message.content.toLowerCase().includes(trigger) && Math.random() * 100 <= chance) {
 						react([
 							{
 								message: inObj.message,
@@ -153,7 +154,7 @@ export const reactThing = (
 			}
 			else if (inObj.type === `mention`) {
 				inObj.triggers.forEach((trigger):void => {
-					if (inObj.message.mentions.users.has(trigger as `${bigint}`) && Math.random() * 100 <= inObj.chance) {
+					if (inObj.message.mentions.users.has(trigger as `${bigint}`) && Math.random() * 100 <= chance) {
 						react([
 							{
 								message: inObj.message,

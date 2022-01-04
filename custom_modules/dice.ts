@@ -1,5 +1,5 @@
 //#region imports
-import {CommandInteraction, MessageEmbed} from "discord.js";
+import {CommandInteraction, CommandInteractionOption, MessageEmbed} from "discord.js";
 //#endregion
 
 //#region die roller
@@ -12,10 +12,12 @@ export const dice = (
 		let dieSides = 6;
 		let diceCount = 1;
 		if (inObj.interaction.options.get(`die_sides`) != null) {
-			dieSides = inObj.interaction.options.get(`die_sides`).value as number;
+			const dieSidesOption = inObj.interaction.options.get(`die_sides`) as CommandInteractionOption;
+			dieSides = dieSidesOption.value as number;
 		}
 		if (inObj.interaction.options.get(`dice_count`) != null) {
-			diceCount = inObj.interaction.options.get(`dice_count`).value as number;
+			const diceCountOption = inObj.interaction.options.get(`dice_count`) as CommandInteractionOption;
+			diceCount = diceCountOption.value as number;
 		}
 		inObj.interaction.reply(`Rolling ${
 			diceCount

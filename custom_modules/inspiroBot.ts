@@ -21,8 +21,8 @@ export const sendMessage = (
 ):void => {
 	inObjs.forEach((inObj) => {
 		if (!inObj.message.author.bot && (inObj.message.content.toLowerCase().includes(`inspire`) || inObj.message.content.toLowerCase().includes(`inspiration`) || inObj.message.content.toLowerCase().includes(`inspiring`))) {
-			getURI().then((url: string):void => {
-				inObj.message.channel.send(url)
+			getURI().then((url):void => {
+				inObj.message.channel.send(url as string)
 					.catch(console.error);
 			});
 		}

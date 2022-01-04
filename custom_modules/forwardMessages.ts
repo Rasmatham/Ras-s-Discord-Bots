@@ -1,5 +1,5 @@
 //#region imports
-import {Client, DMChannel, Message, NewsChannel, TextChannel, ThreadChannel} from "discord.js";
+import {BufferResolvable, Channel, Client, DMChannel, Message, NewsChannel, TextChannel, ThreadChannel} from "discord.js";
 import {sendAsWebHook, blackList} from "./generalUse.js";
 //#endregion
 
@@ -15,48 +15,52 @@ export const messageForwarding = (
 		}
 		const bot:Client = inObj.message.client;
 		if (!inObj.message.author.bot) {
-			if (inObj.message.content.startsWith(`<#`)) {
-				if ([
-					`talk-as-${
-						bot.user.username.toLowerCase()
-					}`,
-					`talk-and-dm-as-${
-						bot.user.username.toLowerCase()
-					}`,
-					`dm-and-talk-as-${
-						bot.user.username.toLowerCase()
-					}`
-				].includes(inObj.message.channel.name)) {
-					if (!blackList.includes(inObj.message.channel.name) /*|| message.member.id === process.env.RASID*/ || inObj.message.member.permissions.has(`ADMINISTRATOR`)) {
-						bot.channels.fetch(inObj.message.mentions.channels.first().id).then((channel):void => {
-							if (!(channel instanceof TextChannel || channel instanceof DMChannel || channel instanceof NewsChannel || channel instanceof ThreadChannel)) {
-								return;
+			if (bot.user != null) {
+				if (inObj.message.member != null) {
+					if (inObj.message.member != null) {
+						if (inObj.message.content.startsWith(`<#`)) {
+							if ([
+								`talk-as-${
+									bot.user.username.toLowerCase()
+								}`,
+								`talk-and-dm-as-${
+									bot.user.username.toLowerCase()
+								}`,
+								`dm-and-talk-as-${
+									bot.user.username.toLowerCase()
+								}`
+							].includes(inObj.message.channel.name)) {
+								const firstChannel = inObj.message.mentions.channels.first() as Channel;
+								if (!blackList.includes(inObj.message.channel.name) /*|| message.member.id === process.env.RASID*/ || inObj.message.member.permissions.has(`ADMINISTRATOR`)) {
+									bot.channels.fetch(firstChannel.id).then((channel):void => {
+										if (!(channel instanceof TextChannel || channel instanceof DMChannel || channel instanceof NewsChannel || channel instanceof ThreadChannel)) {
+											return;
+										}
+										channel.send({
+											content: inObj.message.content.replace(firstChannel.toString(), ``).replace(/¤/g, ``),
+											files: inObj.message.attachments.map((value) => value)
+										}).catch(console.error);
+									});
+								}
+								else {
+									inObj.message.channel.send(`Nice try`)
+										.catch(console.error);
+								}
 							}
-							channel.send({
-								content: inObj.message.content.replace(inObj.message.mentions.channels.first().toString(), ``).replace(/¤/g, ``),
-								files: inObj.message.attachments.map((value) => value)
-							}).catch(console.error);
-						});
-					}
-					else {
-						inObj.message.channel.send(`Nice try`)
-							.catch(console.error);
-					}
-				}
-			}
-			else if (inObj.message.content.startsWith(`<@`) && !inObj.message.content.startsWith(`<@&`) /*&& message.member.hasPermission(`ADMINISTRATOR`)*/) {
-				if ([
-					`dm-as-${
-						bot.user.username.toLowerCase()
-					}`,
-					`talk-and-dm-as-${
-						bot.user.username.toLowerCase()
-					}`,
-					`dm-and-talk-as-${
-						bot.user.username.toLowerCase()
-					}`
-				].includes(inObj.message.channel.name)) {
-				/*bot.users.cache
+						}
+						else if (inObj.message.content.startsWith(`<@`) && !inObj.message.content.startsWith(`<@&`) /*&& message.member.hasPermission(`ADMINISTRATOR`)*/) {
+							if ([
+								`dm-as-${
+									bot.user.username.toLowerCase()
+								}`,
+								`talk-and-dm-as-${
+									bot.user.username.toLowerCase()
+								}`,
+								`dm-and-talk-as-${
+									bot.user.username.toLowerCase()
+								}`
+							].includes(inObj.message.channel.name)) {
+								/*bot.users.cache
 				.get(message.mentions.users.first().id)
 				.send(message.content.replace(message.mentions.users.first().id, ``)
 				.replace(`<@>`, ``)
@@ -75,7 +79,10 @@ export const messageForwarding = (
 						message.mentions.users.first().tag
 					} has blocked me or they blocked DM's from this server`)
 				});*/
-					inObj.message.channel.send(`This functionality is temporarily disabled`);
+								inObj.message.channel.send(`This functionality is temporarily disabled`);
+							}
+						}
+					}
 				}
 			}
 		}
@@ -111,7 +118,7 @@ export const DMSpy = (
 							files: inObj.message.attachments.map((value) => value)
 						},
 						name: inObj.message.author.username,
-						PFP: inObj.message.author.avatarURL()
+						PFP: inObj.message.author.avatarURL() as BufferResolvable
 					}
 				]);
 				inObj.message.channel.send(`Your message was sent to a super secret channel in Everyone Sightings`)
