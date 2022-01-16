@@ -122,88 +122,69 @@ export const sendAsWebHook = (
 
 //#region list guild things
 export const listThings = async (interaction:CommandInteraction):Promise<InteractionReplyOptions[]> => {
-	const thing = (interaction.options.get(`thing`) as CommandInteractionOption).value as `channels`|`emojis`|`members`|`roles`|`stickers`;
-	if(interaction.guild == null && thing == `members`){return [{embeds: [new MessageEmbed().addField(`members`, `${interaction.user.username}\n${interaction.client.user?.username}`)]}]; }
+	const thing = (interaction.options.get(`thing`) as CommandInteractionOption).value as `channels`|`emojis`|`roles`;
 	if(interaction.guild == null){return [{content: `How am I supposed to do that?`}]; }
 	switch (thing) {
 	case `channels`:
 		return await interaction.guild.channels.fetch().then((channels) => {
-			const channelsFormated = channels.map((channel) =>
-				`<#${
-					channel.id
-				}> (${
-					channel.type.toLowerCase().split(`_`).map((x) => `${
-						x[0].toUpperCase()
-					}${
-						x.slice(1)
-					}`)[1]
-				}) <t:${
-					Math.round(channel.createdTimestamp/1000)
-				}:D> <t:${
-					Math.round(channel.createdTimestamp/1000)
-				}:T>`
-			);
+			const channelsFormated = channels.map((channel) => `<#${channel.id}> (${channel.type.toLowerCase().split(`_`).map((x) => `${x[0].toUpperCase()}${x.slice(1)}`)[1]}) <t:${Math.round(channel.createdTimestamp/1000)}:D> <t:${Math.round(channel.createdTimestamp/1000)}:T>`);
+			//<#00000000000000000000> (00000000) <t:0000000000000:D> at <t:0000000000000:T> = 77
 			const x:string[][] = [];
-			for (let i = 0; i < channelsFormated.length; i += 14) {
-				x.push(channelsFormated.slice(i, i + 14));
+			for (let i = 0; i < channelsFormated.length; i += 10) {
+				x.push(channelsFormated.slice(i, i + 10));
 			}
 			const y:string[][][] = [];
 			for (let i = 0; i < x.length; i += 5) {
 				y.push(x.slice(i, i + 5));
 			}
 			const embeds:InteractionReplyOptions[] = [];
-			y.forEach((y) => {
+			y.forEach((y, i) => {
 				const z = new MessageEmbed();
-				y.forEach((a) => z.addField(`test`, a.join(`\n`)));
+				y.forEach((a, j) => z.addField(`${(i*50)+((j*14)+1)}-${(i*0)+(j+1)*14}`, a.join(`\n`)));
 				embeds.push({embeds: [z]});
 			});
-			console.log(JSON.stringify(embeds).length);
 			return embeds;
 		});
 	case `emojis`:
-		interaction.guild.emojis.fetch().then((emojis) => {
-			emojis.forEach((emoji) => {
-				console.log(emoji.name);
-			});
-		});
-		return [
-			{
-				content: `emojis`
+		return await interaction.guild.emojis.fetch().then((emojis) => {
+			const emojisFormated = emojis.map((emoji) => `<${emoji.animated? `a`:``}:${emoji.name}:${emoji.id}> (<@${emoji.author?.id}>) <t:${Math.round(emoji.createdTimestamp/1000)}:D> <t:${Math.round(emoji.createdTimestamp/1000)}:T>`);
+			//<a:00000000000000000000000000000000:00000000000000000000> (<@00000000000000000000>) <t:0000000000000:D> at <t:0000000000000:T> = 125
+			const x:string[][] = [];
+			for (let i = 0; i < emojisFormated.length; i += 5) {
+				x.push(emojisFormated.slice(i, i + 5));
 			}
-		];
-	case `members`:
-		interaction.guild.members.fetch().then((members) => {
-			members.forEach((member) => {
-				console.log(member.displayName);
-			});
-		});
-		return [
-			{
-				content: `members`
+			const y:string[][][] = [];
+			for (let i = 0; i < x.length; i += 5) {
+				y.push(x.slice(i, i + 5));
 			}
-		];
+			const embeds:InteractionReplyOptions[] = [];
+			y.forEach((y, i) => {
+				const z = new MessageEmbed();
+				y.forEach((a, j) => z.addField(`${(i*50)+((j*14)+1)}-${(i*50)+(j+1)*14}`, a.join(`\n`)));
+				embeds.push({embeds: [z]});
+			});
+			return embeds;
+		});
 	case `roles`:
-		interaction.guild.roles.fetch().then((roles) => {
-			roles.forEach((role) => {
-				console.log(role.name);
-			});
-		});
-		return [
-			{
-				content: `roles`
+		return await interaction.guild.roles.fetch().then((roles) => {
+			const rolesFormated = roles.map((role) => `<@&${role.id}> ${role.hexColor != `#000000`? `(${role.hexColor})`:``}`);
+			//<@&00000000000000000000> (#000000) <t:0000000000000:D> at <t:0000000000000:T> = 77
+			const x:string[][] = [];
+			for (let i = 0; i < rolesFormated.length; i += 10) {
+				x.push(rolesFormated.slice(i, i + 10));
 			}
-		];
-	case `stickers`:
-		interaction.guild.stickers.fetch().then((stickers) => {
-			stickers.forEach((sticker) => {
-				console.log(sticker.name);
-			});
-		});
-		return [
-			{
-				content: `stickers`
+			const y:string[][][] = [];
+			for (let i = 0; i < x.length; i += 5) {
+				y.push(x.slice(i, i + 5));
 			}
-		];
+			const embeds:InteractionReplyOptions[] = [];
+			y.forEach((y, i) => {
+				const z = new MessageEmbed();
+				y.forEach((a, j) => z.addField(`${(i*50)+((j*14)+1)}-${(i*50)+(j+1)*14}`, a.join(`\n`)));
+				embeds.push({embeds: [z]});
+			});
+			return embeds;
+		});
 	}
 };
 

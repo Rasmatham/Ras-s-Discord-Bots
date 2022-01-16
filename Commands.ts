@@ -392,16 +392,8 @@ const gladosCommands:commandObject[] = [
 							value: `emojis`
 						},
 						{
-							name: `members`,
-							value: `members`
-						},
-						{
 							name: `roles`,
 							value: `roles`
-						},
-						{
-							name: `stickers`,
-							value: `stickers`
 						}
 					]
 				}
