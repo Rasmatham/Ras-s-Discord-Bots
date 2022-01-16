@@ -167,7 +167,7 @@ export const listThings = async (interaction:CommandInteraction):Promise<Interac
 		});
 	case `roles`:
 		return await interaction.guild.roles.fetch().then((roles) => {
-			const rolesFormated = roles.map((role) => `<@&${role.id}> ${role.hexColor != `#000000`? `(${role.hexColor})`:``}`);
+			const rolesFormated = roles.map((role) => `<@&${role.id}> ${role.hexColor != `#000000`? `(${role.hexColor}) `:` `}<t:${Math.round(role.createdTimestamp/1000)}:D> <t:${Math.round(role.createdTimestamp/1000)}:T>`);
 			//<@&00000000000000000000> (#000000) <t:0000000000000:D> at <t:0000000000000:T> = 77
 			const x:string[][] = [];
 			for (let i = 0; i < rolesFormated.length; i += 10) {
