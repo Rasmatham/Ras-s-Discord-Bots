@@ -140,7 +140,7 @@ export const listThings = async (interaction:CommandInteraction):Promise<Interac
 			const embeds:InteractionReplyOptions[] = [];
 			y.forEach((y, i) => {
 				const z = new MessageEmbed();
-				y.forEach((a, j) => z.addField(`${(i*50)+((j*14)+1)}-${(i*0)+(j+1)*14}`, a.join(`\n`)));
+				y.forEach((a, j) => z.addField(`${(i*50)+((j*14)+1)}-${(i*50)+(j+1)*14}`, a.join(`\n`)));
 				embeds.push({embeds: [z]});
 			});
 			return embeds;
@@ -160,7 +160,7 @@ export const listThings = async (interaction:CommandInteraction):Promise<Interac
 			const embeds:InteractionReplyOptions[] = [];
 			y.forEach((y, i) => {
 				const z = new MessageEmbed();
-				y.forEach((a, j) => z.addField(`${(i*50)+((j*14)+1)}-${(i*50)+(j+1)*14}`, a.join(`\n`)));
+				y.forEach((a, j) => z.addField(`${(i*50)+((j*5)+1)}-${(i*50)+(j+1)*5}`, a.join(`\n`)));
 				embeds.push({embeds: [z]});
 			});
 			return embeds;
@@ -180,7 +180,7 @@ export const listThings = async (interaction:CommandInteraction):Promise<Interac
 			const embeds:InteractionReplyOptions[] = [];
 			y.forEach((y, i) => {
 				const z = new MessageEmbed();
-				y.forEach((a, j) => z.addField(`${(i*50)+((j*14)+1)}-${(i*50)+(j+1)*14}`, a.join(`\n`)));
+				y.forEach((a, j) => z.addField(`${(i*50)+((j*10)+1)}-${(i*50)+(j+1)*10}`, a.join(`\n`)));
 				embeds.push({embeds: [z]});
 			});
 			return embeds;
