@@ -1,32 +1,18 @@
 //#region imports
-import {ApplicationCommandDataResolvable, ApplicationCommandOptionType, Client, Guild} from "discord.js";
+import {ApplicationCommandData, ApplicationCommandDataResolvable, Client, Guild} from "discord.js";
 import {intents} from "./custom_modules/generalUse.js";
 import * as dotenv from "dotenv";
+import { type } from "os";
 dotenv.config();
 //#endregion
 
 //#region type definitions
-type Command = {
-	name:string, 
-	description:string, 
-	defaultPermission:boolean,
-	options?:{
-		name:string,
-		type:ApplicationCommandOptionType,
-		description:string,
-		required:boolean,
-		choices?: {
-			name: string,
-			value: string | number
-		}[]
-	}[]
-}
 type commandObject = {
-	id:`${
+	id?:`${
 		bigint
 	}`, 
 	guild?:Guild,
-	command:Command
+	command:ApplicationCommandData
 }
 //#endregion
 
@@ -384,6 +370,43 @@ const gladosCommands:commandObject[] = [
 				}
 			]
 		}
+	},
+	{
+		command: {
+			name: `list`,
+			description: `Lists all of something in a server`,
+			defaultPermission: true,
+			options: [
+				{
+					name: `thing`,
+					type: `STRING`,
+					description: `What should be listed?`,
+					required: true,
+					choices: [
+						{
+							name: `channels`,
+							value: `channels`
+						},
+						{
+							name: `emojis`,
+							value: `emojis`
+						},
+						{
+							name: `members`,
+							value: `members`
+						},
+						{
+							name: `roles`,
+							value: `roles`
+						},
+						{
+							name: `stickers`,
+							value: `stickers`
+						}
+					]
+				}
+			]
+		}
 	}
 ];
 
@@ -419,27 +442,7 @@ const bots:Client[] = [
 	zelda,
 	croissant
 ];
-const commandGroup:{
-	id:`${
-		bigint
-	}`, 
-	guild?:Guild,
-	command:{
-		name:string, 
-		description:string, 
-		defaultPermission:boolean,
-		options?:{
-			name:string,
-			type:ApplicationCommandOptionType,
-			description:string,
-			required:boolean,
-			choices?: {
-				name: string,
-				value: string | number
-			}[]
-		}[]
-	}
-}[][] = [
+const commandGroup:commandObject[][] = [
 	buzzBotCommands,
 	clambotCommands,
 	ebnjCommands,

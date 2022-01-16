@@ -1,5 +1,5 @@
 //#region imports
-import {Message, TextChannel, WebhookClient, Client, MessageOptions, Webhook, BufferResolvable, User, Intents, NewsChannel, EmbedFieldData, ClientUser} from "discord.js";
+import {Message, TextChannel, WebhookClient, Client, MessageOptions, Webhook, BufferResolvable, User, Intents, NewsChannel, EmbedFieldData, ClientUser, InteractionReplyOptions, CommandInteraction, CommandInteractionOption, MessageEmbed} from "discord.js";
 //#endregion
 
 //#region intent
@@ -118,6 +118,95 @@ export const sendAsWebHook = (
 		webHookFunction();
 	});
 };
+//#endregion
+
+//#region list guild things
+export const listThings = async (interaction:CommandInteraction):Promise<InteractionReplyOptions[]> => {
+	const thing = (interaction.options.get(`thing`) as CommandInteractionOption).value as `channels`|`emojis`|`members`|`roles`|`stickers`;
+	if(interaction.guild == null && thing == `members`){return [{embeds: [new MessageEmbed().addField(`members`, `${interaction.user.username}\n${interaction.client.user?.username}`)]}]; }
+	if(interaction.guild == null){return [{content: `How am I supposed to do that?`}]; }
+	switch (thing) {
+	case `channels`:
+		return await interaction.guild.channels.fetch().then((channels) => {
+			const channelsFormated = channels.map((channel) =>
+				`<#${
+					channel.id
+				}> (${
+					channel.type.toLowerCase().split(`_`).map((x) => `${
+						x[0].toUpperCase()
+					}${
+						x.slice(1)
+					}`)[1]
+				}) <t:${
+					Math.round(channel.createdTimestamp/1000)
+				}:D> <t:${
+					Math.round(channel.createdTimestamp/1000)
+				}:T>`
+			);
+			const x:string[][] = [];
+			for (let i = 0; i < channelsFormated.length; i += 14) {
+				x.push(channelsFormated.slice(i, i + 14));
+			}
+			const y:string[][][] = [];
+			for (let i = 0; i < x.length; i += 5) {
+				y.push(x.slice(i, i + 5));
+			}
+			const embeds:InteractionReplyOptions[] = [];
+			y.forEach((y) => {
+				const z = new MessageEmbed();
+				y.forEach((a) => z.addField(`test`, a.join(`\n`)));
+				embeds.push({embeds: [z]});
+			});
+			console.log(JSON.stringify(embeds).length);
+			return embeds;
+		});
+	case `emojis`:
+		interaction.guild.emojis.fetch().then((emojis) => {
+			emojis.forEach((emoji) => {
+				console.log(emoji.name);
+			});
+		});
+		return [
+			{
+				content: `emojis`
+			}
+		];
+	case `members`:
+		interaction.guild.members.fetch().then((members) => {
+			members.forEach((member) => {
+				console.log(member.displayName);
+			});
+		});
+		return [
+			{
+				content: `members`
+			}
+		];
+	case `roles`:
+		interaction.guild.roles.fetch().then((roles) => {
+			roles.forEach((role) => {
+				console.log(role.name);
+			});
+		});
+		return [
+			{
+				content: `roles`
+			}
+		];
+	case `stickers`:
+		interaction.guild.stickers.fetch().then((stickers) => {
+			stickers.forEach((sticker) => {
+				console.log(sticker.name);
+			});
+		});
+		return [
+			{
+				content: `stickers`
+			}
+		];
+	}
+};
+
 //#endregion
 
 //#region Bot check

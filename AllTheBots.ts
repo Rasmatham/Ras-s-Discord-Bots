@@ -753,7 +753,7 @@ glados.on(`messageCreate`, (message: Message):void => {
 	]);
 	//stupidStuff.userWordBan(message, `last`, `541617670533939210`);
 });
-glados.on(`interactionCreate`, (interaction: Interaction):void => {
+glados.on(`interactionCreate`, async (interaction: Interaction):Promise<void> => {
 	if (interaction.type == `MESSAGE_COMPONENT`) {
 		const messageComponentInteraction:MessageComponentInteraction = interaction as MessageComponentInteraction;
 		if (messageComponentInteraction.componentType == `BUTTON`) {
@@ -783,6 +783,17 @@ glados.on(`interactionCreate`, (interaction: Interaction):void => {
 	else if (interaction.type == `APPLICATION_COMMAND`) {
 		const commandInteraction:CommandInteraction = interaction as CommandInteraction;
 		switch(commandInteraction.commandName) {
+		case `list`:
+			// eslint-disable-next-line no-case-declarations
+			const x = await generalStuff.listThings(commandInteraction);
+			commandInteraction.reply(x[0]).then(async () => {
+				x.shift();
+				x.forEach(element => {
+					commandInteraction.followUp(element);
+				});
+			});
+			
+			break;
 		case `botlink`:
 			commandInteraction.reply({
 				content: GladosLink,
