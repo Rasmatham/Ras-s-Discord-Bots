@@ -25,6 +25,7 @@ import * as ticTacToe from "./custom_modules/TicTacToe";
 import * as dice from "./custom_modules/dice";
 import * as info from "./custom_modules/info";
 import * as xkcd from "./custom_modules/xkcd";
+import * as wordle from "./custom_modules/wordle/wordle";
 import * as dotenv from "dotenv";
 dotenv.config();
 //#endregion
@@ -850,7 +851,12 @@ glados.on(`interactionCreate`, async (interaction: Interaction):Promise<void> =>
 		case `coinflip`:
 			coinflip.flip([{interaction: commandInteraction}]);
 			break;
+		case `gladle`:
+			wordle.startGame(commandInteraction);
+			break;
 		default:
+			console.log(commandInteraction);
+			commandInteraction.reply({ephemeral: true, content: `This command is likely in a test phase`});
 			break;
 		}
 	}

@@ -399,6 +399,37 @@ const gladosCommands:commandObject[] = [
 				}
 			]
 		}
+	},
+	{
+		command: {
+			name: `gladle`,
+			description: `Totally not another wordle clone`,
+			defaultPermission: true,
+			options: [
+				{
+					name: `play`,
+					type: `SUB_COMMAND_GROUP`,
+					description: `play a game of totally not wordle`,
+					options: [
+						{
+							name: `easy`,
+							description: `You can guess any word at any time`,
+							type: `SUB_COMMAND`,
+						},
+						{
+							name: `hard`,
+							description: `Any revealed hints must be used in subsequent guesses`,
+							type: `SUB_COMMAND`,
+						}
+					]
+				},
+				{
+					name: `scoreboard`,
+					type: `SUB_COMMAND`,
+					description: `Doesn't really do anything yet. Would reset when switching PC's`
+				}
+			]
+		}
 	}
 ];
 
