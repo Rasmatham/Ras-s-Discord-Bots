@@ -15,7 +15,7 @@ export const startGame = (interaction: CommandInteraction):void => {
 	}
 };
 // eslint-disable-next-line no-irregular-whitespace
-const zws = `​`;
+const zws = `_​_`;
 const emotes = {
 	blue: {
 		a: `🇦`,
@@ -200,7 +200,7 @@ class Wordle {
 								}
 							});
 							interaction.update({components: [], content: zws});
-							this.cmd.followUp({content: `GLaDLE ${this.attempt + 1}/6\n${this.attempts.map((x) => x.join(zws)).join(`\n`)}`});
+							this.cmd.followUp({content: `GLaDLE ${this.attempt + 1}/6\n${this.attempts.map((x) => x.join(zws)).join(`\n`)}\nFrom: ${this.cmd.user.tag}`});
 						} else { //not won
 							if (this.attempt < 5) { //if before last attempt
 								this.words[this.attempt].forEach((x, i) => {
@@ -224,7 +224,7 @@ class Wordle {
 								interaction.update({components: this.buttonsFirstHalf, content: this.attempts.map((x) => x.join(zws)).join(`\n`)});
 							} else if (this.attempt <= 5){ //if last attempt
 								interaction.update({components: [], content: zws});
-								this.cmd.followUp({content: `GLaDLE _FAILURE_/6\n${this.attempts.map((x) => x.join(zws)).join(`\n`)}\nThe word was: ${this.word}`});
+								this.cmd.followUp({content: `GLaDLE _FAILURE_/6\n${this.attempts.map((x) => x.join(zws)).join(`\n`)}\nFrom: ${this.cmd.user.tag}\nThe word was: ${this.word}`});
 							}
 						}
 						break;
@@ -242,7 +242,7 @@ class Wordle {
 								}
 							});
 							interaction.update({components: [], content: zws});
-							this.cmd.followUp({content: `GLaDLE ${this.attempt + 1}/6\n${this.attempts.map((x) => x.join(zws)).join(`\n`)}`});
+							this.cmd.followUp({content: `GLaDLE ${this.attempt + 1}/6\n${this.attempts.map((x) => x.join(zws)).join(`\n`)}\nFrom: ${this.cmd.user.tag}`});
 						} else { //not won
 							if(!(this.words[this.attempt].every((x, i) => (x == this.hints.placed[i] || this.hints.placed[i] == ``)) && this.hints.guessed.every((x, i) => this.words[this.attempt].includes(x)))) {interaction.reply({ephemeral: true, content: `You need to use your hints`}); return;}
 							this.hints = {placed: [``, ``, ``, ``, ``], guessed: []};
@@ -270,7 +270,7 @@ class Wordle {
 								interaction.update({components: this.buttonsFirstHalf, content: this.attempts.map((x) => x.join(zws)).join(`\n`)});
 							} else if (this.attempt <= 5){ //if last attempt
 								interaction.update({components: [], content: zws});
-								this.cmd.followUp({content: `GLaDLE _FAILURE_/6\n${this.attempts.map((x) => x.join(zws)).join(`\n`)}\nThe word was: ${this.word}`});
+								this.cmd.followUp({content: `GLaDLE _FAILURE_/6\n${this.attempts.map((x) => x.join(zws)).join(`\n`)}\nFrom: ${this.cmd.user.tag}\nThe word was: ${this.word}`});
 							}
 
 
