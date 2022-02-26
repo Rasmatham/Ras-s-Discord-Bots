@@ -180,7 +180,7 @@ export const mazeFunction = (
 			this._hasPlayer = !this._hasPlayer;
 		}
 		get walls() {
-			if (this._loc[0] === 7 && this._loc[1] === 7) {
+			if (this._loc[0] == 7 && this._loc[1] == 7) {
 				return this._emotes[boolToInt({
 					bool: this._hasPlayer
 				})][style].goal[this._walls as `OOII` | `OIII` | `IOII`];
@@ -211,12 +211,12 @@ export const mazeFunction = (
 			return this._cells;
 		}
 		addCell(x: number, y: number, walls: halfBitAsString) {
-			this._cells.push(new Cell(this._emotes, x, y, x === 0 && y === 0, walls));
+			this._cells.push(new Cell(this._emotes, x, y, x == 0 && y == 0, walls));
 		}
 		moveLeft() {
 			let lock = true;
 			this._cells.forEach((cell, i):void => {
-				if (cell.playerState && cell.y > 0 && lock && cell.boolWalls[0] === `O`) {
+				if (cell.playerState && cell.y > 0 && lock && cell.boolWalls[0] == `O`) {
 					cell.movePlayer();
 					this._cells[i - 1].movePlayer();
 					lock = !lock;
@@ -226,7 +226,7 @@ export const mazeFunction = (
 		moveUp() {
 			let lock = true;
 			this._cells.forEach((cell, i):void => {
-				if (cell.playerState && cell.x > 0 && lock && cell.boolWalls[1] === `O`) {
+				if (cell.playerState && cell.x > 0 && lock && cell.boolWalls[1] == `O`) {
 					cell.movePlayer();
 					this._cells[i - 8].movePlayer();
 					lock = !lock;
@@ -236,7 +236,7 @@ export const mazeFunction = (
 		moveDown() {
 			let lock = true;
 			this._cells.forEach((cell, i):void => {
-				if (cell.playerState && cell.x < 7 && lock && cell.boolWalls[3] === `O`) {
+				if (cell.playerState && cell.x < 7 && lock && cell.boolWalls[3] == `O`) {
 					cell.movePlayer();
 					this._cells[i + 8].movePlayer();
 					lock = !lock;
@@ -246,7 +246,7 @@ export const mazeFunction = (
 		moveRight() {
 			let lock = true;
 			this._cells.forEach((cell, i):void => {
-				if (cell.playerState && cell.y < 7 && lock && cell.boolWalls[2] === `O`) {
+				if (cell.playerState && cell.y < 7 && lock && cell.boolWalls[2] == `O`) {
 					cell.movePlayer();
 					this._cells[i + 1].movePlayer();
 					lock = !lock;

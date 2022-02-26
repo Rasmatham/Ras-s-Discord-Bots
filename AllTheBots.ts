@@ -882,7 +882,7 @@ glados.on(`messageDelete`, (message):void => {
 //#region search
 const sendEmbed = (message: Message):void => {
 	if(pokebot.user != null){
-		if (message.author.id !== pokebot.user.id) {
+		if (message.author.id != pokebot.user.id) {
 			if (message.content.toLowerCase().startsWith(`pd`)) {
 				if (message.channel.type == `GUILD_TEXT` || message.channel.type == `GUILD_NEWS`) {
 					generalStuff.sendAsWebHook([

@@ -11,13 +11,13 @@ export const hencefortifier = (
 ):void => {
 	inObjs.forEach((inObj) => {
 		if (inObj.message.client.user != null) {
-			if (inObj.message.author.id !== inObj.message.client.user.id && inObj.message.guild !== null && inObj.message.content.toLowerCase().includes(`from now on`)) {
+			if (inObj.message.author.id != inObj.message.client.user.id && inObj.message.guild != null && inObj.message.content.toLowerCase().includes(`from now on`)) {
 				if (inObj.message.guild.id == `646155122992480266`) {
 					const textChannels:`${bigint}`[] = [];
 					inObj.message.guild.channels.cache.map((channel):void => {
-						if (channel.type === `GUILD_TEXT`) {
+						if (channel.type == `GUILD_TEXT`) {
 							blackList.forEach((bannedChannel:string):void => {
-								if (channel.name !== bannedChannel) {
+								if (channel.name != bannedChannel) {
 									textChannels.push(channel.id as `${bigint}`);
 								}
 							});
@@ -49,7 +49,7 @@ export const userWordBan = (
 	}[]
 ):void => {
 	inObjs.forEach((inObj) => {
-		if (inObj.message.author.id === inObj.userID) {
+		if (inObj.message.author.id == inObj.userID) {
 			if (inObj.message.content.toLowerCase().includes(inObj.word)) {
 				inObj.message.delete()
 					.catch(console.error);
@@ -70,7 +70,7 @@ export const espenBotReplacement = (
 	}[]
 ):void => {
 	inObjs.forEach((inObj) => {
-		if (inObj.message.author.id === inObj.victim && Math.floor(Math.random() * 100) <= inObj.chance) {
+		if (inObj.message.author.id == inObj.victim && Math.floor(Math.random() * 100) <= inObj.chance) {
 			switch(inObj.type) {
 			case `message`:
 				inObj.message.channel.send(inObj.out as MessageOptions)

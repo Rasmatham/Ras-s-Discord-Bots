@@ -75,7 +75,7 @@ export const sendAsWebHook = (
 					let i = 0;
 					webHooks.map((webHook: Webhook):void => {
 						if (webHook.owner instanceof User) {
-							if (webHook.owner.id === user.id) {
+							if (webHook.owner.id == user.id) {
 								const myWebHook:WebhookClient = new WebhookClient({
 									id: webHook.id,
 									token: webHook.token as string
@@ -85,7 +85,7 @@ export const sendAsWebHook = (
 									avatar: inObj.PFP
 								})
 									.then((editedWebHook):void => {
-										if (typeof inObj.sendMessage.content !== `string` || inObj.sendMessage.content === ``) {
+										if (typeof inObj.sendMessage.content != `string` || inObj.sendMessage.content == ``) {
 											inObj.sendMessage.content = ` `;
 											editedWebHook.send(inObj.sendMessage)
 												.catch(console.error);

@@ -64,7 +64,7 @@ export const flip = (
 				}/coinflip/losses.log`;
 				if (existsSync(coinflippath)) {
 					if (side == `heads`) {
-						if ((Math.random() * 10) < 5 === true) {
+						if ((Math.random() * 10) < 5 == true) {
 							const wincount:string = readFileSync(coinfilew, `utf8`);
 							const losecount:string = readFileSync(coinfilel, `utf8`);
 							writeFileSync(coinfilew, (parseInt(wincount) + 1).toString());
@@ -120,7 +120,7 @@ export const flip = (
 						}
 					}
 					if (side == `tails`) {
-						if ((Math.random() * 10) < 5 === true) {
+						if ((Math.random() * 10) < 5 == true) {
 							const wincount:string = readFileSync(coinfilew, `utf8`);
 							const losecount:string = readFileSync(coinfilel, `utf8`);
 							writeFileSync(coinfilew, (parseInt(losecount) + 1).toString());

@@ -29,7 +29,7 @@ export const dice = (
 					.catch(console.error);
 			}
 			else {
-				if (dieSides === 10) {
+				if (dieSides == 10) {
 					for (let i = 0; i < diceCount; i++) {
 						const number10:MessageEmbed = new MessageEmbed()
 							.setColor(`#0099ff`)
@@ -50,7 +50,7 @@ export const dice = (
 							.catch(console.error);
 					}
 				}
-				else if (dieSides === 100) {
+				else if (dieSides == 100) {
 					for (let i = 0; i < diceCount; i++) {
 						const number100:MessageEmbed = new MessageEmbed()
 							.setColor(`#0099ff`)

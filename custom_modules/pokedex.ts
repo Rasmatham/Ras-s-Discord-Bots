@@ -45,7 +45,7 @@ export const natDex = (inObj: {query: string | number}):ReplyMessageOptions => {
 	case `string`:
 		Object.keys(pokemon).forEach(i => {
 			const pokeObj:pokeObjType = pokemon[Number(i) as pokeRange] as pokeObjType;
-			if (inObj.query === pokeObj.name.toLowerCase()) {
+			if (inObj.query == pokeObj.name.toLowerCase()) {
 				dexNumber = Number(pokeObj.nat) as pokeRange;
 			}
 		});
@@ -55,7 +55,7 @@ export const natDex = (inObj: {query: string | number}):ReplyMessageOptions => {
 	}
 	const secType = ():string => {
 		const x = pokemon[dexNumber].types[1];
-		if (typeof x !== `undefined`) {
+		if (typeof x != `undefined`) {
 			return x.name;
 		}
 		else {

@@ -15,7 +15,7 @@ export const channelCount = (
 	Unknown: number | `unknown`,
 	all: number | `unknown`
 } => {
-	if (inObj.guild !== null) {
+	if (inObj.guild != null) {
 		const TC:string[] = [];
 		const VC:string[] = [];
 		const Cat:string[] = [];
@@ -79,7 +79,7 @@ export const serverInfo = (
 ):void => {
 	inObjs.forEach((inObj) => {
 		const guild = inObj.interaction.guild as Guild;
-		if (inObj.interaction.guild !== null) {
+		if (inObj.interaction.guild != null) {
 			const textChannels:string[] = [];
 			const voiceChannels:string[] = [];
 			const categories:string[] = [];
@@ -153,7 +153,7 @@ export const serverInfo = (
 				.catch(console.error);
 		}
 		else {
-			if ((inObj.interaction.member as GuildMember).user.id === `588511925944582186`) {
+			if ((inObj.interaction.member as GuildMember).user.id == `588511925944582186`) {
 				inObj.interaction.reply({
 					content: `stop tring to kill me, smh`
 				});

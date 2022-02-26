@@ -31,7 +31,7 @@ export const messageForwarding = (
 								}`
 							].includes(inObj.message.channel.name)) {
 								const firstChannel = inObj.message.mentions.channels.first() as Channel;
-								if (!blackList.includes(inObj.message.channel.name) /*|| message.member.id === process.env.RASID*/ || inObj.message.member.permissions.has(`ADMINISTRATOR`)) {
+								if (!blackList.includes(inObj.message.channel.name) /*|| message.member.id == process.env.RASID*/ || inObj.message.member.permissions.has(`ADMINISTRATOR`)) {
 									bot.channels.fetch(firstChannel.id).then((channel):void => {
 										if (!(channel instanceof TextChannel || channel instanceof DMChannel || channel instanceof NewsChannel || channel instanceof ThreadChannel)) {
 											return;
@@ -98,7 +98,7 @@ export const DMSpy = (
 	}[]
 ):void => {
 	inObjs.forEach(inObj => {
-		if (inObj.message.channel.type == `DM` && !inObj.message.author.bot /*&& message.author.id !== process.env.RASID*/) {
+		if (inObj.message.channel.type == `DM` && !inObj.message.author.bot /*&& message.author.id != process.env.RASID*/) {
 			inObj.message.client.channels.fetch(inObj.ChID).then((channel):void => {
 				if (!(channel instanceof TextChannel || channel instanceof NewsChannel)) {
 					return;
