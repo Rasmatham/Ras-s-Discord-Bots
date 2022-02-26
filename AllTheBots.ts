@@ -17,15 +17,14 @@ import * as forwarding from "./custom_modules/forwardMessages";
 import * as generalStuff from "./custom_modules/generalUse";
 import * as stupidStuff from "./custom_modules/stupidStuff";
 import * as inspiroBot from "./custom_modules/inspiroBot";
+import * as wordle from "./custom_modules/wordle/wordle";
+import * as ticTacToe from "./custom_modules/TicTacToe";
 import * as coinflip from "./custom_modules/coinflip";
 import * as maze from "./custom_modules/playableMaze";
 import * as pokedex from "./custom_modules/pokedex";
-import * as ticTacToe from "./custom_modules/TicTacToe";
-//import music from "./custom_modules/music`);
 import * as dice from "./custom_modules/dice";
 import * as info from "./custom_modules/info";
 import * as xkcd from "./custom_modules/xkcd";
-import * as wordle from "./custom_modules/wordle/wordle";
 import * as dotenv from "dotenv";
 dotenv.config();
 //#endregion
