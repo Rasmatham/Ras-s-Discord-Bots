@@ -2,7 +2,6 @@
 import {ApplicationCommandData, ApplicationCommandDataResolvable, Client, Guild} from "discord.js";
 import {intents} from "./custom_modules/generalUse.js";
 import * as dotenv from "dotenv";
-import { type } from "os";
 dotenv.config();
 //#endregion
 

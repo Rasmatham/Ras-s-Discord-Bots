@@ -1,5 +1,5 @@
 
-import {Client, Message, MessageEmbed, ColorResolvable, GuildMember, Interaction, MessageComponentInteraction, ButtonInteraction, CommandInteraction, SelectMenuInteraction, PartialGuildMember, BufferResolvable, InteractionReplyOptions, MessageActionRow, MessageButton, MessageInteraction, Emoji} from "discord.js";
+import {CommandInteraction, MessageActionRow, MessageButton} from "discord.js";
 import * as words from "./words";
 type Letter = `a` | `b` | `c` | `d` | `e` | `f` | `g` | `h` | `i` | `j` | `k` | `l` | `m` | `n` | `o` | `p` | `q` | `r` | `s` | `t` | `u` | `v` | `w` | `x` | `y` | `z`;
 export const startGame = (interaction: CommandInteraction):void => {
@@ -244,7 +244,7 @@ class Wordle {
 							interaction.update({components: [], content: zws});
 							this.cmd.followUp({content: `GLaDLE ${this.attempt + 1}/6\n${this.attempts.map((x) => x.join(zws)).join(`\n`)}\nFrom: ${this.cmd.user.tag}`});
 						} else { //not won
-							if (!(this.words[this.attempt].every((x, i) => (x == this.hints.placed[i] || this.hints.placed[i] == ``)) && this.hints.guessed.every((x, i) => this.words[this.attempt].includes(x)))) {interaction.reply({ephemeral: true, content: `You need to use your hints`}); return;}
+							if (!(this.words[this.attempt].every((x, i) => (x == this.hints.placed[i] || this.hints.placed[i] == ``)) && this.hints.guessed.every((x) => this.words[this.attempt].includes(x)))) {interaction.reply({ephemeral: true, content: `You need to use your hints`}); return;}
 							this.hints = {placed: [``, ``, ``, ``, ``], guessed: []};
 							if (this.attempt < 5) { //if before last attempt
 								this.words[this.attempt].forEach((x, i) => {
