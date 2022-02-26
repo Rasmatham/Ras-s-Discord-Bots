@@ -25,7 +25,7 @@ export const hencefortifier = (
 					});
 					inObj.message.client.channels.fetch(textChannels[Math.floor(Math.random() * (textChannels.length - 1))])
 						.then((channel):void => {
-							if (channel != null){
+							if (channel != null) {
 								channel = channel as TextChannel;
 								channel.send(`<@${
 									inObj.message.author.id
@@ -71,7 +71,7 @@ export const espenBotReplacement = (
 ):void => {
 	inObjs.forEach((inObj) => {
 		if (inObj.message.author.id == inObj.victim && Math.floor(Math.random() * 100) <= inObj.chance) {
-			switch(inObj.type) {
+			switch (inObj.type) {
 			case `message`:
 				inObj.message.channel.send(inObj.out as MessageOptions)
 					.catch(console.error);

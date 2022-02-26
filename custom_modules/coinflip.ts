@@ -10,7 +10,7 @@ const setup = (
 	}[]
 ):void => {
 	inObjs.forEach((inObj) => {
-		if(inObj.interaction.client.user != null){
+		if (inObj.interaction.client.user != null) {
 			mkdirSync(`./${
 				inObj.interaction.client.user.username
 			}/userinfo/${
@@ -43,10 +43,10 @@ export const flip = (
 	}[]
 ):void => {
 	inObjs.forEach((inObj) => {
-		if(inObj.interaction.options.get(`side`) != null){
+		if (inObj.interaction.options.get(`side`) != null) {
 			const option = inObj.interaction.options.get(`side`) as CommandInteractionOption;
 			const side = option.value as `${`heads` | `tails`}`;
-			if(inObj.interaction.client.user != null){
+			if (inObj.interaction.client.user != null) {
 				const coinflippath = `./${
 					inObj.interaction.client.user.username
 				}/userinfo/${

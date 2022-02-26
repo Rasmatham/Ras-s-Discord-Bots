@@ -162,7 +162,7 @@ class Wordle {
 			if (!interaction.customId.startsWith(`wordle_`)) return;
 			const id = interaction.customId.replace(`wordle_`, ``);
 			if (/^[a-z]{1}$/.test(id)) {
-				if (this.slot >= 5){interaction.reply({ephemeral: true, content: `You can't add more letters`}); return;}
+				if (this.slot >= 5) {interaction.reply({ephemeral: true, content: `You can't add more letters`}); return;}
 				this.attempts[this.attempt][this.slot] = emotes.black[id as Letter];
 				this.words[this.attempt][this.slot] = id;
 				this.slot++;
@@ -184,8 +184,8 @@ class Wordle {
 					break;
 				case `enter`:
 					if (this.slot < 5) {interaction.reply({ephemeral: true, content: `You need 5 letters to submit`}); return;}
-					if (!words.validWords.includes(this.words[this.attempt].join(``)) && !words.spoilers.includes(this.words[this.attempt].join(``))){interaction.reply({ephemeral: true, content: `This word is not valid`}); return;}
-					switch (this.difficulty){
+					if (!words.validWords.includes(this.words[this.attempt].join(``)) && !words.spoilers.includes(this.words[this.attempt].join(``))) {interaction.reply({ephemeral: true, content: `This word is not valid`}); return;}
+					switch (this.difficulty) {
 					case `easy`:
 						if (this.word == this.words[this.attempt].join(``)) { //if won
 							this.words[this.attempt].forEach((x, i) => {
@@ -222,7 +222,7 @@ class Wordle {
 								this.attempt++;
 								this.attempts[this.attempt] = [`⬛`, `⬛`, `⬛`, `⬛`, `⬛`];
 								interaction.update({components: this.buttonsFirstHalf, content: this.attempts.map((x) => x.join(zws)).join(`\n`)});
-							} else if (this.attempt <= 5){ //if last attempt
+							} else if (this.attempt <= 5) { //if last attempt
 								interaction.update({components: [], content: zws});
 								this.cmd.followUp({content: `GLaDLE _FAILURE_/6\n${this.attempts.map((x) => x.join(zws)).join(`\n`)}\nFrom: ${this.cmd.user.tag}\nThe word was: ${this.word}`});
 							}
@@ -244,7 +244,7 @@ class Wordle {
 							interaction.update({components: [], content: zws});
 							this.cmd.followUp({content: `GLaDLE ${this.attempt + 1}/6\n${this.attempts.map((x) => x.join(zws)).join(`\n`)}\nFrom: ${this.cmd.user.tag}`});
 						} else { //not won
-							if(!(this.words[this.attempt].every((x, i) => (x == this.hints.placed[i] || this.hints.placed[i] == ``)) && this.hints.guessed.every((x, i) => this.words[this.attempt].includes(x)))) {interaction.reply({ephemeral: true, content: `You need to use your hints`}); return;}
+							if (!(this.words[this.attempt].every((x, i) => (x == this.hints.placed[i] || this.hints.placed[i] == ``)) && this.hints.guessed.every((x, i) => this.words[this.attempt].includes(x)))) {interaction.reply({ephemeral: true, content: `You need to use your hints`}); return;}
 							this.hints = {placed: [``, ``, ``, ``, ``], guessed: []};
 							if (this.attempt < 5) { //if before last attempt
 								this.words[this.attempt].forEach((x, i) => {
@@ -268,7 +268,7 @@ class Wordle {
 								this.attempt++;
 								this.attempts[this.attempt] = [`⬛`, `⬛`, `⬛`, `⬛`, `⬛`];
 								interaction.update({components: this.buttonsFirstHalf, content: this.attempts.map((x) => x.join(zws)).join(`\n`)});
-							} else if (this.attempt <= 5){ //if last attempt
+							} else if (this.attempt <= 5) { //if last attempt
 								interaction.update({components: [], content: zws});
 								this.cmd.followUp({content: `GLaDLE _FAILURE_/6\n${this.attempts.map((x) => x.join(zws)).join(`\n`)}\nFrom: ${this.cmd.user.tag}\nThe word was: ${this.word}`});
 							}
@@ -283,7 +283,7 @@ class Wordle {
 			}
 		});
 	}
-	get buttonsFirstHalf(){
+	get buttonsFirstHalf() {
 		return [
 			new MessageActionRow().addComponents(this.buttons.a).addComponents(this.buttons.b).addComponents(this.buttons.c).addComponents(this.buttons.d).addComponents(this.buttons.e),
 			new MessageActionRow().addComponents(this.buttons.f).addComponents(this.buttons.g).addComponents(this.buttons.h).addComponents(this.buttons.i).addComponents(this.buttons.j),
@@ -291,7 +291,7 @@ class Wordle {
 			new MessageActionRow().addComponents(this.buttons.nz)
 		];
 	}
-	get buttonsSecondHalf(){
+	get buttonsSecondHalf() {
 		return [
 			new MessageActionRow().addComponents(this.buttons.n).addComponents(this.buttons.o).addComponents(this.buttons.p).addComponents(this.buttons.q).addComponents(this.buttons.r),
 			new MessageActionRow().addComponents(this.buttons.s).addComponents(this.buttons.t).addComponents(this.buttons.u).addComponents(this.buttons.v).addComponents(this.buttons.w),

@@ -124,7 +124,7 @@ export const sendAsWebHook = (
 //#region list guild things
 export const listThings = async (interaction:CommandInteraction):Promise<InteractionReplyOptions[]> => {
 	const thing = (interaction.options.get(`thing`) as CommandInteractionOption).value as `channels`|`emojis`|`roles`;
-	if(interaction.guild == null){return [{content: `How am I supposed to do that?`}]; }
+	if (interaction.guild == null) {return [{content: `How am I supposed to do that?`}]; }
 	switch (thing) {
 	case `channels`:
 		return await interaction.guild.channels.fetch().then((channels) => {

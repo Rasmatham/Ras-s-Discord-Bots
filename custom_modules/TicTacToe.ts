@@ -78,7 +78,7 @@ export const ticTacToe = (
 			const lastMemberMention = memberMentions.last() as GuildMember;
 			const buttonGuild = buttonInteraction.guild as Guild;
 			if (buttonInteraction.message.mentions instanceof MessageMentions) {
-				switch(buttonInteraction.customId) {
+				switch (buttonInteraction.customId) {
 				//================================================================================================================
 				case `accept`:
 					if (buttonInteraction.user.id == firstMemberMention.id) {
@@ -178,8 +178,8 @@ export const ticTacToe = (
 								});
 						
 								buttons.forEach((button):void => {
-									if(button.emoji != null){
-										switch(button.emoji.name) {
+									if (button.emoji != null) {
+										switch (button.emoji.name) {
 										case `⭕`:
 											O++;
 											break;
@@ -192,7 +192,7 @@ export const ticTacToe = (
 									}
 								});
 								if (buttonInteraction.user.id == players[0].id && buttonInteraction.component instanceof MessageButton) {
-									if(buttonInteraction.component.emoji != null){
+									if (buttonInteraction.component.emoji != null) {
 										if (buttonInteraction.component.emoji.id == `741303046574702652`) {
 											const style:MessageButtonStyle = `SECONDARY`;
 											const BM:Message = buttonInteraction.message as Message;
@@ -225,7 +225,7 @@ export const ticTacToe = (
 									
 												if (X > O) {
 													const emoji:EmojiIdentifierResolvable = `⭕`;
-													switch(buttonInteraction.customId) {
+													switch (buttonInteraction.customId) {
 													case `TTT1`:
 														row1 = new MessageActionRow()
 															.addComponents([
@@ -304,7 +304,7 @@ export const ticTacToe = (
 												}
 												else {
 													const emoji:EmojiIdentifierResolvable = `❌`;
-													switch(buttonInteraction.customId) {
+													switch (buttonInteraction.customId) {
 													case `TTT1`:
 														row1 = new MessageActionRow()
 															.addComponents([

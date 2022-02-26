@@ -313,17 +313,17 @@ buzzBot.on(`messageCreate`, (message: Message):void => {
 //#region Clambot
 
 //#region Stuff
-clambot.on(`ready`, () =>{
+clambot.on(`ready`, () => {
 	clambot.users.fetch(`588511925944582186`).then((fetchedUser) => {
-		if(clambot.user != null){
+		if (clambot.user != null) {
 			clambot.user.setAvatar(fetchedUser.avatarURL()).catch(() => console.log(`[${fetchedUser.tag}] You're probably changing the avatar too fast`));
 			clambot.user.setUsername(fetchedUser.username).catch(() => console.log(`[${fetchedUser.tag}] You're probably changing the username too fast`));
 		}
 	});
 });
 clambot.on(`userUpdate`, (oldUser, newUser) => {
-	if(clambot.user != null){
-		if(newUser.id == `588511925944582186`){
+	if (clambot.user != null) {
+		if (newUser.id == `588511925944582186`) {
 			clambot.user.setAvatar(newUser.avatarURL()).catch(() => console.log(`[${newUser.tag}] You're probably changing the avatar too fast`));
 			clambot.user.setUsername(newUser.username).catch(() => console.log(`[${newUser.tag}] You're probably changing the username too fast`));
 		}
@@ -519,7 +519,7 @@ const stillalive:MessageEmbed = new MessageEmbed()
 
 //#region welcome/goodbye Message
 glados.on(`guildMemberAdd`, (member: GuildMember):void => {
-	if(member.guild.systemChannel != null){
+	if (member.guild.systemChannel != null) {
 		member.guild.systemChannel.send({
 			content: `Welcome to the server, #${
 				member.guild.memberCount
@@ -531,7 +531,7 @@ glados.on(`guildMemberAdd`, (member: GuildMember):void => {
 	}
 });
 glados.on(`guildMemberRemove`, (member: GuildMember|PartialGuildMember):void => {
-	if(member.guild.systemChannel != null){
+	if (member.guild.systemChannel != null) {
 		member.guild.systemChannel.send({
 			content: `Bye, ${
 				member.user.tag
@@ -769,7 +769,7 @@ glados.on(`interactionCreate`, async (interaction: Interaction):Promise<void> =>
 		}
 		else if (messageComponentInteraction.componentType == `SELECT_MENU`) {
 			const selectMenuInteraction:SelectMenuInteraction = messageComponentInteraction as SelectMenuInteraction;
-			switch(selectMenuInteraction.customId) {
+			switch (selectMenuInteraction.customId) {
 			case `Dummy`:
 				selectMenuInteraction.update({
 					content: `Seems about right`
@@ -783,7 +783,7 @@ glados.on(`interactionCreate`, async (interaction: Interaction):Promise<void> =>
 	}
 	else if (interaction.type == `APPLICATION_COMMAND`) {
 		const commandInteraction:CommandInteraction = interaction as CommandInteraction;
-		switch(commandInteraction.commandName) {
+		switch (commandInteraction.commandName) {
 		case `list`:
 			// eslint-disable-next-line no-case-declarations
 			const x = await generalStuff.listThings(commandInteraction);
@@ -867,8 +867,8 @@ glados.on(`interactionCreate`, async (interaction: Interaction):Promise<void> =>
 
 //#region ghost message thing
 glados.on(`messageDelete`, (message):void => {
-	if((Math.floor(new Date().getTime() / 1000) - Math.floor(message.createdTimestamp / 1000)) < 10){
-		if(message.author != null){
+	if ((Math.floor(new Date().getTime() / 1000) - Math.floor(message.createdTimestamp / 1000)) < 10) {
+		if (message.author != null) {
 			message.channel.send(`${message.author.tag} deleted a message within 10 seconds of sending it`);
 		}
 	}
@@ -881,7 +881,7 @@ glados.on(`messageDelete`, (message):void => {
 
 //#region search
 const sendEmbed = (message: Message):void => {
-	if(pokebot.user != null){
+	if (pokebot.user != null) {
 		if (message.author.id != pokebot.user.id) {
 			if (message.content.toLowerCase().startsWith(`pd`)) {
 				if (message.channel.type == `GUILD_TEXT` || message.channel.type == `GUILD_NEWS`) {
@@ -1221,17 +1221,17 @@ random.on(`messageCreate`, (message: Message):void => {
 //#region sinibot
 
 //#region Stuff
-sini.on(`ready`, () =>{
+sini.on(`ready`, () => {
 	sini.users.fetch(`707188499153158204`).then((user) => {
-		if(sini.user != null){
+		if (sini.user != null) {
 			sini.user.setAvatar(user.avatarURL()).catch(() => console.log(`[${user.tag}] You're probably changing the avatar too fast`));
 			sini.user.setUsername(user.username).catch(() => console.log(`[${user.tag}] You're probably changing the username too fast`));
 		}
 	});
 });
 sini.on(`userUpdate`, (oldUser, newUser) => {
-	if(sini.user != null){
-		if(newUser.id == `707188499153158204`){
+	if (sini.user != null) {
+		if (newUser.id == `707188499153158204`) {
 			sini.user.setAvatar(newUser.avatarURL()).catch(() => console.log(`[${newUser.tag}] You're probably changing the avatar too fast`));
 			sini.user.setUsername(newUser.username).catch(() => console.log(`[${newUser.tag}] You're probably changing the username too fast`));
 		}
