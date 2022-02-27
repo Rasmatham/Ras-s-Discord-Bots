@@ -464,7 +464,12 @@ ebnj.on(`messageCreate`, (message: Message):void => {
 
 //#region Long stuff (please collapse)
 const cake = `It is totally real (Definitely not a lie)`;
-const lemonrant = `All right, I've been thinking, when life gives you lemons, don't make lemonade!\nMake life take the lemons back!\nGet mad!\nI don't want your damn lemons!\nWhat am I supposed to do with these?\nDemand to see life's manager!\nMake life rue the day it thought it could give Cave Johnson lemons!\nDo you know who I am?\nI'm the man whose gonna burn your house down - with the lemons!`;
+//const lemonrant = `All right, I've been thinking, when life gives you lemons, don't make lemonade!\nMake life take the lemons back!\nGet mad!\nI don't want your damn lemons!\nWhat am I supposed to do with these?\nDemand to see life's manager!\nMake life rue the day it thought it could give Cave Johnson lemons!\nDo you know who I am?\nI'm the man whose gonna burn your house down - with the lemons!`;
+const lemonrant:MessageEmbed = new MessageEmbed()
+	.addField(`When life gives you lemons...`, `All right, I've been thinking, when life gives you lemons, don't make lemonade!\nMake life take the lemons back!\nGet mad!\nI don't want your damn lemons!\nWhat am I supposed to do with these?\nDemand to see life's manager!\nMake life rue the day it thought it could give Cave Johnson lemons!\nDo you know who I am?\nI'm the man whose gonna burn your house down - with the lemons!`)
+	.setThumbnail(`https://cdn.discordapp.com/attachments/647924443078852621/947515795590754355/test.png`)
+	.setFooter({text: `-Cave Johnson`})
+	.setColor(`YELLOW`);
 const lie = `I will tell you what is not a lie\nThe cake`;
 const ping = `P I N G\nWait\nNevermind`;
 const stillalive:MessageEmbed = new MessageEmbed()
@@ -567,13 +572,7 @@ glados.on(`messageCreate`, (message: Message):void => {
 			message: message,
 			type: `anywhere`,
 			reply: {
-				files: [
-					{
-						attachment: `./GLaDOS/files/lemonade.png`,
-						name: `test.png`
-					}
-				],
-				content: lemonrant
+				embeds: [lemonrant]
 			},
 			triggers: [
 				`lemon`,
