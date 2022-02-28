@@ -351,6 +351,26 @@ clambot.on(`messageCreate`, (message: Message):void => {
 	forwarding.messageForwarding([{message: message}]);
 	//music(message, `cb;`);
 });
+clambot.on(`messageCreate`, (message: Message):void => {
+	if (message.channel.type == `DM`) {
+		return;
+	}
+	if (generalStuff.blackList.includes(message.channel.name)) {
+		return;
+	}
+	containsWord.replyThing([
+		{
+			message: message,
+			type: `mention`,
+			reply: {
+				content: `I think you might have meant to mention the inferior version of myself, <@588511925944582186>`
+			},
+			triggers: [
+				`764473389054033950`
+			]
+		}
+	]);
+});
 //#endregion
 
 //#endregion
