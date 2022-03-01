@@ -13,7 +13,7 @@
 	},
 	"include": [
 		"AllTheBots.ts",
-		"commands.ts",
+		"Commands.ts",
 		"Pokebot/*.ts",
 		"custom_modules/*.ts"
 	]
