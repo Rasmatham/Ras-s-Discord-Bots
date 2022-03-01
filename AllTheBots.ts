@@ -874,7 +874,7 @@ glados.on(`interactionCreate`, async (interaction: Interaction):Promise<void> =>
 			wordle.startGame(commandInteraction);
 			break;
 		case `reboot`:
-			commandInteraction.reply({content: `And when you're gon I'll still be liiiiii`}).then(() => {
+			commandInteraction.reply({content: `And when you're gone I'll still be aliiiiii`}).then(() => {
 				childProcess.exec(`sudo reboot 0`);
 			});
 			break;
