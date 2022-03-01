@@ -11,7 +11,7 @@
 //#region Common
 
 //#region imports
-import {Client, Message, MessageEmbed, ColorResolvable, GuildMember, Interaction, MessageComponentInteraction, ButtonInteraction, CommandInteraction, SelectMenuInteraction, PartialGuildMember, BufferResolvable, InteractionReplyOptions} from "discord.js";
+import {Client, Message, MessageEmbed, ColorResolvable, GuildMember, Interaction, MessageComponentInteraction, ButtonInteraction, CommandInteraction, SelectMenuInteraction, PartialGuildMember, BufferResolvable, InteractionReplyOptions, MessageEmbedFooter} from "discord.js";
 import * as containsWord from "./custom_modules/containsWordFunctions";
 import * as forwarding from "./custom_modules/forwardMessages";
 import * as generalStuff from "./custom_modules/generalUse";
@@ -25,7 +25,7 @@ import * as pokedex from "./custom_modules/pokedex";
 import * as dice from "./custom_modules/dice";
 import * as info from "./custom_modules/info";
 import * as xkcd from "./custom_modules/xkcd";
-import * as childProcess from "child_process"
+import * as childProcess from "child_process";
 import * as dotenv from "dotenv";
 dotenv.config();
 //#endregion
@@ -875,8 +875,8 @@ glados.on(`interactionCreate`, async (interaction: Interaction):Promise<void> =>
 			break;
 		case `reboot`:
 			commandInteraction.reply({content: `And when you're gon I'll still be liiiiii`}).then(() => {
-			childProcess.exec(`sudo reboot 0`);
-			})
+				childProcess.exec(`sudo reboot 0`);
+			});
 			break;
 		default:
 			console.log(commandInteraction);
