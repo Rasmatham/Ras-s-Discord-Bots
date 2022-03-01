@@ -10,7 +10,9 @@ type commandObject = {
 	id?:`${
 		bigint
 	}`, 
-	guild?:Guild,
+	guild?:`${
+		bigint
+	}`,
 	command:ApplicationCommandData
 }
 //#endregion
@@ -429,6 +431,14 @@ const gladosCommands:commandObject[] = [
 				}
 			]
 		}
+	},
+	{
+		command: {
+			name: `reboot`,
+			description: `Reboots the host`,
+			defaultPermission: true
+		},
+		guild: `647924443078852613`
 	}
 ];
 
