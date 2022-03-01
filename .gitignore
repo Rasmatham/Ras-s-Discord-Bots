@@ -20,4 +20,4 @@ Pokebot/*.js
 *.map
 custom_modules/*.map
 Pokebot/*.map
-node_modules
+node_modules/*
