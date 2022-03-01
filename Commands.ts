@@ -1,5 +1,5 @@
 //#region imports
-import {ApplicationCommandData, ApplicationCommandDataResolvable, Client, Guild} from "discord.js";
+import {ApplicationCommandData, ApplicationCommandDataResolvable, Client} from "discord.js";
 import {intents} from "./custom_modules/generalUse.js";
 import * as dotenv from "dotenv";
 dotenv.config();
@@ -492,48 +492,49 @@ const commandGroup:commandObject[][] = [
 bots.forEach((bot, i):void => {
 	//list commands
 	bot.on(`ready`, ():void => {
-		bot.application.commands.fetch().then(():void => {
-			for (const command of bot.application.commands.cache.map((value) => value)) {
+		bot.application?.commands.fetch().then(():void => {
+			bot.application?.commands.cache.map((value) => value).forEach((command) =>{
 				console.log(command);
-			}
+			}); 
+				
 		})
 			.catch(console.error);
 	});
 	//Replace all
 	bot.on(`ready`, ():void => {
-		bot.application.commands.fetch().then((commands):void => {
+		bot.application?.commands.fetch().then((commands):void => {
 			console.log(`${
-				bot.user.tag
+				bot.user?.tag
 			} is active`);
 			commands.map((command) => command).forEach((command) => {
 				command.delete();
 			});
 			commandGroup[i].forEach((command, j):void => {
-				console.log(command.guild)
+				console.log(command.guild);
 				if(command.guild != undefined){
-					bot.application.commands.create(command.command as ApplicationCommandDataResolvable, command.guild)
-					.then((command):void => {
-						console.log(`[${
-							j + 1
-						}/${
-							commandGroup[i].length
-						}] Command: "${
-							command.name
-						}" updated`);
-					})
-					.catch(console.error);
+					bot.application?.commands.create(command.command as ApplicationCommandDataResolvable, command.guild)
+						.then((command):void => {
+							console.log(`[${
+								j + 1
+							}/${
+								commandGroup[i].length
+							}] Command: "${
+								command.name
+							}" updated`);
+						})
+						.catch(console.error);
 				} else {
-					bot.application.commands.create(command.command as ApplicationCommandDataResolvable)
-					.then((command):void => {
-						console.log(`[${
-							j + 1
-						}/${
-							commandGroup[i].length
-						}] Command: "${
-							command.name
-						}" updated`);
-					})
-					.catch(console.error);
+					bot.application?.commands.create(command.command as ApplicationCommandDataResolvable)
+						.then((command):void => {
+							console.log(`[${
+								j + 1
+							}/${
+								commandGroup[i].length
+							}] Command: "${
+								command.name
+							}" updated`);
+						})
+						.catch(console.error);
 				}
 				
 			});
