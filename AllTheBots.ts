@@ -11,7 +11,7 @@
 //#region Common
 
 //#region imports
-import {Client, Message, MessageEmbed, ColorResolvable, GuildMember, Interaction, MessageComponentInteraction, ButtonInteraction, CommandInteraction, SelectMenuInteraction, PartialGuildMember, BufferResolvable, InteractionReplyOptions, MessageEmbedFooter} from "discord.js";
+import {Client, Message, MessageEmbed, ColorResolvable, GuildMember, Interaction, MessageComponentInteraction, ButtonInteraction, CommandInteraction, SelectMenuInteraction, PartialGuildMember, BufferResolvable, InteractionReplyOptions} from "discord.js";
 import * as containsWord from "./custom_modules/containsWordFunctions";
 import * as forwarding from "./custom_modules/forwardMessages";
 import * as generalStuff from "./custom_modules/generalUse";
