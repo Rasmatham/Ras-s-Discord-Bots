@@ -25,6 +25,7 @@ import * as pokedex from "./custom_modules/pokedex";
 import * as dice from "./custom_modules/dice";
 import * as info from "./custom_modules/info";
 import * as xkcd from "./custom_modules/xkcd";
+import * as childProcess from "child_process"
 import * as dotenv from "dotenv";
 dotenv.config();
 //#endregion
@@ -871,6 +872,11 @@ glados.on(`interactionCreate`, async (interaction: Interaction):Promise<void> =>
 			break;
 		case `gladle`:
 			wordle.startGame(commandInteraction);
+			break;
+		case `reboot`:
+			commandInteraction.reply({content: `And when you're gon I'll still be liiiiii`}).then(() => {
+			childProcess.exec(`sudo reboot 0`);
+			})
 			break;
 		default:
 			console.log(commandInteraction);

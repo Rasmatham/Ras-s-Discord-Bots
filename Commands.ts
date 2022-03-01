@@ -501,15 +501,17 @@ bots.forEach((bot, i):void => {
 	});
 	//Replace all
 	bot.on(`ready`, ():void => {
-		bot.application.commands.fetch().then((/*commands*/):void => {
+		bot.application.commands.fetch().then((commands):void => {
 			console.log(`${
 				bot.user.tag
 			} is active`);
-			/*commands.map((command) => command).forEach((command) => {
+			commands.map((command) => command).forEach((command) => {
 				command.delete();
-			});*/
+			});
 			commandGroup[i].forEach((command, j):void => {
-				bot.application.commands.create(command.command as ApplicationCommandDataResolvable, command.guild = null)
+				console.log(command.guild)
+				if(command.guild != undefined){
+					bot.application.commands.create(command.command as ApplicationCommandDataResolvable, command.guild)
 					.then((command):void => {
 						console.log(`[${
 							j + 1
@@ -520,6 +522,20 @@ bots.forEach((bot, i):void => {
 						}" updated`);
 					})
 					.catch(console.error);
+				} else {
+					bot.application.commands.create(command.command as ApplicationCommandDataResolvable)
+					.then((command):void => {
+						console.log(`[${
+							j + 1
+						}/${
+							commandGroup[i].length
+						}] Command: "${
+							command.name
+						}" updated`);
+					})
+					.catch(console.error);
+				}
+				
 			});
 		});
 	});
