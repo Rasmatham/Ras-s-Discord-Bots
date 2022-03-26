@@ -33,7 +33,7 @@ rm -rf Discord-Bot-Tokens
 
 #set autorun script
 sed -i "s/ABC/$1/" Bots.sh
-sudo mv temp.sh /etc/init.d/
+sudo mv Bots.sh /etc/init.d/
 
 #run bots
 node AllTheBots.js
