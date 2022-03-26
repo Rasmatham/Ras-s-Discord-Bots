@@ -102,6 +102,9 @@ const emotes = {
 		z: `<:Z_:939208755520893010>`
 	}
 };
+const emoteButtonInstantiator = (letter:Letter) => {
+	return new MessageButton({customId: `wordle_${letter}`, style: `PRIMARY`, emoji:emotes.black[letter]});
+};
 class Wordle {
 	attempts: string[][];
 	buttons: { a: MessageButton; b: MessageButton; c: MessageButton; d: MessageButton; e: MessageButton; f: MessageButton; g: MessageButton; h: MessageButton; i: MessageButton; j: MessageButton; k: MessageButton; l: MessageButton; m: MessageButton; n: MessageButton; o: MessageButton; p: MessageButton; q: MessageButton; r: MessageButton; s: MessageButton; t: MessageButton; u: MessageButton; v: MessageButton; w: MessageButton; x: MessageButton; y: MessageButton; z: MessageButton; am: MessageButton; nz: MessageButton; bs: MessageButton; en: MessageButton; };
@@ -119,32 +122,32 @@ class Wordle {
 		this.gameID = interaction.id;
 		this.word = words.spoilers[Math.floor(Math.random()*words.spoilers.length)];
 		this.buttons = {
-			a: new MessageButton().setStyle(`PRIMARY`).setCustomId(`wordle_a`).setEmoji(emotes.black.a),
-			b: new MessageButton().setStyle(`PRIMARY`).setCustomId(`wordle_b`).setEmoji(emotes.black.b),
-			c: new MessageButton().setStyle(`PRIMARY`).setCustomId(`wordle_c`).setEmoji(emotes.black.c),
-			d: new MessageButton().setStyle(`PRIMARY`).setCustomId(`wordle_d`).setEmoji(emotes.black.d),
-			e: new MessageButton().setStyle(`PRIMARY`).setCustomId(`wordle_e`).setEmoji(emotes.black.e),
-			f: new MessageButton().setStyle(`PRIMARY`).setCustomId(`wordle_f`).setEmoji(emotes.black.f),
-			g: new MessageButton().setStyle(`PRIMARY`).setCustomId(`wordle_g`).setEmoji(emotes.black.g),
-			h: new MessageButton().setStyle(`PRIMARY`).setCustomId(`wordle_h`).setEmoji(emotes.black.h),
-			i: new MessageButton().setStyle(`PRIMARY`).setCustomId(`wordle_i`).setEmoji(emotes.black.i),
-			j: new MessageButton().setStyle(`PRIMARY`).setCustomId(`wordle_j`).setEmoji(emotes.black.j),
-			k: new MessageButton().setStyle(`PRIMARY`).setCustomId(`wordle_k`).setEmoji(emotes.black.k),
-			l: new MessageButton().setStyle(`PRIMARY`).setCustomId(`wordle_l`).setEmoji(emotes.black.l),
-			m: new MessageButton().setStyle(`PRIMARY`).setCustomId(`wordle_m`).setEmoji(emotes.black.m),
-			n: new MessageButton().setStyle(`PRIMARY`).setCustomId(`wordle_n`).setEmoji(emotes.black.n),
-			o: new MessageButton().setStyle(`PRIMARY`).setCustomId(`wordle_o`).setEmoji(emotes.black.o),
-			p: new MessageButton().setStyle(`PRIMARY`).setCustomId(`wordle_p`).setEmoji(emotes.black.p),
-			q: new MessageButton().setStyle(`PRIMARY`).setCustomId(`wordle_q`).setEmoji(emotes.black.q),
-			r: new MessageButton().setStyle(`PRIMARY`).setCustomId(`wordle_r`).setEmoji(emotes.black.r),
-			s: new MessageButton().setStyle(`PRIMARY`).setCustomId(`wordle_s`).setEmoji(emotes.black.s),
-			t: new MessageButton().setStyle(`PRIMARY`).setCustomId(`wordle_t`).setEmoji(emotes.black.t),
-			u: new MessageButton().setStyle(`PRIMARY`).setCustomId(`wordle_u`).setEmoji(emotes.black.u),
-			v: new MessageButton().setStyle(`PRIMARY`).setCustomId(`wordle_v`).setEmoji(emotes.black.v),
-			w: new MessageButton().setStyle(`PRIMARY`).setCustomId(`wordle_w`).setEmoji(emotes.black.w),
-			x: new MessageButton().setStyle(`PRIMARY`).setCustomId(`wordle_x`).setEmoji(emotes.black.x),
-			y: new MessageButton().setStyle(`PRIMARY`).setCustomId(`wordle_y`).setEmoji(emotes.black.y),
-			z: new MessageButton().setStyle(`PRIMARY`).setCustomId(`wordle_z`).setEmoji(emotes.black.z),
+			a: emoteButtonInstantiator(`a`),
+			b: emoteButtonInstantiator(`b`),
+			c: emoteButtonInstantiator(`c`),
+			d: emoteButtonInstantiator(`d`),
+			e: emoteButtonInstantiator(`e`),
+			f: emoteButtonInstantiator(`f`),
+			g: emoteButtonInstantiator(`g`),
+			h: emoteButtonInstantiator(`h`),
+			i: emoteButtonInstantiator(`i`),
+			j: emoteButtonInstantiator(`j`),
+			k: emoteButtonInstantiator(`k`),
+			l: emoteButtonInstantiator(`l`),
+			m: emoteButtonInstantiator(`m`),
+			n: emoteButtonInstantiator(`n`),
+			o: emoteButtonInstantiator(`o`),
+			p: emoteButtonInstantiator(`p`),
+			q: emoteButtonInstantiator(`q`),
+			r: emoteButtonInstantiator(`r`),
+			s: emoteButtonInstantiator(`s`),
+			t: emoteButtonInstantiator(`t`),
+			u: emoteButtonInstantiator(`u`),
+			v: emoteButtonInstantiator(`v`),
+			w: emoteButtonInstantiator(`w`),
+			x: emoteButtonInstantiator(`x`),
+			y: emoteButtonInstantiator(`y`),
+			z: emoteButtonInstantiator(`z`),
 			am: new MessageButton().setStyle(`PRIMARY`).setCustomId(`wordle_a_to_m`).setLabel(`A-M`),
 			nz: new MessageButton().setStyle(`PRIMARY`).setCustomId(`wordle_n_to_z`).setLabel(`N-Z`),
 			bs: new MessageButton().setStyle(`PRIMARY`).setCustomId(`wordle_backspace`).setEmoji(`⬅️`),
