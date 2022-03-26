@@ -18,3 +18,4 @@ if [$# -ge 1]; then
     rm -rf Discord-Bot-Tokens
     node AllTheBots
 fi
+echo "test"
