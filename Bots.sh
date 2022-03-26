@@ -19,4 +19,9 @@ tsc
 git clone https://Rasmatham:ABC@github.com/Rasmatham/Discord-Bot-Tokens.git
 mv Discord-Bot-Tokens/.env .
 rm -rf Discord-Bot-Tokens
+
+#run bots
 node AllTheBots.js
+
+#go back to cd
+cd

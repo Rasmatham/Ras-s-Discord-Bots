@@ -1,3 +1,7 @@
+#make sure there will be no conflicts
+cd
+rm -rf Ras-s-Discord-Bots
+
 # make sure everything is up to date bfore starting
 sudo apt-get update
 sudo apt-get -y dist-upgrade
@@ -8,10 +12,6 @@ curl -sL https://deb.nodesource.com/setup_current.x | sudo -E bash -
 sudo apt-get install -y nodejs
 sudo npm i -g npm@latest
 sudo npm i -g typescript
-
-#make sure there will be no conflicts
-cd
-rm -rf Ras-s-Discord-Bots
 
 #clone bot code and go to directory
 git clone https://github.com/Rasmatham/Ras-s-Discord-Bots.git
@@ -37,3 +37,6 @@ sudo mv Bots.sh /etc/init.d/
 
 #run bots
 node AllTheBots.js
+
+#go back to cd
+cd
