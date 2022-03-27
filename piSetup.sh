@@ -13,6 +13,10 @@ sudo apt-get install -y nodejs
 sudo npm i -g npm@latest
 sudo npm i -g typescript
 
+#clone bot code and go to directory
+git clone https://github.com/Rasmatham/Ras-s-Discord-Bots.git
+cd Ras-s-Discord-Bots
+
 #set autorun script
 sed -i "s/ABC/$1/" Bots.sh
 mv bots.service /lib/systemd/system/
