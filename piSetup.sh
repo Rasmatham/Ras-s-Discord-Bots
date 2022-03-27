@@ -2,10 +2,6 @@
 cd
 rm -rf Ras-s-Discord-Bots
 
-# make sure everything is up to date bfore starting
-sudo apt-get update
-sudo apt-get -y dist-upgrade
-
 #install necessary things
 sudo apt-get install -y git
 curl -sL https://deb.nodesource.com/setup_current.x | sudo -E bash -
