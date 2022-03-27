@@ -19,7 +19,7 @@ cd Ras-s-Discord-Bots
 
 #set autorun script
 sed -i "s/ABC/$1/" Bots.sh
-mv bots.service /lib/systemd/system/
+sudo mv bots.service /lib/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl enable bots.service 
 sudo systemctl start bots.service
