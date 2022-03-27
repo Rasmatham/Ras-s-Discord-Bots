@@ -5,7 +5,7 @@ cd
 rm -rf Ras-s-Discord-Bots
 
 #clone bot code and go to directory
-git clone https://github.com/Rasmatham/Ras-s-Discord-Bots.git
+git clone --depth=1 https://github.com/Rasmatham/Ras-s-Discord-Bots.git
 cd Ras-s-Discord-Bots
 
 #remove potentially confusing files
@@ -18,7 +18,7 @@ npm i
 tsc
 
 #get bot tokens
-git clone https://Rasmatham:ABC@github.com/Rasmatham/Discord-Bot-Tokens.git
+git clone --depth=1 https://Rasmatham:ABC@github.com/Rasmatham/Discord-Bot-Tokens.git
 mv Discord-Bot-Tokens/.env .
 rm -rf Discord-Bot-Tokens
 
