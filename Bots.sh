@@ -1,13 +1,4 @@
-# /etc/init.d/Bots.sh
-### BEGIN INIT INFO
-# Provides:          Bots.sh
-# Required-Start:    $remote_fs $syslog
-# Required-Stop:     $remote_fs $syslog
-# Default-Start:     2 3 4 5
-# Default-Stop:      0 1 6
-# Short-Description: null
-# Description:       null
-### END INIT INFO
+#!/bin/bash
 
 #make sure there will be no conflicts
 cd
@@ -18,7 +9,7 @@ git clone https://github.com/Rasmatham/Ras-s-Discord-Bots.git
 cd Ras-s-Discord-Bots
 
 #remove potentially confusing files
-rm piSetup.sh Bots.bat ActivateCommands.bat Bots.sh
+rm piSetup.sh Bots.bat ActivateCommands.bat
 
 #install missing modules
 npm i
