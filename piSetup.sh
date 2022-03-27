@@ -13,30 +13,11 @@ sudo apt-get install -y nodejs
 sudo npm i -g npm@latest
 sudo npm i -g typescript
 
-#clone bot code and go to directory
-git clone https://github.com/Rasmatham/Ras-s-Discord-Bots.git
-cd Ras-s-Discord-Bots
-
-#remove potentially confusing files
-rm piSetup.sh Bots.bat ActivateCommands.bat
-
-#install missing modules
-npm i
-
-#compile
-tsc
-
-#get bot tokens
-git clone https://Rasmatham:$1@github.com/Rasmatham/Discord-Bot-Tokens.git
-mv Discord-Bot-Tokens/.env .
-rm -rf Discord-Bot-Tokens
-
 #set autorun script
 sed -i "s/ABC/$1/" Bots.sh
 sudo mv Bots.sh /etc/init.d/
+sudo chmod +x /etc/init.d/Bots.sh
+sudo update-rc.d /etc/init.d/Bots.sh defaults
 
-#run bots
-node AllTheBots.js
-
-#go back to cd
-cd
+#reboot
+sudo reboot now

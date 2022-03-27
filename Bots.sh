@@ -1,3 +1,9 @@
+# /etc/init.d/Bots.sh
+### BEGIN INIT INFO
+# Provides:          Bots.sh
+# Short-Description: Start Discord bots at boot time
+### END INIT INFO
+
 #make sure there will be no conflicts
 cd
 rm -rf Ras-s-Discord-Bots
