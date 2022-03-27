@@ -4,7 +4,8 @@ rm -rf Ras-s-Discord-Bots
 
 #install necessary things
 sudo apt-get install -y git
-curl -sL https://deb.nodesource.com/setup_current.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_current.x -O
+sudo -E bash setup_current.x
 sudo apt-get install -y nodejs
 sudo npm i -g npm@latest
 sudo npm i -g typescript
