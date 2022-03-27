@@ -15,9 +15,11 @@ sudo npm i -g typescript
 
 #set autorun script
 sed -i "s/ABC/$1/" Bots.sh
-sudo mv Bots.sh /etc/init.d/
-sudo chmod +x /etc/init.d/Bots.sh
-sudo update-rc.d /etc/init.d/Bots.sh defaults
+mv bots.service /lib/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable bots.service 
+sudo systemctl start bots.service
+sudo systemctl status bots.service 
 
 #reboot
 sudo reboot now

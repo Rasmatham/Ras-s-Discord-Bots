@@ -1,7 +1,12 @@
 # /etc/init.d/Bots.sh
 ### BEGIN INIT INFO
 # Provides:          Bots.sh
-# Short-Description: Start Discord bots at boot time
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: null
+# Description:       null
 ### END INIT INFO
 
 #make sure there will be no conflicts
