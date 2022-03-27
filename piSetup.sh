@@ -11,7 +11,7 @@ sudo npm i -g npm@latest
 sudo npm i -g typescript
 
 #clone bot code and go to directory
-git clone https://github.com/Rasmatham/Ras-s-Discord-Bots.git
+git clone --depth=1 https://github.com/Rasmatham/Ras-s-Discord-Bots.git
 cd Ras-s-Discord-Bots
 
 #set autorun script
