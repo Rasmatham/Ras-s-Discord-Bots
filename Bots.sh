@@ -24,6 +24,3 @@ rm -rf Discord-Bot-Tokens
 
 #run bots
 node AllTheBots.js
-
-#go back to cd
-cd
