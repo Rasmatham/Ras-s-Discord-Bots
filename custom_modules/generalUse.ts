@@ -246,22 +246,13 @@ export const blackList:string[] = [
 //#region general stuff for the process
 export const process = (process:NodeJS.Process, bots:Client[]):void => {
 	process.on(`exit`, () => {
-		try {
-			bots.forEach((bot) => {
-				bot.channels.fetch(`957886578154430494`)
-					.then((channel) => {
-						if (channel instanceof TextChannel) {
-							channel.send({content: `offline`});
-							return channel;
-						}
-					})
-					.finally(() => {
-						bot.destroy();
-					});
+		bots[0].channels.fetch(`957886578154430494`)
+			.then((channel) => {
+				if (channel instanceof TextChannel) {
+					channel.send({content: `offline`});
+					bots[0].destroy();
+				}
 			});
-		} catch (err) {
-			console.error();
-		}
 	});
 };
 
