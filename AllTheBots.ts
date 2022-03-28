@@ -165,22 +165,24 @@ random.login(process.env.RANDOMTOKEN).catch(console.error);
 sini.login(process.env.SINITOKEN).catch(console.error);
 zelda.login(process.env.ZELDATOKEN).catch(console.error);
 croissant.login(process.env.CROISSANTTOKEN).catch(console.error);
+const bots = [
+	buzzBot,
+	clambot,
+	ebnj,
+	glados,
+	pokebot,
+	artoo,
+	random,
+	sini,
+	zelda,
+	croissant
+];
 generalStuff.botReady([
 	{
-		bots: [
-			buzzBot,
-			clambot,
-			ebnj,
-			glados,
-			pokebot,
-			artoo,
-			random,
-			sini,
-			zelda,
-			croissant
-		]
+		bots: bots
 	}
 ]);
+
 //#endregion
 
 //#endregion

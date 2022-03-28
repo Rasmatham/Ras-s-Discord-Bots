@@ -192,10 +192,7 @@ export const listThings = async (interaction:CommandInteraction):Promise<Interac
 //#endregion
 
 //#region Bot check
-export const botReady = (
-	inObjs: {
-		bots: Client[]
-	}[]
+export const botReady = (inObjs: { bots: Client[] }[]
 ):void => {
 	inObjs.forEach((inObj) => {
 		inObj.bots.forEach((bot):void => {
@@ -205,6 +202,11 @@ export const botReady = (
 				console.log(`${
 					bot.user != null ? bot.user.username : `unknown bot/user`
 				} is online`);
+				bot.channels.fetch(`957886578154430494`).then((channel) => {
+					if (channel instanceof TextChannel) {
+						channel.send({content: `online`});
+					}
+				});
 			});
 		});
 	});
