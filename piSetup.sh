@@ -21,7 +21,6 @@ sudo mv bots.service /lib/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl enable bots.service 
 sudo systemctl start bots.service
-sudo systemctl status bots.service
 
 #go back to cd
 cd

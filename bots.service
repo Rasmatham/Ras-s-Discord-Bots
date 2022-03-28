@@ -3,6 +3,7 @@
  After=multi-user.target
 
  [Service]
+ WorkingDirectory=/home/Ras
  Type=idle
  ExecStart=/home/Ras/Ras-s-Discord-Bots/Bots.sh
  Restart=on-failure
