@@ -5,7 +5,7 @@
  [Service]
  WorkingDirectory=/home/Ras
  Type=idle
- ExecStart=Ras-s-Discord-Bots/Bots.sh
+ ExecStart=/home/Ras/Ras-s-Discord-Bots/Bots.sh
  Restart=on-failure
 
  [Install]
