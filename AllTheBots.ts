@@ -177,11 +177,8 @@ const bots = [
 	zelda,
 	croissant
 ];
-generalStuff.botReady([
-	{
-		bots: bots
-	}
-]);
+generalStuff.botReady([{bots: bots}]);
+generalStuff.process(process, bots);
 
 //#endregion
 
