@@ -1,5 +1,5 @@
 #make sure there will be no conflicts
-cd
+cd /
 rm -rf Ras-s-Discord-Bots
 
 #install necessary things
@@ -22,5 +22,5 @@ sudo systemctl daemon-reload
 sudo systemctl enable bots.service 
 sudo systemctl start bots.service
 
-#go back to cd
-cd
+#go back to root
+cd /

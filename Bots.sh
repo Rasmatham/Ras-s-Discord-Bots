@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #make sure there will be no conflicts
-cd
+cd /
 rm -rf Ras-s-Discord-Bots
 
 #clone bot code and go to directory
