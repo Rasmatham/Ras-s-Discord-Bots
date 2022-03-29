@@ -4,7 +4,7 @@ After=multi-user.target
 
 [Service]
 Type=idle
-ExecStart=/home/Ras/Ras-s-Discord-Bots/Bots.sh
+ExecStart=/Ras-s-Discord-Bots/Bots.sh
 
 [Install]
 WantedBy=multi-user.target
