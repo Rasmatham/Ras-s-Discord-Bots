@@ -9,7 +9,7 @@ sudo git clone --depth=1 https://github.com/Rasmatham/Ras-s-Discord-Bots.git
 cd Ras-s-Discord-Bots
 
 #remove potentially confusing files
-sudo rm piSetup.sh Bots.bat ActivateCommands.bat
+sudo rm piSetup.sh Bots.bat ActivateCommands.bat Bots.sh
 
 #install missing modules
 sudo npm i
