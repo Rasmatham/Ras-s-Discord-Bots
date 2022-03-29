@@ -1,10 +1,11 @@
- [Unit]
- Description=My Sample Service
- After=multi-user.target
+[Unit]
+Description=My Sample Service
+After=multi-user.target
 
- [Service]
- Type=idle
- ExecStart=/home/Ras/Ras-s-Discord-Bots/Bots.sh
+[Service]
+WorkingDirectory=/home/Ras
+Type=idle
+ExecStart=/home/Ras/Ras-s-Discord-Bots/Bots.sh
 
- [Install]
- WantedBy=multi-user.target
+[Install]
+WantedBy=multi-user.target
