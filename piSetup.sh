@@ -4,7 +4,7 @@ rm -rf Ras-s-Discord-Bots
 
 #install necessary things
 sudo apt-get install -y git
-curl -sL https://deb.nodesource.com/setup_current.x -O
+sudo curl -sL https://deb.nodesource.com/setup_current.x -O
 sudo -E bash setup_current.x
 sudo apt-get install -y nodejs
 sudo npm i -g npm@latest
@@ -15,7 +15,7 @@ git clone --depth=1 https://github.com/Rasmatham/Ras-s-Discord-Bots.git
 cd Ras-s-Discord-Bots
 
 #set autorun script
-sed -i "s/ABC/$1/" Bots.sh
+sudo sed -i "s/ABC/$1/" Bots.sh
 sudo chmod +x Bots.sh 
 sudo mv bots.service /lib/systemd/system/
 sudo systemctl daemon-reload
