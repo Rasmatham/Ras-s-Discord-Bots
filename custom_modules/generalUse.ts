@@ -256,7 +256,7 @@ export const process = (process:NodeJS.Process, bots:Client[]):void => {
 			}
 		});
 	};
-	process.on(`exit`, () => exitSequence());
+	process.on(`beforeExit`, () => exitSequence());
 	process.on(`uncaughtException`, () => exitSequence());
 };
 
