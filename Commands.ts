@@ -102,7 +102,7 @@ const random:Client = new Client({
 		]
 	}
 });
-const sini:Client = new Client({
+const amber:Client = new Client({
 	intents: intents,
 	presence: {
 		status: `dnd`,
@@ -148,7 +148,7 @@ glados.login(process.env.GLADOSTOKEN).catch(console.error);
 pokebot.login(process.env.POKETOKEN).catch(console.error);
 artoo.login(process.env.ARTOOTOKEN).catch(console.error);
 random.login(process.env.RANDOMTOKEN).catch(console.error);
-sini.login(process.env.SINITOKEN).catch(console.error);
+amber.login(process.env.AMBERTOKEN).catch(console.error);
 zelda.login(process.env.ZELDATOKEN).catch(console.error);
 croissant.login(process.env.CROISSANTTOKEN).catch(console.error);
 //#endregion
@@ -451,7 +451,7 @@ const artooCommands:commandObject[] = [
 const randomCommands:commandObject[] = [	
 ];
 
-const siniCommands:commandObject[] = [
+const amberCommands:commandObject[] = [
 ];
 
 const zeldaCommands:commandObject[] = [
@@ -470,7 +470,7 @@ const bots:Client[] = [
 	pokebot,
 	artoo,
 	random,
-	sini,
+	amber,
 	zelda,
 	croissant
 ];
@@ -482,7 +482,7 @@ const commandGroup:commandObject[][] = [
 	pokebotCommands,
 	artooCommands,
 	randomCommands,
-	siniCommands,
+	amberCommands,
 	zeldaCommands,
 	croissantCommands
 ];

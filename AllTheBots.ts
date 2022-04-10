@@ -118,7 +118,7 @@ const random:Client = new Client({
 		]
 	}
 });
-const sini:Client = new Client({
+const amber:Client = new Client({
 	intents: generalStuff.intents,
 	presence: {
 		activities: [
@@ -161,7 +161,7 @@ glados.login(process.env.GLADOSTOKEN).catch(console.error);
 pokebot.login(process.env.POKETOKEN).catch(console.error);
 artoo.login(process.env.ARTOOTOKEN).catch(console.error);
 random.login(process.env.RANDOMTOKEN).catch(console.error);
-sini.login(process.env.SINITOKEN).catch(console.error);
+amber.login(process.env.AMBERTOKEN).catch(console.error);
 zelda.login(process.env.ZELDATOKEN).catch(console.error);
 croissant.login(process.env.CROISSANTTOKEN).catch(console.error);
 const bots = [
@@ -172,7 +172,7 @@ const bots = [
 	pokebot,
 	artoo,
 	random,
-	sini,
+	amber,
 	zelda,
 	croissant
 ];
@@ -1240,26 +1240,26 @@ random.on(`messageCreate`, (message: Message):void => {
 
 //#endregion
 
-//#region sinibot
+//#region amberbot
 
 //#region Stuff
-sini.on(`ready`, () => {
-	sini.users.fetch(`707188499153158204`).then((user) => {
-		if (sini.user != null) {
-			sini.user.setAvatar(user.avatarURL()).catch(() => console.log(`[${user.tag}] You're probably changing the avatar too fast`));
-			sini.user.setUsername(user.username).catch(() => console.log(`[${user.tag}] You're probably changing the username too fast`));
+amber.on(`ready`, () => {
+	amber.users.fetch(`707188499153158204`).then((user) => {
+		if (amber.user != null) {
+			amber.user.setAvatar(user.avatarURL()).catch(() => console.log(`[${user.tag}] You're probably changing the avatar too fast`));
+			amber.user.setUsername(user.username).catch(() => console.log(`[${user.tag}] You're probably changing the username too fast`));
 		}
 	});
 });
-sini.on(`userUpdate`, (oldUser, newUser) => {
-	if (sini.user != null) {
+amber.on(`userUpdate`, (oldUser, newUser) => {
+	if (amber.user != null) {
 		if (newUser.id == `707188499153158204`) {
-			sini.user.setAvatar(newUser.avatarURL()).catch(() => console.log(`[${newUser.tag}] You're probably changing the avatar too fast`));
-			sini.user.setUsername(newUser.username).catch(() => console.log(`[${newUser.tag}] You're probably changing the username too fast`));
+			amber.user.setAvatar(newUser.avatarURL()).catch(() => console.log(`[${newUser.tag}] You're probably changing the avatar too fast`));
+			amber.user.setUsername(newUser.username).catch(() => console.log(`[${newUser.tag}] You're probably changing the username too fast`));
 		}
 	}
 });
-sini.on(`messageCreate`, (message: Message):void => {
+amber.on(`messageCreate`, (message: Message):void => {
 	if (message.channel.type == `DM`) {
 		return;
 	}
