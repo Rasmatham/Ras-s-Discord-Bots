@@ -1,5 +1,6 @@
 //#region imports
 import {Message, TextChannel, WebhookClient, Client, MessageOptions, Webhook, BufferResolvable, User, Intents, NewsChannel, EmbedFieldData, ClientUser, InteractionReplyOptions, CommandInteraction, CommandInteractionOption, MessageEmbed} from "discord.js";
+import * as os from "os";
 //#endregion
 
 //#region intent
@@ -245,15 +246,18 @@ export const blackList:string[] = [
 
 //#region general stuff for the process
 export const process = (process:NodeJS.Process, bots:Client[]):void => {
-	process.on(`exit`, () => {
-		bots[0].channels.fetch(`957886578154430494`)
-			.then((channel) => {
-				if (channel instanceof TextChannel) {
-					channel.send({content: `offline`});
-					bots[0].destroy();
-				}
-			});
-	});
+	const exitSequence = () => {
+		bots[0].channels.fetch(`957886578154430494`).then((channel) => {
+			if (channel instanceof TextChannel) {
+				channel.send({
+					content: `offline from: ${JSON.stringify(os.networkInterfaces())}`
+				});
+				bots[0].destroy();
+			}
+		});
+	};
+	process.on(`exit`, () => exitSequence());
+	process.on(`uncaughtException`, () => exitSequence());
 };
 
 //#endregion

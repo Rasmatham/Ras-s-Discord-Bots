@@ -25,7 +25,6 @@ import * as pokedex from "./custom_modules/pokedex";
 import * as dice from "./custom_modules/dice";
 import * as info from "./custom_modules/info";
 import * as xkcd from "./custom_modules/xkcd";
-import * as childProcess from "child_process";
 import * as dotenv from "dotenv";
 dotenv.config();
 //#endregion
