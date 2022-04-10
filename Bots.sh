@@ -24,3 +24,5 @@ sudo rm -rf Discord-Bot-Tokens
 
 #run bots
 sudo node AllTheBots.js
+
+sudo reboot now

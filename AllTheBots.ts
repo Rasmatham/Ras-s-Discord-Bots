@@ -874,7 +874,7 @@ glados.on(`interactionCreate`, async (interaction: Interaction):Promise<void> =>
 			break;
 		case `reboot`:
 			commandInteraction.reply({content: `And when you're gone I'll still be aliiiiii`}).then(() => {
-				childProcess.exec(`sudo reboot 0`);
+				process.exit();
 			});
 			break;
 		default:
