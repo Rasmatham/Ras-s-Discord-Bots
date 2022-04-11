@@ -2,11 +2,9 @@
 	"files.exclude": {
 		"*.js": true,
 		"*.map": true,
-		"custom_modules/*.js": true,
-		"custom_modules/*.map": true,
+		"custom_modules/*.js*": true,
 		"LICENSE": true,
-		"package*.json": true,
-		"Pokebot/*.js": true,
-		"Pokebot/*.map": true
+		"package-lock.json": true,
+		"Pokebot/*.js*": true
 	}
 }
