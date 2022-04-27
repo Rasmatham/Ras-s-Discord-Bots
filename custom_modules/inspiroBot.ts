@@ -1,12 +1,12 @@
 //#region imports
-import {Message} from "discord.js";
-import req from "node-fetch";
+import {ButtonInteraction, Message} from "discord.js";
+import req, { Response } from "node-fetch";
 //#endregion
 
 //#region fetches inspirobot URI
-export const getURI = ():Promise<string | void> => {
+export const getURI:()=>Promise<string|void> = ():Promise<string | void> => {
 	return req(`https://inspirobot.me/api?generate=true`)
-		.then((res):Promise<string> => {
+		.then((res:Response):Promise<string> => {
 			return res.text();
 		})
 		.catch(console.error);
@@ -14,17 +14,29 @@ export const getURI = ():Promise<string | void> => {
 //#endregion
 
 //#region Sends a Discord mesage
-export const sendMessage = (
+export const sendMessage: (inObjs: {message: Message | ButtonInteraction}[]) => void = (
 	inObjs: {
-		message: Message
+		message: Message | ButtonInteraction
 	}[]
 ):void => {
-	inObjs.forEach((inObj) => {
-		if (!inObj.message.author.bot && (inObj.message.content.toLowerCase().includes(`inspire`) || inObj.message.content.toLowerCase().includes(`inspiration`) || inObj.message.content.toLowerCase().includes(`inspiring`))) {
-			getURI().then((url):void => {
-				inObj.message.channel.send(url as string)
-					.catch(console.error);
-			});
+	inObjs.forEach((inObj: {message: Message | ButtonInteraction}): void => {
+		if(inObj.message instanceof ButtonInteraction){
+			if(inObj.message.message instanceof Message){
+				getURI().then((url:string|void):void => {
+					inObj.message.reply({ content: url?url:`error`, components: [{ type: `ACTION_ROW`, components: [{ type: `BUTTON`, label: `inspire`, customId: `inspirobot`, style: `SECONDARY` }]}]})
+						.catch(console.error);
+						
+				});
+			}
+		} else {
+			if (!inObj.message.author.bot && (inObj.message.content.toLowerCase().includes(`inspire`) || inObj.message.content.toLowerCase().includes(`inspiration`) || inObj.message.content.toLowerCase().includes(`inspiring`))) {
+				getURI().then((url:string|void):void => {
+					if(inObj.message instanceof Message){
+						inObj.message.channel.send({ content: url?url:`error`, components: [{ type: `ACTION_ROW`, components: [{ type: `BUTTON`, label: `inspire`, customId: `inspirobot`, style: `SECONDARY` }]}]})
+							.catch(console.error);
+					}
+				});
+			}
 		}
 	});
 };

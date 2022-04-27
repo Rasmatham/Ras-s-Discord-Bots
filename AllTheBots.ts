@@ -782,6 +782,14 @@ glados.on(`interactionCreate`, async (interaction: Interaction):Promise<void> =>
 					ephemeral: true
 				})
 					.catch(console.error);
+			} else {
+				switch (buttonInteraction.customId) {
+				case `inspirobot`:
+					inspiroBot.sendMessage([{message: buttonInteraction}]);
+					break;
+				default:
+					break;
+				}
 			}
 		}
 		else if (messageComponentInteraction.componentType == `SELECT_MENU`) {
