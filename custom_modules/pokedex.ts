@@ -62,7 +62,7 @@ export const natDex = (inObj: {query: string | number}):ReplyMessageOptions => {
 			return `None`;
 		}
 	};
-	const attachment:MessageAttachment = new MessageAttachment(`./Pokèbot/Pokemon/1-151/250px-${
+	const attachment:MessageAttachment = new MessageAttachment(`./Pokebot/Pokemon/1-151/250px-${
 		pokemon[dexNumber].nat
 	}${
 		pokemon[dexNumber].name

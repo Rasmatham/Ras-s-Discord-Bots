@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "discord.js": "^13.0.0-dev.7e30011.1625338909",
-    "dotenv": "^8.2.0",
+    "dotenv": "^8.6.0",
     "ffmpeg-static": "^4.3.0",
     "generate-maze": "^0.2.0",
     "node-fetch": "^2.6.1",
