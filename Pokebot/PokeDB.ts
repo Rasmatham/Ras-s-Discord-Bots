@@ -7876,36 +7876,139 @@ export const pokemon:pokeObjType[] = [
 
 //#region trainers
 export const trainerList:string[] = [
-	`Ash Kechum`,
-	`Red`,
-	`Leaf`,
-	`Blue`,
-	`Ethan`,
-	`Kris`,
-	`Lyra`,
-	`Silver`,
-	`Brendan`,
-	`May`,
-	`Lucas`,
-	`Dawn`,
-	`Barry`,
-	`Hilbert`,
-	`Hilda`,
-	`Cheren`,
-	`Bianca`,
-	`Nate`,
-	`Rosa`,
-	`Hugh`,
-	`Calem`,
-	`Serena`,
-	`Elio`,
-	`Selene`,
-	`Lillie`,
-	`Hau`,
-	`Victor`,
-	`Gloria`,
-	`Hop`,
-	`Bede`,
-	`Marnie`
-];
+	//Core games
+	[
+	//Kanto
+		[
+			//Gen 1
+			[
+				`Red`,
+				`Blue`,
+			],
+			//Gen 3
+			[
+				`Green`,
+			],
+			//Gen 7
+			[
+				`Chace`,
+				`Elaine`,
+				`Trace`,
+			],
+		],
+		//Johto
+		[
+			//Gen 2
+			[
+				//GS
+				[
+					`Ethan`,
+					`Silver`,
+				],
+				//C
+				[
+					`Kris`,
+				],
+			],
+			//Gen 4
+			[
+				`Lyra`,
+			],
+		],
+		//Hoenn
+		[
+			//Gen 3
+			[
+				`Brendan`,
+				`May`,
+				`Wally`,
+			],
+			//Gen 6
+			[
+				//none
+			],
+		],
+		//Sinnoh
+		[
+			//Gen 4
+			[
+				`Lucas`,
+				`Dawn`,
+				`Barry`,
+			],
+			//Gen 8
+			[
+				//none
+			],
+		],
+		//Unova
+		[
+			//Gen 5
+			[
+				//BW
+				[
+					`Hilbert`,
+					`Hilda`,
+					`Cheren`,
+					`Bianca`,
+					`N`,
+				],
+				//B2W2
+				[
+					`Nate`,
+					`Rosa`,
+					`Hugh`,
+				],
+			],
+		],
+		//Kalos
+		[
+			//Gen 6
+			[
+				`Calem`,
+				`Serena`,
+				`Shauna`,
+				`Tierno`,
+				`Trevor`,
+			],
+		],
+		//Alola
+		[
+			//Gen 7
+			[
+				`Elio`,
+				`Selene`,
+				`Hau`,
+				`Gladion`,
+			],
+		],
+		//Galar
+		[
+			//Gen 8
+			[
+				//Base game
+				[
+					`Victor`,
+					`Gloria`,
+					`Hop`,
+					`Bede`,
+					`Marnie`,
+				],
+				//Isle of Armor
+				[
+					`Klara`,
+					`Avery`,
+				],
+			],
+		],
+		//Hisui
+		[
+			//Gen 9
+			[
+				`Rei`,
+				`Akari`,
+			],
+		],
+	],
+].flat(Infinity) as string[];
 //#endregion
