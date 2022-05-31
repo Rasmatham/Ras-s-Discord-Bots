@@ -729,7 +729,7 @@ glados.on(`messageCreate`, (message: Message):void => {
 				`838084115391053844`
 			],
 			triggers: [
-				`blue`
+				`blue`, `blå`, `bla`
 			]
 		},
 		{
@@ -739,7 +739,7 @@ glados.on(`messageCreate`, (message: Message):void => {
 				`838084116653670420`
 			],
 			triggers: [
-				`orange`
+				`orange`, `oransje`
 			]
 		}
 	]);
