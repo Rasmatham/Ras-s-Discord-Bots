@@ -62,9 +62,11 @@ export const sendAsWebHook = (
 				.then((webHooks):void => {
 					const user = inObj.message.client.user as ClientUser;
 					if (webHooks.size <= 0) {
-						inObj.sendTo.createWebhook(`${
-							user.username
-						}-Webhook`)
+						inObj.sendTo.createWebhook({
+							name: `${
+								user.username
+							}-Webhook`
+						})
 							.then(():void => {
 								webHookFunction();
 							})
@@ -100,9 +102,11 @@ export const sendAsWebHook = (
 									.catch(console.error);
 							}
 							else if (i >= webHooks.size - 1) {
-								inObj.sendTo.createWebhook(`${
-									user.username
-								}-Webhook`)
+								inObj.sendTo.createWebhook({
+									name: `${
+										user.username
+									}-Webhook`
+								})
 									.then(():void => {
 										webHookFunction();
 									})
