@@ -1,5 +1,5 @@
 //#region imports
-import {BufferResolvable, Channel, Client, DMChannel, Message, NewsChannel, TextChannel, ThreadChannel} from "discord.js";
+import {BufferResolvable, Channel, ChannelType, Client, DMChannel, Message, NewsChannel, TextChannel, ThreadChannel} from "discord.js";
 import {sendAsWebHook, blackList} from "./generalUse.js";
 //#endregion
 
@@ -10,7 +10,7 @@ export const messageForwarding = (
 	}[]
 ):void => {
 	inObjs.forEach((inObj) => {
-		if (inObj.message.channel.type.toString() == `DM`) {
+		if (inObj.message.channel.type == ChannelType.DM) {
 			return;
 		}
 		const bot:Client = inObj.message.client;
