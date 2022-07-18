@@ -1,5 +1,5 @@
 //#region imports
-import {EmbedBuilder, MessageAttachment, ReplyMessageOptions, ColorResolvable} from "discord.js";
+import {EmbedBuilder, ReplyMessageOptions, ColorResolvable} from "discord.js";
 import {pokemon, trainerList, pokeObjType} from "../Pokebot/PokeDB.js";
 //#endregion
 
@@ -62,11 +62,13 @@ export const natDex = (inObj: {query: string | number}):ReplyMessageOptions => {
 			return `None`;
 		}
 	};
-	const attachment:MessageAttachment = new MessageAttachment(`./Pokebot/Pokemon/1-151/250px-${
-		pokemon[dexNumber].nat
-	}${
-		pokemon[dexNumber].name
-	}.png`);
+	const attachment = {
+		attachment: `./Pokebot/Pokemon/1-151/250px-${
+			pokemon[dexNumber].nat
+		}${
+			pokemon[dexNumber].name
+		}.png`
+	};
 	const embed:EmbedBuilder = new EmbedBuilder()
 		.setColor(pokemon[dexNumber].types[0].color as ColorResolvable)
 		.setTitle(pokemon[dexNumber].name)

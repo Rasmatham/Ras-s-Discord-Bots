@@ -1,5 +1,5 @@
 //#region imports
-import {CommandInteraction, EmbedBuilder, Guild, User, ColorResolvable, InteractionReplyOptions, MessageAttachment, CommandInteractionOption, GuildMember} from "discord.js";
+import {CommandInteraction, EmbedBuilder, Guild, User, ColorResolvable, InteractionReplyOptions, CommandInteractionOption, GuildMember} from "discord.js";
 import {checkFor} from "./generalUse.js";
 //#endregion
 
@@ -64,8 +64,14 @@ export const userInfo = async (
 	return {
 		content: `test`,
 		files: [
-			new MessageAttachment(Buffer.from(JSON.stringify(await guild.members.fetch(inObj.interaction.user), null, 2)), `user.json`),
-			new MessageAttachment(Buffer.from(JSON.stringify(await inObj.interaction.user.fetch(true), null, 2)), `member.json`)
+			{
+				attachment: Buffer.from(JSON.stringify(await guild.members.fetch(inObj.interaction.user), null, 2)),
+				name:`user.json`
+			},
+			{
+				attachment: Buffer.from(JSON.stringify(await inObj.interaction.user.fetch(true), null, 2)),
+				name: `member.json`
+			}
 		]
 	} as InteractionReplyOptions;
 };
