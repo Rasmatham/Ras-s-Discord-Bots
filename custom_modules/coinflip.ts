@@ -1,5 +1,5 @@
 //#region imports
-import {ColorResolvable, CommandInteraction, CommandInteractionOption, MessageEmbed} from "discord.js";
+import {ColorResolvable, CommandInteraction, CommandInteractionOption, EmbedBuilder} from "discord.js";
 import {mkdirSync, existsSync, readFileSync, writeFileSync} from "fs";
 //#endregion
 
@@ -68,7 +68,7 @@ export const flip = (
 							const wincount:string = readFileSync(coinfilew, `utf8`);
 							const losecount:string = readFileSync(coinfilel, `utf8`);
 							writeFileSync(coinfilew, (parseInt(wincount) + 1).toString());
-							const embed:MessageEmbed = new MessageEmbed()
+							const embed:EmbedBuilder = new EmbedBuilder()
 								.setColor(`00FF00` as ColorResolvable)
 								.setTitle(`You won!`)
 								.setThumbnail(`https://cdn.discordapp.com/attachments/656164355381133332/715662587471331359/ezgif-3-b3ae702d4205.gif`)
@@ -95,7 +95,7 @@ export const flip = (
 							const wincount:string = readFileSync(coinfilew, `utf8`);
 							const losecount:string = readFileSync(coinfilel, `utf8`);
 							writeFileSync(coinfilel, (parseInt(losecount) + 1).toString());
-							const embed:MessageEmbed = new MessageEmbed()
+							const embed:EmbedBuilder = new EmbedBuilder()
 								.setColor(`FF0000` as ColorResolvable)
 								.setTitle(`You lost!`)
 								.setThumbnail(`https://cdn.discordapp.com/attachments/656164355381133332/715669285128634368/ezgif-3-b8913657fa57.gif`)
@@ -124,7 +124,7 @@ export const flip = (
 							const wincount:string = readFileSync(coinfilew, `utf8`);
 							const losecount:string = readFileSync(coinfilel, `utf8`);
 							writeFileSync(coinfilew, (parseInt(losecount) + 1).toString());
-							const embed:MessageEmbed = new MessageEmbed()
+							const embed:EmbedBuilder = new EmbedBuilder()
 								.setColor(`00FF00` as ColorResolvable)
 								.setTitle(`You won!`)
 								.setThumbnail(`https://cdn.discordapp.com/attachments/656164355381133332/715669285128634368/ezgif-3-b8913657fa57.gif`)
@@ -151,7 +151,7 @@ export const flip = (
 							const wincount:string = readFileSync(coinfilew, `utf8`);
 							const losecount:string = readFileSync(coinfilel, `utf8`);
 							writeFileSync(coinfilel, (parseInt(losecount) + 1).toString());
-							const embed:MessageEmbed = new MessageEmbed()
+							const embed:EmbedBuilder = new EmbedBuilder()
 								.setColor(`FF0000` as ColorResolvable)
 								.setTitle(`You lost!`)
 								.setThumbnail(`https://cdn.discordapp.com/attachments/656164355381133332/715662587471331359/ezgif-3-b3ae702d4205.gif`)

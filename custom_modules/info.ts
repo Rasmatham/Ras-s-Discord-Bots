@@ -1,5 +1,5 @@
 //#region imports
-import {CommandInteraction, MessageEmbed, Guild, User, ColorResolvable, InteractionReplyOptions, MessageAttachment, CommandInteractionOption, GuildMember} from "discord.js";
+import {CommandInteraction, EmbedBuilder, Guild, User, ColorResolvable, InteractionReplyOptions, MessageAttachment, CommandInteractionOption, GuildMember} from "discord.js";
 import {checkFor} from "./generalUse.js";
 //#endregion
 
@@ -103,7 +103,7 @@ export const serverInfo = (
 				});
 			})
 				.then(():void => {
-					const embed = new MessageEmbed().addFields(checkFor(
+					const embed = new EmbedBuilder().addFields(checkFor(
 						[
 							{
 								arr: textChannels,
@@ -174,15 +174,15 @@ export const joindate = (
 		interaction: CommandInteraction
 	}
 ):{
-	embeds: MessageEmbed[],
+	embeds: EmbedBuilder[],
 	ephemeral: boolean
 } => {
 	if (!((inObj.interaction.member as GuildMember).user instanceof User)) {
-		return {embeds: [new MessageEmbed], ephemeral: true};
+		return {embeds: [new EmbedBuilder], ephemeral: true};
 	}
 	const ms:number = (inObj.interaction.member as GuildMember).user.createdTimestamp;
 	const date:Date = new Date(ms);
-	const embed:MessageEmbed = new MessageEmbed()
+	const embed:EmbedBuilder = new EmbedBuilder()
 		.setColor(`FFFFFF` as ColorResolvable)
 		.setTitle(`You joined:`)
 		.setThumbnail(`https://cdn.discordapp.com/attachments/656164355381133332/715651846584270899/ezgif-3-ea387cdabbbe.gif`)

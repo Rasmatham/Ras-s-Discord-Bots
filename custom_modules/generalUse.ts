@@ -1,5 +1,5 @@
 //#region imports
-import {Message, TextChannel, WebhookClient, Client, MessageOptions, Webhook, BufferResolvable, User, Intents, NewsChannel, EmbedFieldData, ClientUser, InteractionReplyOptions, CommandInteraction, CommandInteractionOption, MessageEmbed} from "discord.js";
+import {Message, TextChannel, WebhookClient, Client, MessageOptions, Webhook, BufferResolvable, User, Intents, NewsChannel, EmbedFieldData, ClientUser, InteractionReplyOptions, CommandInteraction, CommandInteractionOption, EmbedBuilder} from "discord.js";
 import * as os from "os";
 //#endregion
 
@@ -141,7 +141,7 @@ export const listThings = async (interaction:CommandInteraction):Promise<Interac
 			}
 			const embeds:InteractionReplyOptions[] = [];
 			y.forEach((y, i) => {
-				const z = new MessageEmbed();
+				const z = new EmbedBuilder();
 				y.forEach((a, j) => z.addField(`${(i*50)+((j*14)+1)}-${(i*50)+(j+1)*14}`, a.join(`\n`)));
 				embeds.push({embeds: [z]});
 			});
@@ -161,7 +161,7 @@ export const listThings = async (interaction:CommandInteraction):Promise<Interac
 			}
 			const embeds:InteractionReplyOptions[] = [];
 			y.forEach((y, i) => {
-				const z = new MessageEmbed();
+				const z = new EmbedBuilder();
 				y.forEach((a, j) => z.addField(`${(i*50)+((j*5)+1)}-${(i*50)+(j+1)*5}`, a.join(`\n`)));
 				embeds.push({embeds: [z]});
 			});
@@ -181,7 +181,7 @@ export const listThings = async (interaction:CommandInteraction):Promise<Interac
 			}
 			const embeds:InteractionReplyOptions[] = [];
 			y.forEach((y, i) => {
-				const z = new MessageEmbed();
+				const z = new EmbedBuilder();
 				y.forEach((a, j) => z.addField(`${(i*50)+((j*10)+1)}-${(i*50)+(j+1)*10}`, a.join(`\n`)));
 				embeds.push({embeds: [z]});
 			});

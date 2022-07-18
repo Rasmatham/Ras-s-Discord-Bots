@@ -1,5 +1,5 @@
 //#region imports
-import {CommandInteraction, CommandInteractionOption, MessageEmbed} from "discord.js";
+import {CommandInteraction, CommandInteractionOption, EmbedBuilder} from "discord.js";
 //#endregion
 
 //#region die roller
@@ -31,7 +31,7 @@ export const dice = (
 			else {
 				if (dieSides == 10) {
 					for (let i = 0; i < diceCount; i++) {
-						const number10:MessageEmbed = new MessageEmbed()
+						const number10:EmbedBuilder = new EmbedBuilder()
 							.setColor(`#0099ff`)
 							.setTitle(`Totally legit dice`)
 							.addField(`You "rolled" a:`, `${
@@ -52,7 +52,7 @@ export const dice = (
 				}
 				else if (dieSides == 100) {
 					for (let i = 0; i < diceCount; i++) {
-						const number100:MessageEmbed = new MessageEmbed()
+						const number100:EmbedBuilder = new EmbedBuilder()
 							.setColor(`#0099ff`)
 							.setTitle(`Totally legit dice`)
 							.addField(`You "rolled" a:`, `${
@@ -73,7 +73,7 @@ export const dice = (
 				}
 				else {
 					for (let i = 0; i < diceCount; i++) {
-						const numberN:MessageEmbed = new MessageEmbed()
+						const numberN:EmbedBuilder = new EmbedBuilder()
 							.setColor(`#0099ff`)
 							.setTitle(`Totally legit dice`)
 							.addField(`You "rolled" a:`, `${

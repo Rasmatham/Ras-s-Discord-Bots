@@ -1,5 +1,5 @@
 //#region imports
-import {CommandInteraction, CommandInteractionOption, MessageEmbed} from "discord.js";
+import {CommandInteraction, CommandInteractionOption, EmbedBuilder} from "discord.js";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const xkcdModule = require(`xkcd`);
 //#endregion
@@ -30,7 +30,7 @@ export const xkcdFunct = (inObjs: {interaction: CommandInteraction}[]):void => {
 				alt: string,
 				img: string
 			}):void => {
-					const xkcdEmbed:MessageEmbed = new MessageEmbed()
+					const xkcdEmbed:EmbedBuilder = new EmbedBuilder()
 						.setTitle(xkcdObj.title)
 						.setURL(`https://xkcd.com/${
 							xkcdObj.num

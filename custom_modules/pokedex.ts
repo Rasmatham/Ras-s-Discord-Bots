@@ -1,5 +1,5 @@
 //#region imports
-import {MessageEmbed, MessageAttachment, ReplyMessageOptions, ColorResolvable} from "discord.js";
+import {EmbedBuilder, MessageAttachment, ReplyMessageOptions, ColorResolvable} from "discord.js";
 import {pokemon, trainerList, pokeObjType} from "../Pokebot/PokeDB.js";
 //#endregion
 
@@ -67,7 +67,7 @@ export const natDex = (inObj: {query: string | number}):ReplyMessageOptions => {
 	}${
 		pokemon[dexNumber].name
 	}.png`);
-	const embed:MessageEmbed = new MessageEmbed()
+	const embed:EmbedBuilder = new EmbedBuilder()
 		.setColor(pokemon[dexNumber].types[0].color as ColorResolvable)
 		.setTitle(pokemon[dexNumber].name)
 		.addFields({

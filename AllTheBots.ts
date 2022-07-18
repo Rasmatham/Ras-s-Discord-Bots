@@ -11,7 +11,7 @@
 //#region Common
 
 //#region imports
-import {Client, Message, MessageEmbed, ColorResolvable, GuildMember, Interaction, MessageComponentInteraction, ButtonInteraction, CommandInteraction, SelectMenuInteraction, PartialGuildMember, BufferResolvable, InteractionReplyOptions} from "discord.js";
+import {Client, Message, EmbedBuilder, ColorResolvable, GuildMember, Interaction, MessageComponentInteraction, ButtonInteraction, CommandInteraction, SelectMenuInteraction, PartialGuildMember, BufferResolvable, InteractionReplyOptions} from "discord.js";
 import * as containsWord from "./custom_modules/containsWordFunctions";
 import * as forwarding from "./custom_modules/forwardMessages";
 import * as generalStuff from "./custom_modules/generalUse";
@@ -484,14 +484,14 @@ ebnj.on(`messageCreate`, (message: Message):void => {
 //#region Long stuff (please collapse)
 const cake = `It is totally real (Definitely not a lie)`;
 //const lemonrant = `All right, I've been thinking, when life gives you lemons, don't make lemonade!\nMake life take the lemons back!\nGet mad!\nI don't want your damn lemons!\nWhat am I supposed to do with these?\nDemand to see life's manager!\nMake life rue the day it thought it could give Cave Johnson lemons!\nDo you know who I am?\nI'm the man whose gonna burn your house down - with the lemons!`;
-const lemonrant:MessageEmbed = new MessageEmbed()
+const lemonrant:EmbedBuilder = new EmbedBuilder()
 	.addField(`When life gives you lemons...`, `All right, I've been thinking, when life gives you lemons, don't make lemonade!\nMake life take the lemons back!\nGet mad!\nI don't want your damn lemons!\nWhat am I supposed to do with these?\nDemand to see life's manager!\nMake life rue the day it thought it could give Cave Johnson lemons!\nDo you know who I am?\nI'm the man whose gonna burn your house down - with the lemons!`)
 	.setThumbnail(`https://cdn.discordapp.com/attachments/647924443078852621/947515795590754355/test.png`)
 	.setFooter({text: `-Cave Johnson`})
 	.setColor(`YELLOW`);
 const lie = `I will tell you what is not a lie\nThe cake`;
 const ping = `P I N G\nWait\nNevermind`;
-const stillalive:MessageEmbed = new MessageEmbed()
+const stillalive:EmbedBuilder = new EmbedBuilder()
 	.setColor(`FFFFFF` as ColorResolvable)
 	.setTitle(`Still alive`)
 	.addFields({
