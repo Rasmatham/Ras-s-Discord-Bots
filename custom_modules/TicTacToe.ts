@@ -171,7 +171,7 @@ export const ticTacToe = (
 						
 								rows.forEach((row):void => {
 									row.components.forEach((component):void => {
-										if (component.type == `BUTTON`) {
+										if (component.type.toString() == `BUTTON`) {
 											buttons.push(component);
 										}
 									});

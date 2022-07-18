@@ -21,7 +21,7 @@ export const channelCount = (
 		const Cat:string[] = [];
 		const UK:string[] = [];
 		inObj.guild.channels.cache.map((channel):void => {
-			switch (channel.type) {
+			switch (channel.type.toString()) {
 			case `GUILD_TEXT`:
 				TC.push(channel.name);
 				break;
@@ -86,7 +86,7 @@ export const serverInfo = (
 			const unknown:string[] = [];
 			inObj.interaction.guild.channels.fetch().then((channels):void => {
 				channels.forEach((channel):void => {
-					switch (channel.type) {
+					switch (channel.type.toString()) {
 					case `GUILD_TEXT`:
 						textChannels.push(channel.name);
 						break;

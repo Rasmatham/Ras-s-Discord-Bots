@@ -15,7 +15,7 @@ export const hencefortifier = (
 				if (inObj.message.guild.id == `646155122992480266`) {
 					const textChannels:`${bigint}`[] = [];
 					inObj.message.guild.channels.cache.map((channel):void => {
-						if (channel.type == `GUILD_TEXT`) {
+						if (channel.type.toString() == `GUILD_TEXT`) {
 							blackList.forEach((bannedChannel:string):void => {
 								if (channel.name != bannedChannel) {
 									textChannels.push(channel.id as `${bigint}`);
@@ -71,7 +71,7 @@ export const espenBotReplacement = (
 ):void => {
 	inObjs.forEach((inObj) => {
 		if (inObj.message.author.id == inObj.victim && Math.floor(Math.random() * 100) <= inObj.chance) {
-			switch (inObj.type) {
+			switch (inObj.type.toString()) {
 			case `message`:
 				inObj.message.channel.send(inObj.out as MessageOptions)
 					.catch(console.error);

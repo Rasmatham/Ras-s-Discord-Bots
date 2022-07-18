@@ -10,7 +10,7 @@ export const messageForwarding = (
 	}[]
 ):void => {
 	inObjs.forEach((inObj) => {
-		if (inObj.message.channel.type == `DM`) {
+		if (inObj.message.channel.type.toString() == `DM`) {
 			return;
 		}
 		const bot:Client = inObj.message.client;
@@ -98,7 +98,7 @@ export const DMSpy = (
 	}[]
 ):void => {
 	inObjs.forEach(inObj => {
-		if (inObj.message.channel.type == `DM` && !inObj.message.author.bot /*&& message.author.id != process.env.RASID*/) {
+		if (inObj.message.channel.type.toString() == `DM` && !inObj.message.author.bot /*&& message.author.id != process.env.RASID*/) {
 			inObj.message.client.channels.fetch(inObj.ChID).then((channel):void => {
 				if (!(channel instanceof TextChannel || channel instanceof NewsChannel)) {
 					return;

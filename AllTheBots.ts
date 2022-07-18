@@ -216,7 +216,7 @@ const buzzes = ():string => {
 
 //#region replies
 buzzBot.on(`messageCreate`, (message: Message):void => {
-	if (message.channel.type == `DM`) {
+	if (message.channel.type.toString() == `DM`) {
 		return;
 	}
 	if (generalStuff.blackList.includes(message.channel.name)) {
@@ -328,7 +328,7 @@ clambot.on(`userUpdate`, (oldUser, newUser) => {
 	}
 });
 clambot.on(`messageCreate`, (message: Message):void => {
-	if (message.channel.type == `DM`) {
+	if (message.channel.type.toString() == `DM`) {
 		return;
 	}
 	if (generalStuff.blackList.includes(message.channel.name)) {
@@ -351,7 +351,7 @@ clambot.on(`messageCreate`, (message: Message):void => {
 	//music(message, `cb;`);
 });
 clambot.on(`messageCreate`, (message: Message):void => {
-	if (message.channel.type == `DM`) {
+	if (message.channel.type.toString() == `DM`) {
 		return;
 	}
 	if (generalStuff.blackList.includes(message.channel.name)) {
@@ -378,7 +378,7 @@ clambot.on(`messageCreate`, (message: Message):void => {
 
 //#region replies
 ebnj.on(`messageCreate`, (message: Message):void => {
-	if (message.channel.type == `DM`) {
+	if (message.channel.type.toString() == `DM`) {
 		return;
 	}
 	if (generalStuff.blackList.includes(message.channel.name)) {
@@ -572,7 +572,7 @@ glados.on(`guildMemberRemove`, (member: GuildMember|PartialGuildMember):void => 
 
 //#region Stuff
 glados.on(`messageCreate`, (message: Message):void => {
-	if (message.channel.type == `DM`) {
+	if (message.channel.type.toString() == `DM`) {
 		return;
 	}
 	if (generalStuff.blackList.includes(message.channel.name)) {
@@ -775,7 +775,7 @@ glados.on(`messageCreate`, (message: Message):void => {
 	//stupidStuff.userWordBan(message, `last`, `541617670533939210`);
 });
 glados.on(`interactionCreate`, async (interaction: Interaction):Promise<void> => {
-	if (interaction.type == `MESSAGE_COMPONENT`) {
+	if (interaction.type.toString() == `MESSAGE_COMPONENT`) {
 		const messageComponentInteraction:MessageComponentInteraction = interaction as MessageComponentInteraction;
 		if (messageComponentInteraction.componentType == `BUTTON`) {
 			const buttonInteraction:ButtonInteraction = messageComponentInteraction as ButtonInteraction;
@@ -809,7 +809,7 @@ glados.on(`interactionCreate`, async (interaction: Interaction):Promise<void> =>
 			}
 		}
 	}
-	else if (interaction.type == `APPLICATION_COMMAND`) {
+	else if (interaction.type.toString() == `APPLICATION_COMMAND`) {
 		const commandInteraction:CommandInteraction = interaction as CommandInteraction;
 		switch (commandInteraction.commandName) {
 		case `list`:
@@ -917,7 +917,7 @@ const sendEmbed = (message: Message):void => {
 	if (pokebot.user != null) {
 		if (message.author.id != pokebot.user.id) {
 			if (message.content.toLowerCase().startsWith(`pd`)) {
-				if (message.channel.type == `GUILD_TEXT` || message.channel.type == `GUILD_NEWS`) {
+				if (message.channel.type.toString() == `GUILD_TEXT` || message.channel.type.toString() == `GUILD_NEWS`) {
 					generalStuff.sendAsWebHook([
 						{
 							message: message,
@@ -936,7 +936,7 @@ const sendEmbed = (message: Message):void => {
 
 //#region Stuff
 pokebot.on(`messageCreate`, (message: Message):void => {
-	if (message.channel.type == `DM`) {
+	if (message.channel.type.toString() == `DM`) {
 		return;
 	}
 	if (generalStuff.blackList.includes(message.channel.name)) {
@@ -1049,7 +1049,7 @@ const beeps = ():string => {
 
 //#region replies
 artoo.on(`messageCreate`, (message: Message):void => {
-	if (message.channel.type == `DM`) {
+	if (message.channel.type.toString() == `DM`) {
 		return;
 	}
 	if (generalStuff.blackList.includes(message.channel.name)) {
@@ -1099,7 +1099,7 @@ artoo.on(`messageCreate`, (message: Message):void => {
 
 //#region replies
 random.on(`messageCreate`, (message: Message):void => {
-	if (message.channel.type == `DM`) {
+	if (message.channel.type.toString() == `DM`) {
 		return;
 	}
 	if (generalStuff.blackList.includes(message.channel.name)) {
@@ -1271,7 +1271,7 @@ amber.on(`userUpdate`, (oldUser, newUser) => {
 	}
 });
 amber.on(`messageCreate`, (message: Message):void => {
-	if (message.channel.type == `DM`) {
+	if (message.channel.type.toString() == `DM`) {
 		return;
 	}
 	if (generalStuff.blackList.includes(message.channel.name)) {
@@ -1288,7 +1288,7 @@ amber.on(`messageCreate`, (message: Message):void => {
 
 //#region replies
 zelda.on(`messageCreate`, (message: Message):void => {
-	if (message.channel.type == `DM`) {
+	if (message.channel.type.toString() == `DM`) {
 		return;
 	}
 	if (generalStuff.blackList.includes(message.channel.name)) {
