@@ -34,14 +34,21 @@ export const dice = (
 						const number10:EmbedBuilder = new EmbedBuilder()
 							.setColor(`#0099ff`)
 							.setTitle(`Totally legit dice`)
-							.addField(`You "rolled" a:`, `${
-								Math.floor(Math.random() * 10)
-							}`, true)
-							.addField(`"roll" number:`, `${
-								i + 1
-							}/${
-								diceCount
-							}`);
+							.addFields({
+								name: `You "rolled" a:`,
+								value: `${
+									Math.floor(Math.random() * 10)
+								}`,
+								inline: true
+							},
+							{
+								name: `"roll" number:`,
+								value: `${
+									i + 1
+								}/${
+									diceCount
+								}`
+							});
 						inObj.interaction.followUp({
 							embeds: [
 								number10
@@ -55,14 +62,21 @@ export const dice = (
 						const number100:EmbedBuilder = new EmbedBuilder()
 							.setColor(`#0099ff`)
 							.setTitle(`Totally legit dice`)
-							.addField(`You "rolled" a:`, `${
-								Math.floor(Math.random() * 10) * 10
-							}`, true)
-							.addField(`"roll" number:`, `${
-								i + 1
-							}/${
-								diceCount
-							}`);
+							.addFields({
+								name: `You "rolled" a:`,
+								value: `${
+									Math.floor(Math.random() * 10) * 10
+								}`,
+								inline: true
+							},
+							{
+								name: `"roll" number:`,
+								value: `${
+									i + 1
+								}/${
+									diceCount
+								}`
+							});
 						inObj.interaction.followUp({
 							embeds: [
 								number100
@@ -76,14 +90,21 @@ export const dice = (
 						const numberN:EmbedBuilder = new EmbedBuilder()
 							.setColor(`#0099ff`)
 							.setTitle(`Totally legit dice`)
-							.addField(`You "rolled" a:`, `${
-								Math.ceil(Math.random() * Number(dieSides))
-							}`, true)
-							.addField(`"roll" number:`, `${
-								i + 1
-							}/${
-								diceCount
-							}`);
+							.addFields({
+								name: `You "rolled" a:`,
+								value: `${
+									Math.ceil(Math.random() * Number(dieSides))
+								}`,
+								inline: true
+							},
+							{
+								name: `"roll" number:`,
+								value:`${
+									i + 1
+								}/${
+									diceCount
+								}`
+							});
 						inObj.interaction.followUp({
 							embeds: [
 								numberN
