@@ -134,7 +134,7 @@ export const listThings = async (interaction:CommandInteraction):Promise<Interac
 	switch (thing) {
 	case `channels`:
 		return await interaction.guild.channels.fetch().then((channels) => {
-			const channelsFormated = channels.map((channel) => `<#${channel.id}> (${channel.type.toLowerCase().split(`_`).map((x) => `${x[0].toUpperCase()}${x.slice(1)}`)[1]}) <t:${Math.round(channel.createdTimestamp/1000)}:D> at <t:${Math.round(channel.createdTimestamp/1000)}:T>`);
+			const channelsFormated = channels.map((channel) => `<#${channel.id}> (${channel.type.toString().toLowerCase().split(`_`).map((x) => `${x[0].toUpperCase()}${x.slice(1)}`)[1]}) <t:${Math.round(channel.createdTimestamp/1000)}:D> at <t:${Math.round(channel.createdTimestamp/1000)}:T>`);
 			//<#00000000000000000000> (00000000) <t:0000000000000:D> at <t:0000000000000:T> = 77
 			const x:string[][] = [];
 			for (let i = 0; i < channelsFormated.length; i += 10) {
