@@ -1,26 +1,27 @@
 //#region imports
-import {Message, TextChannel, WebhookClient, Client, MessageOptions, Webhook, BufferResolvable, User, Intents, NewsChannel, EmbedFieldData, ClientUser, InteractionReplyOptions, CommandInteraction, CommandInteractionOption, EmbedBuilder} from "discord.js";
+import {Message, TextChannel, WebhookClient, Client, MessageOptions, Webhook, BufferResolvable, User, IntentsBitField, NewsChannel, EmbedFieldData, ClientUser, InteractionReplyOptions, CommandInteraction, CommandInteractionOption, EmbedBuilder} from "discord.js";
 import * as os from "os";
 //#endregion
 
 //#region intent
-export const intents:Intents = new Intents([
-	`GUILDS`,
-	`GUILD_MEMBERS`,
-	`GUILD_BANS`,
-	`GUILD_EMOJIS_AND_STICKERS`,
-	`GUILD_INTEGRATIONS`,
-	`GUILD_WEBHOOKS`,
-	`GUILD_INVITES`,
-	`GUILD_VOICE_STATES`,
-	`GUILD_PRESENCES`,
-	`GUILD_MESSAGES`,
-	`GUILD_MESSAGE_REACTIONS`,
-	`GUILD_MESSAGE_TYPING`,
-	`DIRECT_MESSAGES`,
-	`DIRECT_MESSAGE_REACTIONS`,
-	`DIRECT_MESSAGE_TYPING`,
-	`GUILD_SCHEDULED_EVENTS`
+export const intents:IntentsBitField = new IntentsBitField([
+	`Guilds`,
+	`GuildMembers`,
+	`GuildBans`,
+	`GuildEmojisAndStickers`,
+	`GuildIntegrations`,
+	`GuildWebhooks`,
+	`GuildInvites`,
+	`GuildVoiceStates`,
+	`GuildPresences`,
+	`GuildMessages`,
+	`GuildMessageReactions`,
+	`GuildMessageTyping`,
+	`DirectMessages`,
+	`DirectMessageReactions`,
+	`DirectMessageTyping`,
+	`MessageContent`,
+	`GuildScheduledEvents`
 ]);
 //#endregion
 
