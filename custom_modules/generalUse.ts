@@ -198,7 +198,7 @@ export const listThings = async (interaction:CommandInteraction):Promise<Interac
 			y.forEach((y, i) => {
 				const z = new EmbedBuilder();
 				y.forEach((a, j) => {
-					z.addField({
+					z.addFields({
 						name: `${(i*50)+((j*10)+1)}-${(i*50)+(j+1)*10}`,
 						value: a.join(`\n`)
 					})
