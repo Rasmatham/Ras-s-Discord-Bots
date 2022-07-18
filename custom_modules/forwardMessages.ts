@@ -31,7 +31,7 @@ export const messageForwarding = (
 								}`
 							].includes(inObj.message.channel.name)) {
 								const firstChannel = inObj.message.mentions.channels.first() as Channel;
-								if (!blackList.includes(inObj.message.channel.name) /*|| message.member.id == process.env.RASID*/ || inObj.message.member.permissions.has(`ADMINISTRATOR`)) {
+								if (!blackList.includes(inObj.message.channel.name) /*|| message.member.id == process.env.RASID*/ || inObj.message.member.permissions.has(`Administrator`)) {
 									bot.channels.fetch(firstChannel.id).then((channel):void => {
 										if (!(channel instanceof TextChannel || channel instanceof DMChannel || channel instanceof NewsChannel || channel instanceof ThreadChannel)) {
 											return;
@@ -158,10 +158,7 @@ export const channelLink = (
 									files: inObj.message.attachments.map((value) => value)
 								},
 								name: inObj.message.author.username,
-								PFP: inObj.message.author.displayAvatarURL({
-									format: `png`,
-									dynamic: true
-								})
+								PFP: inObj.message.author.displayAvatarURL()
 							}
 						]);
 						break;
@@ -175,10 +172,7 @@ export const channelLink = (
 									files: inObj.message.attachments.map((value) => value)
 								},
 								name: inObj.message.author.username,
-								PFP: inObj.message.author.displayAvatarURL({
-									format: `png`,
-									dynamic: true
-								})
+								PFP: inObj.message.author.displayAvatarURL()
 							}
 						]);
 						break;
