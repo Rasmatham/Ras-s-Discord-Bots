@@ -11,7 +11,7 @@
 //#region Common
 
 //#region imports
-import {Client, Message, EmbedBuilder, ColorResolvable, GuildMember, Interaction, MessageComponentInteraction, ButtonInteraction, CommandInteraction, SelectMenuInteraction, PartialGuildMember, BufferResolvable, InteractionReplyOptions} from "discord.js";
+import {Client, Message, EmbedBuilder, ColorResolvable, GuildMember, Interaction, MessageComponentInteraction, ButtonInteraction, CommandInteraction, SelectMenuInteraction, PartialGuildMember, BufferResolvable, InteractionReplyOptions, ActivityType, ChannelType, ComponentType, InteractionType, ChatInputCommandInteraction} from "discord.js";
 import * as containsWord from "./custom_modules/containsWordFunctions";
 import * as forwarding from "./custom_modules/forwardMessages";
 import * as generalStuff from "./custom_modules/generalUse";
@@ -47,7 +47,7 @@ const buzzBot:Client = new Client({
 		activities: [
 			{
 				name: `Bee Movie Game`,
-				type: `PLAYING`
+				type: ActivityType.Playing
 			}
 		]
 	}
@@ -58,7 +58,7 @@ const clambot:Client = new Client({
 		activities: [
 			{
 				name: `Whatever Clams is playing`,
-				type: `PLAYING`
+				type: ActivityType.Playing
 			}
 		]
 	}
@@ -69,7 +69,7 @@ const ebnj:Client = new Client({
 		activities: [
 			{
 				name: `Minecraft`,
-				type: `PLAYING`
+				type: ActivityType.Playing
 			}
 		]
 	}
@@ -80,7 +80,7 @@ const glados:Client = new Client({
 		activities: [
 			{
 				name: `Portal Bridge Constructor`,
-				type: `PLAYING`
+				type: ActivityType.Playing
 			}
 		]
 	}
@@ -91,7 +91,7 @@ const pokebot:Client = new Client({
 		activities: [
 			{
 				name: `Pokémon Pinball`,
-				type: `PLAYING`
+				type: ActivityType.Playing
 			}
 		]
 	}
@@ -102,7 +102,7 @@ const artoo:Client = new Client({
 		activities: [
 			{
 				name: `LEGO Star Wars: the Skywalker saga`,
-				type: `PLAYING`
+				type: ActivityType.Playing
 			}
 		]
 	}
@@ -113,7 +113,7 @@ const random:Client = new Client({
 		activities: [
 			{
 				name: `honestly, idk what to put here`,
-				type: `PLAYING`
+				type: ActivityType.Playing
 			}
 		]
 	}
@@ -124,7 +124,7 @@ const amber:Client = new Client({
 		activities: [
 			{
 				name: `Splatoon 3`,
-				type: `PLAYING`
+				type: ActivityType.Playing
 			}
 		]
 	}
@@ -135,7 +135,7 @@ const zelda:Client = new Client({
 		activities: [
 			{
 				name: `Zelda: The Wand of Gamelon`,
-				type: `PLAYING`
+				type: ActivityType.Playing
 			}
 		]
 	}
@@ -146,7 +146,7 @@ const croissant:Client = new Client({
 		activities: [
 			{
 				name: `Oui Oui Baguette`,
-				type: `PLAYING`
+				type: ActivityType.Playing
 			}
 		]
 	}
@@ -216,7 +216,7 @@ const buzzes = ():string => {
 
 //#region replies
 buzzBot.on(`messageCreate`, (message: Message):void => {
-	if (message.channel.type.toString() == `DM`) {
+	if (message.channel.type === ChannelType.DM) {
 		return;
 	}
 	if (generalStuff.blackList.includes(message.channel.name)) {
@@ -328,7 +328,7 @@ clambot.on(`userUpdate`, (oldUser, newUser) => {
 	}
 });
 clambot.on(`messageCreate`, (message: Message):void => {
-	if (message.channel.type.toString() == `DM`) {
+	if (message.channel.type === ChannelType.DM) {
 		return;
 	}
 	if (generalStuff.blackList.includes(message.channel.name)) {
@@ -351,7 +351,7 @@ clambot.on(`messageCreate`, (message: Message):void => {
 	//music(message, `cb;`);
 });
 clambot.on(`messageCreate`, (message: Message):void => {
-	if (message.channel.type.toString() == `DM`) {
+	if (message.channel.type == ChannelType.DM) {
 		return;
 	}
 	if (generalStuff.blackList.includes(message.channel.name)) {
@@ -378,7 +378,7 @@ clambot.on(`messageCreate`, (message: Message):void => {
 
 //#region replies
 ebnj.on(`messageCreate`, (message: Message):void => {
-	if (message.channel.type.toString() == `DM`) {
+	if (message.channel.type === ChannelType.DM) {
 		return;
 	}
 	if (generalStuff.blackList.includes(message.channel.name)) {
@@ -491,7 +491,7 @@ const lemonrant:EmbedBuilder = new EmbedBuilder()
 	})
 	.setThumbnail(`https://cdn.discordapp.com/attachments/647924443078852621/947515795590754355/test.png`)
 	.setFooter({text: `-Cave Johnson`})
-	.setColor(`YELLOW`);
+	.setColor(`Yellow`);
 const lie = `I will tell you what is not a lie\nThe cake`;
 const ping = `P I N G\nWait\nNevermind`;
 const stillalive:EmbedBuilder = new EmbedBuilder()
@@ -572,7 +572,7 @@ glados.on(`guildMemberRemove`, (member: GuildMember|PartialGuildMember):void => 
 
 //#region Stuff
 glados.on(`messageCreate`, (message: Message):void => {
-	if (message.channel.type.toString() == `DM`) {
+	if (message.channel.type === ChannelType.DM) {
 		return;
 	}
 	if (generalStuff.blackList.includes(message.channel.name)) {
@@ -777,7 +777,7 @@ glados.on(`messageCreate`, (message: Message):void => {
 glados.on(`interactionCreate`, async (interaction: Interaction):Promise<void> => {
 	if (interaction.type.toString() == `MESSAGE_COMPONENT`) {
 		const messageComponentInteraction:MessageComponentInteraction = interaction as MessageComponentInteraction;
-		if (messageComponentInteraction.componentType == `BUTTON`) {
+		if (messageComponentInteraction.componentType === ComponentType.Button) {
 			const buttonInteraction:ButtonInteraction = messageComponentInteraction as ButtonInteraction;
 			if (buttonInteraction.customId.toLowerCase().includes(`dummy`)) {
 				buttonInteraction.reply({
@@ -795,7 +795,7 @@ glados.on(`interactionCreate`, async (interaction: Interaction):Promise<void> =>
 				}
 			}
 		}
-		else if (messageComponentInteraction.componentType == `SELECT_MENU`) {
+		else if (messageComponentInteraction.componentType === ComponentType.SelectMenu) {
 			const selectMenuInteraction:SelectMenuInteraction = messageComponentInteraction as SelectMenuInteraction;
 			switch (selectMenuInteraction.customId) {
 			case `Dummy`:
@@ -809,8 +809,8 @@ glados.on(`interactionCreate`, async (interaction: Interaction):Promise<void> =>
 			}
 		}
 	}
-	else if (interaction.type.toString() == `APPLICATION_COMMAND`) {
-		const commandInteraction:CommandInteraction = interaction as CommandInteraction;
+	else if (interaction.type === InteractionType.ApplicationCommand) {
+		const commandInteraction = interaction as ChatInputCommandInteraction;
 		switch (commandInteraction.commandName) {
 		case `list`:
 			// eslint-disable-next-line no-case-declarations
@@ -917,7 +917,7 @@ const sendEmbed = (message: Message):void => {
 	if (pokebot.user != null) {
 		if (message.author.id != pokebot.user.id) {
 			if (message.content.toLowerCase().startsWith(`pd`)) {
-				if (message.channel.type.toString() == `GUILD_TEXT` || message.channel.type.toString() == `GUILD_NEWS`) {
+				if (message.channel.type === ChannelType.GuildText || message.channel.type === ChannelType.GuildNews) {
 					generalStuff.sendAsWebHook([
 						{
 							message: message,
@@ -936,7 +936,7 @@ const sendEmbed = (message: Message):void => {
 
 //#region Stuff
 pokebot.on(`messageCreate`, (message: Message):void => {
-	if (message.channel.type.toString() == `DM`) {
+	if (message.channel.type === ChannelType.DM) {
 		return;
 	}
 	if (generalStuff.blackList.includes(message.channel.name)) {
@@ -1049,7 +1049,7 @@ const beeps = ():string => {
 
 //#region replies
 artoo.on(`messageCreate`, (message: Message):void => {
-	if (message.channel.type.toString() == `DM`) {
+	if (message.channel.type === ChannelType.DM) {
 		return;
 	}
 	if (generalStuff.blackList.includes(message.channel.name)) {
@@ -1099,7 +1099,7 @@ artoo.on(`messageCreate`, (message: Message):void => {
 
 //#region replies
 random.on(`messageCreate`, (message: Message):void => {
-	if (message.channel.type.toString() == `DM`) {
+	if (message.channel.type === ChannelType.DM) {
 		return;
 	}
 	if (generalStuff.blackList.includes(message.channel.name)) {
@@ -1271,7 +1271,7 @@ amber.on(`userUpdate`, (oldUser, newUser) => {
 	}
 });
 amber.on(`messageCreate`, (message: Message):void => {
-	if (message.channel.type.toString() == `DM`) {
+	if (message.channel.type === ChannelType.DM) {
 		return;
 	}
 	if (generalStuff.blackList.includes(message.channel.name)) {
@@ -1288,7 +1288,7 @@ amber.on(`messageCreate`, (message: Message):void => {
 
 //#region replies
 zelda.on(`messageCreate`, (message: Message):void => {
-	if (message.channel.type.toString() == `DM`) {
+	if (message.channel.type === ChannelType.DM) {
 		return;
 	}
 	if (generalStuff.blackList.includes(message.channel.name)) {
