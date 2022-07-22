@@ -1,5 +1,5 @@
 //#region imports
-import {Message, TextChannel, WebhookClient, Client, MessageOptions, Webhook, BufferResolvable, User, IntentsBitField, NewsChannel, APIEmbedField, ClientUser, InteractionReplyOptions, CommandInteraction, CommandInteractionOption, EmbedBuilder} from "discord.js";
+import {Message, TextChannel, WebhookClient, Client, MessageOptions, Webhook, BufferResolvable, User, IntentsBitField, NewsChannel, EmbedField, ClientUser, InteractionReplyOptions, CommandInteraction, CommandInteractionOption, EmbedBuilder} from "discord.js";
 import * as os from "os";
 //#endregion
 
@@ -32,8 +32,8 @@ export const checkFor = (
 		str: string,
 		inline?:boolean
 	}[]
-):APIEmbedField[] => {
-	const out:APIEmbedField[] = [];
+):EmbedField[] => {
+	const out:EmbedField[] = [];
 	inObjs.forEach((inObj) => {
 		if (inObj.arr.length > 0) {
 			if (inObj.inline == null) {
