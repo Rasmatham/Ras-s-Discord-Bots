@@ -1,5 +1,5 @@
 //#region imports
-import {ApplicationCommandData, ApplicationCommandDataResolvable, Client} from "discord.js";
+import {ActivityType, ApplicationCommandData, ApplicationCommandDataResolvable, ApplicationCommandOptionType, Client} from "discord.js";
 import {intents} from "./custom_modules/generalUse.js";
 import * as dotenv from "dotenv";
 dotenv.config();
@@ -25,7 +25,7 @@ const buzzBot:Client = new Client({
 		activities: [
 			{
 				name: `Doing some maintenance`,
-				type: `PLAYING`
+				type: ActivityType.Playing
 			}
 		]
 	}
@@ -37,7 +37,7 @@ const clambot:Client = new Client({
 		activities: [
 			{
 				name: `Doing some maintenance`,
-				type: `PLAYING`
+				type: ActivityType.Playing
 			}
 		]
 	}
@@ -49,7 +49,7 @@ const ebnj:Client = new Client({
 		activities: [
 			{
 				name: `Doing some maintenance`,
-				type: `PLAYING`
+				type: ActivityType.Playing
 			}
 		]
 	}
@@ -61,7 +61,7 @@ const glados:Client = new Client({
 		activities: [
 			{
 				name: `Doing some maintenance`,
-				type: `PLAYING`
+				type: ActivityType.Playing
 			}
 		]
 	}
@@ -73,7 +73,7 @@ const pokebot:Client = new Client({
 		activities: [
 			{
 				name: `Doing some maintenance`,
-				type: `PLAYING`
+				type: ActivityType.Playing
 			}
 		]
 	}
@@ -85,7 +85,7 @@ const artoo:Client = new Client({
 		activities: [
 			{
 				name: `Doing some maintenance`,
-				type: `PLAYING`
+				type: ActivityType.Playing
 			}
 		]
 	}
@@ -97,7 +97,7 @@ const random:Client = new Client({
 		activities: [
 			{
 				name: `Doing some maintenance`,
-				type: `PLAYING`
+				type: ActivityType.Playing
 			}
 		]
 	}
@@ -109,7 +109,7 @@ const amber:Client = new Client({
 		activities: [
 			{
 				name: `Doing some maintenance`,
-				type: `PLAYING`
+				type: ActivityType.Playing
 			}
 		]
 	}
@@ -121,7 +121,7 @@ const zelda:Client = new Client({
 		activities: [
 			{
 				name: `Doing some maintenance`,
-				type: `PLAYING`
+				type: ActivityType.Playing
 			}
 		]
 	}
@@ -133,7 +133,7 @@ const croissant:Client = new Client({
 		activities: [
 			{
 				name: `Doing some maintenance`,
-				type: `PLAYING`
+				type: ActivityType.Playing
 			}
 		]
 	}
@@ -169,7 +169,6 @@ const gladosCommands:commandObject[] = [
 		command: {
 			name: `botlink`,
 			description: `Link to add this bot to another server`,
-			defaultPermission: true
 		}
 	},
 	{
@@ -177,7 +176,6 @@ const gladosCommands:commandObject[] = [
 		command: {
 			name: `sightingslink`,
 			description: `Sends a link to the server this bot is mainly developed for`,
-			defaultPermission: true
 		}
 	},
 	{
@@ -185,7 +183,6 @@ const gladosCommands:commandObject[] = [
 		command: {
 			name: `invisicolor`,
 			description: `Sends the hex color code for the backround color of Discord`,
-			defaultPermission: true
 		}
 	},
 	{
@@ -193,7 +190,6 @@ const gladosCommands:commandObject[] = [
 		command: {
 			name: `source`,
 			description: `Sends a link to a GitHub repository for this bot`,
-			defaultPermission: true
 		}
 	},
 	{
@@ -201,11 +197,10 @@ const gladosCommands:commandObject[] = [
 		command: {
 			name: `userinfo`,
 			description: `Sends all information a bot can get to you (Made to show that bots can't get any private information`,
-			defaultPermission: true,
 			options: [
 				{
 					name: `public`,
-					type: `BOOLEAN`,
+					type: ApplicationCommandOptionType.Boolean,
 					description: `Should the message be shown to everyone?`,
 					required: true
 				}
@@ -217,7 +212,6 @@ const gladosCommands:commandObject[] = [
 		command: {
 			name: `serverinfo`,
 			description: `Sends some of the statistical information of the server`,
-			defaultPermission: true
 		}
 	},
 	{
@@ -225,11 +219,10 @@ const gladosCommands:commandObject[] = [
 		command: {
 			name: `joindate`,
 			description: `Shows when you joined Discord`,
-			defaultPermission: true,
 			options: [
 				{
 					name: `public`,
-					type: `BOOLEAN`,
+					type: ApplicationCommandOptionType.Boolean,
 					description: `Should the message be shown to everyone?`,
 					required: true
 				}
@@ -241,11 +234,10 @@ const gladosCommands:commandObject[] = [
 		command: {
 			name: `grid`,
 			description: `This is just a test command made to show off buttons`,
-			defaultPermission: true,
 			options: [
 				{
 					name: `button_content`,
-					type: `STRING`,
+					type: ApplicationCommandOptionType.String,
 					description: `What text/emoji should the buttons display?`,
 					required: true,
 				}
@@ -257,7 +249,6 @@ const gladosCommands:commandObject[] = [
 		command: {
 			name: `selectmenu`,
 			description: `This is just a test command made to show off select menus`,
-			defaultPermission: true
 		}
 	},
 	{
@@ -265,17 +256,16 @@ const gladosCommands:commandObject[] = [
 		command: {
 			name: `d`,
 			description: `Rolls a die`,
-			defaultPermission: true,
 			options: [
 				{
 					name: `die_sides`,
-					type: `INTEGER`,
+					type: ApplicationCommandOptionType.Integer,
 					description: `How many sides should the individul die have?`,
 					required: false,
 				},
 				{
 					name: `dice_count`,
-					type: `INTEGER`,
+					type: ApplicationCommandOptionType.Integer,
 					description: `How many dice should be thrown?`,
 					required: false,
 				}
@@ -287,11 +277,10 @@ const gladosCommands:commandObject[] = [
 		command: {
 			name: `xkcd`,
 			description: `A test Sends a random XKCD`,
-			defaultPermission: true,
 			options: [
 				{
 					name: `xkcd_number`,
-					type: `INTEGER`,
+					type: ApplicationCommandOptionType.Integer,
 					description: `Which XKCD comic do you want?`,
 					required: false,
 				}
@@ -303,11 +292,10 @@ const gladosCommands:commandObject[] = [
 		command: {
 			name: `maze`,
 			description: `A playable maze game`,
-			defaultPermission: true,
 			options: [
 				{
 					name: `style`,
-					type: `STRING`,
+					type: ApplicationCommandOptionType.String,
 					description: `What style of maze do you want?`,
 					required: true,
 					choices: [
@@ -329,17 +317,16 @@ const gladosCommands:commandObject[] = [
 		command: {
 			name: `tictactoe`,
 			description: `Starts a game of Tic Tac Toe`,
-			defaultPermission: true,
 			options: [
 				{
 					name: `playertwo`,
-					type: `USER`,
+					type: ApplicationCommandOptionType.User,
 					description: `Invite a second player to play`,
 					required: true,
 				},
 				{
 					name: `movepieces`,
-					type: `BOOLEAN`,
+					type: ApplicationCommandOptionType.Boolean,
 					description: `should you move pieces aftee both players has laid down three pieces?`,
 					required: true
 				}
@@ -351,11 +338,10 @@ const gladosCommands:commandObject[] = [
 		command: {
 			name: `coinflip`,
 			description: `flips a coin for you`,
-			defaultPermission: true,
 			options: [
 				{
 					name: `side`,
-					type: `STRING`,
+					type: ApplicationCommandOptionType.String,
 					description: `Invite a second player to play`,
 					required: true,
 					choices: [
@@ -376,11 +362,10 @@ const gladosCommands:commandObject[] = [
 		command: {
 			name: `list`,
 			description: `Lists all of something in a server`,
-			defaultPermission: true,
 			options: [
 				{
 					name: `thing`,
-					type: `STRING`,
+					type: ApplicationCommandOptionType.String,
 					description: `What should be listed?`,
 					required: true,
 					choices: [
@@ -405,28 +390,27 @@ const gladosCommands:commandObject[] = [
 		command: {
 			name: `gladle`,
 			description: `Totally not another wordle clone`,
-			defaultPermission: true,
 			options: [
 				{
 					name: `play`,
-					type: `SUB_COMMAND_GROUP`,
+					type: ApplicationCommandOptionType.SubcommandGroup,
 					description: `play a game of totally not wordle`,
 					options: [
 						{
 							name: `easy`,
 							description: `You can guess any word at any time`,
-							type: `SUB_COMMAND`,
+							type: ApplicationCommandOptionType.Subcommand,
 						},
 						{
 							name: `hard`,
 							description: `Any revealed hints must be used in subsequent guesses`,
-							type: `SUB_COMMAND`,
+							type: ApplicationCommandOptionType.Subcommand,
 						}
 					]
 				},
 				{
 					name: `scoreboard`,
-					type: `SUB_COMMAND`,
+					type: ApplicationCommandOptionType.Subcommand,
 					description: `Doesn't really do anything yet. Would reset when switching PC's`
 				}
 			]
@@ -436,7 +420,6 @@ const gladosCommands:commandObject[] = [
 		command: {
 			name: `reboot`,
 			description: `Reboots the host`,
-			defaultPermission: true
 		},
 		guild: `647924443078852613`
 	}
