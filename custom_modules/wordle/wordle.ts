@@ -1,8 +1,8 @@
 
-import {CommandInteraction, MessageActionRow, MessageButton} from "discord.js";
+import {ChatInputCommandInteraction, ActionRowBuilder, ButtonBuilder, ButtonStyle, InteractionType, ComponentBuilder, createComponentBuilder, APIActionRowComponent, APIButtonComponent} from "discord.js";
 import * as words from "./words";
 type Letter = `a` | `b` | `c` | `d` | `e` | `f` | `g` | `h` | `i` | `j` | `k` | `l` | `m` | `n` | `o` | `p` | `q` | `r` | `s` | `t` | `u` | `v` | `w` | `x` | `y` | `z`;
-export const startGame = (interaction: CommandInteraction):void => {
+export const startGame = (interaction: ChatInputCommandInteraction):void => {
 	switch (interaction.options.getSubcommandGroup(false)) {
 	case `play`:
 		interaction.reply({ephemeral: true, content: `please wait`}).then(() => {
@@ -103,12 +103,12 @@ const emotes = {
 	}
 };
 const emoteButtonInstantiator = (letter:Letter) => {
-	return new MessageButton({customId: `wordle_${letter}`, style: `PRIMARY`, emoji:emotes.black[letter]});
+	return new ButtonBuilder({customId: `wordle_${letter}`, style: ButtonStyle.Primary, emoji:emotes.black[letter]});
 };
 class Wordle {
 	attempts: string[][];
-	buttons: { a: MessageButton; b: MessageButton; c: MessageButton; d: MessageButton; e: MessageButton; f: MessageButton; g: MessageButton; h: MessageButton; i: MessageButton; j: MessageButton; k: MessageButton; l: MessageButton; m: MessageButton; n: MessageButton; o: MessageButton; p: MessageButton; q: MessageButton; r: MessageButton; s: MessageButton; t: MessageButton; u: MessageButton; v: MessageButton; w: MessageButton; x: MessageButton; y: MessageButton; z: MessageButton; am: MessageButton; nz: MessageButton; bs: MessageButton; en: MessageButton; };
-	cmd: CommandInteraction;
+	buttons: { a: ButtonBuilder; b: ButtonBuilder; c: ButtonBuilder; d: ButtonBuilder; e: ButtonBuilder; f: ButtonBuilder; g: ButtonBuilder; h: ButtonBuilder; i: ButtonBuilder; j: ButtonBuilder; k: ButtonBuilder; l: ButtonBuilder; m: ButtonBuilder; n: ButtonBuilder; o: ButtonBuilder; p: ButtonBuilder; q: ButtonBuilder; r: ButtonBuilder; s: ButtonBuilder; t: ButtonBuilder; u: ButtonBuilder; v: ButtonBuilder; w: ButtonBuilder; x: ButtonBuilder; y: ButtonBuilder; z: ButtonBuilder; am: ButtonBuilder; nz: ButtonBuilder; bs: ButtonBuilder; en: ButtonBuilder; };
+	cmd: ChatInputCommandInteraction;
 	gameID: string;
 	word: string;
 	attempt: number;
@@ -116,7 +116,7 @@ class Wordle {
 	words: string[][];
 	hints: {placed: [string, string, string, string, string], guessed: string[]}
 	difficulty: string;
-	constructor (interaction: CommandInteraction) {
+	constructor (interaction: ChatInputCommandInteraction) {
 		this.cmd = interaction;
 		this.difficulty = this.cmd.options.getSubcommand(true);
 		this.gameID = interaction.id;
@@ -148,10 +148,10 @@ class Wordle {
 			x: emoteButtonInstantiator(`x`),
 			y: emoteButtonInstantiator(`y`),
 			z: emoteButtonInstantiator(`z`),
-			am: new MessageButton().setStyle(`PRIMARY`).setCustomId(`wordle_a_to_m`).setLabel(`A-M`),
-			nz: new MessageButton().setStyle(`PRIMARY`).setCustomId(`wordle_n_to_z`).setLabel(`N-Z`),
-			bs: new MessageButton().setStyle(`PRIMARY`).setCustomId(`wordle_backspace`).setEmoji(`⬅️`),
-			en: new MessageButton().setStyle(`SUCCESS`).setCustomId(`wordle_enter`).setEmoji(`✅`)
+			am: new ButtonBuilder().setStyle(ButtonStyle.Primary).setCustomId(`wordle_a_to_m`).setLabel(`A-M`),
+			nz: new ButtonBuilder().setStyle(ButtonStyle.Primary).setCustomId(`wordle_n_to_z`).setLabel(`N-Z`),
+			bs: new ButtonBuilder().setStyle(ButtonStyle.Primary).setCustomId(`wordle_backspace`).setEmoji(`⬅️`),
+			en: new ButtonBuilder().setStyle(ButtonStyle.Success).setCustomId(`wordle_enter`).setEmoji(`✅`)
 		};
 		this.attempt = 0;
 		this.slot = 0;
@@ -159,7 +159,7 @@ class Wordle {
 		this.hints = {placed: [``, ``, ``, ``, ``], guessed: []};
 		this.words = [[],[],[],[],[],[]];
 		this.cmd.client.on(`interactionCreate`, (interaction) => {
-			if (!interaction.isMessageComponent()) return;
+			if (interaction.type !== InteractionType.MessageComponent) return;
 			if (!interaction.isButton()) return;
 			if (interaction.message.interaction?.id != this.cmd.id) return;
 			if (!interaction.customId.startsWith(`wordle_`)) return;
@@ -211,14 +211,14 @@ class Wordle {
 										this.attempts[this.attempt][i] = emotes.blue[x as Letter];
 										this.buttons[x as Letter] = this.buttons[x as Letter].setEmoji(emotes.blue[x as Letter]);
 									} else {
-										this.buttons[x as Letter] = this.buttons[x as Letter].setStyle(`SECONDARY`);
+										this.buttons[x as Letter] = this.buttons[x as Letter].setStyle(ButtonStyle.Secondary);
 									}
 								});
 								this.words[this.attempt].forEach((x, i) => {
 									if (this.word.includes(x) && this.attempts[this.attempt][i] != emotes.blue[x as Letter] && this.attempts[this.attempt].filter(y => (y == emotes.blue[x as Letter] || y == emotes.orange[x as Letter])).length < this.word.split(``).filter(y => y == x).length) {
 										this.attempts[this.attempt][i] = emotes.orange[x as Letter];
 										this.buttons[x as Letter].setEmoji(emotes.orange[x as Letter]);
-										this.buttons[x as Letter] = this.buttons[x as Letter].setStyle(`PRIMARY`);
+										this.buttons[x as Letter] = this.buttons[x as Letter].setStyle(ButtonStyle.Primary);
 									}
 								});
 								this.slot = 0;
@@ -256,7 +256,7 @@ class Wordle {
 										this.buttons[x as Letter] = this.buttons[x as Letter].setEmoji(emotes.blue[x as Letter]);
 										this.hints.placed[i] = x;
 									} else {
-										this.buttons[x as Letter] = this.buttons[x as Letter].setStyle(`SECONDARY`);
+										this.buttons[x as Letter] = this.buttons[x as Letter].setStyle(ButtonStyle.Secondary);
 									}
 								});
 								this.words[this.attempt].forEach((x, i) => {
@@ -264,7 +264,7 @@ class Wordle {
 										this.attempts[this.attempt][i] = emotes.orange[x as Letter];
 										this.hints.guessed.push(x);
 										this.buttons[x as Letter].setEmoji(emotes.orange[x as Letter]);
-										this.buttons[x as Letter] = this.buttons[x as Letter].setStyle(`PRIMARY`);
+										this.buttons[x as Letter] = this.buttons[x as Letter].setStyle(ButtonStyle.Primary);
 									}
 								});
 								this.slot = 0;
@@ -288,19 +288,23 @@ class Wordle {
 	}
 	get buttonsFirstHalf() {
 		return [
-			new MessageActionRow().addComponents(this.buttons.a).addComponents(this.buttons.b).addComponents(this.buttons.c).addComponents(this.buttons.d).addComponents(this.buttons.e),
-			new MessageActionRow().addComponents(this.buttons.f).addComponents(this.buttons.g).addComponents(this.buttons.h).addComponents(this.buttons.i).addComponents(this.buttons.j),
-			new MessageActionRow().addComponents(this.buttons.k).addComponents(this.buttons.l).addComponents(this.buttons.m).addComponents(this.buttons.bs).addComponents(this.buttons.en),
-			new MessageActionRow().addComponents(this.buttons.nz)
-		];
+			new ActionRowBuilder().setComponents(this.buttons.a, this.buttons.b, this.buttons.c, this.buttons.d, this.buttons.e),
+			new ActionRowBuilder().setComponents(this.buttons.f, this.buttons.g, this.buttons.h, this.buttons.i, this.buttons.j),
+			new ActionRowBuilder().setComponents(this.buttons.k, this.buttons.l, this.buttons.m, this.buttons.bs, this.buttons.en),
+			new ActionRowBuilder().setComponents(this.buttons.nz)
+		].map(x => {
+			return x.toJSON() as APIActionRowComponent<APIButtonComponent>
+		});
 	}
 	get buttonsSecondHalf() {
 		return [
-			new MessageActionRow().addComponents(this.buttons.n).addComponents(this.buttons.o).addComponents(this.buttons.p).addComponents(this.buttons.q).addComponents(this.buttons.r),
-			new MessageActionRow().addComponents(this.buttons.s).addComponents(this.buttons.t).addComponents(this.buttons.u).addComponents(this.buttons.v).addComponents(this.buttons.w),
-			new MessageActionRow().addComponents(this.buttons.x).addComponents(this.buttons.y).addComponents(this.buttons.z).addComponents(this.buttons.bs).addComponents(this.buttons.en),
-			new MessageActionRow().addComponents(this.buttons.am)
-		];
+			new ActionRowBuilder().setComponents(this.buttons.n, this.buttons.o, this.buttons.p, this.buttons.q, this.buttons.r),
+			new ActionRowBuilder().setComponents(this.buttons.s, this.buttons.t, this.buttons.u, this.buttons.v, this.buttons.w),
+			new ActionRowBuilder().setComponents(this.buttons.x, this.buttons.y, this.buttons.z, this.buttons.bs, this.buttons.en),
+			new ActionRowBuilder().setComponents(this.buttons.am)
+		].map(x => {
+			return x.toJSON() as APIActionRowComponent<APIButtonComponent>
+		});
 	}
 	start = () => {
 		this.cmd.editReply({
