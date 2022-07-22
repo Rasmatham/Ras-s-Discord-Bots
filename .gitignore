@@ -21,3 +21,4 @@ Pokebot/*.js
 custom_modules/*.map
 Pokebot/*.map
 node_modules/*
+package-lock.json
