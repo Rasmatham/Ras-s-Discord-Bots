@@ -1,5 +1,5 @@
 //#region imports
-import {CommandInteraction, CommandInteractionOption, EmojiIdentifierResolvable, InteractionReplyOptions, Message, MessageActionRow, MessageButton, MessageOptions, MessageSelectMenu, TextChannel} from "discord.js";
+import {CommandInteraction, CommandInteractionOption, EmojiIdentifierResolvable, InteractionReplyOptions, Message, ActionRowBuilder, ButtonBuilder, MessageOptions, SelectMenuBuilder, TextChannel, ButtonStyle, APIActionRowComponent, APIButtonComponent, APISelectMenuComponent} from "discord.js";
 import {blackList} from "./generalUse.js";
 //#endregion
 
@@ -99,25 +99,17 @@ export const buttonGrid = (
 	const buttonContent:string = buttonContentOption.value as string;
 	if (buttonContent.length <= 80) {
 		if (buttonContent.match(unicodeEmoji) || buttonContent.match(discordEmoji)) {
-			const button = (id:string):MessageButton => {
-				return new MessageButton().setCustomId(id).setEmoji(buttonContent).setStyle(`SECONDARY`);
+			const button = (id:string):ButtonBuilder => {
+				return new ButtonBuilder().setCustomId(id).setEmoji(buttonContent).setStyle(ButtonStyle.Secondary);
 			};
-			const bar = (rowNumber:string):MessageActionRow => {
-				return new MessageActionRow().addComponents([
-					button(`Dummy: ` + rowNumber + `-1`)
-				],
-				[
-					button(`Dummy: ` + rowNumber + `-2`)
-				],
-				[
-					button(`Dummy: ` + rowNumber + `-3`)
-				],
-				[
-					button(`Dummy: ` + rowNumber + `-4`)
-				],
-				[
+			const bar = (rowNumber:string) => {
+				return new ActionRowBuilder().addComponents(
+					button(`Dummy: ` + rowNumber + `-1`),
+					button(`Dummy: ` + rowNumber + `-2`),
+					button(`Dummy: ` + rowNumber + `-3`),
+					button(`Dummy: ` + rowNumber + `-4`),
 					button(`Dummy: ` + rowNumber + `-5`)
-				]);
+				).toJSON() as APIActionRowComponent<APIButtonComponent>;
 			};
 			return {
 				content: buttonContent,
@@ -131,25 +123,17 @@ export const buttonGrid = (
 			};
 		}
 		else if (buttonContent.match(discordEmojiNotExact)) {
-			const button = (id:string):MessageButton => {
-				return new MessageButton().setCustomId(id).setLabel(buttonContent.replace(discordEmojiNotExact, ``)).setStyle(`SECONDARY`);
+			const button = (id:string):ButtonBuilder => {
+				return new ButtonBuilder().setCustomId(id).setLabel(buttonContent.replace(discordEmojiNotExact, ``)).setStyle(ButtonStyle.Secondary);
 			};
-			const bar = (rowNumber:string):MessageActionRow => {
-				return new MessageActionRow().addComponents([
-					button(`Dummy: ` + rowNumber + `-1`)
-				],
-				[
-					button(`Dummy: ` + rowNumber + `-2`)
-				],
-				[
-					button(`Dummy: ` + rowNumber + `-3`)
-				],
-				[
-					button(`Dummy: ` + rowNumber + `-4`)
-				],
-				[
+			const bar = (rowNumber:string) => {
+				return new ActionRowBuilder().addComponents(
+					button(`Dummy: ` + rowNumber + `-1`),
+					button(`Dummy: ` + rowNumber + `-2`),
+					button(`Dummy: ` + rowNumber + `-3`),
+					button(`Dummy: ` + rowNumber + `-4`),
 					button(`Dummy: ` + rowNumber + `-5`)
-				]);
+				).toJSON() as APIActionRowComponent<APIButtonComponent>;
 			};
 			return {
 				content: buttonContent.replace(discordEmojiNotExact, ``),
@@ -162,25 +146,17 @@ export const buttonGrid = (
 				]
 			};
 		}
-		const button = (id:string):MessageButton => {
-			return new MessageButton().setCustomId(id).setLabel(buttonContent).setStyle(`SECONDARY`);
+		const button = (id:string):ButtonBuilder => {
+			return new ButtonBuilder().setCustomId(id).setLabel(buttonContent).setStyle(ButtonStyle.Secondary);
 		};
-		const bar = (rowNumber:string):MessageActionRow => {
-			return new MessageActionRow().addComponents([
-				button(`Dummy: ` + rowNumber + `-1`)
-			],
-			[
-				button(`Dummy: ` + rowNumber + `-2`)
-			],
-			[
-				button(`Dummy: ` + rowNumber + `-3`)
-			],
-			[
-				button(`Dummy: ` + rowNumber + `-4`)
-			],
-			[
+		const bar = (rowNumber:string) => {
+			return new ActionRowBuilder().addComponents(
+				button(`Dummy: ` + rowNumber + `-1`),
+				button(`Dummy: ` + rowNumber + `-2`),
+				button(`Dummy: ` + rowNumber + `-3`),
+				button(`Dummy: ` + rowNumber + `-4`),
 				button(`Dummy: ` + rowNumber + `-5`)
-			]);
+			).toJSON() as APIActionRowComponent<APIButtonComponent>;
 		};
 		return {
 			content: buttonContent,
@@ -195,7 +171,7 @@ export const buttonGrid = (
 	}
 };
 export const selectMenu = ():InteractionReplyOptions => {
-	const menu:MessageSelectMenu = new MessageSelectMenu().setCustomId(`Dummy`).setPlaceholder(`Choose wisely`).addOptions([
+	const menu:SelectMenuBuilder = new SelectMenuBuilder().setCustomId(`Dummy`).setPlaceholder(`Choose wisely`).addOptions([
 		{
 			label: `Ras is cool`,
 			description: `This is the wrong answer`,
@@ -207,9 +183,9 @@ export const selectMenu = ():InteractionReplyOptions => {
 			value: `second_option`,
 		},
 	]);
-	const bar:MessageActionRow = new MessageActionRow().addComponents([
+	const bar = new ActionRowBuilder().addComponents(
 		menu
-	]);
+	).toJSON() as APIActionRowComponent<APISelectMenuComponent>;
 	return {
 		content: `sample menus:`,
 		components: [
