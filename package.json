@@ -4,7 +4,7 @@
     "dotenv": "*",
     "ffmpeg-static": "*",
     "generate-maze": "*",
-    "node-fetch": "*",
+    "node-fetch": "^2",
     "opusscript": "*",
     "xkcd": "*",
     "ytdl-core": "*"
