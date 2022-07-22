@@ -39,7 +39,7 @@ type halfBitAsString = `${ `I` | `O` }${ `I` | `O` }${ `I` | `O` }${ `I` | `O` }
 //#endregion
 
 //#region imports
-import {CommandInteraction, MessageActionRow, MessageButton, ButtonInteraction, EmojiIdentifierResolvable, Interaction, CommandInteractionOption} from "discord.js";
+import {CommandInteraction, ActionRowBuilder, ButtonBuilder, ButtonInteraction, EmojiIdentifierResolvable, Interaction, CommandInteractionOption, ButtonStyle, APIActionRowComponent, APIButtonComponent} from "discord.js";
 import {boolToInt} from "./generalUse";
 // eslint-disable-next-line @typescript-eslint/no-var-requires, quotes
 const mazeThing = require("generate-maze");
@@ -287,28 +287,25 @@ export const mazeFunction = (
 			}
 			return messageText;
 		};
-		const arrows:MessageActionRow = new MessageActionRow()
-			.addComponents([
-				new MessageButton()
+		const arrows = new ActionRowBuilder()
+			.setComponents(
+				new ButtonBuilder()
 					.setCustomId(`Left`)
 					.setEmoji(`⬅️`)
-					.setStyle(`SECONDARY`)
-			],[
-				new MessageButton()
+					.setStyle(ButtonStyle.Secondary),
+				new ButtonBuilder()
 					.setCustomId(`Up`)
 					.setEmoji(`⬆️`)
-					.setStyle(`SECONDARY`)
-			],[
-				new MessageButton()
+					.setStyle(ButtonStyle.Secondary),
+				new ButtonBuilder()
 					.setCustomId(`Down`)
 					.setEmoji(`⬇️`)
-					.setStyle(`SECONDARY`)
-			],[
-				new MessageButton()
+					.setStyle(ButtonStyle.Secondary),
+				new ButtonBuilder()
 					.setCustomId(`Right`)
 					.setEmoji(`➡️`)
-					.setStyle(`SECONDARY`)
-			]);
+					.setStyle(ButtonStyle.Secondary)
+			).toJSON() as APIActionRowComponent<APIButtonComponent>;
 		inObj.interaction.reply({
 			content: mazeMessage(createdClass),
 			components: [
