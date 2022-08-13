@@ -1,5 +1,6 @@
 //#region imports
 import {CommandInteraction, EmbedBuilder, Guild, User, ColorResolvable, InteractionReplyOptions, CommandInteractionOption, GuildMember, ChannelType} from "discord.js";
+import { chooseFormat } from "ytdl-core";
 import {checkFor} from "./generalUse.js";
 //#endregion
 
@@ -21,14 +22,14 @@ export const channelCount = (
 		const Cat:string[] = [];
 		const UK:string[] = [];
 		inObj.guild.channels.cache.map((channel):void => {
-			switch (channel.type.toString()) {
-			case `GUILD_TEXT`:
+			switch (channel.type) {
+			case ChannelType.GuildText:
 				TC.push(channel.name);
 				break;
-			case `GUILD_VOICE`:
+			case ChannelType.GuildVoice:
 				VC.push(channel.name);
 				break;
-			case `GUILD_CATEGORY`:
+			case ChannelType.GuildCategory:
 				Cat.push(channel.name);
 				break;
 			default:

@@ -775,7 +775,7 @@ glados.on(`messageCreate`, (message: Message):void => {
 	//stupidStuff.userWordBan(message, `last`, `541617670533939210`);
 });
 glados.on(`interactionCreate`, async (interaction: Interaction):Promise<void> => {
-	if (interaction.type.toString() == `MESSAGE_COMPONENT`) {
+	if (interaction.type == InteractionType.MessageComponent) {
 		const messageComponentInteraction:MessageComponentInteraction = interaction as MessageComponentInteraction;
 		if (messageComponentInteraction.componentType === ComponentType.Button) {
 			const buttonInteraction:ButtonInteraction = messageComponentInteraction as ButtonInteraction;

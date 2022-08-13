@@ -1,5 +1,5 @@
 //#region imports
-import {CommandInteraction, CommandInteractionOption, EmojiIdentifierResolvable, InteractionReplyOptions, Message, ActionRowBuilder, ButtonBuilder, MessageOptions, SelectMenuBuilder, TextChannel, ButtonStyle, APIActionRowComponent, APIButtonComponent, APISelectMenuComponent} from "discord.js";
+import {CommandInteraction, CommandInteractionOption, EmojiIdentifierResolvable, InteractionReplyOptions, Message, ActionRowBuilder, ButtonBuilder, MessageOptions, SelectMenuBuilder, TextChannel, ButtonStyle, APIActionRowComponent, APIButtonComponent, APISelectMenuComponent, ChannelType} from "discord.js";
 import {blackList} from "./generalUse.js";
 //#endregion
 
@@ -15,7 +15,7 @@ export const hencefortifier = (
 				if (inObj.message.guild.id == `646155122992480266`) {
 					const textChannels:`${bigint}`[] = [];
 					inObj.message.guild.channels.cache.map((channel):void => {
-						if (channel.type.toString() == `GUILD_TEXT`) {
+						if (channel.type == ChannelType.GuildText) {
 							blackList.forEach((bannedChannel:string):void => {
 								if (channel.name != bannedChannel) {
 									textChannels.push(channel.id as `${bigint}`);
