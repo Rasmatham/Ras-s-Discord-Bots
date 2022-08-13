@@ -1,5 +1,5 @@
 //#region imports
-import {CommandInteraction, EmbedBuilder, Guild, User, ColorResolvable, InteractionReplyOptions, CommandInteractionOption, GuildMember} from "discord.js";
+import {CommandInteraction, EmbedBuilder, Guild, User, ColorResolvable, InteractionReplyOptions, CommandInteractionOption, GuildMember, ChannelType} from "discord.js";
 import {checkFor} from "./generalUse.js";
 //#endregion
 
@@ -92,14 +92,14 @@ export const serverInfo = (
 			const unknown:string[] = [];
 			inObj.interaction.guild.channels.fetch().then((channels):void => {
 				channels.forEach((channel):void => {
-					switch (channel.type.toString()) {
-					case `GUILD_TEXT`:
+					switch (channel.type) {
+					case ChannelType.GuildText:
 						textChannels.push(channel.name);
 						break;
-					case `GUILD_VOICE`:
+					case ChannelType.GuildVoice:
 						voiceChannels.push(channel.name);
 						break;
-					case `GUILD_CATEGORY`:
+					case ChannelType.GuildCategory:
 						categories.push(channel.name);
 						break;
 					default:
