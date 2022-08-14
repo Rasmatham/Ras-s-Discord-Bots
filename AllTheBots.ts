@@ -193,24 +193,10 @@ const mrtz = `Did you know BeeMrtz is short for Bee Master? He just had a tiny s
 //#endregion
 
 //#region functions
-const buzzes = ():string => {
-	let str = ``;
-	for (let i = 0; i < Math.floor(Math.random() * 9); i++) {
-		if (Math.floor(Math.random() * 2)) {
-			str = `${
-				str
-			}buzz `;
-		}
-		else {
-			str = `${
-				str
-			}buzz, `;
-		}
-	}
-	str = `${
-		str
-	}buzz`;
-	return str;
+const buzzes = (buzz: string = `buzz`, count: number = Math.floor(Math.random() * 9)): string => {
+	buzz = (Math.round(Math.random() * 2)? `buzz ` : `buzz, `).concat(buzz)
+	count? count-- : count;
+	return count? buzzes(buzz, count) : buzz;
 };
 //#endregion
 
