@@ -1354,4 +1354,9 @@ zelda.on(`messageCreate`, (message: Message):void => {
 
 //#endregion
 
+//#region CroissantBot
+croissant.on(`messageCreate`, (message: Message):void => {
+	forwarding.messageForwarding([{message: message}])
+})
+//#endregion
 //#endregion
