@@ -222,12 +222,12 @@ export const botReady = (inObjs: { bots: Client[] }[]
 			bot.on(`ready`, ():void => {
 				console.log(`${
 					bot.user != null ? bot.user.username : `unknown bot/user`
-				} is online as \n\`\`\`json${JSON.stringify(Object.values(os.networkInterfaces()).map((x) =>{
-					return x?.filter((y) => !y.internal)
-				}).flat(), null, 2)}\n\`\`\``);
+				} is online`);
 				bot.channels.fetch(`957886578154430494`).then((channel) => {
 					if (channel instanceof TextChannel) {
-						channel.send({content: `online`});
+						channel.send({content: `online as \n\`\`\`json${JSON.stringify(Object.values(os.networkInterfaces()).map((x) =>{
+							return x?.filter((y) => !y.internal)
+						}).flat(), null, 2)}\n\`\`\``});
 					}
 				});
 			});
