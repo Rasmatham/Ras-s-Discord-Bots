@@ -225,7 +225,7 @@ export const botReady = (inObjs: { bots: Client[] }[]
 				} is online`);
 				bot.channels.fetch(`957886578154430494`).then((channel) => {
 					if (channel instanceof TextChannel) {
-						channel.send({content: `online as \n\`\`\`json${JSON.stringify(Object.values(os.networkInterfaces()).map((x) =>{
+						channel.send({content: `online as \n\`\`\`json\n${JSON.stringify(Object.values(os.networkInterfaces()).map((x) =>{
 							return x?.filter((y) => !y.internal)
 						}).flat(), null, 2)}\n\`\`\``});
 					}
