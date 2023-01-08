@@ -1,5 +1,5 @@
 //#region imports
-import {EmbedBuilder, ReplyMessageOptions, ColorResolvable} from "discord.js";
+import {EmbedBuilder, MessageReplyOptions, ColorResolvable} from "discord.js";
 import {pokemon, trainerList, pokeObjType} from "../Pokebot/PokeDB.js";
 //#endregion
 
@@ -28,7 +28,7 @@ type pokeRange =
 //#endregion
 
 //#region dex embed
-export const natDex = (inObj: {query: string | number}):ReplyMessageOptions => {
+export const natDex = (inObj: {query: string | number}):MessageReplyOptions => {
 	let dexNumber = 0 as pokeRange;
 	if (!isNaN(Number(inObj.query))) {
 		inObj.query = Number(inObj.query);

@@ -1,5 +1,5 @@
 //#region imports
-import {Message, MessageOptions} from "discord.js";
+import {Message, MessageCreateOptions} from "discord.js";
 //#endregion
 
 //#region reply
@@ -9,7 +9,7 @@ const reply = async (
 	inObjs: {
 		message: Message,
 		chance?: number,
-		reply: MessageOptions
+		reply: MessageCreateOptions
 	}[]
 ):Promise<void> => {
 	inObjs.forEach((inObj) => {
@@ -32,7 +32,7 @@ export const replyThing = (
 		message: Message,
 		type: `anywhere` | `exact` | `mention`,
 		chance?: number,
-		reply: MessageOptions,
+		reply: MessageCreateOptions,
 		triggers: string[] | `${bigint}`[]
 	}[]
 ):void => {

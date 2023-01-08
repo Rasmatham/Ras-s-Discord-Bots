@@ -93,7 +93,7 @@ export const serverInfo = (
 			const unknown:string[] = [];
 			inObj.interaction.guild.channels.fetch().then((channels):void => {
 				channels.forEach((channel):void => {
-					switch (channel.type) {
+					switch (channel?.type) {
 					case ChannelType.GuildText:
 						textChannels.push(channel.name);
 						break;
@@ -104,7 +104,7 @@ export const serverInfo = (
 						categories.push(channel.name);
 						break;
 					default:
-						unknown.push(channel.name);
+						unknown.push(channel?.name ? channel?.name : ``);
 						break;
 					}
 				});
