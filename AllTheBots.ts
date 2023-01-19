@@ -52,17 +52,6 @@ const buzzBot:Client = new Client({
 		]
 	}
 });
-const clambot:Client = new Client({
-	intents: generalStuff.intents,
-	presence: {
-		activities: [
-			{
-				name: `Whatever Clams is playing`,
-				type: ActivityType.Playing
-			}
-		]
-	}
-});
 const ebnj:Client = new Client({
 	intents: generalStuff.intents,
 	presence: {
@@ -155,7 +144,6 @@ const croissant:Client = new Client({
 
 //#region logins
 buzzBot.login(process.env.BUZZBOTTOKEN).catch(console.error);
-clambot.login(process.env.CLAMBOTTOKEN).catch(console.error);
 ebnj.login(process.env.EBNJTOKEN).catch(console.error);
 glados.login(process.env.GLADOSTOKEN).catch(console.error);
 pokebot.login(process.env.POKETOKEN).catch(console.error);
@@ -166,7 +154,6 @@ zelda.login(process.env.ZELDATOKEN).catch(console.error);
 croissant.login(process.env.CROISSANTTOKEN).catch(console.error);
 const bots = [
 	buzzBot,
-	clambot,
 	ebnj,
 	glados,
 	pokebot,
@@ -289,72 +276,6 @@ buzzBot.on(`messageCreate`, (message: Message):void => {
 	]);
 	forwarding.messageForwarding([{message: message}]);
 	//music(message, `bb;`);
-});
-//#endregion
-
-//#endregion
-
-//#region Clambot
-
-//#region Stuff
-clambot.on(`ready`, () => {
-	clambot.users.fetch(`588511925944582186`).then((fetchedUser) => {
-		if (clambot.user != null) {
-			clambot.user.setAvatar(fetchedUser.avatarURL()).catch(() => console.log(`[${fetchedUser.tag}] You're probably changing the avatar too fast`));
-			clambot.user.setUsername(fetchedUser.username).catch(() => console.log(`[${fetchedUser.tag}] You're probably changing the username too fast`));
-		}
-	});
-});
-clambot.on(`userUpdate`, (oldUser, newUser) => {
-	if (clambot.user != null) {
-		if (newUser.id == `588511925944582186`) {
-			clambot.user.setAvatar(newUser.avatarURL()).catch(() => console.log(`[${newUser.tag}] You're probably changing the avatar too fast`));
-			clambot.user.setUsername(newUser.username).catch(() => console.log(`[${newUser.tag}] You're probably changing the username too fast`));
-		}
-	}
-});
-clambot.on(`messageCreate`, (message: Message):void => {
-	if (message.channel.type === ChannelType.DM) {
-		return;
-	}
-	if (generalStuff.blackList.includes(message.channel.name)) {
-		return;
-	}
-	containsWord.replyThing([
-		{
-			message: message,
-			type: `anywhere`,
-			reply: {
-				content: `PING!`
-			},
-			triggers: [
-				`<@&`
-			]
-		}
-	]);
-	//forwarding.DMSpy(message, `764479509138636810`);
-	forwarding.messageForwarding([{message: message}]);
-	//music(message, `cb;`);
-});
-clambot.on(`messageCreate`, (message: Message):void => {
-	if (message.channel.type == ChannelType.DM) {
-		return;
-	}
-	if (generalStuff.blackList.includes(message.channel.name)) {
-		return;
-	}
-	containsWord.replyThing([
-		{
-			message: message,
-			type: `mention`,
-			reply: {
-				content: `I think you might have meant to mention the inferior version of myself, <@588511925944582186>`
-			},
-			triggers: [
-				`764473389054033950`
-			]
-		}
-	]);
 });
 //#endregion
 
