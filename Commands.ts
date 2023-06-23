@@ -1,5 +1,5 @@
 //#region imports
-import {ActivityType, ApplicationCommandData, ApplicationCommandDataResolvable, ApplicationCommandOptionType, Client} from "discord.js";
+import {ActivityType, ApplicationCommandData, ApplicationCommandDataResolvable, ApplicationCommandOptionType, Client, SlashCommandBuilder} from "discord.js";
 import {intents} from "./custom_modules/generalUse.js";
 import * as dotenv from "dotenv";
 dotenv.config();
@@ -60,8 +60,13 @@ const commandGroup:commandObject[][] = [
 bots.forEach((bot, i):void => {
 	//list commands
 	bot.on(`ready`, ():void => {
-		bot.application?.commands.fetch().then((command) => {
-			command.delete()
+		bot.application?.commands.fetch().then((commands) => {
+			console.log(`fetched ${commands.size} commands`)
+			commands.forEach((command) => {
+				command.delete()
+			})
+		}).then(() => {
+			bot.application?.commands.create(new SlashCommandBuilder().setName(`dice`).setDescription(`Rolls dice!`))
 		})
 	});
 });

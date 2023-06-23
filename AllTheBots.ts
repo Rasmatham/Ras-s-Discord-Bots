@@ -83,7 +83,7 @@ amber.on(`interactionCreate`, async (interaction: BaseInteraction):Promise<void>
 	if (interaction.type === InteractionType.ApplicationCommand) {
 		const commandInteraction = interaction as ChatInputCommandInteraction;
 		switch (commandInteraction.commandName) {
-		case `d`:
+		case `dice`:
 			dice.dice([{interaction: commandInteraction}]);
 			break;
 		default:
