@@ -6,10 +6,12 @@
 		"preserveConstEnums": true,
 		"sourceMap": true,
 		"alwaysStrict": true,
-		"target": "ES6",
+		"target": "ESNext",
 		"strict":true,
 		"forceConsistentCasingInFileNames": true,
-		"importHelpers": true
+		"importHelpers": true,
+		"skipLibCheck": true,
+		"resolveJsonModule": true
 	},
 	"include": [
 		"AllTheBots.ts",

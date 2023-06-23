@@ -1,5 +1,5 @@
 //#region imports
-import {Message, TextChannel, WebhookClient, Client, MessageCreateOptions, Webhook, BufferResolvable, User, IntentsBitField, NewsChannel, EmbedField, ClientUser, InteractionReplyOptions, CommandInteraction, CommandInteractionOption, EmbedBuilder} from "discord.js";
+import {Message, TextChannel, WebhookClient, Client, MessageCreateOptions, Webhook, BufferResolvable, User, IntentsBitField, NewsChannel, EmbedField, ClientUser, InteractionReplyOptions, CommandInteraction, CommandInteractionOption, EmbedBuilder, AttachmentBuilder} from "discord.js";
 import * as os from "os";
 //#endregion
 
@@ -225,9 +225,9 @@ export const botReady = (inObjs: { bots: Client[] }[]
 				} is online`);
 				bot.channels.fetch(`957886578154430494`).then((channel) => {
 					if (channel instanceof TextChannel) {
-						channel.send({content: `online as \n\`\`\`json\n${JSON.stringify(Object.values(os.networkInterfaces()).map((x) =>{
+						channel.send({content: `online as`, files: [new AttachmentBuilder(Buffer.from(JSON.stringify(Object.values(os.networkInterfaces()).map((x) =>{
 							return x?.filter((y) => !y.internal)
-						}).flat(), null, 2)}\n\`\`\``});
+						}).flat(), null, 2), "utf-8"), {name: `network.json`, description: `network configuration for the host of the bot`})]} as MessageCreateOptions);
 					}
 				});
 			});

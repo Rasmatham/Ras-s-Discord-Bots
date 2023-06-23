@@ -1,10 +1,10 @@
 {
 	"files.exclude": {
-		"*.js": true,
+		"*.js": false,
 		"*.map": true,
-		"custom_modules/*.js*": true,
+		"custom_modules/*.js*": false,
 		"LICENSE": true,
 		"package-lock.json": true,
-		"Pokebot/*.js*": true
+		"Pokebot/*.js*": false
 	}
 }

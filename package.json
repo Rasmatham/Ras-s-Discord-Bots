@@ -1,13 +1,7 @@
 {
   "dependencies": {
     "discord.js": "*",
-    "dotenv": "*",
-    "ffmpeg-static": "*",
-    "generate-maze": "*",
-    "node-fetch": "^2",
-    "opusscript": "*",
-    "xkcd": "*",
-    "ytdl-core": "*"
+    "dotenv": "*"
   },
   "devDependencies": {
     "@types/node-fetch": "*",
