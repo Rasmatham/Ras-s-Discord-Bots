@@ -1,5 +1,5 @@
 //#region imports
-import {BufferResolvable, Channel, ChannelType, Client, DMChannel, Message, NewsChannel, TextChannel, ThreadChannel} from "discord.js";
+import {BufferResolvable, ChannelType, Client, DMChannel, Message, NewsChannel, TextChannel, ThreadChannel} from "discord.js";
 import {sendAsWebHook, blackList} from "./generalUse.js";
 //#endregion
 
@@ -10,57 +10,57 @@ export const messageForwarding = (
 	}[]
 ):void => {
 	inObjs.forEach((inObj) => {
-		if (inObj.message.channel.type == ChannelType.DM) {
+		if (inObj.message.channel.type === ChannelType.DM) {
 			return;
 		}
 		const bot:Client = inObj.message.client;
 		if (!inObj.message.author.bot) {
-			if (bot.user != null) {
-				if (inObj.message.member != null) {
-					if (inObj.message.member != null) {
-						if (inObj.message.content.startsWith(`<#`)) {
-							if ([
-								`talk-as-${
-									bot.user.username.toLowerCase()
-								}`,
-								`talk-and-dm-as-${
-									bot.user.username.toLowerCase()
-								}`,
-								`dm-and-talk-as-${
-									bot.user.username.toLowerCase()
-								}`
-							].includes(inObj.message.channel.name)) {
-								const firstChannel = inObj.message.mentions.channels.first() as Channel;
-								if (!blackList.includes(inObj.message.channel.name) /*|| message.member.id == process.env.RASID*/ || inObj.message.member.permissions.has(`Administrator`)) {
-									bot.channels.fetch(firstChannel.id).then((channel):void => {
-										if (!(channel instanceof TextChannel || channel instanceof DMChannel || channel instanceof NewsChannel || channel instanceof ThreadChannel)) {
-											return;
-										}
-										channel.send({
-											content: inObj.message.content.replace(firstChannel.toString(), ``).replace(/¤/g, ``),
-											files: inObj.message.attachments.map((value) => value)
-										}).catch(console.error);
-									});
-								}
-								else {
-									inObj.message.channel.send(`Nice try`)
-										.catch(console.error);
-								}
+			if (bot.user !== null) {
+				if (inObj.message.member !== null) {
+					if (inObj.message.content.startsWith(`<#`)) {
+						if ([
+							`talk-as-${
+								bot.user.username.toLowerCase()
+							}`,
+							`talk-and-dm-as-${
+								bot.user.username.toLowerCase()
+							}`,
+							`dm-and-talk-as-${
+								bot.user.username.toLowerCase()
+							}`
+						].includes(inObj.message.channel.name)) {
+							const firstChannel = inObj.message.mentions.channels.first();
+							if (!firstChannel) return;
+							if (!blackList.includes(inObj.message.channel.name) /*|| message.member.id === process.env.RASID*/ || inObj.message.member.permissions.has(`Administrator`)) {
+								void bot.channels.fetch(firstChannel.id).then((channel):void => {
+									if (!(channel instanceof TextChannel || channel instanceof DMChannel || channel instanceof NewsChannel || channel instanceof ThreadChannel)) {
+										return;
+									}
+									channel.send({
+										content: inObj.message.content.replace(`<#${firstChannel.id}>`, ``).replace(/¤/g, ``),
+										files: inObj.message.attachments.map((value) => value)
+									}).catch(console.error);
+								});
+							}
+							else {
+								inObj.message.channel.send(`Nice try`)
+									.catch(console.error);
 							}
 						}
-						else if (inObj.message.content.startsWith(`<@`) && !inObj.message.content.startsWith(`<@&`) /*&& message.member.hasPermission(`ADMINISTRATOR`)*/) {
-							if ([
-								`dm-as-${
-									bot.user.username.toLowerCase()
-								}`,
-								`talk-and-dm-as-${
-									bot.user.username.toLowerCase()
-								}`,
-								`dm-and-talk-as-${
-									bot.user.username.toLowerCase()
-								}`
-							].includes(inObj.message.channel.name)) {
-								/*bot.users.cache
+					}
+					else if (inObj.message.content.startsWith(`<@`) && !inObj.message.content.startsWith(`<@&`) /*&& message.member.hasPermission(`ADMINISTRATOR`)*/) {
+						if ([
+							`dm-as-${
+								bot.user.username.toLowerCase()
+							}`,
+							`talk-and-dm-as-${
+								bot.user.username.toLowerCase()
+							}`,
+							`dm-and-talk-as-${
+								bot.user.username.toLowerCase()
+							}`
+						].includes(inObj.message.channel.name)) {
+							/*bot.users.cache
 				.get(message.mentions.users.first().id)
 				.send(message.content.replace(message.mentions.users.first().id, ``)
 				.replace(`<@>`, ``)
@@ -79,8 +79,7 @@ export const messageForwarding = (
 						message.mentions.users.first().tag
 					} has blocked me or they blocked DM's from this server`)
 				});*/
-								inObj.message.channel.send(`This functionality is temporarily disabled`);
-							}
+							void inObj.message.channel.send(`This functionality is temporarily disabled`);
 						}
 					}
 				}
@@ -98,8 +97,8 @@ export const DMSpy = (
 	}[]
 ):void => {
 	inObjs.forEach(inObj => {
-		if (inObj.message.channel.type == ChannelType.DM && !inObj.message.author.bot /*&& message.author.id != process.env.RASID*/) {
-			inObj.message.client.channels.fetch(inObj.ChID).then((channel):void => {
+		if (inObj.message.channel.type === ChannelType.DM && !inObj.message.author.bot /*&& message.author.id !== process.env.RASID*/) {
+			void inObj.message.client.channels.fetch(inObj.ChID).then((channel):void => {
 				if (!(channel instanceof TextChannel || channel instanceof NewsChannel)) {
 					return;
 				}
@@ -138,12 +137,12 @@ export const channelLink = (
 	}[]
 ):void => {
 	inObjs.forEach((inObj) => {
-		if (!inObj.message.author.bot && (inObj.message.channel.id == inObj.ch1 || inObj.message.channel.id == inObj.ch2)) {
-			inObj.message.client.channels.fetch(inObj.ch1).then((ch1):void => {
+		if (!inObj.message.author.bot && (inObj.message.channel.id === inObj.ch1 || inObj.message.channel.id === inObj.ch2)) {
+			void inObj.message.client.channels.fetch(inObj.ch1).then((ch1):void => {
 				if (!(ch1 instanceof TextChannel || ch1 instanceof NewsChannel)) {
 					return;
 				}
-				inObj.message.client.channels.fetch(inObj.ch2).then((ch2):void => {
+				void inObj.message.client.channels.fetch(inObj.ch2).then((ch2):void => {
 					if (!(ch2 instanceof TextChannel || ch2 instanceof NewsChannel)) {
 						return;
 					}

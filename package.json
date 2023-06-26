@@ -5,6 +5,9 @@
   },
   "devDependencies": {
     "@types/node-fetch": "*",
+    "@typescript-eslint/eslint-plugin": "*",
+    "@typescript-eslint/parser": "*",
+    "eslint": "*",
     "eslint-plugin-tsdoc": "*"
   }
 }

@@ -1,5 +1,5 @@
 //#region imports
-import {Message, TextChannel, WebhookClient, Client, MessageCreateOptions, Webhook, BufferResolvable, User, IntentsBitField, NewsChannel, EmbedField, ClientUser, InteractionReplyOptions, CommandInteraction, CommandInteractionOption, EmbedBuilder, AttachmentBuilder} from "discord.js";
+import {Message, TextChannel, WebhookClient, Client, MessageCreateOptions, Webhook, BufferResolvable, User, IntentsBitField, NewsChannel, EmbedField, InteractionReplyOptions, CommandInteraction, EmbedBuilder, AttachmentBuilder} from "discord.js";
 import * as os from "os";
 //#endregion
 
@@ -36,7 +36,7 @@ export const checkFor = (
 	const out:EmbedField[] = [];
 	inObjs.forEach((inObj) => {
 		if (inObj.arr.length > 0) {
-			if (inObj.inline == null) {
+			if (inObj.inline === undefined) {
 				inObj.inline = true;
 			}
 			out.push({name: inObj.str, value: inObj.arr.length.toString(), inline:inObj.inline});
@@ -60,7 +60,7 @@ export const sendAsWebHook = (
 		const webHookFunction = ():void => {
 			inObj.sendTo.fetchWebhooks()
 				.then((webHooks):void => {
-					const user = inObj.message.client.user as ClientUser;
+					const user = inObj.message.client.user;
 					if (webHooks.size <= 0) {
 						inObj.sendTo.createWebhook({
 							name: `${
@@ -79,17 +79,17 @@ export const sendAsWebHook = (
 					let i = 0;
 					webHooks.map((webHook: Webhook):void => {
 						if (webHook.owner instanceof User) {
-							if (webHook.owner.id == user.id) {
+							if (webHook.owner.id === user.id && webHook.token) {
 								const myWebHook:WebhookClient = new WebhookClient({
 									id: webHook.id,
-									token: webHook.token as string
+									token: webHook.token
 								});
 								myWebHook.edit({
 									name: inObj.name,
 									avatar: inObj.PFP
 								})
 									.then((editedWebHook):void => {
-										if (typeof inObj.sendMessage.content != `string` || inObj.sendMessage.content == ``) {
+										if (typeof inObj.sendMessage.content !== `string` || inObj.sendMessage.content === ``) {
 											inObj.sendMessage.content = ` `;
 											editedWebHook.send(inObj.sendMessage)
 												.catch(console.error);
@@ -129,12 +129,14 @@ export const sendAsWebHook = (
 
 //#region list guild things
 export const listThings = async (interaction:CommandInteraction):Promise<InteractionReplyOptions[]> => {
-	const thing = (interaction.options.get(`thing`) as CommandInteractionOption).value as `channels`|`emojis`|`roles`;
-	if (interaction.guild == null) {return [{content: `How am I supposed to do that?`}]; }
+	const rawThing = interaction.options.get(`thing`);
+	if (!rawThing) return [{}];
+	const thing = (rawThing).value as `channels`|`emojis`|`roles`;
+	if (interaction.guild === null) {return [{content: `How am I supposed to do that?`}]; }
 	switch (thing) {
 	case `channels`:
 		return await interaction.guild.channels.fetch().then((channels) => {
-			const channelsFormated = channels.map((channel) => `<#${channel?.id}> (${channel?.type.toString().toLowerCase().split(`_`).map((x) => `${x[0].toUpperCase()}${x.slice(1)}`)[1]}) <t:${Math.round(channel?.createdTimestamp ? channel?.createdTimestamp : 0/1000)}:D> at <t:${Math.round(channel?.createdTimestamp ? channel?.createdTimestamp : 0/1000)}:T>`);
+			const channelsFormated = channels.map((channel) => channel? `<#${channel.id}> (${channel.type.toString().toLowerCase().split(`_`).map((x) => `${x[0].toUpperCase()}${x.slice(1)}`)[1]}) <t:${Math.round(channel.createdTimestamp ? channel.createdTimestamp : 0/1000)}:D> at <t:${Math.round(channel.createdTimestamp ? channel.createdTimestamp : 0/1000)}:T>` : `error`);
 			//<#00000000000000000000> (00000000) <t:0000000000000:D> at <t:0000000000000:T> = 77
 			const x:string[][] = [];
 			for (let i = 0; i < channelsFormated.length; i += 10) {
@@ -151,7 +153,7 @@ export const listThings = async (interaction:CommandInteraction):Promise<Interac
 					z.addFields({
 						name: `${(i*50)+((j*14)+1)}-${(i*50)+(j+1)*14}`,
 						value: a.join(`\n`)
-					})
+					});
 				});
 				embeds.push({embeds: [z]});
 			});
@@ -159,7 +161,10 @@ export const listThings = async (interaction:CommandInteraction):Promise<Interac
 		});
 	case `emojis`:
 		return await interaction.guild.emojis.fetch().then((emojis) => {
-			const emojisFormated = emojis.map((emoji) => `<${emoji.animated? `a`:``}:${emoji.name}:${emoji.id}> (<@${emoji.author?.id}>) <t:${Math.round(emoji.createdTimestamp/1000)}:D> at <t:${Math.round(emoji.createdTimestamp/1000)}:T>`);
+			const emojisFormated = emojis.map((emoji) => {
+				if (!(emoji.name && emoji.author)) return `error`;
+				return `<${emoji.animated? `a`:``}:${emoji.name}:${emoji.id}> (<@${emoji.author.id}>) <t:${Math.round(emoji.createdTimestamp/1000)}:D> at <t:${Math.round(emoji.createdTimestamp/1000)}:T>`;
+			});
 			//<a:00000000000000000000000000000000:00000000000000000000> (<@00000000000000000000>) <t:0000000000000:D> at <t:0000000000000:T> = 125
 			const x:string[][] = [];
 			for (let i = 0; i < emojisFormated.length; i += 5) {
@@ -176,7 +181,7 @@ export const listThings = async (interaction:CommandInteraction):Promise<Interac
 					z.addFields({
 						name: `${(i*50)+((j*5)+1)}-${(i*50)+(j+1)*5}`,
 						value: a.join(`\n`)
-					})
+					});
 				});
 				embeds.push({embeds: [z]});
 			});
@@ -184,7 +189,7 @@ export const listThings = async (interaction:CommandInteraction):Promise<Interac
 		});
 	case `roles`:
 		return await interaction.guild.roles.fetch().then((roles) => {
-			const rolesFormated = roles.map((role) => `<@&${role.id}> ${role.hexColor != `#000000`? `(${role.hexColor}) `:` `}<t:${Math.round(role.createdTimestamp/1000)}:D> at <t:${Math.round(role.createdTimestamp/1000)}:T>`);
+			const rolesFormated = roles.map((role) => `<@&${role.id}> ${role.hexColor !== `#000000`? `(${role.hexColor}) `:` `}<t:${Math.round(role.createdTimestamp/1000)}:D> at <t:${Math.round(role.createdTimestamp/1000)}:T>`);
 			//<@&00000000000000000000> (#000000) <t:0000000000000:D> at <t:0000000000000:T> = 77
 			const x:string[][] = [];
 			for (let i = 0; i < rolesFormated.length; i += 10) {
@@ -201,7 +206,7 @@ export const listThings = async (interaction:CommandInteraction):Promise<Interac
 					z.addFields({
 						name: `${(i*50)+((j*10)+1)}-${(i*50)+(j+1)*10}`,
 						value: a.join(`\n`)
-					})
+					});
 				});
 				embeds.push({embeds: [z]});
 			});
@@ -221,13 +226,13 @@ export const botReady = (inObjs: { bots: Client[] }[]
 		.on('warn', console.log)*/
 			bot.on(`ready`, ():void => {
 				console.log(`${
-					bot.user != null ? bot.user.username : `unknown bot/user`
+					bot.user !== null ? bot.user.username : `unknown bot/user`
 				} is online`);
-				bot.channels.fetch(`957886578154430494`).then((channel) => {
+				void bot.channels.fetch(`957886578154430494`).then((channel) => {
 					if (channel instanceof TextChannel) {
-						channel.send({content: `online as`, files: [new AttachmentBuilder(Buffer.from(JSON.stringify(Object.values(os.networkInterfaces()).map((x) =>{
-							return x?.filter((y) => !y.internal)
-						}).flat(), null, 2), "utf-8"), {name: `network.json`, description: `network configuration for the host of the bot`})]} as MessageCreateOptions);
+						void channel.send({content: `online as`, files: [new AttachmentBuilder(Buffer.from(JSON.stringify(Object.values(os.networkInterfaces()).map((x) =>{
+							return x?.filter((y) => !y.internal);
+						}).flat(), null, 2), `utf-8`), {name: `network.json`, description: `network configuration for the host of the bot`})]} as MessageCreateOptions);
 					}
 				});
 			});
@@ -269,9 +274,9 @@ export const blackList:string[] = [
 //#region general stuff for the process
 export const process = (process:NodeJS.Process, bots:Client[]):void => {
 	const exitSequence = () => {
-		bots[0].channels.fetch(`957886578154430494`).then((channel) => {
+		void bots[0].channels.fetch(`957886578154430494`).then((channel) => {
 			if (channel instanceof TextChannel) {
-				channel.send({
+				void channel.send({
 					content: `offline from: ${JSON.stringify(os.networkInterfaces())}`
 				});
 				bots[0].destroy();

@@ -1,20 +1,11 @@
 //#region imports
-import {ActivityType, ApplicationCommandData, ApplicationCommandDataResolvable, ApplicationCommandOptionType, Client, SlashCommandBuilder} from "discord.js";
+import {ActivityType, Client, SlashCommandBuilder, SlashCommandIntegerOption} from "discord.js";
 import {intents} from "./custom_modules/generalUse.js";
 import * as dotenv from "dotenv";
 dotenv.config();
 //#endregion
 
 //#region type definitions
-type commandObject = {
-	id?:`${
-		bigint
-	}`, 
-	guild?:`${
-		bigint
-	}`,
-	command:ApplicationCommandData
-}
 //#endregion
 
 //#region instantiating clients
@@ -37,37 +28,50 @@ amber.login(process.env.AMBERTOKEN).catch(console.error);
 //#endregion
 
 //#region commands
-const amberCommands:commandObject[] = [
-	{
-		command: {
-			name: `d`,
-			description: `Rolls one, or multple dies`
-		}
-	}
-];
 //#endregion
 
 //#region arrays
 const bots:Client[] = [
 	amber
 ];
-const commandGroup:commandObject[][] = [
-	amberCommands
-];
 //#endregion
 
 //#region the stuff that creates/edits the commands
-bots.forEach((bot, i):void => {
+bots.forEach((bot):void => {
 	//list commands
 	bot.on(`ready`, ():void => {
-		bot.application?.commands.fetch().then((commands) => {
-			console.log(`fetched ${commands.size} commands`)
+		void bot.application?.commands.fetch().then((commands) => {
+			console.log(`fetched ${commands.size} commands`);
 			commands.forEach((command) => {
-				command.delete()
-			})
+				void command.delete();
+			});
 		}).then(() => {
-			bot.application?.commands.create(new SlashCommandBuilder().setName(`dice`).setDescription(`Rolls dice!`))
-		})
+			const cmd = new SlashCommandBuilder()
+				.setName(`dice`)
+				.setDescription(`Rolls dice!`)
+				.addIntegerOption(new SlashCommandIntegerOption()
+					.setName(`d4`)
+					.setDescription(`Rolls X amount of D4 (1-3)`))
+				.addIntegerOption(new SlashCommandIntegerOption()
+					.setName(`d6`)
+					.setDescription(`Rolls x amount of D6 (1-6)`))
+				.addIntegerOption(new SlashCommandIntegerOption()
+					.setName(`d8`)
+					.setDescription(`Rolls x amount of D8 (1-8)`))
+				.addIntegerOption(new SlashCommandIntegerOption()
+					.setName(`d10`)
+					.setDescription(`Rolls x amount of D10 (0-9)`))
+				.addIntegerOption(new SlashCommandIntegerOption()
+					.setName(`d12`)
+					.setDescription(`Rolls x amount of D12 (1-12)`))
+				.addIntegerOption(new SlashCommandIntegerOption()
+					.setName(`d20`)
+					.setDescription(`Rolls x amount of D20 (1-20)`))
+				.addIntegerOption(new SlashCommandIntegerOption()
+					.setName(`d10x10`)
+					.setDescription(`Rolls x amount of D10x10 (00-90)`));
+			void bot.application?.commands.create(cmd);
+		});
 	});
 });
 //#endregion

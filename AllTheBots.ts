@@ -11,7 +11,7 @@
 //#region Common
 
 //#region imports
-import {Client, Message, ActivityType, ChannelType, InteractionType, ChatInputCommandInteraction, BaseInteraction} from "discord.js";
+import {Client, Message, ActivityType, ChannelType, InteractionType, ChatInputCommandInteraction, BaseInteraction, ButtonInteraction, MessageComponentInteraction, ComponentType} from "discord.js";
 import * as forwarding from "./custom_modules/forwardMessages";
 import * as generalStuff from "./custom_modules/generalUse";
 import * as dice from "./custom_modules/dice";
@@ -54,16 +54,17 @@ generalStuff.botReady([{bots: bots}]);
 
 //#region Stuff
 amber.on(`ready`, () => {
-	amber.users.fetch(`707188499153158204`).then((user) => {
-		if (amber.user != null) {
+	void amber.users.fetch(`707188499153158204`).then((user) => {
+		if (amber.user !== null) {
 			amber.user.setAvatar(user.avatarURL()).catch(() => console.log(`[${user.tag}] You're probably changing the avatar too fast`));
 			amber.user.setUsername(user.username).catch(() => console.log(`[${user.tag}] You're probably changing the username too fast`));
 		}
 	});
 });
-amber.on(`userUpdate`, (oldUser, newUser) => {
-	if (amber.user != null) {
-		if (newUser.id == `707188499153158204`) {
+amber.on(`userUpdate`, (newUser) => {
+	if (amber.user !== null) {
+		if (newUser.id === `707188499153158204`) {
+			if (!newUser.username) return;
 			amber.user.setAvatar(newUser.avatarURL()).catch(() => console.log(`[${newUser.tag}] You're probably changing the avatar too fast`));
 			amber.user.setUsername(newUser.username).catch(() => console.log(`[${newUser.tag}] You're probably changing the username too fast`));
 		}
@@ -79,7 +80,7 @@ amber.on(`messageCreate`, (message: Message):void => {
 	forwarding.messageForwarding([{message: message}]);
 	//music(message, `sn;`);
 });
-amber.on(`interactionCreate`, async (interaction: BaseInteraction):Promise<void> => {
+amber.on(`interactionCreate`, (interaction: BaseInteraction): void => {
 	if (interaction.type === InteractionType.ApplicationCommand) {
 		const commandInteraction = interaction as ChatInputCommandInteraction;
 		switch (commandInteraction.commandName) {
@@ -88,8 +89,23 @@ amber.on(`interactionCreate`, async (interaction: BaseInteraction):Promise<void>
 			break;
 		default:
 			console.log(commandInteraction);
-			commandInteraction.reply({ephemeral: true, content: `This command is likely in a test phase`});
+			void commandInteraction.reply({ephemeral: true, content: `This command is likely in a test phase`});
 			break;
+		}
+	} else if (interaction.type === InteractionType.MessageComponent) {
+		const messageComponentInteraction = interaction as MessageComponentInteraction;
+		if (messageComponentInteraction.componentType === ComponentType.Button) {
+			const buttonInteraction = messageComponentInteraction as ButtonInteraction;
+			switch (buttonInteraction.customId) {
+			case `publish`:
+				void buttonInteraction.reply({
+					content: buttonInteraction.message.content,
+					files: Array.from(buttonInteraction.message.attachments.values())
+				});
+				break;
+			default:
+				break;
+			}
 		}
 	}
 });
