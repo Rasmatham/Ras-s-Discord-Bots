@@ -6,5 +6,6 @@
 		"LICENSE": true,
 		"package-lock.json": true,
 		"Pokebot/*.js*": true
-	}
+	},
+	"typescript.tsdk": "./node_modules/typescript/lib"
 }
