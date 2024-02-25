@@ -639,7 +639,7 @@ glados.on(`messageCreate`, (message: Message):void => {
 				`838084115391053844`
 			],
 			triggers: [
-				`blue`, `blå`, `bla`
+				`blue`, `blå`
 			]
 		},
 		{
