@@ -17,5 +17,5 @@
 		"*.mts",
 		"Pokebot/*.ts",
 		"custom_modules/*.ts"
-, "eslint.config.mjs"	]
+	]
 }
