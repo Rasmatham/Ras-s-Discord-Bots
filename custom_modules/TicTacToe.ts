@@ -1,5 +1,5 @@
 //#region imports
-import {CommandInteraction, User, ButtonBuilder, ActionRowBuilder, ButtonInteraction, Message, GuildMember, MessageMentions, UserResolvable, EmojiIdentifierResolvable, ButtonStyle, Guild, Collection, CommandInteractionOption, APIActionRowComponent, APIButtonComponent, ComponentType, ButtonComponent, APIMessageComponentEmoji, ComponentEmojiResolvable, APIButtonComponentBase, APIButtonComponentWithCustomId} from "discord.js";
+import {CommandInteraction, User, ButtonBuilder, ActionRowBuilder, ButtonInteraction, Message, MessageMentions, UserResolvable, EmojiIdentifierResolvable, ButtonStyle, APIActionRowComponent, ComponentType, ButtonComponent, ComponentEmojiResolvable, APIButtonComponentWithCustomId} from "discord.js";
 //#endregion
 
 //#region tic tac toe game
@@ -9,7 +9,7 @@ export const ticTacToe = (
 	}[]
 ):void => {
 	inObjs.forEach((inObj) => {
-		(inObj.interaction.guild as Guild).members.fetch((inObj.interaction.options.get(`playertwo`) as CommandInteractionOption).user as User).then((playerTwo):void => {
+		inObj.interaction.guild?.members.fetch(inObj.interaction.options.get(`playertwo`)?.user ?? ``).then((playerTwo):void => {
 			const choices = new ActionRowBuilder()
 				.addComponents(
 					new ButtonBuilder()
@@ -23,23 +23,23 @@ export const ticTacToe = (
 				).toJSON() as APIActionRowComponent<APIButtonComponentWithCustomId>;
 			inObj.interaction.reply({
 				content: `<@${
-					playerTwo
+					playerTwo.id
 				}>, <@${
-					inObj.interaction.user
+					inObj.interaction.user.id
 				}> has invited you to play tic tac toe. Do you accept?`,
 				components: [
 					choices
 				]
 			})
-				.catch((err):void => {
+				.catch((err: unknown):void => {
 					console.error(err);
 					inObj.interaction.user.send({
 						content: `Something went wrong\nI might not have permission to speak here`
 					})
-						.catch(console.error);
+						.catch((err: unknown) => {console.error(err)});
 				});
 		})
-			.catch(console.error);
+			.catch((err: unknown) => {console.error(err)});
 	
 		const button = (ID: string):ButtonBuilder => {
 			return new ButtonBuilder().setCustomId(ID).setEmoji(`<:ras:741303046574702652>`).setStyle(ButtonStyle.Secondary);
@@ -69,33 +69,33 @@ export const ticTacToe = (
 	
 		inObj.interaction.client.on(`interactionCreate`, (interaction):void => {
 			const buttonInteraction = interaction as ButtonInteraction;
-			const mentions = buttonInteraction.message.mentions as MessageMentions;
-			const memberMentions = mentions.members as Collection<string, GuildMember>;
-			const firstMemberMention = memberMentions.first() as GuildMember;
-			const lastMemberMention = memberMentions.last() as GuildMember;
-			const buttonGuild = buttonInteraction.guild as Guild;
+			const mentions = buttonInteraction.message.mentions;
+			const memberMentions = mentions.members;
+			const firstMemberMention = memberMentions?.first();
+			const lastMemberMention = memberMentions?.last();
+			const buttonGuild = buttonInteraction.guild;
 			if (buttonInteraction.message.mentions instanceof MessageMentions) {
 				switch (buttonInteraction.customId) {
 				//================================================================================================================
 				case `accept`:
-					if (buttonInteraction.user.id == firstMemberMention.id) {
+					if (buttonInteraction.user.id == firstMemberMention?.id && lastMemberMention?.user) {
 						console.log(buttonInteraction.user);
 						console.log(firstMemberMention);
 						const players:[
-						User,
-						User
-					] = [
-						firstMemberMention.user,
-						lastMemberMention.user
-					];
+							User,
+							User
+						] = [
+							firstMemberMention.user,
+							lastMemberMention.user
+						];
 						const randomNumber:number = Math.round(Math.random());
 						const randomOrder:[
-						User,
-						User
-					] = [
-						players[randomNumber],
-						players[1-randomNumber]
-					];
+							User,
+							User
+						] = [
+							players[randomNumber],
+							players[1-randomNumber]
+						];
 					
 						buttonInteraction.update({
 							components: []
@@ -103,20 +103,20 @@ export const ticTacToe = (
 							.then(():void => {
 								buttonInteraction.editReply({
 									content: `(no alternate rules) <@${
-										randomOrder[0]
+										randomOrder[0].id
 									}> is starting. <@${
-										randomOrder[1]
+										randomOrder[1].id
 									}> Please wait until your turn.`,
 									components: startingGrid
 								})
-									.catch(console.error);
+									.catch((err: unknown) => {console.error(err)});
 							})
-							.catch((err):void => {
+							.catch((err: unknown):void => {
 								console.error(err);
 								buttonInteraction.user.send({
 									content: `Something went horribly wrong`
 								})
-									.catch(console.error);
+									.catch((err: unknown) => {console.error(err)});
 							});
 					}
 					else {
@@ -124,42 +124,42 @@ export const ticTacToe = (
 							content: `Sorry, but you can't do that`,
 							ephemeral: true
 						})
-							.catch(console.error);
+							.catch((err: unknown) => {console.error(err)});
 					}
 					break;
 				//================================================================================================================
 				case `decline`:
-					if (buttonInteraction.user.id == firstMemberMention.user.id) {
+					if (buttonInteraction.user.id == firstMemberMention?.user.id) {
 						buttonInteraction.update({
 							content: `The request was declined`,
 							components: []
 						})
-							.catch(console.error);
+							.catch((err: unknown) => {console.error(err)});
 					}
 					else {
 						buttonInteraction.reply({
 							content: `Sorry, but you can't do that`,
 							ephemeral: true
 						})
-							.catch(console.error);
+							.catch((err: unknown) => {console.error(err)});
 					}
 					break;
 				//================================================================================================================
 				default:
 					if (buttonInteraction.customId.startsWith(`TTT`)) {
-						buttonGuild.members.fetch(buttonInteraction.message.content.split(` `)[3].replace(`<@`, ``).replace(`>`, ``).replace(`!`, ``) as UserResolvable)
+						buttonGuild?.members.fetch(buttonInteraction.message.content.split(` `)[3].replace(`<@`, ``).replace(`>`, ``).replace(`!`, ``) as UserResolvable)
 							.then(():void => {
-								buttonGuild.members.fetch(buttonInteraction.message.content.split(` `)[6].replace(`<@`, ``).replace(`>`, ``).replace(`!`, ``) as UserResolvable);
+								void buttonGuild.members.fetch(buttonInteraction.message.content.split(` `)[6].replace(`<@`, ``).replace(`>`, ``).replace(`!`, ``) as UserResolvable);
 							})
-							.catch(console.error)
+							.catch((err: unknown) => {console.error(err)})
 							.then(():void => {
 								const players:[
-								GuildMember,
-								GuildMember
-							] = [
-								buttonGuild.members.cache.get(buttonInteraction.message.content.split(` `)[3].replace(`<@`, ``).replace(`>`, ``).replace(`!`, ``) as `${bigint}`) as GuildMember,
-								buttonGuild.members.cache.get(buttonInteraction.message.content.split(` `)[6].replace(`<@`, ``).replace(`>`, ``).replace(`!`, ``) as `${bigint}`) as GuildMember
-							];
+									{id: string},
+									{id: string}
+								] = [
+									buttonGuild.members.cache.get(buttonInteraction.message.content.split(` `)[3].replace(`<@`, ``).replace(`>`, ``).replace(`!`, ``) as `${bigint}`) ?? {id: ``},
+									buttonGuild.members.cache.get(buttonInteraction.message.content.split(` `)[6].replace(`<@`, ``).replace(`>`, ``).replace(`!`, ``) as `${bigint}`) ?? {id: ``}
+								];
 								const movePieces = !(buttonInteraction.message.content.includes(`no`));
 								const rows = buttonInteraction.message.components;
 								const buttons:ButtonComponent[] = [];
@@ -192,16 +192,16 @@ export const ticTacToe = (
 									if (buttonInteraction.component.emoji != null) {
 										if (buttonInteraction.component.emoji.id == `741303046574702652`) {
 											const style:ButtonStyle = ButtonStyle.Secondary;
-											const BM:Message = buttonInteraction.message as Message;
+											const BM:Message = buttonInteraction.message;
 								
 											if (!movePieces) {
 												const newButton = (row: number, collumn: number):ButtonBuilder => {
 													const messageButton:ButtonComponent = BM.components[row].components[collumn] as ButtonComponent;
-													return new ButtonBuilder().setCustomId(messageButton.customId as string).setEmoji((messageButton.emoji as APIMessageComponentEmoji).id as string).setStyle(style);
+													return new ButtonBuilder().setCustomId(messageButton.customId ?? ``).setEmoji(messageButton.emoji?.id ?? ``).setStyle(style);
 												};
 												const newCheckedButton = (row: number, collumn: number, emoji: ComponentEmojiResolvable):ButtonBuilder => {
 													const messageButton:ButtonComponent = BM.components[row].components[collumn] as ButtonComponent;
-													return new ButtonBuilder().setCustomId(messageButton.customId as string).setEmoji(emoji).setStyle(style);
+													return new ButtonBuilder().setCustomId(messageButton.customId ?? ``).setEmoji(emoji).setStyle(style);
 												};
 									
 												let row1 = new ActionRowBuilder().addComponents(
@@ -387,7 +387,7 @@ export const ticTacToe = (
 												const winBoard = (rows: APIActionRowComponent<APIButtonComponentWithCustomId>[]):boolean => {
 													rows.forEach((row):void => {
 														row.components.forEach((button):void => {
-															buttonArray.push(button.emoji?.name as string);
+															buttonArray.push(button.emoji?.name ?? ``);
 														});
 													});
 													if (buttonArray[0] != `ras` || buttonArray[4] != `ras` || buttonArray[8] != `ras`) {
@@ -411,22 +411,22 @@ export const ticTacToe = (
 													return false;
 												};
 												if (!winBoard(newButtons)) {
-													if (buttonArray.indexOf(`ras`) >= 0) {
+													if (buttonArray.includes(`ras`)) {
 														buttonInteraction.update({
 															components: []
 														})
 															.then(():void => {
 																buttonInteraction.editReply({
 																	content: `(no alternate rules) ${
-																		players[1]
+																		players[1].id
 																	} is playing. ${
-																		players[0]
+																		players[0].id
 																	} Please wait until your turn.`,
 																	components: newButtons
 																})
-																	.catch(console.error);
+																	.catch((err: unknown) => {console.error(err)});
 															})
-															.catch(console.error);
+															.catch((err: unknown) => {console.error(err)});
 													}
 													else {
 														buttonInteraction.update({
@@ -451,13 +451,13 @@ export const ticTacToe = (
 															}`,
 															components: []
 														})
-															.catch(console.error);
+															.catch((err: unknown) => {console.error(err)});
 													}
 												}
 												else {
 													buttonInteraction.update({
 														content: `<@${
-															players[0]
+															players[0].id
 														}> won!\n${
 															buttonArray[0].replace(`ras`, `▫️`)
 														}${
@@ -479,14 +479,14 @@ export const ticTacToe = (
 														}`,
 														components: []
 													})
-														.catch(console.error);
+														.catch((err: unknown) => {console.error(err)});
 												}
 											}
 											else {
 												buttonInteraction.update({
 													content: `this mode has not been added yet. Please set the movepieces parameter to false instead`
 												})
-													.catch(console.error);
+													.catch((err: unknown) => {console.error(err)});
 											}
 										}
 									}
@@ -495,7 +495,7 @@ export const ticTacToe = (
 											content: `Sorry, but you can't do that`,
 											ephemeral: true
 										})
-											.catch(console.error);
+											.catch((err: unknown) => {console.error(err)});
 									}
 								}
 								else {
@@ -503,10 +503,10 @@ export const ticTacToe = (
 										content: `Sorry, but you can't do that`,
 										ephemeral: true
 									})
-										.catch(console.error);
+										.catch((err: unknown) => {console.error(err)});
 								}
 							})
-							.catch(console.error);
+							.catch((err: unknown) => {console.error(err)});
 						break;
 					}
 				}

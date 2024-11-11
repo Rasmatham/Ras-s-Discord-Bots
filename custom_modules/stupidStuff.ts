@@ -1,5 +1,5 @@
 //#region imports
-import {CommandInteraction, CommandInteractionOption, EmojiIdentifierResolvable, InteractionReplyOptions, Message, ActionRowBuilder, ButtonBuilder, MessageCreateOptions, SelectMenuBuilder, TextChannel, ButtonStyle, APIActionRowComponent, APIButtonComponent, APISelectMenuComponent, ChannelType, Client, PartialGroupDMChannel} from "discord.js";
+import {CommandInteraction, EmojiIdentifierResolvable, InteractionReplyOptions, Message, ActionRowBuilder, ButtonBuilder, MessageCreateOptions, TextChannel, ButtonStyle, APIActionRowComponent, APIButtonComponent, APISelectMenuComponent, ChannelType, StringSelectMenuBuilder} from "discord.js";
 import {blackList} from "./generalUse.js";
 //#endregion
 
@@ -10,30 +10,28 @@ export const hencefortifier = (
 	}[]
 ):void => {
 	inObjs.forEach((inObj) => {
-		if (inObj.message.client.user != null) {
-			if (inObj.message.author.id != inObj.message.client.user.id && inObj.message.guild != null && inObj.message.content.toLowerCase().includes(`from now on`)) {
-				if (inObj.message.guild.id == `646155122992480266`) {
-					const textChannels:`${bigint}`[] = [];
-					inObj.message.guild.channels.cache.map((channel):void => {
-						if (channel.type == ChannelType.GuildText) {
-							blackList.forEach((bannedChannel:string):void => {
-								if (channel.name != bannedChannel) {
-									textChannels.push(channel.id as `${bigint}`);
-								}
-							});
-						}
-					});
-					inObj.message.client.channels.fetch(textChannels[Math.floor(Math.random() * (textChannels.length - 1))])
-						.then((channel):void => {
-							if (channel != null) {
-								channel = channel as TextChannel;
-								channel.send(`<@${
-									inObj.message.author.id
-								}>, you did an oopsie`)
-									.catch(console.error);
+		if (inObj.message.author.id != inObj.message.client.user.id && inObj.message.guild != null && inObj.message.content.toLowerCase().includes(`from now on`)) {
+			if (inObj.message.guild.id == `646155122992480266`) {
+				const textChannels:`${bigint}`[] = [];
+				inObj.message.guild.channels.cache.map((channel):void => {
+					if (channel.type == ChannelType.GuildText) {
+						blackList.forEach((bannedChannel:string):void => {
+							if (channel.name != bannedChannel) {
+								textChannels.push(channel.id as `${bigint}`);
 							}
 						});
-				}
+					}
+				});
+				void inObj.message.client.channels.fetch(textChannels[Math.floor(Math.random() * (textChannels.length - 1))])
+					.then((channel):void => {
+						if (channel != null) {
+							channel = channel as TextChannel;
+							channel.send(`<@${
+								inObj.message.author.id
+							}>, you did an oopsie`)
+								.catch((err: unknown) => {console.error(err)});
+						}
+					});
 			}
 		}
 	});
@@ -52,7 +50,7 @@ export const userWordBan = (
 		if (inObj.message.author.id == inObj.userID) {
 			if (inObj.message.content.toLowerCase().includes(inObj.word)) {
 				inObj.message.delete()
-					.catch(console.error);
+					.catch((err: unknown) => {console.error(err)});
 			}
 		}
 	});
@@ -75,11 +73,11 @@ export const espenBotReplacement = (
 			case `message`:
 				if (inObj.message.channel.type === ChannelType.GuildText)
 					inObj.message.channel.send(inObj.out as MessageCreateOptions)
-						.catch(console.error);
+						.catch((err: unknown) => {console.error(err)});
 				break;
 			case `react`:
 				inObj.message.react(inObj.out as EmojiIdentifierResolvable)
-					.catch(console.error);
+					.catch((err: unknown) => {console.error(err)});
 				break;
 			}
 		}
@@ -92,12 +90,12 @@ export const buttonGrid = (
 	inObj: {
 		interaction: CommandInteraction
 	}
-):InteractionReplyOptions | void => {
+):InteractionReplyOptions => {
 	const unicodeEmoji = /^(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])$/gi;
 	const discordEmoji = /^<(a?)?:.+?:\d+>$/gi;
 	const discordEmojiNotExact = /<(a?)?:.+?:\d+>/gi;
-	const buttonContentOption = inObj.interaction.options.get(`button_content`) as CommandInteractionOption;
-	const buttonContent:string = buttonContentOption.value as string;
+	const buttonContentOption = inObj.interaction.options.get(`button_content`);
+	const buttonContent:string = buttonContentOption?.value as string;
 	if (buttonContent.length <= 80) {
 		if (buttonContent.match(unicodeEmoji) || buttonContent.match(discordEmoji)) {
 			const button = (id:string):ButtonBuilder => {
@@ -170,9 +168,31 @@ export const buttonGrid = (
 			]
 		};
 	}
+	const button = (id:string):ButtonBuilder => {
+		return new ButtonBuilder().setCustomId(id).setLabel(`error`).setStyle(ButtonStyle.Secondary);
+	};
+	const bar = (rowNumber:string) => {
+		return new ActionRowBuilder().addComponents(
+			button(`Dummy: ` + rowNumber + `-1`),
+			button(`Dummy: ` + rowNumber + `-2`),
+			button(`Dummy: ` + rowNumber + `-3`),
+			button(`Dummy: ` + rowNumber + `-4`),
+			button(`Dummy: ` + rowNumber + `-5`)
+		).toJSON() as APIActionRowComponent<APIButtonComponent>;
+	};
+	return {
+		content: buttonContent.replace(discordEmojiNotExact, ``),
+		components: [
+			bar(`1`),
+			bar(`2`),
+			bar(`3`),
+			bar(`4`),
+			bar(`5`)
+		]
+	};
 };
 export const selectMenu = ():InteractionReplyOptions => {
-	const menu:SelectMenuBuilder = new SelectMenuBuilder().setCustomId(`Dummy`).setPlaceholder(`Choose wisely`).addOptions([
+	const menu:StringSelectMenuBuilder = new StringSelectMenuBuilder().setCustomId(`Dummy`).setPlaceholder(`Choose wisely`).addOptions([
 		{
 			label: `Ras is cool`,
 			description: `This is the wrong answer`,

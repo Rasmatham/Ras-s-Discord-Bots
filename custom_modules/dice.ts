@@ -1,5 +1,5 @@
 //#region imports
-import {CommandInteraction, CommandInteractionOption, EmbedBuilder} from "discord.js";
+import {CommandInteraction, EmbedBuilder} from "discord.js";
 //#endregion
 
 //#region die roller
@@ -12,21 +12,21 @@ export const dice = (
 		let dieSides = 6;
 		let diceCount = 1;
 		if (inObj.interaction.options.get(`die_sides`) != null) {
-			const dieSidesOption = inObj.interaction.options.get(`die_sides`) as CommandInteractionOption;
-			dieSides = dieSidesOption.value as number;
+			const dieSidesOption = inObj.interaction.options.get(`die_sides`);
+			dieSides = dieSidesOption?.value as number;
 		}
 		if (inObj.interaction.options.get(`dice_count`) != null) {
-			const diceCountOption = inObj.interaction.options.get(`dice_count`) as CommandInteractionOption;
-			diceCount = diceCountOption.value as number;
+			const diceCountOption = inObj.interaction.options.get(`dice_count`);
+			diceCount = diceCountOption?.value as number;
 		}
 		inObj.interaction.reply(`Rolling ${
-			diceCount
+			diceCount.toString()
 		} D${
-			dieSides
+			dieSides.toString()
 		}`).then(():void => {
 			if (diceCount > 20) {
 				inObj.interaction.editReply(`Sorry, but you can only roll 20 dice at a time`)
-					.catch(console.error);
+					.catch((err: unknown) => {console.error(err)});
 			}
 			else {
 				if (dieSides == 10) {
@@ -36,17 +36,15 @@ export const dice = (
 							.setTitle(`Totally legit dice`)
 							.addFields({
 								name: `You "rolled" a:`,
-								value: `${
-									Math.floor(Math.random() * 10)
-								}`,
+								value: Math.floor(Math.random() * 10).toString(),
 								inline: true
 							},
 							{
 								name: `"roll" number:`,
 								value: `${
-									i + 1
+									(i + 1).toString()
 								}/${
-									diceCount
+									diceCount.toString()
 								}`
 							});
 						inObj.interaction.followUp({
@@ -54,7 +52,7 @@ export const dice = (
 								number10
 							]
 						})
-							.catch(console.error);
+						.catch((err: unknown) => {console.error(err)});
 					}
 				}
 				else if (dieSides == 100) {
@@ -64,17 +62,15 @@ export const dice = (
 							.setTitle(`Totally legit dice`)
 							.addFields({
 								name: `You "rolled" a:`,
-								value: `${
-									Math.floor(Math.random() * 10) * 10
-								}`,
+								value: (Math.floor(Math.random() * 10) * 10).toString(),
 								inline: true
 							},
 							{
 								name: `"roll" number:`,
 								value: `${
-									i + 1
+									(i + 1).toString()
 								}/${
-									diceCount
+									diceCount.toString()
 								}`
 							});
 						inObj.interaction.followUp({
@@ -82,7 +78,7 @@ export const dice = (
 								number100
 							]
 						})
-							.catch(console.error);
+							.catch((err: unknown) => {console.error(err)});
 					}
 				}
 				else {
@@ -92,17 +88,15 @@ export const dice = (
 							.setTitle(`Totally legit dice`)
 							.addFields({
 								name: `You "rolled" a:`,
-								value: `${
-									Math.ceil(Math.random() * Number(dieSides))
-								}`,
+								value: (Math.ceil(Math.random() * Number(dieSides))).toString(),
 								inline: true
 							},
 							{
 								name: `"roll" number:`,
 								value:`${
-									i + 1
+									(i + 1).toString()
 								}/${
-									diceCount
+									diceCount.toString()
 								}`
 							});
 						inObj.interaction.followUp({
@@ -110,12 +104,12 @@ export const dice = (
 								numberN
 							]
 						})
-							.catch(console.error);
+							.catch((err: unknown) => {console.error(err)});
 					}
 				}
 			}
 		})
-			.catch(console.error);
+			.catch((err: unknown) => {console.error(err)});
 	});
 };
 //#endregion

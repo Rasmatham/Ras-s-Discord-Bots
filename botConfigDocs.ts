@@ -1,5 +1,6 @@
 import * as djs from "discord.js";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface Bots {
 	generalConfig: {
 		envPath: string
@@ -208,10 +209,10 @@ interface Bots {
 				};
 				output: {
 					type: `message`;
-					message: djs.ReplyMessageOptions
+					message: djs.MessageReplyOptions
 				} | {
 					type: `reply`;
-					reply: djs.ReplyMessageOptions
+					reply: djs.MessageReplyOptions
 				} | {
 					type: `reaction`;
 					emoji: djs.EmojiIdentifierResolvable

@@ -1,11 +1,14 @@
 {
 	"files.exclude": {
-		"*.js": true,
-		"*.map": true,
-		"custom_modules/*.js*": true,
+		"**/*.js": true,
+		"**/*.map": true,
 		"LICENSE": true,
 		"package-lock.json": true,
-		"Pokebot/*.js*": true
+		"Pokebot/*.js*": true,
+		"**/*.rpyc": true,
+		"**/*.rpa": true,
+		"**/*.rpymc": true,
+		"**/cache/": true
 	},
 	"typescript.tsdk": "./node_modules/typescript/lib"
 }

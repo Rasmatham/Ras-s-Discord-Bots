@@ -1,5 +1,5 @@
 //#region type definitions
-type emoteList ={
+interface emoteList {
 	OOOO: EmojiIdentifierResolvable,
 	OOOI: EmojiIdentifierResolvable,
 	OOIO: EmojiIdentifierResolvable,
@@ -21,12 +21,12 @@ type emoteList ={
 		OIII: EmojiIdentifierResolvable,
 		IOII: EmojiIdentifierResolvable
 	}
-};
+}
 type emoteTypeList = [
 	emoteList[],
 	emoteList[]
 ];
-type mazeObj = {
+interface mazeObj {
 	x: number,
 	y: number,
 	top: boolean,
@@ -34,15 +34,14 @@ type mazeObj = {
 	bottom: boolean,
 	right: boolean,
 	set: number
-};
+}
 type halfBitAsString = `${ `I` | `O` }${ `I` | `O` }${ `I` | `O` }${ `I` | `O` }`;
 //#endregion
 
 //#region imports
-import {CommandInteraction, ActionRowBuilder, ButtonBuilder, ButtonInteraction, EmojiIdentifierResolvable, Interaction, CommandInteractionOption, ButtonStyle, APIActionRowComponent, APIButtonComponent} from "discord.js";
+import {CommandInteraction, ActionRowBuilder, ButtonBuilder, ButtonInteraction, EmojiIdentifierResolvable, Interaction, ButtonStyle, APIActionRowComponent, APIButtonComponent} from "discord.js";
 import {boolToInt} from "./generalUse";
-// eslint-disable-next-line @typescript-eslint/no-var-requires, quotes
-const mazeThing = require("generate-maze");
+import mazeThing from "generate-maze";
 //#endregion
 
 //#region maze generator
@@ -52,8 +51,8 @@ export const mazeFunction = (
 	}[]
 ):void => {
 	inObjs.forEach((inObj) => {
-		const styleOption = inObj.interaction.options.get(`style`) as CommandInteractionOption;
-		const style:number = styleOption.value as number;
+		const styleOption = inObj.interaction.options.get(`style`);
+		const style:number = styleOption?.value as number;
 		const emotes:emoteTypeList = [
 			[
 				{
@@ -255,19 +254,18 @@ export const mazeFunction = (
 		}
 		}
 		const createdClass:Maze = new Maze(emotes);
-		const maze:mazeObj[][] = mazeThing(8, 8);
+		const maze:mazeObj[][] = mazeThing(8, 8) as mazeObj[][];
 		maze.forEach((x: mazeObj[], i: number):void => {
 			x.forEach((y: mazeObj, j: number):void => {
 				createdClass.addCell(i, j, `${
-					y.left
+					y.left ? `I` : `O`
 				}${
-					y.top
+					y.top? `I` : `O`
 				}${
-					y.right
+					y.right? `I` : `O`
 				}${
-					y.bottom
-				}`.replace(/true/g, `I`)
-					.replace(/false/g, `O`) as halfBitAsString);
+					y.bottom? `I` : `O`
+				}`);
 			});
 		});
 	
@@ -278,7 +276,7 @@ export const mazeFunction = (
 					messageText = `${
 						messageText
 					}${
-						mazeObj.cellArr[i * 8 + j].walls
+						mazeObj.cellArr[i * 8 + j].walls.toString()
 					}`;
 				}
 				messageText = `${
@@ -315,34 +313,34 @@ export const mazeFunction = (
 		}).then(():void => {
 			inObj.interaction.client.on(`interactionCreate`, (interaction: Interaction):void => {
 				if (interaction.isButton()) {
-					const buttonInteraction:ButtonInteraction = interaction as ButtonInteraction;
+					const buttonInteraction:ButtonInteraction = interaction;
 					switch (buttonInteraction.customId) {
 					case `Left`:
 						createdClass.moveLeft();
 						if (!createdClass.cellArr[63].playerState) {
 							buttonInteraction.update(mazeMessage(createdClass))
-								.catch(console.error);
+								.catch((err: unknown) => {console.error(err)});
 						}
 						break;
 					case `Up`:
 						createdClass.moveUp();
 						if (!createdClass.cellArr[63].playerState) {
 							buttonInteraction.update(mazeMessage(createdClass))
-								.catch(console.error);
+								.catch((err: unknown) => {console.error(err)});
 						}
 						break;
 					case `Down`:
 						createdClass.moveDown();
 						if (!createdClass.cellArr[63].playerState) {
 							buttonInteraction.update(mazeMessage(createdClass))
-								.catch(console.error);
+								.catch((err: unknown) => {console.error(err)});
 						}
 						break;
 					case `Right`:
 						createdClass.moveRight();
 						if (!createdClass.cellArr[63].playerState) {
 							buttonInteraction.update(mazeMessage(createdClass))
-								.catch(console.error);
+								.catch((err: unknown) => {console.error(err)});
 						}
 						break;
 					default:
@@ -353,12 +351,12 @@ export const mazeFunction = (
 							content: `**Congratulations!**\nYou managed to navigate through a maze even one of my ~~test subjects~~paid workers could finish!`,
 							components: []
 						})
-							.catch(console.error);
+							.catch((err: unknown) => {console.error(err)});
 					} 
 				}
 			});
 		})
-			.catch(console.error);
+			.catch((err: unknown) => {console.error(err)});
 	});
 };
 //#endregion

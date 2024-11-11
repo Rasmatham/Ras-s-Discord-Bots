@@ -6,13 +6,16 @@
     "generate-maze": "*",
     "node-fetch": "^2",
     "opusscript": "*",
-    "xkcd": "*",
     "ytdl-core": "*"
   },
   "devDependencies": {
+    "@eslint/js": "*",
     "@types/node-fetch": "*",
+    "eslint": "*",
     "eslint-plugin-tsdoc": "*",
-    "typescript": "*"
+    "globals": "*",
+    "typescript": "*",
+    "typescript-eslint": "*"
   },
   "scripts": {
     "start": "node AllTheBots"

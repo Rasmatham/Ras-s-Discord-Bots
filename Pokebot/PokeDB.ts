@@ -1,5 +1,5 @@
 //#region type definitions
-type dexEntriesType = {
+interface dexEntriesType {
 	re: string,
 	bl: string,
 	yr: string,
@@ -31,15 +31,15 @@ type dexEntriesType = {
 	lge: string,
 	sw: string,
 	sh: string
-};
-export type pokeType = {
+}
+export interface pokeType {
 	name: string,
 	color: string,
 	weakTo?: string[],
 	strongTo?: string[],
 	NoDamageTo?: string[]
-};
-export type pokeObjType = {
+}
+export interface pokeObjType {
 	name: string,
 	reg:string,
 	nat:string,

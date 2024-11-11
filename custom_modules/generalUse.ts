@@ -1,5 +1,5 @@
 //#region imports
-import {Message, TextChannel, WebhookClient, Client, MessageCreateOptions, Webhook, BufferResolvable, User, IntentsBitField, NewsChannel, EmbedField, ClientUser, InteractionReplyOptions, CommandInteraction, CommandInteractionOption, EmbedBuilder, PartialGroupDMChannel, ChannelType, GatewayIntentBits} from "discord.js";
+import {Message, TextChannel, WebhookClient, Client, MessageCreateOptions, Webhook, BufferResolvable, User, IntentsBitField, NewsChannel, EmbedField, InteractionReplyOptions, CommandInteraction, EmbedBuilder, ChannelType, GatewayIntentBits} from "discord.js";
 import * as os from "os";
 //#endregion
 
@@ -64,7 +64,7 @@ export const sendAsWebHook = (
 		const webHookFunction = ():void => {
 			inObj.sendTo.fetchWebhooks()
 				.then((webHooks):void => {
-					const user = inObj.message.client.user as ClientUser;
+					const user = inObj.message.client.user;
 					if (webHooks.size <= 0) {
 						inObj.sendTo.createWebhook({
 							name: `${
@@ -74,11 +74,11 @@ export const sendAsWebHook = (
 							.then(():void => {
 								webHookFunction();
 							})
-							.catch((err):void => {
+							.catch((err: unknown):void => {
 								console.error(err);
 								if (inObj.message.channel.type === ChannelType.GuildText)
 									inObj.message.channel.send(`Something went wrong`)
-										.catch(console.error);
+										.catch((err: unknown) => {console.error(err)});
 							});
 					}
 					let i = 0;
@@ -87,7 +87,7 @@ export const sendAsWebHook = (
 							if (webHook.owner.id == user.id) {
 								const myWebHook:WebhookClient = new WebhookClient({
 									id: webHook.id,
-									token: webHook.token as string
+									token: webHook.token ?? ``
 								});
 								myWebHook.edit({
 									name: inObj.name,
@@ -97,14 +97,13 @@ export const sendAsWebHook = (
 										if (typeof inObj.sendMessage.content != `string` || inObj.sendMessage.content == ``) {
 											inObj.sendMessage.content = ` `;
 											editedWebHook.send(inObj.sendMessage)
-												.catch(console.error);
+												.catch((err: unknown) => {console.error(err)});
 										}
 										else {
 											editedWebHook.send(inObj.sendMessage)
-												.catch(console.error);
+												.catch((err: unknown) => {console.error(err)});
 										}
-									})
-									.catch(console.error);
+									}).catch((err: unknown) => {console.error(err)});
 							}
 							else if (i >= webHooks.size - 1) {
 								inObj.sendTo.createWebhook({
@@ -115,18 +114,17 @@ export const sendAsWebHook = (
 									.then(():void => {
 										webHookFunction();
 									})
-									.catch((err):void => {
+									.catch((err: unknown):void => {
 										console.error(err);
 										if (inObj.message.channel.type === ChannelType.GuildText)
 											inObj.message.channel.send(`Something went wrong`)
-												.catch(console.error);
+												.catch((err: unknown) => {console.error(err)});
 									});
 							}
 							i++;
 						}
 					});
-				})
-				.catch(console.error);
+				}).catch((err: unknown) => {console.error(err)});
 		};
 		webHookFunction();
 	});
@@ -135,12 +133,12 @@ export const sendAsWebHook = (
 
 //#region list guild things
 export const listThings = async (interaction:CommandInteraction):Promise<InteractionReplyOptions[]> => {
-	const thing = (interaction.options.get(`thing`) as CommandInteractionOption).value as `channels`|`emojis`|`roles`;
+	const thing = interaction.options.get(`thing`)?.value as `channels`|`emojis`|`roles`;
 	if (interaction.guild == null) {return [{content: `How am I supposed to do that?`}]; }
 	switch (thing) {
 	case `channels`:
 		return await interaction.guild.channels.fetch().then((channels) => {
-			const channelsFormated = channels.map((channel) => `<#${channel?.id}> (${channel?.type.toString().toLowerCase().split(`_`).map((x) => `${x[0].toUpperCase()}${x.slice(1)}`)[1]}) <t:${Math.round(channel?.createdTimestamp ? channel?.createdTimestamp : 0/1000)}:D> at <t:${Math.round(channel?.createdTimestamp ? channel?.createdTimestamp : 0/1000)}:T>`);
+			const channelsFormated = channels.map((channel) => `<#${channel?.id ?? `error`}> (${channel?.type != null ? ChannelType[channel.type].toString() : `error`}) <t:${Math.round(channel?.createdTimestamp ? channel.createdTimestamp : 0/1000).toString()}:D> at <t:${Math.round(channel?.createdTimestamp ? channel.createdTimestamp : 0/1000).toString()}:T>`);
 			//<#00000000000000000000> (00000000) <t:0000000000000:D> at <t:0000000000000:T> = 77
 			const x:string[][] = [];
 			for (let i = 0; i < channelsFormated.length; i += 10) {
@@ -155,7 +153,7 @@ export const listThings = async (interaction:CommandInteraction):Promise<Interac
 				const z = new EmbedBuilder();
 				y.forEach((a, j) => {
 					z.addFields({
-						name: `${(i*50)+((j*14)+1)}-${(i*50)+(j+1)*14}`,
+						name: `${((i*50)+((j*14)+1)).toString()}-${((i*50)+(j+1)*14).toString()}`,
 						value: a.join(`\n`)
 					})
 				});
@@ -165,7 +163,7 @@ export const listThings = async (interaction:CommandInteraction):Promise<Interac
 		});
 	case `emojis`:
 		return await interaction.guild.emojis.fetch().then((emojis) => {
-			const emojisFormated = emojis.map((emoji) => `<${emoji.animated? `a`:``}:${emoji.name}:${emoji.id}> (<@${emoji.author?.id}>) <t:${Math.round(emoji.createdTimestamp/1000)}:D> at <t:${Math.round(emoji.createdTimestamp/1000)}:T>`);
+			const emojisFormated = emojis.map((emoji) => `<${emoji.animated? `a`:``}:${emoji.name ?? `unknown_emoji`}:${emoji.id}> (<@${emoji.author?.id ?? `unknown_user_id`}>) <t:${Math.round(emoji.createdTimestamp/1000).toString()}:D> at <t:${Math.round(emoji.createdTimestamp/1000).toString()}:T>`);
 			//<a:00000000000000000000000000000000:00000000000000000000> (<@00000000000000000000>) <t:0000000000000:D> at <t:0000000000000:T> = 125
 			const x:string[][] = [];
 			for (let i = 0; i < emojisFormated.length; i += 5) {
@@ -180,7 +178,7 @@ export const listThings = async (interaction:CommandInteraction):Promise<Interac
 				const z = new EmbedBuilder();
 				y.forEach((a, j) => {
 					z.addFields({
-						name: `${(i*50)+((j*5)+1)}-${(i*50)+(j+1)*5}`,
+						name: `${((i*50)+((j*5)+1)).toString()}-${((i*50)+(j+1)*5).toString()}`,
 						value: a.join(`\n`)
 					})
 				});
@@ -190,7 +188,7 @@ export const listThings = async (interaction:CommandInteraction):Promise<Interac
 		});
 	case `roles`:
 		return await interaction.guild.roles.fetch().then((roles) => {
-			const rolesFormated = roles.map((role) => `<@&${role.id}> ${role.hexColor != `#000000`? `(${role.hexColor}) `:` `}<t:${Math.round(role.createdTimestamp/1000)}:D> at <t:${Math.round(role.createdTimestamp/1000)}:T>`);
+			const rolesFormated = roles.map((role) => `<@&${role.id}> ${role.hexColor != `#000000`? `(${role.hexColor}) `:` `}<t:${Math.round(role.createdTimestamp/1000).toString()}:D> at <t:${Math.round(role.createdTimestamp/1000).toString()}:T>`);
 			//<@&00000000000000000000> (#000000) <t:0000000000000:D> at <t:0000000000000:T> = 77
 			const x:string[][] = [];
 			for (let i = 0; i < rolesFormated.length; i += 10) {
@@ -205,7 +203,7 @@ export const listThings = async (interaction:CommandInteraction):Promise<Interac
 				const z = new EmbedBuilder();
 				y.forEach((a, j) => {
 					z.addFields({
-						name: `${(i*50)+((j*10)+1)}-${(i*50)+(j+1)*10}`,
+						name: `${((i*50)+((j*10)+1)).toString()}-${((i*50)+(j+1)*10).toString()}`,
 						value: a.join(`\n`)
 					})
 				});
@@ -229,9 +227,9 @@ export const botReady = (inObjs: { bots: Client[] }[]
 				console.log(`${
 					bot.user != null ? bot.user.username : `unknown bot/user`
 				} is online`);
-				bot.channels.fetch(`957886578154430494`).then((channel) => {
+				void bot.channels.fetch(`957886578154430494`).then((channel) => {
 					if (channel instanceof TextChannel) {
-						channel.send({content: `online as \n\`\`\`json\n${JSON.stringify(Object.values(os.networkInterfaces()).map((x) =>{
+						void channel.send({content: `online as \n\`\`\`json\n${JSON.stringify(Object.values(os.networkInterfaces()).map((x) =>{
 							return x?.filter((y) => !y.internal)
 						}).flat(), null, 2)}\n\`\`\``});
 					}
@@ -275,17 +273,17 @@ export const blackList:string[] = [
 //#region general stuff for the process
 export const process = (process:NodeJS.Process, bots:Client[]):void => {
 	const exitSequence = () => {
-		bots[0].channels.fetch(`957886578154430494`).then((channel) => {
+		void bots[0].channels.fetch(`957886578154430494`).then((channel) => {
 			if (channel instanceof TextChannel) {
-				channel.send({
+				void channel.send({
 					content: `offline from: ${JSON.stringify(os.networkInterfaces())}`
 				});
-				bots[0].destroy();
+				void bots[0].destroy();
 			}
 		});
 	};
-	process.on(`beforeExit`, () => exitSequence());
-	process.on(`uncaughtException`, () => exitSequence());
+	process.on(`beforeExit`, () => { exitSequence(); });
+	process.on(`uncaughtException`, () => { exitSequence(); });
 };
 
 //#endregion

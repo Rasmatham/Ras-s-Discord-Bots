@@ -11,7 +11,7 @@
 //#region Common
 
 //#region imports
-import {Client, Message, EmbedBuilder, ColorResolvable, GuildMember, Interaction, MessageComponentInteraction, ButtonInteraction, SelectMenuInteraction, PartialGuildMember, BufferResolvable, InteractionReplyOptions, ActivityType, ChannelType, ComponentType, InteractionType, ChatInputCommandInteraction} from "discord.js";
+import {Client, Message, EmbedBuilder, ColorResolvable, GuildMember, Interaction, MessageComponentInteraction, ButtonInteraction, PartialGuildMember, BufferResolvable, ActivityType, ChannelType, ComponentType, InteractionType, ChatInputCommandInteraction, StringSelectMenuInteraction} from "discord.js";
 import * as containsWord from "./custom_modules/containsWordFunctions";
 import * as forwarding from "./custom_modules/forwardMessages";
 import * as generalStuff from "./custom_modules/generalUse";
@@ -143,15 +143,15 @@ const croissant:Client = new Client({
 //#endregion
 
 //#region logins
-buzzBot.login(process.env.BUZZBOTTOKEN).catch(console.error);
-ebnj.login(process.env.EBNJTOKEN).catch(console.error);
-glados.login(process.env.GLADOSTOKEN).catch(console.error);
-pokebot.login(process.env.POKETOKEN).catch(console.error);
-artoo.login(process.env.ARTOOTOKEN).catch(console.error);
-random.login(process.env.RANDOMTOKEN).catch(console.error);
-amber.login(process.env.AMBERTOKEN).catch(console.error);
-zelda.login(process.env.ZELDATOKEN).catch(console.error);
-croissant.login(process.env.CROISSANTTOKEN).catch(console.error);
+buzzBot.login(process.env.BUZZBOTTOKEN).catch((err: unknown) => {console.error(err)});
+ebnj.login(process.env.EBNJTOKEN).catch((err: unknown) => {console.error(err)});
+glados.login(process.env.GLADOSTOKEN).catch((err: unknown) => {console.error(err)});
+pokebot.login(process.env.POKETOKEN).catch((err: unknown) => {console.error(err)});
+artoo.login(process.env.ARTOOTOKEN).catch((err: unknown) => {console.error(err)});
+random.login(process.env.RANDOMTOKEN).catch((err: unknown) => {console.error(err)});
+amber.login(process.env.AMBERTOKEN).catch((err: unknown) => {console.error(err)});
+zelda.login(process.env.ZELDATOKEN).catch((err: unknown) => {console.error(err)});
+croissant.login(process.env.CROISSANTTOKEN).catch((err: unknown) => {console.error(err)});
 const bots = [
 	buzzBot,
 	ebnj,
@@ -180,9 +180,9 @@ const mrtz = `Did you know BeeMrtz is short for Bee Master? He just had a tiny s
 //#endregion
 
 //#region functions
-const buzzes = (buzz: string = `buzz`, count: number = Math.floor(Math.random() * 9)): string => {
+const buzzes = (buzz = `buzz`, count: number = Math.floor(Math.random() * 9)): string => {
 	buzz = (Math.round(Math.random() * 2)? `buzz ` : `buzz, `).concat(buzz)
-	count? count-- : count;
+	count = count? count-1 : count;
 	return count? buzzes(buzz, count) : buzz;
 };
 //#endregion
@@ -455,12 +455,12 @@ glados.on(`guildMemberAdd`, (member: GuildMember):void => {
 	if (member.guild.systemChannel != null) {
 		member.guild.systemChannel.send({
 			content: `Welcome to the server, #${
-				member.guild.memberCount
+				member.guild.memberCount.toString()
 			}\nWe currently have ${
-				info.channelCount({guild: member.guild}).all
+				info.channelCount({guild: member.guild}).all.toString()
 			}/500 channels used`
 		})
-			.catch(console.error);
+			.catch((err: unknown) => {console.error(err)});
 	}
 });
 glados.on(`guildMemberRemove`, (member: GuildMember|PartialGuildMember):void => {
@@ -470,7 +470,7 @@ glados.on(`guildMemberRemove`, (member: GuildMember|PartialGuildMember):void => 
 				member.user.tag
 			}`
 		})
-			.catch(console.error);
+			.catch((err: unknown) => {console.error(err)});
 	}
 });
 //#endregion
@@ -535,7 +535,7 @@ glados.on(`messageCreate`, (message: Message):void => {
 			type: `exact`,
 			reply: {
 				content: `<@${
-					process.env.RASID
+					process.env.RASID ? process.env.RASID : ``
 				}>`
 			},
 			triggers: [
@@ -681,7 +681,7 @@ glados.on(`messageCreate`, (message: Message):void => {
 	]);
 	//stupidStuff.userWordBan(message, `last`, `541617670533939210`);
 });
-glados.on(`interactionCreate`, async (interaction: Interaction):Promise<void> => {
+glados.on(`interactionCreate`, (interaction: Interaction):void => {
 	if (interaction.type == InteractionType.MessageComponent) {
 		const messageComponentInteraction:MessageComponentInteraction = interaction as MessageComponentInteraction;
 		if (messageComponentInteraction.componentType === ComponentType.Button) {
@@ -691,7 +691,7 @@ glados.on(`interactionCreate`, async (interaction: Interaction):Promise<void> =>
 					content: `That button worked`,
 					ephemeral: true
 				})
-					.catch(console.error);
+					.catch((err: unknown) => {console.error(err)});
 			} else {
 				switch (buttonInteraction.customId) {
 				case `inspirobot`:
@@ -702,14 +702,14 @@ glados.on(`interactionCreate`, async (interaction: Interaction):Promise<void> =>
 				}
 			}
 		}
-		else if (messageComponentInteraction.componentType === ComponentType.SelectMenu) {
-			const selectMenuInteraction:SelectMenuInteraction = messageComponentInteraction as SelectMenuInteraction;
+		else if (messageComponentInteraction.componentType === ComponentType.StringSelect) {
+			const selectMenuInteraction:StringSelectMenuInteraction = messageComponentInteraction as StringSelectMenuInteraction;
 			switch (selectMenuInteraction.customId) {
 			case `Dummy`:
 				selectMenuInteraction.update({
 					content: `Seems about right`
 				})
-					.catch(console.error);
+					.catch((err: unknown) => {console.error(err)});
 				break;
 			default:
 				break;
@@ -719,85 +719,102 @@ glados.on(`interactionCreate`, async (interaction: Interaction):Promise<void> =>
 	else if (interaction.type === InteractionType.ApplicationCommand) {
 		const commandInteraction = interaction as ChatInputCommandInteraction;
 		switch (commandInteraction.commandName) {
-		case `list`:
-			// eslint-disable-next-line no-case-declarations
-			const x = await generalStuff.listThings(commandInteraction);
-			commandInteraction.reply(x[0]).then(async () => {
-				x.shift();
-				x.forEach(element => {
-					commandInteraction.followUp(element);
-				});
-			});
-			
+		case `list`: {
+				void generalStuff.listThings(commandInteraction).then((x) => {
+					commandInteraction.reply(x[0]).then(() => {
+						x.shift();
+						x.forEach(element => {
+							commandInteraction.followUp(element).catch((err: unknown) => {console.error(err)});
+						});
+					}).catch((err: unknown) => {console.error(err)});
+				})
 			break;
-		case `botlink`:
+		}
+		case `botlink`: {
 			commandInteraction.reply({
 				content: GladosLink,
 				ephemeral: true
-			}).catch(console.error);
+			}).catch((err: unknown) => {console.error(err)});
 			break;
-		case `sightingslink`:
+		}
+		case `sightingslink`: {
 			commandInteraction.reply({
 				content: `https://discord.gg/62jvqRv`,
 				ephemeral: true
-			}).catch(console.error);
+			}).catch((err: unknown) => {console.error(err)});
 			break;
-		case `invisicolor`:
+		}
+		case `invisicolor`: {
 			commandInteraction.reply({
 				content: `#36393F`,
 				ephemeral: true
-			}).catch(console.error);
+			}).catch((err: unknown) => {console.error(err)});
 			break;
-		case `source`:
+		}
+		case `source`: {
 			commandInteraction.reply({
 				content: githublink,
 				ephemeral: true
-			}).catch(console.error);
+			}).catch((err: unknown) => {console.error(err)});
 			break;
-		case `userinfo`:
-			info.userInfo({interaction: commandInteraction}).then((message) => {
-				commandInteraction.reply(message);
+		}
+		case `userinfo`: {
+			void info.userInfo({interaction: commandInteraction}).then((message) => {
+				void commandInteraction.reply(message);
 			});
 			break;
-		case `serverinfo`:
+		}
+		case `serverinfo`: {
 			info.serverInfo([{interaction: commandInteraction}]);
 			break;
-		case `joindate`:
-			commandInteraction.reply(info.joindate({interaction: commandInteraction})).catch(console.error);
+		}
+		case `joindate`: {
+			commandInteraction.reply(info.joindate({interaction: commandInteraction})).catch((err: unknown) => {console.error(err)});
 			break;
-		case `grid`:
-			commandInteraction.reply(stupidStuff.buttonGrid({interaction: commandInteraction}) as InteractionReplyOptions).catch(console.error);
+		}
+		case `grid`: {
+			commandInteraction.reply(stupidStuff.buttonGrid({interaction: commandInteraction})).catch((err: unknown) => {console.error(err)});
 			break;
-		case `selectmenu`:
-			commandInteraction.reply(stupidStuff.selectMenu()).catch(console.error);
+		}
+		case `selectmenu`: {
+			commandInteraction.reply(stupidStuff.selectMenu()).catch((err: unknown) => {console.error(err)});
 			break;
-		case `d`:
+		}
+		case `d`: {
 			dice.dice([{interaction: commandInteraction}]);
 			break;
-		case `xkcd`:
+		}
+		case `xkcd`: {
 			xkcd.xkcdFunct([{interaction: commandInteraction}]);
 			break;
-		case `maze`:
+		}
+		case `maze`: {
 			maze.mazeFunction([{interaction: commandInteraction}]);
 			break;
-		case `tictactoe`:
+		}
+		case `tictactoe`: {
 			ticTacToe.ticTacToe([{interaction: commandInteraction}]);
 			break;
-		case `coinflip`:
+		}
+		case `coinflip`: {
 			coinflip.flip([{interaction: commandInteraction}]);
 			break;
-		case `gladle`:
+		}
+		case `gladle`: {
 			wordle.startGame(commandInteraction);
 			break;
-		case `reboot`:
-			commandInteraction.reply({content: `And when you're gone I'll still be aliiiiii`}).then(() => {
+		}
+		case `reboot`: {
+			void commandInteraction.reply({content: `And when you're gone I'll still be aliiiiii`}).then(() => {
 				process.exit();
 			});
 			break;
-		default:
+		}
+		default: {
 			console.log(commandInteraction);
-			commandInteraction.reply({ephemeral: true, content: `This command is likely in a test phase`});
+			void commandInteraction.reply({ephemeral: true, content: `This command is likely in a test phase`});
 			break;
+		}
 		}
 	}
 });
@@ -809,7 +826,7 @@ glados.on(`interactionCreate`, async (interaction: Interaction):Promise<void> =>
 glados.on(`messageDelete`, (message):void => {
 	if ((Math.floor(new Date().getTime() / 1000) - Math.floor(message.createdTimestamp / 1000)) < 10) {
 		if (message.author != null) {
-			message.channel.send(`${message.author.tag} deleted a message within 10 seconds of sending it`);
+			void message.channel.send(`${message.author.tag} deleted a message within 10 seconds of sending it`);
 		}
 	}
 });
@@ -824,7 +841,7 @@ const sendEmbed = (message: Message):void => {
 	if (pokebot.user != null) {
 		if (message.author.id != pokebot.user.id) {
 			if (message.content.toLowerCase().startsWith(`pd`)) {
-				if (message.channel.type === ChannelType.GuildText || message.channel.type === ChannelType.GuildNews) {
+				if (message.channel.type === ChannelType.GuildText || message.channel.type === ChannelType.GuildAnnouncement) {
 					generalStuff.sendAsWebHook([
 						{
 							message: message,
@@ -1162,18 +1179,18 @@ random.on(`messageCreate`, (message: Message):void => {
 
 //#region Stuff
 amber.on(`ready`, () => {
-	amber.users.fetch(`707188499153158204`).then((user) => {
+	void amber.users.fetch(`707188499153158204`).then((user) => {
 		if (amber.user != null) {
-			amber.user.setAvatar(user.avatarURL()).catch(() => console.log(`[${user.tag}] You're probably changing the avatar too fast`));
-			amber.user.setUsername(user.username).catch(() => console.log(`[${user.tag}] You're probably changing the username too fast`));
+			amber.user.setAvatar(user.avatarURL()).catch(() => { console.log(`[${user.tag}] You're probably changing the avatar too fast`); });
+			amber.user.setUsername(user.username).catch(() => { console.log(`[${user.tag}] You're probably changing the username too fast`); });
 		}
 	});
 });
 amber.on(`userUpdate`, (oldUser, newUser) => {
 	if (amber.user != null) {
 		if (newUser.id == `707188499153158204`) {
-			amber.user.setAvatar(newUser.avatarURL()).catch(() => console.log(`[${newUser.tag}] You're probably changing the avatar too fast`));
-			amber.user.setUsername(newUser.username).catch(() => console.log(`[${newUser.tag}] You're probably changing the username too fast`));
+			amber.user.setAvatar(newUser.avatarURL()).catch(() => { console.log(`[${newUser.tag}] You're probably changing the avatar too fast`); });
+			amber.user.setUsername(newUser.username).catch(() => { console.log(`[${newUser.tag}] You're probably changing the username too fast`); });
 		}
 	}
 });

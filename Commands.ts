@@ -6,7 +6,7 @@ dotenv.config();
 //#endregion
 
 //#region type definitions
-type commandObject = {
+interface commandObject {
 	id?:`${
 		bigint
 	}`, 
@@ -142,63 +142,63 @@ const canine:Client = new Client({
 
 //#region logins
 try {
-	buzzBot.login(process.env.BUZZBOTTOKEN)
+	void buzzBot.login(process.env.BUZZBOTTOKEN)
 } catch (err) {
-	console.log("Buzzbot did not like jazz")
+	console.log(`Buzzbot did not like jazz`)
 	console.error(err)
 }
 try {
-	ebnj.login(process.env.EBNJTOKEN)
+	void ebnj.login(process.env.EBNJTOKEN)
 } catch (err) {
-	console.log("EBNJ booted up the wrong edition of Minecraft")
+	console.log(`EBNJ booted up the wrong edition of Minecraft`)
 	console.error(err)
 }
 try {
-	glados.login(process.env.GLADOSTOKEN)
+	void glados.login(process.env.GLADOSTOKEN)
 } catch (err) {
-	console.log("GLaDOS was turned into a potato")
+	console.log(`GLaDOS was turned into a potato`)
 	console.error(err)
 }
 try {
-	pokebot.login(process.env.POKETOKEN)
+	void pokebot.login(process.env.POKETOKEN)
 } catch (err) {
-	console.log("Pokébot could not catch them all")
+	console.log(`Pokébot could not catch them all`)
 	console.error(err)
 }
 try {
-	artoo.login(process.env.ARTOOTOKEN)
+	void artoo.login(process.env.ARTOOTOKEN)
 } catch (err) {
-	console.log("R2 missed the lightsaber throw")
+	console.log(`R2 missed the lightsaber throw`)
 	console.error(err)
 }
 try {
-	random.login(process.env.RANDOMTOKEN)
+	void random.login(process.env.RANDOMTOKEN)
 } catch (err) {
-	console.log("Random Bot got a divide by 0 error")
+	console.log(`Random Bot got a divide by 0 error`)
 	console.error(err)
 }
 try {
-	amber.login(process.env.AMBERTOKEN)
+	void amber.login(process.env.AMBERTOKEN)
 } catch (err) {
-	console.log("Amber lost a Splatoon game")
+	console.log(`Amber lost a Splatoon game`)
 	console.error(err)
 }
 try {
-	zelda.login(process.env.ZELDATOKEN)
+	void zelda.login(process.env.ZELDATOKEN)
 } catch (err) {
-	console.log("Zelda Bot could not figure out where BOTW/AOC/TOTK falls on the timeline")
+	console.log(`Zelda Bot could not figure out where BOTW/AOC/TOTK falls on the timeline`)
 	console.error(err)
 }
 try {
-	croissant.login(process.env.CROISSANTTOKEN)
+	void croissant.login(process.env.CROISSANTTOKEN)
 } catch (err) {
-	console.log("Le Franciosle bot français n'a pas réussi à s'authentifier")
+	console.log(`Le Franciosle bot français n'a pas réussi à s'authentifier`)
 	console.error(err)
 }
 try {
-	canine.login(process.env.K9TOKEN)
+	void canine.login(process.env.K9TOKEN)
 } catch (err) {
-	console.log("K9 was not affirmative")
+	console.log(`K9 was not affirmative`)
 	console.error(err)
 }
 //#endregion
@@ -476,44 +476,41 @@ bots.forEach((bot, i):void => {
 				console.log(command);
 			}); 
 				
-		})
-			.catch(console.error);
+		}).catch((err: unknown) => {console.error(err)});
 	});
 	//Replace all
 	bot.on(`ready`, ():void => {
-		bot.application?.commands.fetch().then((commands):void => {
+		void bot.application?.commands.fetch().then((commands):void => {
 			console.log(`${
-				bot.user?.tag
+				bot.user?.tag ? bot.user.tag : `[unknown bot tag]`
 			} is active`);
 			commands.forEach((command) => {
 				console.log(`Removing command ${command.name}`)
-				command.delete();
+				void command.delete();
 			});
 			commandGroup[i].forEach((command, j):void => {
 				if(command.guild != undefined){
 					bot.application?.commands.create(command.command, command.guild)
 						.then((command):void => {
 							console.log(`[${
-								j + 1
+								(j + 1).toString()
 							}/${
-								commandGroup[i].length
+								commandGroup[i].length.toString()
 							}] Command: "${
 								command.name
 							}" updated`);
-						})
-						.catch(console.error);
+						}).catch((err: unknown) => {console.error(err)});
 				} else {
 					bot.application?.commands.create(command.command)
 						.then((command):void => {
 							console.log(`[${
-								j + 1
+								(j + 1).toString()
 							}/${
-								commandGroup[i].length
+								commandGroup[i].length.toString()
 							}] Command: "${
 								command.name
 							}" updated`);
-						})
-						.catch(console.error);
+						}).catch((err: unknown) => {console.error(err)});
 				}
 				
 			});
@@ -536,7 +533,7 @@ bots.forEach((bot, i):void => {
 						command.name
 					}`);
 				})
-				.catch(console.error);
+				.catch((err: unknown) => {console.error(err)});
 		});
 	});*/
 });

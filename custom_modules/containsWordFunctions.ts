@@ -1,17 +1,17 @@
 //#region imports
-import {ChannelType, Message, MessageCreateOptions, PartialGroupDMChannel} from "discord.js";
+import {ChannelType, Message, MessageCreateOptions} from "discord.js";
 //#endregion
 
 //#region reply
 
 //function int
-const reply = async (
+const reply = (
 	inObjs: {
 		message: Message,
 		chance?: number,
 		reply: MessageCreateOptions
 	}[]
-):Promise<void> => {
+):void => {
 	inObjs.forEach((inObj) => {
 		if (typeof inObj.chance == `undefined`) {
 			inObj.chance = 100;
@@ -21,9 +21,9 @@ const reply = async (
 				inObj.message.channel.sendTyping()
 					.finally(():void => {
 						if (inObj.message.channel.type === ChannelType.GuildText)
-							inObj.message.channel.send(inObj.reply);
+							void inObj.message.channel.send(inObj.reply);
 					})
-					.catch(console.error);
+					.catch((err: unknown) => {console.error(err)});
 		}
 	});
 };
@@ -45,7 +45,7 @@ export const replyThing = (
 		if (!inObj.message.author.bot) {
 			if (inObj.type.toString() == `anywhere`) {
 				inObj.triggers.forEach((trigger):void => {
-					if (inObj.message.content.toLowerCase().includes(trigger as string)) {
+					if (inObj.message.content.toLowerCase().includes(trigger)) {
 						reply([
 							{
 								message: inObj.message,
@@ -106,7 +106,7 @@ const react = (
 		}
 		if (Math.random() * 100 <= inObj.chance) {
 			inObj.emotes.forEach(emote => {
-				inObj.message.react(emote);
+				void inObj.message.react(emote);
 			});
 		}
 	});
@@ -125,7 +125,7 @@ export const reactThing = (
 			inObj.chance = 100;
 		}
 		if (!inObj.message.author.bot) {
-			const chance = inObj.chance as number;
+			const chance = inObj.chance;
 			if (inObj.type.toString() == `anywhere`) {
 				inObj.triggers.forEach((trigger):void => {
 					if (inObj.message.content.toLowerCase().includes(trigger) && Math.random() * 100 <= chance) {

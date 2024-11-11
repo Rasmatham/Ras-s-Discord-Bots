@@ -1,17 +1,17 @@
 
-import {ChatInputCommandInteraction, ActionRowBuilder, ButtonBuilder, ButtonStyle, InteractionType, ComponentBuilder, createComponentBuilder, APIActionRowComponent, APIButtonComponent} from "discord.js";
+import {ChatInputCommandInteraction, ActionRowBuilder, ButtonBuilder, ButtonStyle, InteractionType, APIActionRowComponent, APIButtonComponent} from "discord.js";
 import * as words from "./words";
 type Letter = `a` | `b` | `c` | `d` | `e` | `f` | `g` | `h` | `i` | `j` | `k` | `l` | `m` | `n` | `o` | `p` | `q` | `r` | `s` | `t` | `u` | `v` | `w` | `x` | `y` | `z`;
 export const startGame = (interaction: ChatInputCommandInteraction):void => {
 	switch (interaction.options.getSubcommandGroup(false)) {
 	case `play`:
-		interaction.reply({ephemeral: true, content: `please wait`}).then(() => {
+		void interaction.reply({ephemeral: true, content: `please wait`}).then(() => {
 			const wordle = new Wordle(interaction);
 			wordle.start();
 		});
 		break;
 	default:
-		interaction.reply({ephemeral: true, content: `This command will not be implemented until I have a dedicated computer to host on`});
+		void interaction.reply({ephemeral: true, content: `This command will not be implemented until I have a dedicated computer to host on`});
 	}
 };
 // eslint-disable-next-line no-irregular-whitespace
@@ -161,33 +161,45 @@ class Wordle {
 		this.cmd.client.on(`interactionCreate`, (interaction) => {
 			if (interaction.type !== InteractionType.MessageComponent) return;
 			if (!interaction.isButton()) return;
-			if (interaction.message.interaction?.id != this.cmd.id) return;
+			if (interaction.message.interactionMetadata?.id != this.cmd.id) return;
 			if (!interaction.customId.startsWith(`wordle_`)) return;
 			const id = interaction.customId.replace(`wordle_`, ``);
 			if (/^[a-z]{1}$/.test(id)) {
-				if (this.slot >= 5) {interaction.reply({ephemeral: true, content: `You can't add more letters`}); return;}
+				if (this.slot >= 5) {
+					void interaction.reply({ephemeral: true, content: `You can't add more letters`});
+					return;
+				}
 				this.attempts[this.attempt][this.slot] = emotes.black[id as Letter];
 				this.words[this.attempt][this.slot] = id;
 				this.slot++;
-				interaction.update({content: this.attempts.map((x) => x.join(zws)).join(`\n`)});
+				void interaction.update({content: this.attempts.map((x) => x.join(zws)).join(`\n`)});
 			} else {
 				switch (id) {
 				case `a_to_m`:
-					interaction.update({components: this.buttonsFirstHalf});
+					void interaction.update({components: this.buttonsFirstHalf});
 					break;
 				case `n_to_z`:
-					interaction.update({components: this.buttonsSecondHalf});
+					void interaction.update({components: this.buttonsSecondHalf});
 					break;
 				case `backspace`:
-					if (this.slot <= 0) {interaction.reply({ephemeral: true, content: `You can't have less than 0 letters`}); return;}
+					if (this.slot <= 0) {
+						void interaction.reply({ephemeral: true, content: `You can't have less than 0 letters`});
+						return;
+					}
 					this.slot--;
 					this.attempts[this.attempt][this.slot] = `⬛`;
 					this.words[this.attempt][this.slot] = ``;
-					interaction.update({content: this.attempts.map((x) => x.join(zws)).join(`\n`)});
+					void interaction.update({content: this.attempts.map((x) => x.join(zws)).join(`\n`)});
 					break;
 				case `enter`:
-					if (this.slot < 5) {interaction.reply({ephemeral: true, content: `You need 5 letters to submit`}); return;}
-					if (!words.validWords.includes(this.words[this.attempt].join(``)) && !words.spoilers.includes(this.words[this.attempt].join(``))) {interaction.reply({ephemeral: true, content: `This word is not valid`}); return;}
+					if (this.slot < 5) {
+						void interaction.reply({ephemeral: true, content: `You need 5 letters to submit`});
+						return;
+					}
+					if (!words.validWords.includes(this.words[this.attempt].join(``)) && !words.spoilers.includes(this.words[this.attempt].join(``))) {
+						void interaction.reply({ephemeral: true, content: `This word is not valid`});
+						return;
+					}
 					switch (this.difficulty) {
 					case `easy`:
 						if (this.word == this.words[this.attempt].join(``)) { //if won
@@ -202,8 +214,8 @@ class Wordle {
 									this.attempts[this.attempt][i] = emotes.orange[x as Letter];
 								}
 							});
-							interaction.update({components: [], content: zws});
-							this.cmd.followUp({content: `GLaDLE ${this.attempt + 1}/6\n${this.attempts.map((x) => x.join(zws)).join(`\n`)}\nFrom: ${this.cmd.user.tag}`});
+							void interaction.update({components: [], content: zws});
+							void this.cmd.followUp({content: `GLaDLE ${(this.attempt + 1).toString()}/6\n${this.attempts.map((x) => x.join(zws)).join(`\n`)}\nFrom: ${this.cmd.user.tag}`});
 						} else { //not won
 							if (this.attempt < 5) { //if before last attempt
 								this.words[this.attempt].forEach((x, i) => {
@@ -224,10 +236,10 @@ class Wordle {
 								this.slot = 0;
 								this.attempt++;
 								this.attempts[this.attempt] = [`⬛`, `⬛`, `⬛`, `⬛`, `⬛`];
-								interaction.update({components: this.buttonsFirstHalf, content: this.attempts.map((x) => x.join(zws)).join(`\n`)});
+								void interaction.update({components: this.buttonsFirstHalf, content: this.attempts.map((x) => x.join(zws)).join(`\n`)});
 							} else if (this.attempt <= 5) { //if last attempt
-								interaction.update({components: [], content: zws});
-								this.cmd.followUp({content: `GLaDLE _FAILURE_/6\n${this.attempts.map((x) => x.join(zws)).join(`\n`)}\nFrom: ${this.cmd.user.tag}\nThe word was: ${this.word}`});
+								void interaction.update({components: [], content: zws});
+								void this.cmd.followUp({content: `GLaDLE _FAILURE_/6\n${this.attempts.map((x) => x.join(zws)).join(`\n`)}\nFrom: ${this.cmd.user.tag}\nThe word was: ${this.word}`});
 							}
 						}
 						break;
@@ -244,10 +256,13 @@ class Wordle {
 									this.attempts[this.attempt][i] = emotes.orange[x as Letter];
 								}
 							});
-							interaction.update({components: [], content: zws});
-							this.cmd.followUp({content: `GLaDLE ${this.attempt + 1}/6\n${this.attempts.map((x) => x.join(zws)).join(`\n`)}\nFrom: ${this.cmd.user.tag}`});
+							void interaction.update({components: [], content: zws});
+							void this.cmd.followUp({content: `GLaDLE ${(this.attempt + 1).toString()}/6\n${this.attempts.map((x) => x.join(zws)).join(`\n`)}\nFrom: ${this.cmd.user.tag}`});
 						} else { //not won
-							if (!(this.words[this.attempt].every((x, i) => (x == this.hints.placed[i] || this.hints.placed[i] == ``)) && this.hints.guessed.every((x) => this.words[this.attempt].includes(x)))) {interaction.reply({ephemeral: true, content: `You need to use your hints`}); return;}
+							if (!(this.words[this.attempt].every((x, i) => (x == this.hints.placed[i] || this.hints.placed[i] == ``)) && this.hints.guessed.every((x) => this.words[this.attempt].includes(x)))) {
+								void interaction.reply({ephemeral: true, content: `You need to use your hints`});
+								return;
+							}
 							this.hints = {placed: [``, ``, ``, ``, ``], guessed: []};
 							if (this.attempt < 5) { //if before last attempt
 								this.words[this.attempt].forEach((x, i) => {
@@ -270,10 +285,10 @@ class Wordle {
 								this.slot = 0;
 								this.attempt++;
 								this.attempts[this.attempt] = [`⬛`, `⬛`, `⬛`, `⬛`, `⬛`];
-								interaction.update({components: this.buttonsFirstHalf, content: this.attempts.map((x) => x.join(zws)).join(`\n`)});
+								void interaction.update({components: this.buttonsFirstHalf, content: this.attempts.map((x) => x.join(zws)).join(`\n`)});
 							} else if (this.attempt <= 5) { //if last attempt
-								interaction.update({components: [], content: zws});
-								this.cmd.followUp({content: `GLaDLE _FAILURE_/6\n${this.attempts.map((x) => x.join(zws)).join(`\n`)}\nFrom: ${this.cmd.user.tag}\nThe word was: ${this.word}`});
+								void interaction.update({components: [], content: zws});
+								void this.cmd.followUp({content: `GLaDLE _FAILURE_/6\n${this.attempts.map((x) => x.join(zws)).join(`\n`)}\nFrom: ${this.cmd.user.tag}\nThe word was: ${this.word}`});
 							}
 
 
@@ -307,7 +322,7 @@ class Wordle {
 		});
 	}
 	start = () => {
-		this.cmd.editReply({
+		void this.cmd.editReply({
 			content: this.attempts.map((x) => x.join(zws)).join(`\n`),
 			components: this.buttonsFirstHalf
 		});

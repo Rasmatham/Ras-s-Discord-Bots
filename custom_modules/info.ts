@@ -1,6 +1,5 @@
 //#region imports
-import {CommandInteraction, EmbedBuilder, Guild, User, ColorResolvable, InteractionReplyOptions, CommandInteractionOption, GuildMember, ChannelType} from "discord.js";
-import { chooseFormat } from "ytdl-core";
+import {CommandInteraction, EmbedBuilder, Guild, User, ColorResolvable, InteractionReplyOptions, GuildMember, ChannelType} from "discord.js";
 import {checkFor} from "./generalUse.js";
 //#endregion
 
@@ -16,41 +15,32 @@ export const channelCount = (
 	Unknown: number | `unknown`,
 	all: number | `unknown`
 } => {
-	if (inObj.guild != null) {
-		const TC:string[] = [];
-		const VC:string[] = [];
-		const Cat:string[] = [];
-		const UK:string[] = [];
-		inObj.guild.channels.cache.map((channel):void => {
-			switch (channel.type) {
-			case ChannelType.GuildText:
-				TC.push(channel.name);
-				break;
-			case ChannelType.GuildVoice:
-				VC.push(channel.name);
-				break;
-			case ChannelType.GuildCategory:
-				Cat.push(channel.name);
-				break;
-			default:
-				UK.push(channel.name);
-				break;
-			}
-		});
-		return {
-			textChannels: TC.length,
-			voiceChannels: VC.length,
-			Categories: Cat.length,
-			Unknown: UK.length,
-			all: TC.length+VC.length+Cat.length+UK.length
-		};
-	}
+	const TC:string[] = [];
+	const VC:string[] = [];
+	const Cat:string[] = [];
+	const UK:string[] = [];
+	inObj.guild.channels.cache.map((channel):void => {
+		switch (channel.type) {
+		case ChannelType.GuildText:
+			TC.push(channel.name);
+			break;
+		case ChannelType.GuildVoice:
+			VC.push(channel.name);
+			break;
+		case ChannelType.GuildCategory:
+			Cat.push(channel.name);
+			break;
+		default:
+			UK.push(channel.name);
+			break;
+		}
+	});
 	return {
-		textChannels: `unknown`,
-		voiceChannels: `unknown`,
-		Categories: `unknown`,
-		Unknown: `unknown`,
-		all: `unknown`
+		textChannels: TC.length,
+		voiceChannels: VC.length,
+		Categories: Cat.length,
+		Unknown: UK.length,
+		all: TC.length+VC.length+Cat.length+UK.length
 	};
 };
 //#endregion
@@ -61,12 +51,12 @@ export const userInfo = async (
 		interaction: CommandInteraction
 	}
 ):Promise<InteractionReplyOptions> => {
-	const guild = inObj.interaction.guild as Guild;
+	const guild = inObj.interaction.guild;
 	return {
 		content: `test`,
 		files: [
 			{
-				attachment: Buffer.from(JSON.stringify(await guild.members.fetch(inObj.interaction.user), null, 2)),
+				attachment: Buffer.from(JSON.stringify(await guild?.members.fetch(inObj.interaction.user), null, 2)),
 				name:`user.json`
 			},
 			{
@@ -85,7 +75,7 @@ export const serverInfo = (
 	}[]
 ):void => {
 	inObjs.forEach((inObj) => {
-		const guild = inObj.interaction.guild as Guild;
+		const guild = inObj.interaction.guild;
 		if (inObj.interaction.guild != null) {
 			const textChannels:string[] = [];
 			const voiceChannels:string[] = [];
@@ -104,7 +94,7 @@ export const serverInfo = (
 						categories.push(channel.name);
 						break;
 					default:
-						unknown.push(channel?.name ? channel?.name : ``);
+						unknown.push(channel?.name ? channel.name : ``);
 						break;
 					}
 				});
@@ -147,26 +137,26 @@ export const serverInfo = (
 							},
 							{
 								name: `Members`,
-								value: guild.memberCount.toString(),
+								value: guild?.memberCount.toString() ?? `error`,
 								inline: true
 							},
 						]
-					).setThumbnail(guild.iconURL() as string)
+					).setThumbnail(guild?.iconURL() ?? `https://cdn.discordapp.com/embed/avatars/${(Math.abs(Number.parseInt(guild?.id ?? `0`) >> 22) % 6).toString()}.png`)
 						.setColor(`#0099FF`);
-					inObj.interaction.reply({
+					void inObj.interaction.reply({
 						embeds: [embed]
 					});
 				})
-				.catch(console.error);
+				.catch((err: unknown) => {console.error(err)});
 		}
 		else {
 			if ((inObj.interaction.member as GuildMember).user.id == `588511925944582186`) {
-				inObj.interaction.reply({
+				void inObj.interaction.reply({
 					content: `stop tring to kill me, smh`
 				});
 			}
 			else {
-				inObj.interaction.reply({
+				void inObj.interaction.reply({
 					content: `I'm sorry, Dave, but I'm afraid I can't let you do that`
 				});
 			}
@@ -207,12 +197,12 @@ export const joindate = (
 			}),
 		}
 		);
-	const empherealOption = inObj.interaction.options.get(`public`) as CommandInteractionOption;
+	const empherealOption = inObj.interaction.options.get(`public`);
 	return {
 		embeds: [
 			embed
 		],
-		ephemeral: !empherealOption.value
+		ephemeral: !empherealOption?.value
 	};
 };
 //#endregion

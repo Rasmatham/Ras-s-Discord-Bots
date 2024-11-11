@@ -9,13 +9,13 @@
 		"target": "ES2022",
 		"strict":true,
 		"forceConsistentCasingInFileNames": true,
-		"importHelpers": true
+		"importHelpers": true,
+		"esModuleInterop": true
 	},
 	"include": [
-		"AllTheBots.ts",
-		"Commands.ts",
-		"test.ts",
+		"*.ts",
+		"*.mts",
 		"Pokebot/*.ts",
 		"custom_modules/*.ts"
-	]
+, "eslint.config.mjs"	]
 }
