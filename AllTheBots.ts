@@ -11,7 +11,7 @@
 //#region Common
 
 //#region imports
-import {Client, Message, EmbedBuilder, ColorResolvable, GuildMember, Interaction, MessageComponentInteraction, ButtonInteraction, CommandInteraction, SelectMenuInteraction, PartialGuildMember, BufferResolvable, InteractionReplyOptions, ActivityType, ChannelType, ComponentType, InteractionType, ChatInputCommandInteraction} from "discord.js";
+import {Client, Message, EmbedBuilder, ColorResolvable, GuildMember, Interaction, MessageComponentInteraction, ButtonInteraction, SelectMenuInteraction, PartialGuildMember, BufferResolvable, InteractionReplyOptions, ActivityType, ChannelType, ComponentType, InteractionType, ChatInputCommandInteraction} from "discord.js";
 import * as containsWord from "./custom_modules/containsWordFunctions";
 import * as forwarding from "./custom_modules/forwardMessages";
 import * as generalStuff from "./custom_modules/generalUse";
@@ -189,7 +189,7 @@ const buzzes = (buzz: string = `buzz`, count: number = Math.floor(Math.random() 
 
 //#region replies
 buzzBot.on(`messageCreate`, (message: Message):void => {
-	if (message.channel.type === ChannelType.DM) {
+	if (message.channel.type === ChannelType.DM || message.channel.type === ChannelType.GroupDM) {
 		return;
 	}
 	if (generalStuff.blackList.includes(message.channel.name)) {
@@ -285,7 +285,7 @@ buzzBot.on(`messageCreate`, (message: Message):void => {
 
 //#region replies
 ebnj.on(`messageCreate`, (message: Message):void => {
-	if (message.channel.type === ChannelType.DM) {
+	if (message.channel.type === ChannelType.DM || message.channel.type === ChannelType.GroupDM) {
 		return;
 	}
 	if (generalStuff.blackList.includes(message.channel.name)) {
@@ -479,7 +479,7 @@ glados.on(`guildMemberRemove`, (member: GuildMember|PartialGuildMember):void => 
 
 //#region Stuff
 glados.on(`messageCreate`, (message: Message):void => {
-	if (message.channel.type === ChannelType.DM) {
+	if (message.channel.type === ChannelType.DM || message.channel.type === ChannelType.GroupDM) {
 		return;
 	}
 	if (generalStuff.blackList.includes(message.channel.name)) {
@@ -843,7 +843,7 @@ const sendEmbed = (message: Message):void => {
 
 //#region Stuff
 pokebot.on(`messageCreate`, (message: Message):void => {
-	if (message.channel.type === ChannelType.DM) {
+	if (message.channel.type === ChannelType.DM || message.channel.type === ChannelType.GroupDM) {
 		return;
 	}
 	if (generalStuff.blackList.includes(message.channel.name)) {
@@ -956,7 +956,7 @@ const beeps = ():string => {
 
 //#region replies
 artoo.on(`messageCreate`, (message: Message):void => {
-	if (message.channel.type === ChannelType.DM) {
+	if (message.channel.type === ChannelType.DM || message.channel.type === ChannelType.GroupDM) {
 		return;
 	}
 	if (generalStuff.blackList.includes(message.channel.name)) {
@@ -1006,7 +1006,7 @@ artoo.on(`messageCreate`, (message: Message):void => {
 
 //#region replies
 random.on(`messageCreate`, (message: Message):void => {
-	if (message.channel.type === ChannelType.DM) {
+	if (message.channel.type === ChannelType.DM || message.channel.type === ChannelType.GroupDM) {
 		return;
 	}
 	if (generalStuff.blackList.includes(message.channel.name)) {
@@ -1178,7 +1178,7 @@ amber.on(`userUpdate`, (oldUser, newUser) => {
 	}
 });
 amber.on(`messageCreate`, (message: Message):void => {
-	if (message.channel.type === ChannelType.DM) {
+	if (message.channel.type === ChannelType.DM || message.channel.type === ChannelType.GroupDM) {
 		return;
 	}
 	if (generalStuff.blackList.includes(message.channel.name)) {
@@ -1195,7 +1195,7 @@ amber.on(`messageCreate`, (message: Message):void => {
 
 //#region replies
 zelda.on(`messageCreate`, (message: Message):void => {
-	if (message.channel.type === ChannelType.DM) {
+	if (message.channel.type === ChannelType.DM || message.channel.type === ChannelType.GroupDM) {
 		return;
 	}
 	if (generalStuff.blackList.includes(message.channel.name)) {

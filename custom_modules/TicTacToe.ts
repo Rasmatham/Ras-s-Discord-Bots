@@ -1,5 +1,5 @@
 //#region imports
-import {CommandInteraction, User, ButtonBuilder, ActionRowBuilder, ButtonInteraction, Message, GuildMember, MessageMentions, UserResolvable, EmojiIdentifierResolvable, ButtonStyle, Guild, Collection, CommandInteractionOption, APIActionRowComponent, APIButtonComponent, ComponentType, ButtonComponent, APIMessageComponentEmoji, ComponentEmojiResolvable} from "discord.js";
+import {CommandInteraction, User, ButtonBuilder, ActionRowBuilder, ButtonInteraction, Message, GuildMember, MessageMentions, UserResolvable, EmojiIdentifierResolvable, ButtonStyle, Guild, Collection, CommandInteractionOption, APIActionRowComponent, APIButtonComponent, ComponentType, ButtonComponent, APIMessageComponentEmoji, ComponentEmojiResolvable, APIButtonComponentBase, APIButtonComponentWithCustomId} from "discord.js";
 //#endregion
 
 //#region tic tac toe game
@@ -20,7 +20,7 @@ export const ticTacToe = (
 						.setCustomId(`decline`)
 						.setEmoji(`✖️`)
 						.setStyle(ButtonStyle.Danger)
-				).toJSON() as APIActionRowComponent<APIButtonComponent>;
+				).toJSON() as APIActionRowComponent<APIButtonComponentWithCustomId>;
 			inObj.interaction.reply({
 				content: `<@${
 					playerTwo
@@ -49,17 +49,17 @@ export const ticTacToe = (
 			button(`TTT1`),
 			button(`TTT2`),
 			button(`TTT3`)
-		).toJSON() as APIActionRowComponent<APIButtonComponent>;
+		).toJSON() as APIActionRowComponent<APIButtonComponentWithCustomId>;
 		const row2 = new ActionRowBuilder().addComponents(
 			button(`TTT4`),
 			button(`TTT5`),
 			button(`TTT6`)
-		).toJSON() as APIActionRowComponent<APIButtonComponent>;
+		).toJSON() as APIActionRowComponent<APIButtonComponentWithCustomId>;
 		const row3 = new ActionRowBuilder().addComponents(
 			button(`TTT7`),
 			button(`TTT8`),
 			button(`TTT9`)
-		).toJSON() as APIActionRowComponent<APIButtonComponent>;
+		).toJSON() as APIActionRowComponent<APIButtonComponentWithCustomId>;
 	
 		const startingGrid = [
 			row1,
@@ -208,17 +208,17 @@ export const ticTacToe = (
 													newButton(0, 0),
 													newButton(0, 1),
 													newButton(0, 2)
-												).toJSON() as APIActionRowComponent<APIButtonComponent>;
+												).toJSON() as APIActionRowComponent<APIButtonComponentWithCustomId>;
 												let row2 = new ActionRowBuilder().addComponents(
 													newButton(1, 0),
 													newButton(1, 1),
 													newButton(1, 2)
-												).toJSON() as APIActionRowComponent<APIButtonComponent>;
+												).toJSON() as APIActionRowComponent<APIButtonComponentWithCustomId>;
 												let row3 = new ActionRowBuilder().addComponents(
 													newButton(2, 0),
 													newButton(2, 1),
 													newButton(2, 2)
-												).toJSON() as APIActionRowComponent<APIButtonComponent>;
+												).toJSON() as APIActionRowComponent<APIButtonComponentWithCustomId>;
 									
 												if (X > O) {
 													const emoji:EmojiIdentifierResolvable = `⭕`;
@@ -229,7 +229,7 @@ export const ticTacToe = (
 																newCheckedButton(0, 0, emoji),
 																newButton(0, 1),
 																newButton(0, 2)
-															]).toJSON() as APIActionRowComponent<APIButtonComponent>;
+															]).toJSON() as APIActionRowComponent<APIButtonComponentWithCustomId>;
 														break;
 													case `TTT2`:
 														row1 = new ActionRowBuilder()
@@ -237,7 +237,7 @@ export const ticTacToe = (
 																newButton(0, 0),
 																newCheckedButton(0, 1, emoji),
 																newButton(0, 2)
-															]).toJSON() as APIActionRowComponent<APIButtonComponent>;
+															]).toJSON() as APIActionRowComponent<APIButtonComponentWithCustomId>;
 														break;
 													case `TTT3`:
 														row1 = new ActionRowBuilder()
@@ -245,7 +245,7 @@ export const ticTacToe = (
 																newButton(0, 0),
 																newButton(0, 1),
 																newCheckedButton(0, 2, emoji)
-															]).toJSON() as APIActionRowComponent<APIButtonComponent>;
+															]).toJSON() as APIActionRowComponent<APIButtonComponentWithCustomId>;
 														break;
 													case `TTT4`:
 														row2 = new ActionRowBuilder()
@@ -253,7 +253,7 @@ export const ticTacToe = (
 																newCheckedButton(1, 0, emoji),
 																newButton(1, 1),
 																newButton(1, 2)
-															]).toJSON() as APIActionRowComponent<APIButtonComponent>;
+															]).toJSON() as APIActionRowComponent<APIButtonComponentWithCustomId>;
 														break;
 													case `TTT5`:
 														row2 = new ActionRowBuilder()
@@ -261,7 +261,7 @@ export const ticTacToe = (
 																newButton(1, 0),
 																newCheckedButton(1, 1, emoji),
 																newButton(1, 2)
-															]).toJSON() as APIActionRowComponent<APIButtonComponent>;
+															]).toJSON() as APIActionRowComponent<APIButtonComponentWithCustomId>;
 														break;
 													case `TTT6`:
 														row2 = new ActionRowBuilder()
@@ -269,7 +269,7 @@ export const ticTacToe = (
 																newButton(1, 0),
 																newButton(1, 1),
 																newCheckedButton(1, 2, emoji)
-															]).toJSON() as APIActionRowComponent<APIButtonComponent>;
+															]).toJSON() as APIActionRowComponent<APIButtonComponentWithCustomId>;
 														break;
 													case `TTT7`:
 														row3 = new ActionRowBuilder()
@@ -277,7 +277,7 @@ export const ticTacToe = (
 																newCheckedButton(2, 0, emoji),
 																newButton(2, 1),
 																newButton(2, 2)
-															]).toJSON() as APIActionRowComponent<APIButtonComponent>;
+															]).toJSON() as APIActionRowComponent<APIButtonComponentWithCustomId>;
 														break;
 													case `TTT8`:
 														row3 = new ActionRowBuilder()
@@ -285,7 +285,7 @@ export const ticTacToe = (
 																newButton(2, 0),
 																newCheckedButton(2, 1, emoji),
 																newButton(2, 2)
-															]).toJSON() as APIActionRowComponent<APIButtonComponent>;
+															]).toJSON() as APIActionRowComponent<APIButtonComponentWithCustomId>;
 														break;
 													case `TTT9`:
 														row3 = new ActionRowBuilder()
@@ -293,7 +293,7 @@ export const ticTacToe = (
 																newButton(2, 0),
 																newButton(2, 1),
 																newCheckedButton(2, 2, emoji)
-															]).toJSON() as APIActionRowComponent<APIButtonComponent>;
+															]).toJSON() as APIActionRowComponent<APIButtonComponentWithCustomId>;
 														break;
 													default:
 														break;
@@ -308,7 +308,7 @@ export const ticTacToe = (
 																newCheckedButton(0, 0, emoji),
 																newButton(0, 1),
 																newButton(0, 2)
-															]).toJSON() as APIActionRowComponent<APIButtonComponent>;
+															]).toJSON() as APIActionRowComponent<APIButtonComponentWithCustomId>;
 														break;
 													case `TTT2`:
 														row1 = new ActionRowBuilder()
@@ -316,7 +316,7 @@ export const ticTacToe = (
 																newButton(0, 0),
 																newCheckedButton(0, 1, emoji),
 																newButton(0, 2)
-															]).toJSON() as APIActionRowComponent<APIButtonComponent>;
+															]).toJSON() as APIActionRowComponent<APIButtonComponentWithCustomId>;
 														break;
 													case `TTT3`:
 														row1 = new ActionRowBuilder()
@@ -324,7 +324,7 @@ export const ticTacToe = (
 																newButton(0, 0),
 																newButton(0, 1),
 																newCheckedButton(0, 2, emoji)
-															]).toJSON() as APIActionRowComponent<APIButtonComponent>;
+															]).toJSON() as APIActionRowComponent<APIButtonComponentWithCustomId>;
 														break;
 													case `TTT4`:
 														row2 = new ActionRowBuilder()
@@ -332,7 +332,7 @@ export const ticTacToe = (
 																newCheckedButton(1, 0, emoji),
 																newButton(1, 1),
 																newButton(1, 2)
-															]).toJSON() as APIActionRowComponent<APIButtonComponent>;
+															]).toJSON() as APIActionRowComponent<APIButtonComponentWithCustomId>;
 														break;
 													case `TTT5`:
 														row2 = new ActionRowBuilder()
@@ -340,7 +340,7 @@ export const ticTacToe = (
 																newButton(1, 0),
 																newCheckedButton(1, 1, emoji),
 																newButton(1, 2)
-															]).toJSON() as APIActionRowComponent<APIButtonComponent>;
+															]).toJSON() as APIActionRowComponent<APIButtonComponentWithCustomId>;
 														break;
 													case `TTT6`:
 														row2 = new ActionRowBuilder()
@@ -348,7 +348,7 @@ export const ticTacToe = (
 																newButton(1, 0),
 																newButton(1, 1),
 																newCheckedButton(1, 2, emoji)
-															]).toJSON() as APIActionRowComponent<APIButtonComponent>;
+															]).toJSON() as APIActionRowComponent<APIButtonComponentWithCustomId>;
 														break;
 													case `TTT7`:
 														row3 = new ActionRowBuilder()
@@ -356,7 +356,7 @@ export const ticTacToe = (
 																newCheckedButton(2, 0, emoji),
 																newButton(2, 1),
 																newButton(2, 2)
-															]).toJSON() as APIActionRowComponent<APIButtonComponent>;
+															]).toJSON() as APIActionRowComponent<APIButtonComponentWithCustomId>;
 														break;
 													case `TTT8`:
 														row3 = new ActionRowBuilder()
@@ -364,7 +364,7 @@ export const ticTacToe = (
 																newButton(2, 0),
 																newCheckedButton(2, 1, emoji),
 																newButton(2, 2)
-															]).toJSON() as APIActionRowComponent<APIButtonComponent>;
+															]).toJSON() as APIActionRowComponent<APIButtonComponentWithCustomId>;
 														break;
 													case `TTT9`:
 														row3 = new ActionRowBuilder()
@@ -372,7 +372,7 @@ export const ticTacToe = (
 																newButton(2, 0),
 																newButton(2, 1),
 																newCheckedButton(2, 2, emoji)
-															]).toJSON() as APIActionRowComponent<APIButtonComponent>;
+															]).toJSON() as APIActionRowComponent<APIButtonComponentWithCustomId>;
 														break;
 													default:
 														break;
@@ -384,10 +384,10 @@ export const ticTacToe = (
 													row3
 												];
 												const buttonArray:string[] = [];
-												const winBoard = (rows: APIActionRowComponent<APIButtonComponent>[]):boolean => {
+												const winBoard = (rows: APIActionRowComponent<APIButtonComponentWithCustomId>[]):boolean => {
 													rows.forEach((row):void => {
 														row.components.forEach((button):void => {
-															buttonArray.push(((button as APIButtonComponent).emoji as APIMessageComponentEmoji).name as string);
+															buttonArray.push(button.emoji?.name as string);
 														});
 													});
 													if (buttonArray[0] != `ras` || buttonArray[4] != `ras` || buttonArray[8] != `ras`) {

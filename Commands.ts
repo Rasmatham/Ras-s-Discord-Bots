@@ -1,5 +1,5 @@
 //#region imports
-import {ActivityType, ApplicationCommandData, ApplicationCommandDataResolvable, ApplicationCommandOptionType, Client} from "discord.js";
+import {ActivityType, ApplicationCommandType, ApplicationIntegrationType, Client, ContextMenuCommandBuilder, InteractionContextType, SlashCommandBuilder, SlashCommandOptionsOnlyBuilder, SlashCommandSubcommandsOnlyBuilder} from "discord.js";
 import {intents} from "./custom_modules/generalUse.js";
 import * as dotenv from "dotenv";
 dotenv.config();
@@ -13,24 +13,12 @@ type commandObject = {
 	guild?:`${
 		bigint
 	}`,
-	command:ApplicationCommandData
+	command:SlashCommandBuilder | SlashCommandOptionsOnlyBuilder | SlashCommandSubcommandsOnlyBuilder | ContextMenuCommandBuilder
 }
 //#endregion
 
 //#region instantiating clients
 const buzzBot:Client = new Client({
-	intents: intents,
-	presence: {
-		status: `dnd`,
-		activities: [
-			{
-				name: `Doing some maintenance`,
-				type: ActivityType.Playing
-			}
-		]
-	}
-});
-const clambot:Client = new Client({
 	intents: intents,
 	presence: {
 		status: `dnd`,
@@ -138,26 +126,85 @@ const croissant:Client = new Client({
 		]
 	}
 });
+const canine:Client = new Client({
+	intents: intents,
+	presence: {
+		status: `dnd`,
+		activities: [
+			{
+				name: `Doing some maintenance`,
+				type: ActivityType.Playing
+			}
+		]
+	}
+});
 //#endregion
 
 //#region logins
-buzzBot.login(process.env.BUZZBOTTOKEN).catch(console.error);
-clambot.login(process.env.CLAMBOTTOKEN).catch(console.error);
-ebnj.login(process.env.EBNJTOKEN).catch(console.error);
-glados.login(process.env.GLADOSTOKEN).catch(console.error);
-pokebot.login(process.env.POKETOKEN).catch(console.error);
-artoo.login(process.env.ARTOOTOKEN).catch(console.error);
-random.login(process.env.RANDOMTOKEN).catch(console.error);
-amber.login(process.env.AMBERTOKEN).catch(console.error);
-zelda.login(process.env.ZELDATOKEN).catch(console.error);
-croissant.login(process.env.CROISSANTTOKEN).catch(console.error);
+try {
+	buzzBot.login(process.env.BUZZBOTTOKEN)
+} catch (err) {
+	console.log("Buzzbot did not like jazz")
+	console.error(err)
+}
+try {
+	ebnj.login(process.env.EBNJTOKEN)
+} catch (err) {
+	console.log("EBNJ booted up the wrong edition of Minecraft")
+	console.error(err)
+}
+try {
+	glados.login(process.env.GLADOSTOKEN)
+} catch (err) {
+	console.log("GLaDOS was turned into a potato")
+	console.error(err)
+}
+try {
+	pokebot.login(process.env.POKETOKEN)
+} catch (err) {
+	console.log("Pokébot could not catch them all")
+	console.error(err)
+}
+try {
+	artoo.login(process.env.ARTOOTOKEN)
+} catch (err) {
+	console.log("R2 missed the lightsaber throw")
+	console.error(err)
+}
+try {
+	random.login(process.env.RANDOMTOKEN)
+} catch (err) {
+	console.log("Random Bot got a divide by 0 error")
+	console.error(err)
+}
+try {
+	amber.login(process.env.AMBERTOKEN)
+} catch (err) {
+	console.log("Amber lost a Splatoon game")
+	console.error(err)
+}
+try {
+	zelda.login(process.env.ZELDATOKEN)
+} catch (err) {
+	console.log("Zelda Bot could not figure out where BOTW/AOC/TOTK falls on the timeline")
+	console.error(err)
+}
+try {
+	croissant.login(process.env.CROISSANTTOKEN)
+} catch (err) {
+	console.log("Le Franciosle bot français n'a pas réussi à s'authentifier")
+	console.error(err)
+}
+try {
+	canine.login(process.env.K9TOKEN)
+} catch (err) {
+	console.log("K9 was not affirmative")
+	console.error(err)
+}
 //#endregion
 
 //#region commands
 const buzzBotCommands:commandObject[] = [	
-];
-
-const clambotCommands:commandObject[] = [	
 ];
 
 const ebnjCommands:commandObject[] = [	
@@ -166,261 +213,179 @@ const ebnjCommands:commandObject[] = [
 const gladosCommands:commandObject[] = [
 	{
 		id: `862460436048642098`,
-		command: {
-			name: `botlink`,
-			description: `Link to add this bot to another server`,
-		}
+		command: new SlashCommandBuilder()
+			.setName(`botlink`)
+			.setDescription(`Link to add this bot to another server`)
 	},
 	{
 		id: `862460436423376947`,
-		command: {
-			name: `sightingslink`,
-			description: `Sends a link to the server this bot is mainly developed for`,
-		}
+		command: new SlashCommandBuilder()
+			.setName(`sightingslink`)
+			.setDescription(`Sends a link to the server this bot is mainly developed for`)
 	},
 	{
 		id: `862460437420310569`,
-		command: {
-			name: `invisicolor`,
-			description: `Sends the hex color code for the backround color of Discord`,
-		}
+		command: new SlashCommandBuilder()
+			.setName(`invisicolor`)
+			.setDescription(`Sends the hex color code for the backround color of Discord`)
 	},
 	{
 		id: `862460438318415872`,
-		command: {
-			name: `source`,
-			description: `Sends a link to a GitHub repository for this bot`,
-		}
+		command: new SlashCommandBuilder()
+			.setName(`source`)
+			.setDescription(`Sends a link to a GitHub repository for this bot`)
 	},
 	{
 		id: `862460439157014558`,
-		command: {
-			name: `userinfo`,
-			description: `Sends all information a bot can get to you (Made to show that bots can't get any private information`,
-			options: [
-				{
-					name: `public`,
-					type: ApplicationCommandOptionType.Boolean,
-					description: `Should the message be shown to everyone?`,
-					required: true
-				}
-			]
-		}
+		command: new SlashCommandBuilder()
+			.setName(`userinfo`)
+			.setDescription(`Sends all information a bot can get to you (Made to show that bots can't get any private information`)
+			.addBooleanOption(option =>
+				option.setName(`public`)
+					.setDescription(`Should the message be shown to everyone?`)
+					.setRequired(true))
 	},
 	{
 		id: `862460522665738271`,
-		command: {
-			name: `serverinfo`,
-			description: `Sends some of the statistical information of the server`,
-		}
+		command: new SlashCommandBuilder()
+			.setName(`serverinfo`)
+			.setDescription(`Sends some of the statistical information of the server`)
 	},
 	{
 		id: `862460523509841941`,
-		command: {
-			name: `joindate`,
-			description: `Shows when you joined Discord`,
-			options: [
-				{
-					name: `public`,
-					type: ApplicationCommandOptionType.Boolean,
-					description: `Should the message be shown to everyone?`,
-					required: true
-				}
-			]
-		}
+		command: new SlashCommandBuilder()
+			.setName(`joindate`)
+			.setDescription(`Shows when you joined Discord`)
+			.addBooleanOption(option =>
+				option.setName(`public`)
+					.setDescription(`Should the message be shown to everyone?`)
+					.setRequired(true))
 	},
 	{
 		id: `862460524235194399`,
-		command: {
-			name: `grid`,
-			description: `This is just a test command made to show off buttons`,
-			options: [
-				{
-					name: `button_content`,
-					type: ApplicationCommandOptionType.String,
-					description: `What text/emoji should the buttons display?`,
-					required: true,
-				}
-			]
-		}
+		command: new SlashCommandBuilder()
+			.setName(`grid`)
+			.setDescription(`This is just a test command made to show off buttons`)
+			.addStringOption(option =>
+				option.setName(`button_content`)
+					.setDescription(`What text/emoji should the buttons display?`)
+					.setRequired(true))
 	},
 	{
 		id: `862460525329121280`,
-		command: {
-			name: `selectmenu`,
-			description: `This is just a test command made to show off select menus`,
-		}
+		command: new SlashCommandBuilder()
+			.setName(`selectmenu`)
+			.setDescription(`This is just a test command made to show off select menus`)
 	},
 	{
 		id: `862460525891289100`,
-		command: {
-			name: `d`,
-			description: `Rolls a die`,
-			options: [
-				{
-					name: `die_sides`,
-					type: ApplicationCommandOptionType.Integer,
-					description: `How many sides should the individul die have?`,
-					required: false,
-				},
-				{
-					name: `dice_count`,
-					type: ApplicationCommandOptionType.Integer,
-					description: `How many dice should be thrown?`,
-					required: false,
-				}
-			]
-		}
+		command: new SlashCommandBuilder()
+			.setName(`d`)
+			.setDescription(`Rolls a die`)
+			.addIntegerOption(option =>
+				option.setName(`die_sides`)
+					.setDescription(`How many sides should the individul die have?`)
+					.setRequired(false))
+			.addIntegerOption(option =>
+				option.setName(`dice_count`)
+					.setDescription(`How many dice should be thrown?`)
+					.setRequired(false))
 	},
 	{
 		id: `862460609714192414`,
-		command: {
-			name: `xkcd`,
-			description: `A test Sends a random XKCD`,
-			options: [
-				{
-					name: `xkcd_number`,
-					type: ApplicationCommandOptionType.Integer,
-					description: `Which XKCD comic do you want?`,
-					required: false,
-				}
-			]
-		}
+		command: new SlashCommandBuilder()
+			.setName(`xkcd`)
+			.setDescription(`A test Sends a random XKCD`)
+			.addIntegerOption(option =>
+				option.setName(`xkcd_number`)
+					.setDescription(`Which XKCD comic do you want?`)
+					.setRequired(false))
 	},
 	{
 		id: `862460610435612682`,
-		command: {
-			name: `maze`,
-			description: `A playable maze game`,
-			options: [
-				{
-					name: `style`,
-					type: ApplicationCommandOptionType.String,
-					description: `What style of maze do you want?`,
-					required: true,
-					choices: [
-						{
-							name: `normal`,
-							value: `0`
-						},
-						{
-							name: `zelda`,
-							value: `1`
-						}
-					]
-				}
-			]
-		}
+		command: new SlashCommandBuilder()
+			.setName(`maze`)
+			.setDescription(`A playable maze game`)
+			.addStringOption(option =>
+				option.setName(`style`)
+					.setDescription(`What style of maze do you want?`)
+					.addChoices(
+						{name: `normal`, value: `0`},
+						{name: `zelda`, value: `1`}
+					)
+			)
 	},
 	{
 		id: `862809521243684894`,
-		command: {
-			name: `tictactoe`,
-			description: `Starts a game of Tic Tac Toe`,
-			options: [
-				{
-					name: `playertwo`,
-					type: ApplicationCommandOptionType.User,
-					description: `Invite a second player to play`,
-					required: true,
-				},
-				{
-					name: `movepieces`,
-					type: ApplicationCommandOptionType.Boolean,
-					description: `should you move pieces aftee both players has laid down three pieces?`,
-					required: true
-				}
-			]
-		}
+		command: new SlashCommandBuilder()
+			.setName(`tictactoe`)
+			.setDescription(`Starts a game of Tic Tac Toe`)
+			.addUserOption(option =>
+				option.setName(`playertwo`)
+					.setDescription(`Invite a second player to play`)
+					.setRequired(true)
+			)
+			.addBooleanOption(option =>
+				option.setName(`movepieces`)
+					.setDescription(`Should you move pieces aftee both players has laid down three pieces?`)
+					.setRequired(true)
+			)
 	},
 	{
 		id: `0`,
-		command: {
-			name: `coinflip`,
-			description: `flips a coin for you`,
-			options: [
-				{
-					name: `side`,
-					type: ApplicationCommandOptionType.String,
-					description: `Invite a second player to play`,
-					required: true,
-					choices: [
-						{
-							name: `heads`,
-							value: `heads`
-						},
-						{
-							name: `tails`,
-							value: `tails`
-						}
-					]
-				}
-			]
-		}
+		command: new SlashCommandBuilder()
+			.setName(`coinflip`)
+			.setDescription(`Flips a coin for you`)
+			.addStringOption(option =>
+				option.setName(`side`)
+					.setDescription(`Which side do you choose?`)
+					.setRequired(true)
+					.addChoices(
+						{name: `heads`, value: `heads`},
+						{name: `tails`, value: `tails`}
+					)
+			)
 	},
 	{
-		command: {
-			name: `list`,
-			description: `Lists all of something in a server`,
-			options: [
-				{
-					name: `thing`,
-					type: ApplicationCommandOptionType.String,
-					description: `What should be listed?`,
-					required: true,
-					choices: [
-						{
-							name: `channels`,
-							value: `channels`
-						},
-						{
-							name: `emojis`,
-							value: `emojis`
-						},
-						{
-							name: `roles`,
-							value: `roles`
-						}
-					]
-				}
-			]
-		}
+		command: new SlashCommandBuilder()
+			.setName(`list`)
+			.setDescription(`Lists all of something in a server`)
+			.addStringOption(option =>
+				option.setName(`thing`)
+					.setDescription(`What should be listed?`)
+					.setRequired(true)
+					.addChoices(
+						{name: `channels`, value: `channels`},
+						{name: `emojis`, value: `emojis`},
+						{name: `roles`, value: `roles`}
+					)
+			)
 	},
 	{
-		command: {
-			name: `gladle`,
-			description: `Totally not another wordle clone`,
-			options: [
-				{
-					name: `play`,
-					type: ApplicationCommandOptionType.SubcommandGroup,
-					description: `play a game of totally not wordle`,
-					options: [
-						{
-							name: `easy`,
-							description: `You can guess any word at any time`,
-							type: ApplicationCommandOptionType.Subcommand,
-						},
-						{
-							name: `hard`,
-							description: `Any revealed hints must be used in subsequent guesses`,
-							type: ApplicationCommandOptionType.Subcommand,
-						}
-					]
-				},
-				{
-					name: `scoreboard`,
-					type: ApplicationCommandOptionType.Subcommand,
-					description: `Doesn't really do anything yet. Would reset when switching PC's`
-				}
-			]
-		}
+		command: new SlashCommandBuilder()
+			.setName(`gladle`)
+			.setDescription(`Totally not another wordle clone`)
+			.addSubcommandGroup(subCommandGroup =>
+				subCommandGroup.setName(`play`)
+					.setDescription(`play a game of totally not wordle`)
+					.addSubcommand(subCommand =>
+						subCommand.setName(`easy`)
+							.setDescription(`You can guess any word at any time`)
+					)
+					.addSubcommand(subCommand =>
+						subCommand.setName(`hard`)
+							.setDescription(`Any revealed hints must be used in subsequent guesses`)
+					)
+			)
+			.addSubcommand(subCommand =>
+				subCommand.setName(`scoreboard`)
+					.setDescription(`Not implemented yet`)
+			)
 	},
 	{
-		command: {
-			name: `reboot`,
-			description: `Reboots the host`,
-		},
+		command: new SlashCommandBuilder()
+			.setName(`reboot`)
+			.setDescription(`Reboots the host`),
 		guild: `647924443078852613`
 	}
 ];
@@ -442,12 +407,42 @@ const zeldaCommands:commandObject[] = [
 
 const croissantCommands:commandObject[] = [
 ];
+
+const canineCommands:commandObject[] = [
+	{
+		command: new SlashCommandBuilder()
+			.setName(`set_timezone`)
+			.setDescription(`Set or remove your timezone (This data will be stored for use with the /timestamp command)`)
+			.setContexts(InteractionContextType.BotDM, InteractionContextType.Guild, InteractionContextType.PrivateChannel)
+			.setIntegrationTypes(ApplicationIntegrationType.GuildInstall, ApplicationIntegrationType.UserInstall)
+	},
+	{
+		command: new ContextMenuCommandBuilder()
+			.setName(`Set Timezone`)
+			.setContexts(InteractionContextType.BotDM, InteractionContextType.Guild, InteractionContextType.PrivateChannel)
+			.setIntegrationTypes(ApplicationIntegrationType.GuildInstall, ApplicationIntegrationType.UserInstall)
+			.setType(ApplicationCommandType.Message)
+	},
+	{
+		command: new SlashCommandBuilder()
+			.setName(`timestamp`)
+			.setDescription(`Create a timestamp`)
+			.setContexts(InteractionContextType.BotDM, InteractionContextType.Guild, InteractionContextType.PrivateChannel)
+			.setIntegrationTypes(ApplicationIntegrationType.GuildInstall, ApplicationIntegrationType.UserInstall)
+	},
+	{
+		command: new ContextMenuCommandBuilder()
+			.setName(`Create Timestamp`)
+			.setContexts(InteractionContextType.BotDM, InteractionContextType.Guild, InteractionContextType.PrivateChannel)
+			.setIntegrationTypes(ApplicationIntegrationType.GuildInstall, ApplicationIntegrationType.UserInstall)
+			.setType(ApplicationCommandType.Message)
+	},
+];
 //#endregion
 
 //#region arrays
 const bots:Client[] = [
 	buzzBot,
-	clambot,
 	ebnj,
 	glados,
 	pokebot,
@@ -455,11 +450,11 @@ const bots:Client[] = [
 	random,
 	amber,
 	zelda,
-	croissant
+	croissant,
+	canine
 ];
 const commandGroup:commandObject[][] = [
 	buzzBotCommands,
-	clambotCommands,
 	ebnjCommands,
 	gladosCommands,
 	pokebotCommands,
@@ -467,7 +462,8 @@ const commandGroup:commandObject[][] = [
 	randomCommands,
 	amberCommands,
 	zeldaCommands,
-	croissantCommands
+	croissantCommands,
+	canineCommands
 ];
 //#endregion
 
@@ -489,13 +485,13 @@ bots.forEach((bot, i):void => {
 			console.log(`${
 				bot.user?.tag
 			} is active`);
-			commands.map((command) => command).forEach((command) => {
+			commands.forEach((command) => {
+				console.log(`Removing command ${command.name}`)
 				command.delete();
 			});
 			commandGroup[i].forEach((command, j):void => {
-				console.log(command.guild);
 				if(command.guild != undefined){
-					bot.application?.commands.create(command.command as ApplicationCommandDataResolvable, command.guild)
+					bot.application?.commands.create(command.command, command.guild)
 						.then((command):void => {
 							console.log(`[${
 								j + 1
@@ -507,7 +503,7 @@ bots.forEach((bot, i):void => {
 						})
 						.catch(console.error);
 				} else {
-					bot.application?.commands.create(command.command as ApplicationCommandDataResolvable)
+					bot.application?.commands.create(command.command)
 						.then((command):void => {
 							console.log(`[${
 								j + 1

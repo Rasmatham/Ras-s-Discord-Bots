@@ -1,5 +1,5 @@
 //#region imports
-import {Message, MessageCreateOptions} from "discord.js";
+import {ChannelType, Message, MessageCreateOptions, PartialGroupDMChannel} from "discord.js";
 //#endregion
 
 //#region reply
@@ -17,11 +17,13 @@ const reply = async (
 			inObj.chance = 100;
 		}
 		if (Math.random() * 100 <= inObj.chance) {
-			inObj.message.channel.sendTyping()
-				.finally(():void => {
-					inObj.message.channel.send(inObj.reply);
-				})
-				.catch(console.error);
+			if (inObj.message.channel.type === ChannelType.GuildText)
+				inObj.message.channel.sendTyping()
+					.finally(():void => {
+						if (inObj.message.channel.type === ChannelType.GuildText)
+							inObj.message.channel.send(inObj.reply);
+					})
+					.catch(console.error);
 		}
 	});
 };

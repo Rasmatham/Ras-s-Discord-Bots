@@ -1,27 +1,31 @@
 //#region imports
-import {Message, TextChannel, WebhookClient, Client, MessageCreateOptions, Webhook, BufferResolvable, User, IntentsBitField, NewsChannel, EmbedField, ClientUser, InteractionReplyOptions, CommandInteraction, CommandInteractionOption, EmbedBuilder} from "discord.js";
+import {Message, TextChannel, WebhookClient, Client, MessageCreateOptions, Webhook, BufferResolvable, User, IntentsBitField, NewsChannel, EmbedField, ClientUser, InteractionReplyOptions, CommandInteraction, CommandInteractionOption, EmbedBuilder, PartialGroupDMChannel, ChannelType, GatewayIntentBits} from "discord.js";
 import * as os from "os";
 //#endregion
 
 //#region intent
 export const intents:IntentsBitField = new IntentsBitField([
-	`Guilds`,
-	`GuildMembers`,
-	`GuildBans`,
-	`GuildEmojisAndStickers`,
-	`GuildIntegrations`,
-	`GuildWebhooks`,
-	`GuildInvites`,
-	`GuildVoiceStates`,
-	`GuildPresences`,
-	`GuildMessages`,
-	`GuildMessageReactions`,
-	`GuildMessageTyping`,
-	`DirectMessages`,
-	`DirectMessageReactions`,
-	`DirectMessageTyping`,
-	`MessageContent`,
-	`GuildScheduledEvents`
+	GatewayIntentBits.Guilds,
+	GatewayIntentBits.GuildMembers,
+	GatewayIntentBits.GuildModeration,
+	GatewayIntentBits.GuildEmojisAndStickers,
+	GatewayIntentBits.GuildIntegrations,
+	GatewayIntentBits.GuildWebhooks,
+	GatewayIntentBits.GuildInvites,
+	GatewayIntentBits.GuildVoiceStates,
+	GatewayIntentBits.GuildPresences,
+	GatewayIntentBits.GuildMessages,
+	GatewayIntentBits.GuildMessageReactions,
+	GatewayIntentBits.GuildMessageTyping,
+	GatewayIntentBits.DirectMessages,
+	GatewayIntentBits.DirectMessageReactions,
+	GatewayIntentBits.DirectMessageTyping,
+	GatewayIntentBits.MessageContent,
+	GatewayIntentBits.GuildScheduledEvents,
+	GatewayIntentBits.AutoModerationConfiguration,
+	GatewayIntentBits.AutoModerationExecution,
+	GatewayIntentBits.GuildMessagePolls,
+	GatewayIntentBits.DirectMessagePolls
 ]);
 //#endregion
 
@@ -72,8 +76,9 @@ export const sendAsWebHook = (
 							})
 							.catch((err):void => {
 								console.error(err);
-								inObj.message.channel.send(`Something went wrong`)
-									.catch(console.error);
+								if (inObj.message.channel.type === ChannelType.GuildText)
+									inObj.message.channel.send(`Something went wrong`)
+										.catch(console.error);
 							});
 					}
 					let i = 0;
@@ -112,8 +117,9 @@ export const sendAsWebHook = (
 									})
 									.catch((err):void => {
 										console.error(err);
-										inObj.message.channel.send(`Something went wrong`)
-											.catch(console.error);
+										if (inObj.message.channel.type === ChannelType.GuildText)
+											inObj.message.channel.send(`Something went wrong`)
+												.catch(console.error);
 									});
 							}
 							i++;

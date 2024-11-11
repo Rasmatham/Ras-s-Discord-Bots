@@ -1,5 +1,5 @@
 //#region imports
-import {ActionRowBuilder, APIActionRowComponent, APIButtonComponent, ButtonBuilder, ButtonInteraction, ButtonStyle, ComponentType, Message} from "discord.js";
+import {ActionRowBuilder, APIActionRowComponent, APIButtonComponent, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelType, ComponentType, Message, PartialGroupDMChannel} from "discord.js";
 import req, { Response } from "node-fetch";
 //#endregion
 
@@ -37,13 +37,14 @@ export const sendMessage: (inObjs: {message: Message | ButtonInteraction}[]) => 
 			if (!inObj.message.author.bot && (inObj.message.content.toLowerCase().includes(`inspire`) || inObj.message.content.toLowerCase().includes(`inspiration`) || inObj.message.content.toLowerCase().includes(`inspiring`))) {
 				getURI().then((url:string|void):void => {
 					if(inObj.message instanceof Message){
-						inObj.message.channel.send({
-							content: url?url:`error`,
-							components: [
-								new ActionRowBuilder().setComponents(new ButtonBuilder().setLabel(`inspire`).setCustomId(`inspirobot`).setStyle(ButtonStyle.Secondary))
-							].map(x => x.toJSON() as APIActionRowComponent<APIButtonComponent>)
-						})
-							.catch(console.error);
+						if (inObj.message.channel.type === ChannelType.GuildText)
+							inObj.message.channel.send({
+								content: url?url:`error`,
+								components: [
+									new ActionRowBuilder().setComponents(new ButtonBuilder().setLabel(`inspire`).setCustomId(`inspirobot`).setStyle(ButtonStyle.Secondary))
+								].map(x => x.toJSON() as APIActionRowComponent<APIButtonComponent>)
+							})
+								.catch(console.error);
 					}
 				});
 			}

@@ -19,6 +19,7 @@ export const messageForwarding = (
 				if (inObj.message.member != null) {
 					if (inObj.message.member != null) {
 						if (inObj.message.content.startsWith(`<#`)) {
+							if (inObj.message.channel.type === ChannelType.GuildText)
 							if ([
 								`talk-as-${
 									bot.user.username.toLowerCase()
@@ -49,38 +50,39 @@ export const messageForwarding = (
 							}
 						}
 						else if (inObj.message.content.startsWith(`<@`) && !inObj.message.content.startsWith(`<@&`) /*&& message.member.hasPermission(`ADMINISTRATOR`)*/) {
-							if ([
-								`dm-as-${
-									bot.user.username.toLowerCase()
-								}`,
-								`talk-and-dm-as-${
-									bot.user.username.toLowerCase()
-								}`,
-								`dm-and-talk-as-${
-									bot.user.username.toLowerCase()
-								}`
-							].includes(inObj.message.channel.name)) {
+							if (inObj.message.channel.type === ChannelType.GuildText)
+								if ([
+									`dm-as-${
+										bot.user.username.toLowerCase()
+									}`,
+									`talk-and-dm-as-${
+										bot.user.username.toLowerCase()
+									}`,
+									`dm-and-talk-as-${
+										bot.user.username.toLowerCase()
+									}`
+								].includes(inObj.message.channel.name)) {
 								/*bot.users.cache
-				.get(message.mentions.users.first().id)
-				.send(message.content.replace(message.mentions.users.first().id, ``)
-				.replace(`<@>`, ``)
-				.replace(`<@!>`, ``)
-				.replace(/¤/g, ``),
-				{
-					files: message.attachments.array()
-				})
-				.then(():void => {
-					//message.channel.send(`Message sent to ${
-						message.mentions.users.first().tag
-					}`)
-				})
-				.catch((err):void => {
-					//message.channel.send(`Sorry, but ${
-						message.mentions.users.first().tag
-					} has blocked me or they blocked DM's from this server`)
-				});*/
+									.get(message.mentions.users.first().id)
+									.send(message.content.replace(message.mentions.users.first().id, ``)
+									.replace(`<@>`, ``)
+									.replace(`<@!>`, ``)
+									.replace(/¤/g, ``),
+									{
+										files: message.attachments.array()
+									})
+									.then(():void => {
+										//message.channel.send(`Message sent to ${
+											message.mentions.users.first().tag
+										}`)
+									})
+									.catch((err):void => {
+										//message.channel.send(`Sorry, but ${
+											message.mentions.users.first().tag
+										} has blocked me or they blocked DM's from this server`)
+									});*/
 								inObj.message.channel.send(`This functionality is temporarily disabled`);
-							}
+								}
 						}
 					}
 				}
@@ -121,8 +123,9 @@ export const DMSpy = (
 						PFP: inObj.message.author.avatarURL() as BufferResolvable
 					}
 				]);
-				inObj.message.channel.send(`Your message was sent to a super secret channel in Everyone Sightings`)
-					.catch(console.error);
+				if (inObj.message.channel.type === ChannelType.GuildText)
+					inObj.message.channel.send(`Your message was sent to a super secret channel in Everyone Sightings`)
+						.catch(console.error);
 			});
 		}
 	});

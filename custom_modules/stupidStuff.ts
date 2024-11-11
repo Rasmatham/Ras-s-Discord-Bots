@@ -1,5 +1,5 @@
 //#region imports
-import {CommandInteraction, CommandInteractionOption, EmojiIdentifierResolvable, InteractionReplyOptions, Message, ActionRowBuilder, ButtonBuilder, MessageCreateOptions, SelectMenuBuilder, TextChannel, ButtonStyle, APIActionRowComponent, APIButtonComponent, APISelectMenuComponent, ChannelType} from "discord.js";
+import {CommandInteraction, CommandInteractionOption, EmojiIdentifierResolvable, InteractionReplyOptions, Message, ActionRowBuilder, ButtonBuilder, MessageCreateOptions, SelectMenuBuilder, TextChannel, ButtonStyle, APIActionRowComponent, APIButtonComponent, APISelectMenuComponent, ChannelType, Client, PartialGroupDMChannel} from "discord.js";
 import {blackList} from "./generalUse.js";
 //#endregion
 
@@ -73,8 +73,9 @@ export const espenBotReplacement = (
 		if (inObj.message.author.id == inObj.victim && Math.floor(Math.random() * 100) <= inObj.chance) {
 			switch (inObj.type.toString()) {
 			case `message`:
-				inObj.message.channel.send(inObj.out as MessageCreateOptions)
-					.catch(console.error);
+				if (inObj.message.channel.type === ChannelType.GuildText)
+					inObj.message.channel.send(inObj.out as MessageCreateOptions)
+						.catch(console.error);
 				break;
 			case `react`:
 				inObj.message.react(inObj.out as EmojiIdentifierResolvable)
