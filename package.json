@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "discord.js": "*",
+    "discord.js": "14.16.2",
     "dotenv": "*",
     "ffmpeg-static": "*",
     "generate-maze": "*",
