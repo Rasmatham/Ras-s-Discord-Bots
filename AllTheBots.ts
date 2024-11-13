@@ -1,3 +1,5 @@
+console.log(process.version)
+console.log(new Date(`1970-01-01T00:00:00.000`).toLocaleString(`en-US`, { timeZone: `Europe/Oslo` }))
 /*
 ╔═════════════════════════════════════════════════════╦═╦═╦═╗
 ║ Command Prompt                                      ║-║▫║X║
