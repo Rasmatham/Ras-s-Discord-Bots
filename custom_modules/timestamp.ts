@@ -21,12 +21,7 @@ const setup = (
 //#endregion
 
 //#region utc converter
-const toUTC = (dateString = new Date().toISOString(), tzIdentifier = `Etc/UTC`) => {
-	console.log(dateString, tzIdentifier)
-	const newDate = new Date(new Date(dateString).toLocaleString(`en-US`, { timeZone: tzIdentifier }))
-	console.log(newDate)
-	return newDate
-};
+const toUTC = (dateString = new Date().toISOString(), tzIdentifier = `Etc/UTC`) => new Date(new Date(dateString).toLocaleString(`en-US`, { timeZone: tzIdentifier }));
 //#endregion
 
 //#region create timestamp
