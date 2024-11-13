@@ -1,5 +1,5 @@
 //#region imports
-import { ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, EmbedBuilder, Interaction, ModalBuilder, ModalMessageModalSubmitInteraction, ModalSubmitInteraction, TextInputBuilder, TextInputStyle, TimestampStylesString } from "discord.js";
+import { ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, EmbedBuilder, Interaction, ModalBuilder, ModalMessageModalSubmitInteraction, ModalSubmitInteraction, TextInputBuilder, TextInputStyle, TimestampStylesString } from "discord.js";
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "fs";
 //#endregion
 
@@ -34,6 +34,8 @@ const toUTC = (dateString: string, tzIdentifier: string) => new Date(new Intl.Da
 //#endregion
 
 //#region create timestamp
+const validTimestamps = Intl.supportedValuesOf(`timeZone`).join(`\n`)
+
 export const create = (inObjs: {interaction: Interaction}[]):void => {
 	inObjs.forEach((inObj) => {
 		if (inObj.interaction.isRepliable()) {
@@ -272,7 +274,8 @@ export const absoluteModalInteraction = (inObjs: {interaction: ModalMessageModal
 		if (!Intl.supportedValuesOf(`timeZone`).includes(timezone)) {
 			void interaction.reply({
 				ephemeral: true,
-				content: `Invalid timezone. The input is case sensitive.\n-# See [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) for more information. Specifically the "TZ identifier" collumn in the table.`
+				content: `Invalid timezone. The input is case sensitive.\n-# See [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) for more information. Specifically the "TZ identifier" collumn in the table.`,
+				files: [new AttachmentBuilder(Buffer.from(validTimestamps)).setName(`valid_tz.txt`)]
 			})
 			return;
 		}
@@ -364,7 +367,6 @@ export const absoluteModalInteraction = (inObjs: {interaction: ModalMessageModal
 				break;
 			}
 		}
-		console.log(`${year.toString().padStart(4, `0`)}-${month.toString().padStart(2, `0`)}-${day.toString().padStart(2, `0`)}T${hour.toString().padStart(2, `0`)}:${minute.toString().padStart(2, `0`)}:${second.toString().padStart(2, `0`)}.000Z`)
 		const utcDate = toUTC(`${year.toString().padStart(4, `0`)}-${month.toString().padStart(2, `0`)}-${day.toString().padStart(2, `0`)}T${hour.toString().padStart(2, `0`)}:${minute.toString().padStart(2, `0`)}:${second.toString().padStart(2, `0`)}.000Z`, timezone)
 
 		const timestamp = (style: TimestampStylesString) => `<t:${(Math.floor(utcDate.getTime()/1000)).toString()}:${style}>`
@@ -436,7 +438,8 @@ export const saveTimezoneModalResponse = (inObjs: {interaction: ModalSubmitInter
 				void interaction.reply({
 					ephemeral: true,
 					content: `Invalid timezone. The input is case sensitive.\n-# See [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) for more information. Specifically the "TZ identifier" collumn in the table.`,
-					components: [new ActionRowBuilder<ButtonBuilder>().addComponents(new ButtonBuilder().setCustomId(`setTz`).setLabel(`Try again?`).setStyle(ButtonStyle.Primary))]
+					components: [new ActionRowBuilder<ButtonBuilder>().addComponents(new ButtonBuilder().setCustomId(`setTz`).setLabel(`Try again?`).setStyle(ButtonStyle.Primary))],
+					files: [new AttachmentBuilder(Buffer.from(validTimestamps)).setName(`valid_tz.txt`)]
 				})
 				return;
 			}
