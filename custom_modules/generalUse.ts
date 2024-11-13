@@ -1,5 +1,5 @@
 //#region imports
-import {Message, TextChannel, WebhookClient, Client, MessageCreateOptions, Webhook, BufferResolvable, User, IntentsBitField, NewsChannel, EmbedField, InteractionReplyOptions, CommandInteraction, EmbedBuilder, ChannelType, GatewayIntentBits} from "discord.js";
+import {Message, TextChannel, WebhookClient, Client, MessageCreateOptions, Webhook, BufferResolvable, User, IntentsBitField, NewsChannel, EmbedField, InteractionReplyOptions, CommandInteraction, EmbedBuilder, ChannelType, GatewayIntentBits, Events} from "discord.js";
 import * as os from "os";
 //#endregion
 
@@ -217,8 +217,7 @@ export const listThings = async (interaction:CommandInteraction):Promise<Interac
 //#endregion
 
 //#region Bot check
-export const botReady = (inObjs: { bots: Client[] }[]
-):void => {
+export const botReady = (inObjs: { bots: Client[] }[], testMode?: boolean):void => {
 	inObjs.forEach((inObj) => {
 		inObj.bots.forEach((bot):void => {
 		/*bot.on('debug', console.log)
@@ -235,6 +234,11 @@ export const botReady = (inObjs: { bots: Client[] }[]
 					}
 				});
 			});
+			
+			if (testMode) {
+				bot.on(Events.Error, (err) => {console.log(`ERROR ` + (bot.user?.username ?? ``)); console.log(err); console.log(``)})
+				bot.on(Events.Debug, (deb) => {console.log(`DEBUG ` + (bot.user?.username ?? ``)); console.log(deb); console.log(``)})
+			}
 		});
 	});
 };

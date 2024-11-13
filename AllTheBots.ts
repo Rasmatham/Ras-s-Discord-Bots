@@ -11,13 +11,14 @@
 //#region Common
 
 //#region imports
-import {Client, Message, EmbedBuilder, ColorResolvable, GuildMember, Interaction, MessageComponentInteraction, ButtonInteraction, PartialGuildMember, BufferResolvable, ActivityType, ChannelType, ComponentType, InteractionType, ChatInputCommandInteraction, StringSelectMenuInteraction} from "discord.js";
+import {Client, Message, EmbedBuilder, ColorResolvable, GuildMember, Interaction, MessageComponentInteraction, ButtonInteraction, PartialGuildMember, BufferResolvable, ActivityType, ChannelType, ComponentType, InteractionType, ChatInputCommandInteraction, StringSelectMenuInteraction, Events} from "discord.js";
 import * as containsWord from "./custom_modules/containsWordFunctions";
 import * as forwarding from "./custom_modules/forwardMessages";
 import * as generalStuff from "./custom_modules/generalUse";
 import * as stupidStuff from "./custom_modules/stupidStuff";
 import * as inspiroBot from "./custom_modules/inspiroBot";
 import * as wordle from "./custom_modules/wordle/wordle";
+import * as timestamps from "./custom_modules/timestamp";
 import * as ticTacToe from "./custom_modules/TicTacToe";
 import * as coinflip from "./custom_modules/coinflip";
 import * as maze from "./custom_modules/playableMaze";
@@ -46,8 +47,9 @@ const buzzBot:Client = new Client({
 	presence: {
 		activities: [
 			{
-				name: `Bee Movie Game`,
-				type: ActivityType.Playing
+				name: `BuzzBot`,
+				type: ActivityType.Custom,
+				state: `Listening to jazz`
 			}
 		]
 	}
@@ -57,8 +59,9 @@ const ebnj:Client = new Client({
 	presence: {
 		activities: [
 			{
-				name: `Minecraft`,
-				type: ActivityType.Playing
+				name: `EBNJ`,
+				type: ActivityType.Custom,
+				state: `Uninstalling Bedrock edition`
 			}
 		]
 	}
@@ -68,8 +71,9 @@ const glados:Client = new Client({
 	presence: {
 		activities: [
 			{
-				name: `Portal Bridge Constructor`,
-				type: ActivityType.Playing
+				name: `GLaDOS`,
+				type: ActivityType.Custom,
+				state: `Testing chambers`
 			}
 		]
 	}
@@ -79,8 +83,9 @@ const pokebot:Client = new Client({
 	presence: {
 		activities: [
 			{
-				name: `Pokémon Pinball`,
-				type: ActivityType.Playing
+				name: `Pokébot`,
+				type: ActivityType.Custom,
+				state: `Catching 'em all`
 			}
 		]
 	}
@@ -90,8 +95,9 @@ const artoo:Client = new Client({
 	presence: {
 		activities: [
 			{
-				name: `LEGO Star Wars: the Skywalker saga`,
-				type: ActivityType.Playing
+				name: `R2D2`,
+				type: ActivityType.Custom,
+				state: `[screaming sounds]`
 			}
 		]
 	}
@@ -101,8 +107,9 @@ const random:Client = new Client({
 	presence: {
 		activities: [
 			{
-				name: `honestly, idk what to put here`,
-				type: ActivityType.Playing
+				name: `random`,
+				type: ActivityType.Custom,
+				state: `Dividing by Math.random()`
 			}
 		]
 	}
@@ -112,7 +119,7 @@ const amber:Client = new Client({
 	presence: {
 		activities: [
 			{
-				name: `Splatoon 3`,
+				name: `Splatoon 4`,
 				type: ActivityType.Playing
 			}
 		]
@@ -123,8 +130,9 @@ const zelda:Client = new Client({
 	presence: {
 		activities: [
 			{
-				name: `Zelda: The Wand of Gamelon`,
-				type: ActivityType.Playing
+				name: `Zelda`,
+				type: ActivityType.Custom,
+				state: `Committing Korok genocide`
 			}
 		]
 	}
@@ -134,8 +142,21 @@ const croissant:Client = new Client({
 	presence: {
 		activities: [
 			{
-				name: `Oui Oui Baguette`,
-				type: ActivityType.Playing
+				name: `croissant`,
+				type: ActivityType.Custom,
+				state: `Plotting a revolution`
+			}
+		]
+	}
+});
+const canine:Client = new Client({
+	intents: generalStuff.intents,
+	presence: {
+		activities: [
+			{
+				name: `K9`,
+				type: ActivityType.Custom,
+				state: `Spoilers!`
 			}
 		]
 	}
@@ -152,6 +173,7 @@ random.login(process.env.RANDOMTOKEN).catch((err: unknown) => {console.error(err
 amber.login(process.env.AMBERTOKEN).catch((err: unknown) => {console.error(err)});
 zelda.login(process.env.ZELDATOKEN).catch((err: unknown) => {console.error(err)});
 croissant.login(process.env.CROISSANTTOKEN).catch((err: unknown) => {console.error(err)});
+canine.login(process.env.K9TOKEN).catch((err: unknown) => {console.error(err)});
 const bots = [
 	buzzBot,
 	ebnj,
@@ -161,10 +183,11 @@ const bots = [
 	random,
 	amber,
 	zelda,
-	croissant
+	croissant,
+	canine
 ];
 generalStuff.botReady([{bots: bots}]);
-generalStuff.process(process, bots);
+//generalStuff.process(process, bots);
 
 //#endregion
 
@@ -1297,4 +1320,77 @@ croissant.on(`messageCreate`, (message: Message):void => {
 	forwarding.messageForwarding([{message: message}])
 })
 //#endregion
+
+//#region K9
+
+//#region Stuff
+canine.on(Events.InteractionCreate, (interaction: Interaction):void => {
+	if (interaction.type === InteractionType.ApplicationCommand) {
+	switch (interaction.commandName) {
+		case `timestamp`:
+		case `Create Timestamp`: {
+			timestamps.create([{interaction: interaction}]);
+			break;
+		}
+		case `set_timezone`:
+		case `Set Timezone`: {
+			timestamps.saveTimezone([{interaction: interaction}]);
+			break;
+		}
+		default: {
+			console.log(interaction);
+			void interaction.reply({ephemeral: true, content: `The command \`${interaction.commandName}\` is still in development`});
+			break;
+		}
+		}
+	} else if (interaction.isModalSubmit()) {
+		if (interaction.isFromMessage()) {
+			switch (interaction.customId) {
+				case `relative`: {
+					timestamps.relativeModalInteraction([{interaction: interaction}])
+					break;
+				}
+				case `absolute`: {
+					timestamps.absoluteModalInteraction([{interaction: interaction}])
+					break;
+				}
+				default: {
+					void interaction.reply({ephemeral: true, content: `Unknown interaction`})
+				}
+			}
+		} else {
+			switch (interaction.customId) {
+				case `setTz`: {
+					timestamps.saveTimezoneModalResponse([{interaction: interaction}])
+					break;
+				}
+				default: {
+					void interaction.reply({ephemeral: true, content: `Unknown interaction`})
+				}
+			}
+		}
+	} else if (interaction.isButton()) {
+		switch (interaction.customId) {
+			case `setTz`:{
+				timestamps.saveTimezone([{interaction: interaction}])
+				break;
+			}
+			case `relative`:{
+				timestamps.relativeButtonInteraction([{interaction: interaction}])
+				break;
+			}
+			case `absolute`:{
+				timestamps.absoluteButtonInteraction([{interaction: interaction}])
+				break;
+			}
+			default: {
+				void interaction.reply({ephemeral: true, content: `Unknown interaction`})
+			}
+		}
+	}
+});
+//#endregion
+
+//#endregion
+
 //#endregion
