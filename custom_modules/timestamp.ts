@@ -21,16 +21,12 @@ const setup = (
 //#endregion
 
 //#region utc converter
-const toUTC = (dateString: string, tzIdentifier: string) => new Date(new Intl.DateTimeFormat(`en-US`, {
-	timeZone: `Etc/UTC`,
-	year: `numeric`,
-	month: `2-digit`,
-	day: `2-digit`,
-	hour: `2-digit`,
-	minute: `2-digit`,
-	second: `2-digit`,
-	hour12: false
-}).format(new Date(new Date(dateString).toLocaleString(`en-US`, { timeZone: tzIdentifier }))))
+const toUTC = (dateString = new Date().toISOString(), tzIdentifier = `Etc/UTC`) => {
+	console.log(dateString, tzIdentifier)
+	const newDate = new Date(new Date(dateString).toLocaleString(`en-US`, { timeZone: tzIdentifier }))
+	console.log(newDate)
+	return newDate
+};
 //#endregion
 
 //#region create timestamp
@@ -367,7 +363,7 @@ export const absoluteModalInteraction = (inObjs: {interaction: ModalMessageModal
 				break;
 			}
 		}
-		const utcDate = toUTC(`${year.toString().padStart(4, `0`)}-${month.toString().padStart(2, `0`)}-${day.toString().padStart(2, `0`)}T${hour.toString().padStart(2, `0`)}:${minute.toString().padStart(2, `0`)}:${second.toString().padStart(2, `0`)}.000Z`, timezone)
+		const utcDate = toUTC(`${year.toString().padStart(4, `0`)}-${month.toString().padStart(2, `0`)}-${day.toString().padStart(2, `0`)}T${hour.toString().padStart(2, `0`)}:${minute.toString().padStart(2, `0`)}:${second.toString().padStart(2, `0`)}.000`, timezone)
 
 		const timestamp = (style: TimestampStylesString) => `<t:${(Math.floor(utcDate.getTime()/1000)).toString()}:${style}>`
 
