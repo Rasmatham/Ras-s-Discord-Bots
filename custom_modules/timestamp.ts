@@ -21,7 +21,19 @@ const setup = (
 //#endregion
 
 //#region utc converter
-const toUTC = (dateString = new Date().toISOString(), tzIdentifier = `Etc/UTC`) => new Date(new Date(dateString).toLocaleString(`en-US`, { timeZone: tzIdentifier }));
+const toUTC = (dateString = new Date().toISOString(), tzIdentifier = `Etc/UTC`):Date => {
+	const utcDate = new Date(dateString)
+	return new Date((utcDate.getTime() << 1) - new Date(utcDate.toLocaleString(`en-US`, {
+		timeZone: tzIdentifier,
+		year: `numeric`,
+		month: `2-digit`,
+		day: `2-digit`,
+		hour: `2-digit`,
+		minute: `2-digit`,
+		second: `2-digit`,
+		fractionalSecondDigits: 3
+	})).getTime())
+};
 //#endregion
 
 //#region create timestamp
