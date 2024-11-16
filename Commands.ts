@@ -142,61 +142,61 @@ const canine:Client = new Client({
 
 //#region logins
 try {
-	void buzzBot.login(process.env.BUZZBOTTOKEN)
+	buzzBot.login(process.env.BUZZBOTTOKEN).catch((err: unknown) => {console.error(err)})
 } catch (err) {
 	console.log(`Buzzbot did not like jazz`)
 	console.error(err)
 }
 try {
-	void ebnj.login(process.env.EBNJTOKEN)
+	ebnj.login(process.env.EBNJTOKEN).catch((err: unknown) => {console.error(err)})
 } catch (err) {
 	console.log(`EBNJ booted up the wrong edition of Minecraft`)
 	console.error(err)
 }
 try {
-	void glados.login(process.env.GLADOSTOKEN)
+	glados.login(process.env.GLADOSTOKEN).catch((err: unknown) => {console.error(err)})
 } catch (err) {
 	console.log(`GLaDOS was turned into a potato`)
 	console.error(err)
 }
 try {
-	void pokebot.login(process.env.POKETOKEN)
+	pokebot.login(process.env.POKETOKEN).catch((err: unknown) => {console.error(err)})
 } catch (err) {
 	console.log(`Pokébot could not catch them all`)
 	console.error(err)
 }
 try {
-	void artoo.login(process.env.ARTOOTOKEN)
+	artoo.login(process.env.ARTOOTOKEN).catch((err: unknown) => {console.error(err)})
 } catch (err) {
 	console.log(`R2 missed the lightsaber throw`)
 	console.error(err)
 }
 try {
-	void random.login(process.env.RANDOMTOKEN)
+	random.login(process.env.RANDOMTOKEN).catch((err: unknown) => {console.error(err)})
 } catch (err) {
 	console.log(`Random Bot got a divide by 0 error`)
 	console.error(err)
 }
 try {
-	void amber.login(process.env.AMBERTOKEN)
+	amber.login(process.env.AMBERTOKEN).catch((err: unknown) => {console.error(err)})
 } catch (err) {
 	console.log(`Amber lost a Splatoon game`)
 	console.error(err)
 }
 try {
-	void zelda.login(process.env.ZELDATOKEN)
+	zelda.login(process.env.ZELDATOKEN).catch((err: unknown) => {console.error(err)})
 } catch (err) {
 	console.log(`Zelda Bot could not figure out where BOTW/AOC/TOTK falls on the timeline`)
 	console.error(err)
 }
 try {
-	void croissant.login(process.env.CROISSANTTOKEN)
+	croissant.login(process.env.CROISSANTTOKEN).catch((err: unknown) => {console.error(err)})
 } catch (err) {
 	console.log(`Le Franciosle bot français n'a pas réussi à s'authentifier`)
 	console.error(err)
 }
 try {
-	void canine.login(process.env.K9TOKEN)
+	canine.login(process.env.K9TOKEN).catch((err: unknown) => {console.error(err)})
 } catch (err) {
 	console.log(`K9 was not affirmative`)
 	console.error(err)
@@ -468,10 +468,10 @@ const commandGroup:commandObject[][] = [
 //#endregion
 
 //#region the stuff that creates/edits the commands
-bots.forEach((bot, i):void => {
+bots.forEach((bot, i) => {
 	//list commands
-	bot.on(`ready`, ():void => {
-		bot.application?.commands.fetch().then(():void => {
+	bot.on(`ready`, () => {
+		bot.application?.commands.fetch().then(() => {
 			bot.application?.commands.cache.map((value) => value).forEach((command) =>{
 				console.log(command);
 			}); 
@@ -479,19 +479,19 @@ bots.forEach((bot, i):void => {
 		}).catch((err: unknown) => {console.error(err)});
 	});
 	//Replace all
-	bot.on(`ready`, ():void => {
-		void bot.application?.commands.fetch().then((commands):void => {
+	bot.on(`ready`, () => {
+		bot.application?.commands.fetch().then((commands) => {
 			console.log(`${
 				bot.user?.tag ? bot.user.tag : `[unknown bot tag]`
 			} is active`);
 			commands.forEach((command) => {
 				console.log(`Removing command ${command.name}`)
-				void command.delete();
+				command.delete().catch((err: unknown) => {console.error(err)});
 			});
-			commandGroup[i].forEach((command, j):void => {
+			commandGroup[i].forEach((command, j) => {
 				if(command.guild != undefined){
 					bot.application?.commands.create(command.command, command.guild)
-						.then((command):void => {
+						.then((command) => {
 							console.log(`[${
 								(j + 1).toString()
 							}/${
@@ -502,7 +502,7 @@ bots.forEach((bot, i):void => {
 						}).catch((err: unknown) => {console.error(err)});
 				} else {
 					bot.application?.commands.create(command.command)
-						.then((command):void => {
+						.then((command) => {
 							console.log(`[${
 								(j + 1).toString()
 							}/${
@@ -514,13 +514,13 @@ bots.forEach((bot, i):void => {
 				}
 				
 			});
-		});
+		}).catch((err: unknown) => {console.error(err)});
 	});
 	//edit specific
-	/*bot.on(`ready`, ():void => {
-		commandGroup[i].forEach((command, j):void => {
+	/*bot.on(`ready`, () => {
+		commandGroup[i].forEach((command, j) => {
 			bot.application.commands.create(command.command, command.guild = null)
-				.then((command):void => {
+				.then((command) => {
 					console.log(`[${
 						i+1
 					}/${

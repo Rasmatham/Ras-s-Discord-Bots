@@ -211,7 +211,7 @@ const buzzes = (buzz = `buzz`, count: number = Math.floor(Math.random() * 9)): s
 //#endregion
 
 //#region replies
-buzzBot.on(`messageCreate`, (message: Message):void => {
+buzzBot.on(`messageCreate`, (message: Message) => {
 	if (message.channel.type === ChannelType.DM || message.channel.type === ChannelType.GroupDM) {
 		return;
 	}
@@ -307,7 +307,7 @@ buzzBot.on(`messageCreate`, (message: Message):void => {
 //#region EBNJ
 
 //#region replies
-ebnj.on(`messageCreate`, (message: Message):void => {
+ebnj.on(`messageCreate`, (message: Message) => {
 	if (message.channel.type === ChannelType.DM || message.channel.type === ChannelType.GroupDM) {
 		return;
 	}
@@ -474,7 +474,7 @@ const stillalive:EmbedBuilder = new EmbedBuilder()
 //#endregion
 
 //#region welcome/goodbye Message
-glados.on(`guildMemberAdd`, (member: GuildMember):void => {
+glados.on(`guildMemberAdd`, (member: GuildMember) => {
 	if (member.guild.systemChannel != null) {
 		member.guild.systemChannel.send({
 			content: `Welcome to the server, #${
@@ -486,7 +486,7 @@ glados.on(`guildMemberAdd`, (member: GuildMember):void => {
 			.catch((err: unknown) => {console.error(err)});
 	}
 });
-glados.on(`guildMemberRemove`, (member: GuildMember|PartialGuildMember):void => {
+glados.on(`guildMemberRemove`, (member: GuildMember|PartialGuildMember) => {
 	if (member.guild.systemChannel != null) {
 		member.guild.systemChannel.send({
 			content: `Bye, ${
@@ -501,7 +501,7 @@ glados.on(`guildMemberRemove`, (member: GuildMember|PartialGuildMember):void => 
 //#region replies
 
 //#region Stuff
-glados.on(`messageCreate`, (message: Message):void => {
+glados.on(`messageCreate`, (message: Message) => {
 	if (message.channel.type === ChannelType.DM || message.channel.type === ChannelType.GroupDM) {
 		return;
 	}
@@ -704,17 +704,13 @@ glados.on(`messageCreate`, (message: Message):void => {
 	]);
 	//stupidStuff.userWordBan(message, `last`, `541617670533939210`);
 });
-glados.on(`interactionCreate`, (interaction: Interaction):void => {
+glados.on(`interactionCreate`, (interaction: Interaction) => {
 	if (interaction.type == InteractionType.MessageComponent) {
 		const messageComponentInteraction:MessageComponentInteraction = interaction as MessageComponentInteraction;
 		if (messageComponentInteraction.componentType === ComponentType.Button) {
 			const buttonInteraction:ButtonInteraction = messageComponentInteraction as ButtonInteraction;
 			if (buttonInteraction.customId.toLowerCase().includes(`dummy`)) {
-				buttonInteraction.reply({
-					content: `That button worked`,
-					ephemeral: true
-				})
-					.catch((err: unknown) => {console.error(err)});
+				buttonInteraction.reply({ content: `That button worked`, ephemeral: true }).catch((err: unknown) => {console.error(err)});
 			} else {
 				switch (buttonInteraction.customId) {
 				case `inspirobot`:
@@ -743,14 +739,14 @@ glados.on(`interactionCreate`, (interaction: Interaction):void => {
 		const commandInteraction = interaction as ChatInputCommandInteraction;
 		switch (commandInteraction.commandName) {
 		case `list`: {
-				void generalStuff.listThings(commandInteraction).then((x) => {
+				generalStuff.listThings(commandInteraction).then((x) => {
 					commandInteraction.reply(x[0]).then(() => {
 						x.shift();
 						x.forEach(element => {
 							commandInteraction.followUp(element).catch((err: unknown) => {console.error(err)});
 						});
 					}).catch((err: unknown) => {console.error(err)});
-				})
+				}).catch((err: unknown) => {console.error(err)})
 			break;
 		}
 		case `botlink`: {
@@ -782,9 +778,9 @@ glados.on(`interactionCreate`, (interaction: Interaction):void => {
 			break;
 		}
 		case `userinfo`: {
-			void info.userInfo({interaction: commandInteraction}).then((message) => {
-				void commandInteraction.reply(message);
-			});
+			info.userInfo({interaction: commandInteraction}).then((message) => {
+				commandInteraction.reply(message).catch((err: unknown) => {console.error(err)});
+			}).catch((err: unknown) => {console.error(err)});
 			break;
 		}
 		case `serverinfo`: {
@@ -828,14 +824,14 @@ glados.on(`interactionCreate`, (interaction: Interaction):void => {
 			break;
 		}
 		case `reboot`: {
-			void commandInteraction.reply({content: `And when you're gone I'll still be aliiiiii`}).then(() => {
+			commandInteraction.reply({content: `And when you're gone I'll still be aliiiiii`}).then(() => {
 				process.exit();
-			});
+			}).catch((err: unknown) => {console.error(err)});
 			break;
 		}
 		default: {
 			console.log(commandInteraction);
-			void commandInteraction.reply({ephemeral: true, content: `This command is likely in a test phase`});
+			commandInteraction.reply({ephemeral: true, content: `This command is likely in a test phase`}).catch((err: unknown) => {console.error(err)});
 			break;
 		}
 		}
@@ -846,10 +842,10 @@ glados.on(`interactionCreate`, (interaction: Interaction):void => {
 //#endregion
 
 //#region ghost message thing
-glados.on(`messageDelete`, (message):void => {
+glados.on(`messageDelete`, (message) => {
 	if ((Math.floor(new Date().getTime() / 1000) - Math.floor(message.createdTimestamp / 1000)) < 10) {
 		if (message.author != null) {
-			void message.channel.send(`${message.author.tag} deleted a message within 10 seconds of sending it`);
+			message.channel.send(`${message.author.tag} deleted a message within 10 seconds of sending it`).catch((err: unknown) => {console.error(err)});
 		}
 	}
 });
@@ -860,7 +856,7 @@ glados.on(`messageDelete`, (message):void => {
 //#region Pokebot
 
 //#region search
-const sendEmbed = (message: Message):void => {
+const sendEmbed = (message: Message) => {
 	if (pokebot.user != null) {
 		if (message.author.id != pokebot.user.id) {
 			if (message.content.toLowerCase().startsWith(`pd`)) {
@@ -882,7 +878,7 @@ const sendEmbed = (message: Message):void => {
 //#endregion
 
 //#region Stuff
-pokebot.on(`messageCreate`, (message: Message):void => {
+pokebot.on(`messageCreate`, (message: Message) => {
 	if (message.channel.type === ChannelType.DM || message.channel.type === ChannelType.GroupDM) {
 		return;
 	}
@@ -995,7 +991,7 @@ const beeps = ():string => {
 //#endregion
 
 //#region replies
-artoo.on(`messageCreate`, (message: Message):void => {
+artoo.on(`messageCreate`, (message: Message) => {
 	if (message.channel.type === ChannelType.DM || message.channel.type === ChannelType.GroupDM) {
 		return;
 	}
@@ -1045,7 +1041,7 @@ artoo.on(`messageCreate`, (message: Message):void => {
 //#region Random
 
 //#region replies
-random.on(`messageCreate`, (message: Message):void => {
+random.on(`messageCreate`, (message: Message) => {
 	if (message.channel.type === ChannelType.DM || message.channel.type === ChannelType.GroupDM) {
 		return;
 	}
@@ -1202,12 +1198,12 @@ random.on(`messageCreate`, (message: Message):void => {
 
 //#region Stuff
 amber.on(`ready`, () => {
-	void amber.users.fetch(`707188499153158204`).then((user) => {
+	amber.users.fetch(`707188499153158204`).then((user) => {
 		if (amber.user != null) {
 			amber.user.setAvatar(user.avatarURL()).catch(() => { console.log(`[${user.tag}] You're probably changing the avatar too fast`); });
 			amber.user.setUsername(user.username).catch(() => { console.log(`[${user.tag}] You're probably changing the username too fast`); });
 		}
-	});
+	}).catch((err: unknown) => {console.error(err)});
 });
 amber.on(`userUpdate`, (oldUser, newUser) => {
 	if (amber.user != null) {
@@ -1217,7 +1213,7 @@ amber.on(`userUpdate`, (oldUser, newUser) => {
 		}
 	}
 });
-amber.on(`messageCreate`, (message: Message):void => {
+amber.on(`messageCreate`, (message: Message) => {
 	if (message.channel.type === ChannelType.DM || message.channel.type === ChannelType.GroupDM) {
 		return;
 	}
@@ -1234,7 +1230,7 @@ amber.on(`messageCreate`, (message: Message):void => {
 //#region Zelda
 
 //#region replies
-zelda.on(`messageCreate`, (message: Message):void => {
+zelda.on(`messageCreate`, (message: Message) => {
 	if (message.channel.type === ChannelType.DM || message.channel.type === ChannelType.GroupDM) {
 		return;
 	}
@@ -1316,7 +1312,7 @@ zelda.on(`messageCreate`, (message: Message):void => {
 //#endregion
 
 //#region CroissantBot
-croissant.on(`messageCreate`, (message: Message):void => {
+croissant.on(`messageCreate`, (message: Message) => {
 	forwarding.messageForwarding([{message: message}])
 })
 //#endregion
@@ -1324,7 +1320,7 @@ croissant.on(`messageCreate`, (message: Message):void => {
 //#region K9
 
 //#region Stuff
-canine.on(Events.InteractionCreate, (interaction: Interaction):void => {
+canine.on(Events.InteractionCreate, (interaction: Interaction) => {
 	if (interaction.type === InteractionType.ApplicationCommand) {
 	switch (interaction.commandName) {
 		case `timestamp`:
@@ -1339,7 +1335,7 @@ canine.on(Events.InteractionCreate, (interaction: Interaction):void => {
 		}
 		default: {
 			console.log(interaction);
-			void interaction.reply({ephemeral: true, content: `The command \`${interaction.commandName}\` is still in development`});
+			interaction.reply({ephemeral: true, content: `The command \`${interaction.commandName}\` is still in development`}).catch((err: unknown) => {console.error(err)});
 			break;
 		}
 		}
@@ -1355,7 +1351,7 @@ canine.on(Events.InteractionCreate, (interaction: Interaction):void => {
 					break;
 				}
 				default: {
-					void interaction.reply({ephemeral: true, content: `Unknown interaction`})
+					interaction.reply({ephemeral: true, content: `Unknown interaction`}).catch((err: unknown) => {console.error(err)})
 				}
 			}
 		} else {
@@ -1365,7 +1361,7 @@ canine.on(Events.InteractionCreate, (interaction: Interaction):void => {
 					break;
 				}
 				default: {
-					void interaction.reply({ephemeral: true, content: `Unknown interaction`})
+					interaction.reply({ephemeral: true, content: `Unknown interaction`}).catch((err: unknown) => {console.error(err)})
 				}
 			}
 		}
@@ -1384,7 +1380,7 @@ canine.on(Events.InteractionCreate, (interaction: Interaction):void => {
 				break;
 			}
 			default: {
-				void interaction.reply({ephemeral: true, content: `Unknown interaction`})
+				interaction.reply({ephemeral: true, content: `Unknown interaction`}).catch((err: unknown) => {console.error(err)})
 			}
 		}
 	}

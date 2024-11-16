@@ -8,7 +8,7 @@ const setup = (
 	inObj: {
 		interaction: Interaction
 	}
-):void => {
+) => {
 	const clientId = inObj.interaction.client.user.id;
 	const userId = inObj.interaction.user.id
 	if (!existsSync(`./${clientId}`))
@@ -39,7 +39,7 @@ const toUTC = (dateString = new Date().toISOString(), tzIdentifier = `Etc/UTC`):
 //#region create timestamp
 const validTimestamps = Intl.supportedValuesOf(`timeZone`).join(`\n`)
 
-export const create = (inObjs: {interaction: Interaction}[]):void => {
+export const create = (inObjs: {interaction: Interaction}[]) => {
 	inObjs.forEach((inObj) => {
 		if (inObj.interaction.isRepliable()) {
 			const embed = new EmbedBuilder()
@@ -59,13 +59,13 @@ export const create = (inObjs: {interaction: Interaction}[]):void => {
 				.setStyle(ButtonStyle.Primary)
 			const row = new ActionRowBuilder<ButtonBuilder>()
 				.addComponents(relativeButton, absoluteButton)
-			void inObj.interaction.reply({ephemeral: true, embeds: [embed], components: [row]})
+			inObj.interaction.reply({ephemeral: true, embeds: [embed], components: [row]}).catch((err: unknown) => {console.error(err)})
 		}
 	});
 };
 
 //#region relative
-export const relativeButtonInteraction = (inObjs: {interaction: ButtonInteraction}[]):void => {
+export const relativeButtonInteraction = (inObjs: {interaction: ButtonInteraction}[]) => {
 	inObjs.forEach((inObj) => {
 		const longTime = new TextInputBuilder()
 			.setCustomId(`long_time`)
@@ -101,11 +101,11 @@ export const relativeButtonInteraction = (inObjs: {interaction: ButtonInteractio
 			.setTitle(`Relative timestamp creation`)
 			.addComponents(longTimeRow, shortTimeRow, negativeRow)
 
-		void inObj.interaction.showModal(modal)
+		inObj.interaction.showModal(modal).catch((err: unknown) => {console.error(err)})
 	})
 }
 
-export const relativeModalInteraction = (inObjs: {interaction: ModalMessageModalSubmitInteraction}[]):void => {
+export const relativeModalInteraction = (inObjs: {interaction: ModalMessageModalSubmitInteraction}[]) => {
 	inObjs.forEach((inObj) => {
 		const interaction = inObj.interaction
 		let offset = 0
@@ -155,7 +155,7 @@ export const relativeModalInteraction = (inObjs: {interaction: ModalMessageModal
 			days = 0
 
 		} else {
-			void interaction.update({content: `Error paring date`, embeds: [], components: []})
+			interaction.update({content: `Error paring date`, embeds: [], components: []}).catch((err: unknown) => {console.error(err)})
 			return;
 		}
 
@@ -184,7 +184,7 @@ export const relativeModalInteraction = (inObjs: {interaction: ModalMessageModal
 			seconds = 0
 
 		} else {
-			void interaction.update({content: `Error paring time`, embeds: [], components: []})
+			interaction.update({content: `Error paring time`, embeds: [], components: []}).catch((err: unknown) => {console.error(err)})
 			return;
 		}
 
@@ -211,14 +211,14 @@ export const relativeModalInteraction = (inObjs: {interaction: ModalMessageModal
 				{ name: `Relative Time (${timestamp(`R`)})`, value: `\`${timestamp(`R`)}\`` }
 			)
 
-			void inObj.interaction.update({embeds: [embed], components: []})
+			inObj.interaction.update({embeds: [embed], components: []}).catch((err: unknown) => {console.error(err)})
 	})
 }
 //#endregion
 
 
 //#region absolute
-export const absoluteButtonInteraction = (inObjs: {interaction: ButtonInteraction}[]):void => {
+export const absoluteButtonInteraction = (inObjs: {interaction: ButtonInteraction}[]) => {
 	inObjs.forEach((inObj) => {
 		const date = new TextInputBuilder()
 			.setCustomId(`date`)
@@ -260,11 +260,11 @@ export const absoluteButtonInteraction = (inObjs: {interaction: ButtonInteractio
 			.setTitle(`Absolute timestamp creation`)
 			.addComponents(dateRow, timeRow, timezoneRow)
 
-		void inObj.interaction.showModal(modal)
+		inObj.interaction.showModal(modal).catch((err: unknown) => {console.error(err)})
 	})
 }
 
-export const absoluteModalInteraction = (inObjs: {interaction: ModalMessageModalSubmitInteraction}[]):void => {
+export const absoluteModalInteraction = (inObjs: {interaction: ModalMessageModalSubmitInteraction}[]) => {
 	inObjs.forEach((inObj) => {
 		const interaction = inObj.interaction
 
@@ -275,11 +275,11 @@ export const absoluteModalInteraction = (inObjs: {interaction: ModalMessageModal
 		const splitTime = time.split(`:`)
 		
 		if (!Intl.supportedValuesOf(`timeZone`).includes(timezone)) {
-			void interaction.reply({
+			interaction.reply({
 				ephemeral: true,
 				content: `Invalid timezone. The input is case sensitive.\n-# See [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) for more information. Specifically the "TZ identifier" collumn in the table.`,
 				files: [new AttachmentBuilder(Buffer.from(validTimestamps)).setName(`valid_tz.txt`)]
-			})
+			}).catch((err: unknown) => {console.error(err)})
 			return;
 		}
 
@@ -307,7 +307,7 @@ export const absoluteModalInteraction = (inObjs: {interaction: ModalMessageModal
 			day = 1
 
 		} else {
-			void interaction.update({content: `Error paring date`, embeds: [], components: []})
+			interaction.update({content: `Error paring date`, embeds: [], components: []}).catch((err: unknown) => {console.error(err)})
 			return;
 		}
 
@@ -330,7 +330,7 @@ export const absoluteModalInteraction = (inObjs: {interaction: ModalMessageModal
 			second = 0
 
 		} else {
-			void interaction.update({content: `Error paring time`, embeds: [], components: []})
+			interaction.update({content: `Error paring time`, embeds: [], components: []}).catch((err: unknown) => {console.error(err)})
 			return;
 		}
 
@@ -387,7 +387,7 @@ export const absoluteModalInteraction = (inObjs: {interaction: ModalMessageModal
 				{ name: `Relative Time (${timestamp(`R`)})`, value: `\`${timestamp(`R`)}\`` }
 			)
 
-			void inObj.interaction.update({embeds: [embed], components: []})
+			inObj.interaction.update({embeds: [embed], components: []}).catch((err: unknown) => {console.error(err)})
 	})
 }
 //#endregion
@@ -396,7 +396,7 @@ export const absoluteModalInteraction = (inObjs: {interaction: ModalMessageModal
 //#endregion
 
 //#region save timezone
-export const saveTimezone = (inObjs: {interaction: Interaction}[]):void => {
+export const saveTimezone = (inObjs: {interaction: Interaction}[]) => {
 	inObjs.forEach((inObj) => {
 		if (!inObj.interaction.isAutocomplete() && !inObj.interaction.isModalSubmit()) {
 			const modal = new ModalBuilder()
@@ -416,41 +416,41 @@ export const saveTimezone = (inObjs: {interaction: Interaction}[]):void => {
 
 			modal.addComponents(ar)
 
-			void inObj.interaction.showModal(modal).catch((err: unknown) => {console.error(err)})
+			inObj.interaction.showModal(modal).catch((err: unknown) => {console.error(err)}).catch((err: unknown) => {console.error(err)})
 		}
 	});
 };
 
-export const saveTimezoneModalResponse = (inObjs: {interaction: ModalSubmitInteraction}[]):void => {
+export const saveTimezoneModalResponse = (inObjs: {interaction: ModalSubmitInteraction}[]) => {
 	inObjs.forEach((inObj) => {
 		const interaction = inObj.interaction
 		if (interaction.customId !== `setTz`) return;
 			const timezone = interaction.fields.getTextInputValue(`tz`);
 			if (!timezone.length) {
-				void interaction.reply({ephemeral: true, content: `Removing timezone`}).then(() => {
+				interaction.reply({ephemeral: true, content: `Removing timezone`}).then(() => {
 					if (!existsSync(`./${inObj.interaction.client.user.id}/userinfo/${inObj.interaction.user.id}/tz.txt`)) {
-						void interaction.editReply({content: `You have not set a timezone`})
+						interaction.editReply({content: `You have not set a timezone`}).catch((err: unknown) => {console.error(err)})
 						return;
 					}
 					rmSync(`./${inObj.interaction.client.user.id}/userinfo/${inObj.interaction.user.id}/tz.txt`)
-					void interaction.editReply({content: `Timezone removed`})
-				})
+					interaction.editReply({content: `Timezone removed`}).catch((err: unknown) => {console.error(err)})
+				}).catch((err: unknown) => {console.error(err)})
 				return;
 			}
 			if (!Intl.supportedValuesOf(`timeZone`).includes(timezone)) {
-				void interaction.reply({
+				interaction.reply({
 					ephemeral: true,
 					content: `Invalid timezone. The input is case sensitive.\n-# See [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) for more information. Specifically the "TZ identifier" collumn in the table.`,
 					components: [new ActionRowBuilder<ButtonBuilder>().addComponents(new ButtonBuilder().setCustomId(`setTz`).setLabel(`Try again?`).setStyle(ButtonStyle.Primary))],
 					files: [new AttachmentBuilder(Buffer.from(validTimestamps)).setName(`valid_tz.txt`)]
-				})
+				}).catch((err: unknown) => {console.error(err)})
 				return;
 			}
 			setup(inObj)
-			void interaction.reply({ephemeral: true, content: `Setting timezone to: ${timezone}`}).then(() => {
+			interaction.reply({ephemeral: true, content: `Setting timezone to: ${timezone}`}).then(() => {
 				writeFileSync(`./${interaction.client.user.id}/userinfo/${interaction.user.id}/tz.txt`, timezone);
-				void interaction.editReply({content: `Timezone set to: ${timezone}`})
-			})
+				interaction.editReply({content: `Timezone set to: ${timezone}`}).catch((err: unknown) => {console.error(err)})
+			}).catch((err: unknown) => {console.error(err)})
 	});
 }
 //#endregion

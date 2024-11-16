@@ -19,7 +19,7 @@ export const channelCount = (
 	const VC:string[] = [];
 	const Cat:string[] = [];
 	const UK:string[] = [];
-	inObj.guild.channels.cache.map((channel):void => {
+	inObj.guild.channels.cache.map((channel) => {
 		switch (channel.type) {
 		case ChannelType.GuildText:
 			TC.push(channel.name);
@@ -73,7 +73,7 @@ export const serverInfo = (
 	inObjs: {
 		interaction: CommandInteraction
 	}[]
-):void => {
+) => {
 	inObjs.forEach((inObj) => {
 		const guild = inObj.interaction.guild;
 		if (inObj.interaction.guild != null) {
@@ -81,8 +81,8 @@ export const serverInfo = (
 			const voiceChannels:string[] = [];
 			const categories:string[] = [];
 			const unknown:string[] = [];
-			inObj.interaction.guild.channels.fetch().then((channels):void => {
-				channels.forEach((channel):void => {
+			inObj.interaction.guild.channels.fetch().then((channels) => {
+				channels.forEach((channel) => {
 					switch (channel?.type) {
 					case ChannelType.GuildText:
 						textChannels.push(channel.name);
@@ -99,7 +99,7 @@ export const serverInfo = (
 					}
 				});
 			})
-				.then(():void => {
+				.then(() => {
 					const embed = new EmbedBuilder().addFields(checkFor(
 						[
 							{
@@ -143,22 +143,22 @@ export const serverInfo = (
 						]
 					).setThumbnail(guild?.iconURL() ?? `https://cdn.discordapp.com/embed/avatars/${(Math.abs(Number.parseInt(guild?.id ?? `0`) >> 22) % 6).toString()}.png`)
 						.setColor(`#0099FF`);
-					void inObj.interaction.reply({
+					inObj.interaction.reply({
 						embeds: [embed]
-					});
+					}).catch((err: unknown) => {console.error(err)});
 				})
 				.catch((err: unknown) => {console.error(err)});
 		}
 		else {
 			if ((inObj.interaction.member as GuildMember).user.id == `588511925944582186`) {
-				void inObj.interaction.reply({
+				inObj.interaction.reply({
 					content: `stop tring to kill me, smh`
-				});
+				}).catch((err: unknown) => {console.error(err)});
 			}
 			else {
-				void inObj.interaction.reply({
+				inObj.interaction.reply({
 					content: `I'm sorry, Dave, but I'm afraid I can't let you do that`
-				});
+				}).catch((err: unknown) => {console.error(err)});
 			}
 		}
 	});

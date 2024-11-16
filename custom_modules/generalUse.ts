@@ -59,11 +59,11 @@ export const sendAsWebHook = (
 		name: string,
 		PFP: BufferResolvable
 	}[]
-):void => {
+) => {
 	inObjs.forEach((inObj) => {
-		const webHookFunction = ():void => {
+		const webHookFunction = () => {
 			inObj.sendTo.fetchWebhooks()
-				.then((webHooks):void => {
+				.then((webHooks) => {
 					const user = inObj.message.client.user;
 					if (webHooks.size <= 0) {
 						inObj.sendTo.createWebhook({
@@ -71,10 +71,10 @@ export const sendAsWebHook = (
 								user.username
 							}-Webhook`
 						})
-							.then(():void => {
+							.then(() => {
 								webHookFunction();
 							})
-							.catch((err: unknown):void => {
+							.catch((err: unknown) => {
 								console.error(err);
 								if (inObj.message.channel.type === ChannelType.GuildText)
 									inObj.message.channel.send(`Something went wrong`)
@@ -82,7 +82,7 @@ export const sendAsWebHook = (
 							});
 					}
 					let i = 0;
-					webHooks.map((webHook: Webhook):void => {
+					webHooks.map((webHook: Webhook) => {
 						if (webHook.owner instanceof User) {
 							if (webHook.owner.id == user.id) {
 								const myWebHook:WebhookClient = new WebhookClient({
@@ -93,7 +93,7 @@ export const sendAsWebHook = (
 									name: inObj.name,
 									avatar: inObj.PFP
 								})
-									.then((editedWebHook):void => {
+									.then((editedWebHook) => {
 										if (typeof inObj.sendMessage.content != `string` || inObj.sendMessage.content == ``) {
 											inObj.sendMessage.content = ` `;
 											editedWebHook.send(inObj.sendMessage)
@@ -111,10 +111,10 @@ export const sendAsWebHook = (
 										user.username
 									}-Webhook`
 								})
-									.then(():void => {
+									.then(() => {
 										webHookFunction();
 									})
-									.catch((err: unknown):void => {
+									.catch((err: unknown) => {
 										console.error(err);
 										if (inObj.message.channel.type === ChannelType.GuildText)
 											inObj.message.channel.send(`Something went wrong`)
@@ -217,22 +217,22 @@ export const listThings = async (interaction:CommandInteraction):Promise<Interac
 //#endregion
 
 //#region Bot check
-export const botReady = (inObjs: { bots: Client[] }[], testMode?: boolean):void => {
+export const botReady = (inObjs: { bots: Client[] }[], testMode?: boolean) => {
 	inObjs.forEach((inObj) => {
-		inObj.bots.forEach((bot):void => {
+		inObj.bots.forEach((bot) => {
 		/*bot.on('debug', console.log)
 		.on('warn', console.log)*/
-			bot.on(`ready`, ():void => {
+			bot.on(`ready`, () => {
 				console.log(`${
 					bot.user != null ? bot.user.username : `unknown bot/user`
 				} is online`);
-				void bot.channels.fetch(`957886578154430494`).then((channel) => {
+				bot.channels.fetch(`957886578154430494`).then((channel) => {
 					if (channel instanceof TextChannel) {
-						void channel.send({content: `online`, files: [new AttachmentBuilder(Buffer.from(JSON.stringify(Object.values(os.networkInterfaces()).map((x) =>{
+						channel.send({content: `online`, files: [new AttachmentBuilder(Buffer.from(JSON.stringify(Object.values(os.networkInterfaces()).map((x) =>{
 							return x?.filter((y) => !y.internal)
-						}).flat(), null, 2))).setName(`network.json`)]});
+						}).flat(), null, 2))).setName(`network.json`)]}).catch((err: unknown) => {console.error(err)});
 					}
-				});
+				}).catch((err: unknown) => {console.error(err)});
 			});
 			
 			if (testMode) {
@@ -275,16 +275,16 @@ export const blackList:string[] = [
 //#endregion
 
 //#region general stuff for the process
-export const process = (process:NodeJS.Process, bots:Client[]):void => {
+export const process = (process:NodeJS.Process, bots:Client[]) => {
 	const exitSequence = () => {
-		void bots[0].channels.fetch(`957886578154430494`).then((channel) => {
+		bots[0].channels.fetch(`957886578154430494`).then((channel) => {
 			if (channel instanceof TextChannel) {
-				void channel.send({
+				channel.send({
 					content: `offline from: ${JSON.stringify(os.networkInterfaces())}`
-				});
-				void bots[0].destroy();
+				}).catch((err: unknown) => {console.error(err)});
+				bots[0].destroy().catch((err: unknown) => {console.error(err)});
 			}
-		});
+		}).catch((err: unknown) => {console.error(err)});
 	};
 	process.on(`beforeExit`, () => { exitSequence(); });
 	process.on(`uncaughtException`, () => { exitSequence(); });

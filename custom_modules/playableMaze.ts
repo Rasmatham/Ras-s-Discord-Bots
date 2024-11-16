@@ -49,7 +49,7 @@ export const mazeFunction = (
 	inObjs: {
 		interaction: CommandInteraction
 	}[]
-):void => {
+) => {
 	inObjs.forEach((inObj) => {
 		const styleOption = inObj.interaction.options.get(`style`);
 		const style:number = styleOption?.value as number;
@@ -214,7 +214,7 @@ export const mazeFunction = (
 		}
 		moveLeft() {
 			let lock = true;
-			this._cells.forEach((cell, i):void => {
+			this._cells.forEach((cell, i) => {
 				if (cell.playerState && cell.y > 0 && lock && cell.boolWalls[0] == `O`) {
 					cell.movePlayer();
 					this._cells[i - 1].movePlayer();
@@ -224,7 +224,7 @@ export const mazeFunction = (
 		}
 		moveUp() {
 			let lock = true;
-			this._cells.forEach((cell, i):void => {
+			this._cells.forEach((cell, i) => {
 				if (cell.playerState && cell.x > 0 && lock && cell.boolWalls[1] == `O`) {
 					cell.movePlayer();
 					this._cells[i - 8].movePlayer();
@@ -234,7 +234,7 @@ export const mazeFunction = (
 		}
 		moveDown() {
 			let lock = true;
-			this._cells.forEach((cell, i):void => {
+			this._cells.forEach((cell, i) => {
 				if (cell.playerState && cell.x < 7 && lock && cell.boolWalls[3] == `O`) {
 					cell.movePlayer();
 					this._cells[i + 8].movePlayer();
@@ -244,7 +244,7 @@ export const mazeFunction = (
 		}
 		moveRight() {
 			let lock = true;
-			this._cells.forEach((cell, i):void => {
+			this._cells.forEach((cell, i) => {
 				if (cell.playerState && cell.y < 7 && lock && cell.boolWalls[2] == `O`) {
 					cell.movePlayer();
 					this._cells[i + 1].movePlayer();
@@ -255,8 +255,8 @@ export const mazeFunction = (
 		}
 		const createdClass:Maze = new Maze(emotes);
 		const maze:mazeObj[][] = mazeThing(8, 8) as mazeObj[][];
-		maze.forEach((x: mazeObj[], i: number):void => {
-			x.forEach((y: mazeObj, j: number):void => {
+		maze.forEach((x: mazeObj[], i: number) => {
+			x.forEach((y: mazeObj, j: number) => {
 				createdClass.addCell(i, j, `${
 					y.left ? `I` : `O`
 				}${
@@ -310,8 +310,8 @@ export const mazeFunction = (
 				arrows
 			],
 			ephemeral: true
-		}).then(():void => {
-			inObj.interaction.client.on(`interactionCreate`, (interaction: Interaction):void => {
+		}).then(() => {
+			inObj.interaction.client.on(`interactionCreate`, (interaction: Interaction) => {
 				if (interaction.isButton()) {
 					const buttonInteraction:ButtonInteraction = interaction;
 					switch (buttonInteraction.customId) {

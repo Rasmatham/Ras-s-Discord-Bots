@@ -7,9 +7,9 @@ export const ticTacToe = (
 	inObjs: {
 		interaction: CommandInteraction
 	}[]
-):void => {
+) => {
 	inObjs.forEach((inObj) => {
-		inObj.interaction.guild?.members.fetch(inObj.interaction.options.get(`playertwo`)?.user ?? ``).then((playerTwo):void => {
+		inObj.interaction.guild?.members.fetch(inObj.interaction.options.get(`playertwo`)?.user ?? ``).then((playerTwo) => {
 			const choices = new ActionRowBuilder()
 				.addComponents(
 					new ButtonBuilder()
@@ -31,7 +31,7 @@ export const ticTacToe = (
 					choices
 				]
 			})
-				.catch((err: unknown):void => {
+				.catch((err: unknown) => {
 					console.error(err);
 					inObj.interaction.user.send({
 						content: `Something went wrong\nI might not have permission to speak here`
@@ -67,7 +67,7 @@ export const ticTacToe = (
 			row3
 		];
 	
-		inObj.interaction.client.on(`interactionCreate`, (interaction):void => {
+		inObj.interaction.client.on(`interactionCreate`, (interaction) => {
 			const buttonInteraction = interaction as ButtonInteraction;
 			const mentions = buttonInteraction.message.mentions;
 			const memberMentions = mentions.members;
@@ -100,7 +100,7 @@ export const ticTacToe = (
 						buttonInteraction.update({
 							components: []
 						})
-							.then(():void => {
+							.then(() => {
 								buttonInteraction.editReply({
 									content: `(no alternate rules) <@${
 										randomOrder[0].id
@@ -111,7 +111,7 @@ export const ticTacToe = (
 								})
 									.catch((err: unknown) => {console.error(err)});
 							})
-							.catch((err: unknown):void => {
+							.catch((err: unknown) => {
 								console.error(err);
 								buttonInteraction.user.send({
 									content: `Something went horribly wrong`
@@ -148,11 +148,11 @@ export const ticTacToe = (
 				default:
 					if (buttonInteraction.customId.startsWith(`TTT`)) {
 						buttonGuild?.members.fetch(buttonInteraction.message.content.split(` `)[3].replace(`<@`, ``).replace(`>`, ``).replace(`!`, ``) as UserResolvable)
-							.then(():void => {
-								void buttonGuild.members.fetch(buttonInteraction.message.content.split(` `)[6].replace(`<@`, ``).replace(`>`, ``).replace(`!`, ``) as UserResolvable);
+							.then(() => {
+								buttonGuild.members.fetch(buttonInteraction.message.content.split(` `)[6].replace(`<@`, ``).replace(`>`, ``).replace(`!`, ``) as UserResolvable).catch((err: unknown) => {console.error(err)});
 							})
 							.catch((err: unknown) => {console.error(err)})
-							.then(():void => {
+							.then(() => {
 								const players:[
 									{id: string},
 									{id: string}
@@ -166,15 +166,15 @@ export const ticTacToe = (
 								let O = 0;
 								let X = 0;
 						
-								rows.forEach((row):void => {
-									row.components.forEach((component):void => {
+								rows.forEach((row) => {
+									row.components.forEach((component) => {
 										if (component.type == ComponentType.Button) {
 											buttons.push(component);
 										}
 									});
 								});
 						
-								buttons.forEach((button):void => {
+								buttons.forEach((button) => {
 									if (button.emoji != null) {
 										switch (button.emoji.name) {
 										case `⭕`:
@@ -385,8 +385,8 @@ export const ticTacToe = (
 												];
 												const buttonArray:string[] = [];
 												const winBoard = (rows: APIActionRowComponent<APIButtonComponentWithCustomId>[]):boolean => {
-													rows.forEach((row):void => {
-														row.components.forEach((button):void => {
+													rows.forEach((row) => {
+														row.components.forEach((button) => {
 															buttonArray.push(button.emoji?.name ?? ``);
 														});
 													});
@@ -415,7 +415,7 @@ export const ticTacToe = (
 														buttonInteraction.update({
 															components: []
 														})
-															.then(():void => {
+															.then(() => {
 																buttonInteraction.editReply({
 																	content: `(no alternate rules) ${
 																		players[1].id

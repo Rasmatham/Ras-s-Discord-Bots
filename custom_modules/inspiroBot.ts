@@ -14,15 +14,15 @@ export const getURI = () => {
 //#endregion
 
 //#region Sends a Discord mesage
-export const sendMessage: (inObjs: {message: Message | ButtonInteraction}[]) => void = (
+export const sendMessage = (
 	inObjs: {
 		message: Message | ButtonInteraction
 	}[]
-):void => {
-	inObjs.forEach((inObj: {message: Message | ButtonInteraction}): void => {
+) => {
+	inObjs.forEach((inObj: {message: Message | ButtonInteraction}) => {
 		if(inObj.message instanceof ButtonInteraction){
 			if(inObj.message.message instanceof Message){
-				void getURI().then((url):void => {
+				getURI().then((url) => {
 					inObj.message.reply({
 						content: url?url:`error`,
 						components: [
@@ -31,11 +31,11 @@ export const sendMessage: (inObjs: {message: Message | ButtonInteraction}[]) => 
 					})
 						.catch((err: unknown) => {console.error(err)});
 						
-				});
+				}).catch((err: unknown) => {console.error(err)});
 			}
 		} else {
 			if (!inObj.message.author.bot && (inObj.message.content.toLowerCase().includes(`inspire`) || inObj.message.content.toLowerCase().includes(`inspiration`) || inObj.message.content.toLowerCase().includes(`inspiring`))) {
-				void getURI().then((url):void => {
+				getURI().then((url) => {
 					if(inObj.message instanceof Message){
 						if (inObj.message.channel.type === ChannelType.GuildText)
 							inObj.message.channel.send({
@@ -46,7 +46,7 @@ export const sendMessage: (inObjs: {message: Message | ButtonInteraction}[]) => 
 							})
 								.catch((err: unknown) => {console.error(err)});
 					}
-				});
+				}).catch((err: unknown) => {console.error(err)});
 			}
 		}
 	});

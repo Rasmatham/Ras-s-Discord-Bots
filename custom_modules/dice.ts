@@ -7,7 +7,7 @@ export const dice = (
 	inObjs: {
 		interaction: CommandInteraction
 	}[]
-):void => {
+) => {
 	inObjs.forEach((inObj) => {
 		let dieSides = 6;
 		let diceCount = 1;
@@ -23,7 +23,7 @@ export const dice = (
 			diceCount.toString()
 		} D${
 			dieSides.toString()
-		}`).then(():void => {
+		}`).then(() => {
 			if (diceCount > 20) {
 				inObj.interaction.editReply(`Sorry, but you can only roll 20 dice at a time`)
 					.catch((err: unknown) => {console.error(err)});

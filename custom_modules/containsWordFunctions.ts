@@ -11,7 +11,7 @@ const reply = (
 		chance?: number,
 		reply: MessageCreateOptions
 	}[]
-):void => {
+) => {
 	inObjs.forEach((inObj) => {
 		if (typeof inObj.chance == `undefined`) {
 			inObj.chance = 100;
@@ -19,9 +19,9 @@ const reply = (
 		if (Math.random() * 100 <= inObj.chance) {
 			if (inObj.message.channel.type === ChannelType.GuildText)
 				inObj.message.channel.sendTyping()
-					.finally(():void => {
+					.finally(() => {
 						if (inObj.message.channel.type === ChannelType.GuildText)
-							void inObj.message.channel.send(inObj.reply);
+							inObj.message.channel.send(inObj.reply).catch((err: unknown) => {console.error(err)});
 					})
 					.catch((err: unknown) => {console.error(err)});
 		}
@@ -37,14 +37,14 @@ export const replyThing = (
 		reply: MessageCreateOptions,
 		triggers: string[] | `${bigint}`[]
 	}[]
-):void => {
+) => {
 	inObjs.forEach((inObj) => {
 		if (typeof inObj.chance == `undefined`) {
 			inObj.chance = 100;
 		}
 		if (!inObj.message.author.bot) {
 			if (inObj.type.toString() == `anywhere`) {
-				inObj.triggers.forEach((trigger):void => {
+				inObj.triggers.forEach((trigger) => {
 					if (inObj.message.content.toLowerCase().includes(trigger)) {
 						reply([
 							{
@@ -57,8 +57,8 @@ export const replyThing = (
 				});
 			}
 			else if (inObj.type.toString() == `exact`) {
-				inObj.message.content.split(` `).forEach((word):void => {
-					inObj.triggers.forEach((trigger):void => {
+				inObj.message.content.split(` `).forEach((word) => {
+					inObj.triggers.forEach((trigger) => {
 						if (word == trigger) {
 							reply([
 								{
@@ -72,7 +72,7 @@ export const replyThing = (
 				});
 			}
 			else if (inObj.type.toString() == `mention`) {
-				inObj.triggers.forEach((trigger):void => {
+				inObj.triggers.forEach((trigger) => {
 					if (inObj.message.mentions.users.has(trigger as `${bigint}`)) {
 						reply([
 							{
@@ -99,14 +99,14 @@ const react = (
 		chance?: number,
 		emotes: string[]
 	}[]
-):void => {
+) => {
 	inObjs.forEach((inObj) => {
 		if (typeof inObj.chance == `undefined`) {
 			inObj.chance = 100;
 		}
 		if (Math.random() * 100 <= inObj.chance) {
 			inObj.emotes.forEach(emote => {
-				void inObj.message.react(emote);
+				inObj.message.react(emote).catch((err: unknown) => {console.error(err)});
 			});
 		}
 	});
@@ -119,7 +119,7 @@ export const reactThing = (
 		chance?: number, emotes: string[],
 		triggers: string[] | `${bigint}`[]
 	}[]
-):void => {
+) => {
 	inObjs.forEach((inObj) => {
 		if (typeof inObj.chance == `undefined`) {
 			inObj.chance = 100;
@@ -127,7 +127,7 @@ export const reactThing = (
 		if (!inObj.message.author.bot) {
 			const chance = inObj.chance;
 			if (inObj.type.toString() == `anywhere`) {
-				inObj.triggers.forEach((trigger):void => {
+				inObj.triggers.forEach((trigger) => {
 					if (inObj.message.content.toLowerCase().includes(trigger) && Math.random() * 100 <= chance) {
 						react([
 							{
@@ -140,8 +140,8 @@ export const reactThing = (
 				});
 			}
 			else if (inObj.type.toString() == `exact`) {
-				inObj.message.content.split(` `).forEach((word):void => {
-					inObj.triggers.forEach((trigger):void => {
+				inObj.message.content.split(` `).forEach((word) => {
+					inObj.triggers.forEach((trigger) => {
 						if (word == trigger) {
 							react([
 								{
@@ -155,7 +155,7 @@ export const reactThing = (
 				});
 			}
 			else if (inObj.type.toString() == `mention`) {
-				inObj.triggers.forEach((trigger):void => {
+				inObj.triggers.forEach((trigger) => {
 					if (inObj.message.mentions.users.has(trigger as `${bigint}`) && Math.random() * 100 <= chance) {
 						react([
 							{

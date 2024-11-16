@@ -8,22 +8,22 @@ export const hencefortifier = (
 	inObjs: {
 		message: Message
 	}[]
-):void => {
+) => {
 	inObjs.forEach((inObj) => {
 		if (inObj.message.author.id != inObj.message.client.user.id && inObj.message.guild != null && inObj.message.content.toLowerCase().includes(`from now on`)) {
 			if (inObj.message.guild.id == `646155122992480266`) {
 				const textChannels:`${bigint}`[] = [];
-				inObj.message.guild.channels.cache.map((channel):void => {
+				inObj.message.guild.channels.cache.map((channel) => {
 					if (channel.type == ChannelType.GuildText) {
-						blackList.forEach((bannedChannel:string):void => {
+						blackList.forEach((bannedChannel:string) => {
 							if (channel.name != bannedChannel) {
 								textChannels.push(channel.id as `${bigint}`);
 							}
 						});
 					}
 				});
-				void inObj.message.client.channels.fetch(textChannels[Math.floor(Math.random() * (textChannels.length - 1))])
-					.then((channel):void => {
+				inObj.message.client.channels.fetch(textChannels[Math.floor(Math.random() * (textChannels.length - 1))])
+					.then((channel) => {
 						if (channel != null) {
 							channel = channel as TextChannel;
 							channel.send(`<@${
@@ -31,7 +31,7 @@ export const hencefortifier = (
 							}>, you did an oopsie`)
 								.catch((err: unknown) => {console.error(err)});
 						}
-					});
+					}).catch((err: unknown) => {console.error(err)});
 			}
 		}
 	});
@@ -45,7 +45,7 @@ export const userWordBan = (
 		word: string,
 		userID: `${bigint}`
 	}[]
-):void => {
+) => {
 	inObjs.forEach((inObj) => {
 		if (inObj.message.author.id == inObj.userID) {
 			if (inObj.message.content.toLowerCase().includes(inObj.word)) {
@@ -66,7 +66,7 @@ export const espenBotReplacement = (
 		victim: `${bigint}`,
 		out: MessageCreateOptions | EmojiIdentifierResolvable
 	}[]
-):void => {
+) => {
 	inObjs.forEach((inObj) => {
 		if (inObj.message.author.id == inObj.victim && Math.floor(Math.random() * 100) <= inObj.chance) {
 			switch (inObj.type.toString()) {

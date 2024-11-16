@@ -73,9 +73,9 @@ const xkcdModule = (cb: (data?:Xkcd, err?: unknown) => void, id?: string | numbe
 }
 
 //#region send xkcd message
-export const xkcdFunct = (inObjs: {interaction: CommandInteraction}[]):void => {
+export const xkcdFunct = (inObjs: {interaction: CommandInteraction}[]) => {
 	inObjs.forEach((inObj) => {
-		xkcdModule((xkcdObjOuter):void => {
+		xkcdModule((xkcdObjOuter) => {
 			let num:number = Math.ceil(Math.random() * (xkcdObjOuter?.num ?? 1 + Math.random()));
 			if (inObj.interaction.options.get(`xkcd_number`) != null) {
 				num = inObj.interaction.options.get(`xkcd_number`)?.value as number;
@@ -90,7 +90,7 @@ export const xkcdFunct = (inObjs: {interaction: CommandInteraction}[]):void => {
 					.catch((err: unknown) => {console.error(err)});
 			}
 			else {
-				xkcdModule((xkcdObj):void => {
+				xkcdModule((xkcdObj) => {
 					const xkcdEmbed:EmbedBuilder = new EmbedBuilder()
 						.setTitle(xkcdObj?.title ?? `error`)
 						.setURL(`https://xkcd.com/${

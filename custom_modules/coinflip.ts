@@ -8,7 +8,7 @@ const setup = (
 	inObj: {
 		interaction: CommandInteraction
 	}
-):void => {
+) => {
 	const clientId = inObj.interaction.client.user.id;
 	const userId = inObj.interaction.user.id
 	if (!existsSync(`./${clientId}`))
@@ -31,7 +31,7 @@ export const flip = (
 	inObjs: {
 		interaction: CommandInteraction
 	}[]
-):void => {
+) => {
 	inObjs.forEach((inObj) => {
 		if (inObj.interaction.options.get(`side`) != null) {
 			const option = inObj.interaction.options.get(`side`);
