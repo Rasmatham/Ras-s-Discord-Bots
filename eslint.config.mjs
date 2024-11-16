@@ -7,8 +7,8 @@ import tseslint from "typescript-eslint";
 export default [
 	pluginJs.configs.recommended,
 	...tseslint.configs.recommended,
-	...tseslint.configs.strictTypeChecked,
 	...tseslint.configs.stylisticTypeChecked,
+	...tseslint.configs.strictTypeChecked,
 	{
 		ignores: [
 			"**/*.js",
