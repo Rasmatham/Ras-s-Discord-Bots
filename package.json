@@ -1,23 +1,22 @@
 {
-  "dependencies": {
-    "discord.js": "14.16.2",
-    "dotenv": "*",
-    "ffmpeg-static": "*",
-    "generate-maze": "*",
-    "node-fetch": "^2",
-    "opusscript": "*",
-    "ytdl-core": "*"
-  },
-  "devDependencies": {
-    "@eslint/js": "*",
-    "@types/node-fetch": "*",
-    "eslint": "*",
-    "eslint-plugin-tsdoc": "*",
-    "globals": "*",
-    "typescript": "*",
-    "typescript-eslint": "*"
-  },
-  "scripts": {
-    "start": "node AllTheBots"
-  }
+	"dependencies": {
+		"discord.js": "14.16.2",
+		"dotenv": "16.4.5",
+		"ffmpeg-static": "5.2.0",
+		"node-fetch": "^2.7.0",
+		"opusscript": "0.1.1",
+		"ytdl-core": "4.11.5"
+	},
+	"devDependencies": {
+		"@eslint/js": "9.14.0",
+		"@types/node-fetch": "2.6.12",
+		"eslint": "9.14.0",
+		"eslint-plugin-tsdoc": "0.3.0",
+		"globals": "15.12.0",
+		"typescript": "5.6.3",
+		"typescript-eslint": "8.14.0"
+	},
+	"scripts": {
+		"start": "node AllTheBots"
+	}
 }
