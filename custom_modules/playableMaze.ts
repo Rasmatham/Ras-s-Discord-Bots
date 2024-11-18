@@ -46,11 +46,7 @@ type halfBitAsString = `${ `I` | `O` }${ `I` | `O` }${ `I` | `O` }${ `I` | `O` }
 //#endregion
 
 //#region maze generator
-export const mazeFunction = (
-	inObjs: {
-		interaction: CommandInteraction
-	}[]
-) => {
+export const mazeFunction = (inObjs: Array<{interaction: CommandInteraction}>) => {
 	inObjs.forEach((inObj) => {
 		const 
 		emotes:emoteTypeList = [

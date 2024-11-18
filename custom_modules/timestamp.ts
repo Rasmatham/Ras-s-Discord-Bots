@@ -39,7 +39,7 @@ const toUTC = (dateString = new Date().toISOString(), tzIdentifier = `Etc/UTC`):
 const validTimestamps = Intl.supportedValuesOf(`timeZone`).join(`\n`);
 
 // eslint-disable-next-line one-var
-export const create = (inObjs: {interaction: Interaction}[]) => {
+export const create = (inObjs: Array<{interaction: Interaction}>) => {
 	inObjs.forEach((inObj) => {
 		if (inObj.interaction.isRepliable()) {
 			const absoluteButton = new ButtonBuilder()
@@ -66,7 +66,7 @@ export const create = (inObjs: {interaction: Interaction}[]) => {
 
 //#region relative
 // eslint-disable-next-line one-var
-export const relativeButtonInteraction = (inObjs: {interaction: ButtonInteraction}[]) => {
+export const relativeButtonInteraction = (inObjs: Array<{interaction: ButtonInteraction}>) => {
 	inObjs.forEach((inObj) => {
 		const modal = new ModalBuilder()
 			.setCustomId(`relative`)
@@ -111,7 +111,7 @@ export const relativeButtonInteraction = (inObjs: {interaction: ButtonInteractio
 };
 
 // eslint-disable-next-line one-var
-export const relativeModalInteraction = (inObjs: {interaction: ModalMessageModalSubmitInteraction}[]) => {
+export const relativeModalInteraction = (inObjs: Array<{interaction: ModalMessageModalSubmitInteraction}>) => {
 	inObjs.forEach((inObj) => {
 		/* eslint-disable no-useless-assignment, sort-vars */
 		let offset = 0,
@@ -230,7 +230,7 @@ export const relativeModalInteraction = (inObjs: {interaction: ModalMessageModal
 
 //#region absolute
 // eslint-disable-next-line one-var
-export const absoluteButtonInteraction = (inObjs: {interaction: ButtonInteraction}[]) => {
+export const absoluteButtonInteraction = (inObjs: Array<{interaction: ButtonInteraction}>) => {
 	inObjs.forEach((inObj) => {
 		const path = `./${inObj.interaction.client.user.id}/userinfo/${inObj.interaction.user.id}/tz.txt`;
 		// eslint-disable-next-line one-var
@@ -276,7 +276,7 @@ export const absoluteButtonInteraction = (inObjs: {interaction: ButtonInteractio
 };
 
 // eslint-disable-next-line one-var
-export const absoluteModalInteraction = (inObjs: {interaction: ModalMessageModalSubmitInteraction}[]) => {
+export const absoluteModalInteraction = (inObjs: Array<{interaction: ModalMessageModalSubmitInteraction}>) => {
 	inObjs.forEach((inObj) => {
 		const { interaction } = inObj,
 		date = interaction.fields.getTextInputValue(`date`),
@@ -423,7 +423,7 @@ export const absoluteModalInteraction = (inObjs: {interaction: ModalMessageModal
 
 //#region save timezone
 // eslint-disable-next-line one-var
-export const saveTimezone = (inObjs: {interaction: Interaction}[]) => {
+export const saveTimezone = (inObjs: Array<{interaction: Interaction}>) => {
 	inObjs.forEach((inObj) => {
 		if (!inObj.interaction.isAutocomplete() && !inObj.interaction.isModalSubmit()) {
 			const modal = new ModalBuilder()
@@ -447,7 +447,7 @@ export const saveTimezone = (inObjs: {interaction: Interaction}[]) => {
 };
 
 // eslint-disable-next-line one-var
-export const saveTimezoneModalResponse = (inObjs: {interaction: ModalSubmitInteraction}[]) => {
+export const saveTimezoneModalResponse = (inObjs: Array<{interaction: ModalSubmitInteraction}>) => {
 	inObjs.forEach((inObj) => {
 		const { interaction } = inObj;
 		if (interaction.customId !== `setTz`) return;

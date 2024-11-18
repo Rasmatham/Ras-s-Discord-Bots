@@ -4,11 +4,11 @@ import { blackList, genericCatch } from "./generalUse.js";
 //#endregion
 
 //#region Frick that one rule
-export const hencefortifier = (inObjs: { message: Message }[]) => {
+export const hencefortifier = (inObjs: Array<{ message: Message }>) => {
 	inObjs.forEach((inObj) => {
 		if (inObj.message.author.id !== inObj.message.client.user.id && inObj.message.guild !== null && inObj.message.content.toLowerCase().includes(`from now on`)) {
 			if (inObj.message.guild.id === `646155122992480266`) {
-				const textChannels:`${bigint}`[] = [];
+				const textChannels:Array<`${bigint}`> = [];
 				inObj.message.guild.channels.cache.forEach((channel) => {
 					if (channel.type === ChannelType.GuildText) {
 						blackList.forEach((bannedChannel:string) => {
@@ -29,7 +29,7 @@ export const hencefortifier = (inObjs: { message: Message }[]) => {
 
 //#region Flit no lasting! Flit no lasting! Flit no lasting!
 // eslint-disable-next-line one-var
-export const userWordBan = (inObjs: { message: Message, word: string, userID: `${bigint}` }[]) => {
+export const userWordBan = (inObjs: Array<{ message: Message, word: string, userID: `${bigint}` }>) => {
 	inObjs.forEach((inObj) => {
 		if (inObj.message.author.id === inObj.userID) {
 			if (inObj.message.content.toLowerCase().includes(inObj.word))
@@ -48,7 +48,7 @@ export enum EBTypes {
 /* eslint-enable @typescript-eslint/no-shadow */
 
 // eslint-disable-next-line one-var
-export const espenBotReplacement = (inObjs: { type: EBTypes, message: Message, chance: number, victim: `${bigint}`, out: MessageCreateOptions | EmojiIdentifierResolvable}[]) => {
+export const espenBotReplacement = (inObjs: Array<{ type: EBTypes, message: Message, chance: number, victim: `${bigint}`, out: MessageCreateOptions | EmojiIdentifierResolvable}>) => {
 	inObjs.forEach((inObj) => {
 		if (inObj.message.author.id === inObj.victim && Math.floor(Math.random() * 100) <= inObj.chance) {
 			switch (inObj.type) {

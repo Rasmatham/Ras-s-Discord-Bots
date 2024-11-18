@@ -65,7 +65,7 @@ export const intents:IntentsBitField = new IntentsBitField([
 
 //#region Check amount
 // eslint-disable-next-line one-var
-export const checkFor = (inObjs: { arr: string[], str: string, inline?:boolean }[]) => {
+export const checkFor = (inObjs: Array<{ arr: string[], str: string, inline?:boolean }>) => {
 	const out:EmbedField[] = [];
 	inObjs.forEach((inObj) => {
 		if (inObj.arr.length > 0) {
@@ -79,7 +79,7 @@ export const checkFor = (inObjs: { arr: string[], str: string, inline?:boolean }
 
 //#region send as webhook
 // eslint-disable-next-line one-var
-export const sendAsWebHook = (inObjs: { message: Message, sendTo: Exclude<GuildTextBasedChannel, AnyThreadChannel>, sendMessage: MessageCreateOptions, name: string, pfp: BufferResolvable }[]) => {
+export const sendAsWebHook = (inObjs: Array<{ message: Message, sendTo: Exclude<GuildTextBasedChannel, AnyThreadChannel>, sendMessage: MessageCreateOptions, name: string, pfp: BufferResolvable }>) => {
 	inObjs.forEach((inObj) => {
 		const webHookFunction = () => {
 			inObj.sendTo.fetchWebhooks().then((webHooks) => {
@@ -224,7 +224,7 @@ export const listThings = async (interaction:CommandInteraction):Promise<Interac
 
 //#region Bot check
 // eslint-disable-next-line one-var
-export const botReady = (inObjs: { bots: Client[] }[], testMode?: boolean) => {
+export const botReady = (inObjs: Array<{ bots: Client[] }>, testMode?: boolean) => {
 	inObjs.forEach((inObj) => {
 		inObj.bots.forEach((bot) => {
 			bot.on(Events.ClientReady, () => {

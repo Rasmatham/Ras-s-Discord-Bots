@@ -5,13 +5,13 @@ interface Bots {
 	generalConfig: {
 		envPath: string
 	};
-	botConfig: {
+	botConfig: Array<{
 		name: string;
 		clientOtions: djs.ClientOptions;
 		token: string;
 		features?: {
 			commands?: {
-				generalReply?: {		
+				generalReply?: Array<{		
 					active: boolean;
 					visibility?: `visible` | `private` | `choice`;
 					permissions?: {
@@ -27,7 +27,7 @@ interface Bots {
 					}
 					name: string;
 					message: djs.InteractionReplyOptions;
-				}[];
+				}>;
 				botlink?: {
 					active: boolean;
 					visibility?: `visible` | `private` | `choice`;
@@ -194,7 +194,7 @@ interface Bots {
 					}
 				};
 			};
-			triggers?: {
+			triggers?: Array<{
 				active: boolean;
 				input: {
 					type: `string`;
@@ -205,7 +205,7 @@ interface Bots {
 					triggers: djs.EmojiResolvable[];
 				} | {
 					type: `mention`;
-					triggers: (djs.UserResolvable | djs.ChannelResolvable | djs.RoleResolvable)[]
+					triggers: Array<djs.UserResolvable | djs.ChannelResolvable | djs.RoleResolvable>
 				};
 				output: {
 					type: `message`;
@@ -217,7 +217,7 @@ interface Bots {
 					type: `reaction`;
 					emoji: djs.EmojiIdentifierResolvable
 				};
-			}[]
+			}>
 		}
-	}[];
+	}>;
 }

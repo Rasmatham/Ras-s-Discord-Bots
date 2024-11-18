@@ -25,7 +25,7 @@ const setup = (inObj: { interaction: CommandInteraction }) => {
 
 //#region game code
 // eslint-disable-next-line one-var
-export const flip = (inObjs: { interaction: CommandInteraction }[]) => {
+export const flip = (inObjs: Array<{ interaction: CommandInteraction }>) => {
 	inObjs.forEach((inObj) => {
 		if (inObj.interaction.options.get(`side`) !== null) {
 			const coinPath = `./${inObj.interaction.client.user.id}/userinfo/${inObj.interaction.user.id}/coinflip`,

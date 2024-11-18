@@ -6,7 +6,7 @@ import { genericCatch } from "./generalUse";
 //#region reply
 
 // Function int
-const reply = (inObjs: { message: Message, chance?: number, reply: MessageCreateOptions }[]) => {
+const reply = (inObjs: Array<{ message: Message, chance?: number, reply: MessageCreateOptions }>) => {
 	inObjs.forEach((inObj) => {
 		if (typeof inObj.chance === `undefined`) 
 			inObj.chance = 100;
@@ -24,13 +24,13 @@ const reply = (inObjs: { message: Message, chance?: number, reply: MessageCreate
 // Function ext
 // eslint-disable-next-line one-var
 export const replyThing = (
-	inObjs: {
+	inObjs: Array<{
 		message: Message,
 		type: `anywhere` | `exact` | `mention`,
 		chance?: number,
 		reply: MessageCreateOptions,
-		triggers: string[] | `${bigint}`[]
-	}[]
+		triggers: string[] | Array<`${bigint}`>
+	}>
 ) => {
 	inObjs.forEach((inObj) => {
 		if (typeof inObj.chance === `undefined`) 
@@ -88,11 +88,11 @@ export const replyThing = (
 // Function int
 // eslint-disable-next-line one-var
 const react = (
-	inObjs: {
+	inObjs: Array<{
 		message: Message,
 		chance?: number,
 		emotes: string[]
-	}[]
+	}>
 ) => {
 	inObjs.forEach((inObj) => {
 		if (typeof inObj.chance === `undefined`) 
@@ -107,12 +107,12 @@ const react = (
 // Function ext
 // eslint-disable-next-line one-var
 export const reactThing = (
-	inObjs: {
+	inObjs: Array<{
 		message: Message,
 		type: `anywhere` | `exact` | `mention`,
 		chance?: number, emotes: string[],
-		triggers: string[] | `${bigint}`[]
-	}[]
+		triggers: string[] | Array<`${bigint}`>
+	}>
 ) => {
 	inObjs.forEach((inObj) => {
 		if (typeof inObj.chance === `undefined`) 

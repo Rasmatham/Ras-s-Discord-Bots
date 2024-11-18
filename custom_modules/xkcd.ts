@@ -69,7 +69,7 @@ const xkcdModule = (cb: (data:Xkcd | Error) => void, id?: string | number) => {
 
 //#region send xkcd message
 // eslint-disable-next-line one-var
-export const xkcdFunct = (inObjs: {interaction: CommandInteraction}[]) => {
+export const xkcdFunct = (inObjs: Array<{interaction: CommandInteraction}>) => {
 	inObjs.forEach((inObj) => {
 		xkcdModule((xkcdObjOuter) => {
 			if (xkcdObjOuter instanceof Error) {

@@ -34,6 +34,9 @@ export default tseslint.config(
 	},
 	{
 		rules: {
+			"@typescript-eslint/array-type": [ `error`, {
+				default: `array-simple`
+			}],
 			"@typescript-eslint/no-shadow": [`error`],
 			"array-bracket-spacing": [ `error`, `always`, {
 				"arraysInArrays": false,

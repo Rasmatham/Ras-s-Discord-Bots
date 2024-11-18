@@ -5,9 +5,7 @@ import { blackList, genericCatch, sendAsWebHook } from "./generalUse.js";
 
 //#region forwarding
 export const messageForwarding = (
-	inObjs: {
-		message: Message
-	}[]
+	inObjs: Array<{message: Message}>
 ) => {
 	inObjs.forEach((inObj) => {
 		if (inObj.message.channel.type === ChannelType.DM) return;
@@ -67,10 +65,10 @@ export const messageForwarding = (
 //#region DM spy
 // eslint-disable-next-line one-var
 export const DMSpy = (
-	inObjs: {
+	inObjs: Array<{
 		message: Message,
 		ChID: `${bigint}`
-	}[]
+	}>
 ) => {
 	inObjs.forEach(inObj => {
 		if (inObj.message.channel.type === ChannelType.DM && !inObj.message.author.bot /*&& message.author.id != process.env.RASID*/) {
@@ -101,11 +99,11 @@ export const DMSpy = (
 //#region Channel link
 // eslint-disable-next-line one-var
 export const channelLink = (
-	inObjs: {
+	inObjs: Array<{
 		message: Message,
 		ch1: `${bigint}`,
 		ch2: `${bigint}`
-	}[]
+	}>
 ) => {
 	inObjs.forEach((inObj) => {
 		if (!inObj.message.author.bot && (inObj.message.channel.id === inObj.ch1 || inObj.message.channel.id === inObj.ch2)) {

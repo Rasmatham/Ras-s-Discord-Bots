@@ -10,7 +10,7 @@ export const getURI = () => req(`https://inspirobot.me/api?generate=true`).then(
 
 //#region Sends a Discord mesage
 // eslint-disable-next-line one-var
-export const sendMessage = (inObjs: { message: Message | ButtonInteraction }[]) => {
+export const sendMessage = (inObjs: Array<{ message: Message | ButtonInteraction }>) => {
 	inObjs.forEach((inObj: {message: Message | ButtonInteraction}) => {
 		if(inObj.message instanceof ButtonInteraction){
 			if(inObj.message.message instanceof Message){
