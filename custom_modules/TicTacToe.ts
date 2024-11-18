@@ -65,8 +65,6 @@ export const ticTacToe = (inObjs: { interaction: CommandInteraction }[]) => {
 					//================================================================================================================
 					case `accept`:
 						if (buttonInteraction.user.id === firstMemberMention?.id && lastMemberMention?.user) {
-							console.log(buttonInteraction.user);
-							console.log(firstMemberMention);
 							const players:[ User, User ] = [ firstMemberMention.user, lastMemberMention.user ],
 							randomNumber:number = Math.round(Math.random()),
 							randomOrder:[ User, User ] = [ players[randomNumber], players[1-randomNumber] ];

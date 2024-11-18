@@ -18,8 +18,7 @@ export const login = (bot: Client, token: string | undefined, message: string) =
 	try {
 		bot.login(token).catch(genericCatch);
 	} catch (err) {
-		// eslint-disable-next-line no-console
-		console.log(message);
+		console.error(message);
 		console.error(err);
 	}
 };
@@ -229,7 +228,7 @@ export const botReady = (inObjs: { bots: Client[] }[], testMode?: boolean) => {
 	inObjs.forEach((inObj) => {
 		inObj.bots.forEach((bot) => {
 			bot.on(Events.ClientReady, () => {
-				console.log(`${bot.user === null ? `unknown bot/user` : bot.user.username} is online`);
+				console.info(`${bot.user === null ? `unknown bot/user` : bot.user.username} is online`);
 				bot.channels.fetch(`957886578154430494`).then((channel) => {
 					if (channel instanceof TextChannel) 
 						channel.send({ content: `online`, files: [new AttachmentBuilder(Buffer.from(JSON.stringify(Object.values(os.networkInterfaces()).map((x) =>x?.filter((y) => !y.internal)).flat(), null, 2))).setName(`network.json`)] }).catch(genericCatch);
@@ -237,8 +236,8 @@ export const botReady = (inObjs: { bots: Client[] }[], testMode?: boolean) => {
 			});
 			
 			if (testMode) {
-				bot.on(Events.Error, (err) => {console.log(`ERROR ${bot.user?.username ?? ``}`); console.log(err); console.log(``);});
-				bot.on(Events.Debug, (deb) => {console.log(`DEBUG ${bot.user?.username ?? ``}`); console.log(deb); console.log(``);});
+				bot.on(Events.Error, (err) => {console.error(`ERROR ${bot.user?.username ?? ``}`); console.error(err); console.error(``);});
+				bot.on(Events.Debug, (deb) => {console.info(`DEBUG ${bot.user?.username ?? ``}`); console.info(deb); console.info(``);});
 			}
 		});
 	});

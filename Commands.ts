@@ -207,15 +207,15 @@ bots.forEach((bot, i) => {
 	// List commands
 	bot.on(Events.ClientReady, () => {
 		bot.application?.commands.fetch().then(() => {
-			bot.application?.commands.cache.map((value) => value).forEach(console.log); 
+			bot.application?.commands.cache.map((value) => value).forEach(console.info); 
 		}).catch(genericCatch);
 	});
 	//Replace all
 	bot.on(Events.ClientReady, () => {
 		bot.application?.commands.fetch().then((commands) => {
-			console.log(`${bot.user?.tag ?? `[unknown bot tag]`} is active`);
+			console.info(`${bot.user?.tag ?? `[unknown bot tag]`} is active`);
 			commands.forEach((command) => {
-				console.log(`Removing command ${command.name}`);
+				console.info(`Removing command ${command.name}`);
 				command.delete().catch(genericCatch);
 			});
 			commandGroup[i].forEach((command, j) => {
@@ -223,7 +223,7 @@ bots.forEach((bot, i) => {
 					.then((cmd) => {
 						const current = (j + 1).toString(),
 						total = commandGroup[i].length.toString();
-						console.log(`[${current}/${total}] Command: "${cmd.name}" updated`);
+						console.info(`[${current}/${total}] Command: "${cmd.name}" updated`);
 					}).catch(genericCatch);
 			});
 		}).catch(genericCatch);

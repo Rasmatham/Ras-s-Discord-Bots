@@ -664,16 +664,16 @@ random.on(Events.MessageCreate, (message) => {
 amber.on(Events.ClientReady, () => {
 	amber.users.fetch(`707188499153158204`).then((user) => {
 		if (amber.user !== null) {
-			amber.user.setAvatar(user.avatarURL()).catch(() => { console.log(`[${user.tag}] You're probably changing the avatar too fast`); });
-			amber.user.setUsername(user.username).catch(() => { console.log(`[${user.tag}] You're probably changing the username too fast`); });
+			amber.user.setAvatar(user.avatarURL()).catch(() => { console.warn(`[${user.tag}] You're probably changing the avatar too fast`); });
+			amber.user.setUsername(user.username).catch(() => { console.warn(`[${user.tag}] You're probably changing the username too fast`); });
 		}
 	}).catch(genericCatch);
 });
 amber.on(Events.UserUpdate, (oldUser, newUser) => {
 	if (amber.user !== null) {
 		if (newUser.id === `707188499153158204`) {
-			amber.user.setAvatar(newUser.avatarURL()).catch(() => { console.log(`[${newUser.tag}] You're probably changing the avatar too fast`); });
-			amber.user.setUsername(newUser.username).catch(() => { console.log(`[${newUser.tag}] You're probably changing the username too fast`); });
+			amber.user.setAvatar(newUser.avatarURL()).catch(() => { console.warn(`[${newUser.tag}] You're probably changing the avatar too fast`); });
+			amber.user.setUsername(newUser.username).catch(() => { console.warn(`[${newUser.tag}] You're probably changing the username too fast`); });
 		}
 	}
 });
@@ -760,7 +760,7 @@ canine.on(Events.InteractionCreate, (interaction) => {
 				break;
 			}
 			default: {
-				console.log(interaction);
+				console.warn(interaction);
 				interaction.reply({ content: `The command \`${interaction.commandName}\` is still in development`, ephemeral }).catch(genericCatch);
 				break;
 			}

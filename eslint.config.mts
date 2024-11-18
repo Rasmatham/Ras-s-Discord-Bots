@@ -53,7 +53,7 @@ export default tseslint.config(
 			"max-statements": [`off`],
 			"no-bitwise": [`off`],
 			"no-console": [ `warn`, {
-				"allow": [ `warn`, `error` ]
+				"allow": [ `error`, `info`, `warn` ]
 			}],
 			"no-inline-comments": [`off`],
 			"no-magic-numbers": [`off`],
