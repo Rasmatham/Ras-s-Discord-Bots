@@ -1,5 +1,5 @@
 //#region imports
-import {ChannelType, Message, MessageCreateOptions} from "discord.js";
+import { ChannelType, Message, MessageCreateOptions } from "discord.js";
 import { genericCatch } from "./generalUse";
 //#endregion
 
@@ -118,7 +118,7 @@ export const reactThing = (
 		if (typeof inObj.chance === `undefined`) 
 			inObj.chance = 100;
 		if (!inObj.message.author.bot) {
-			const {chance} = inObj;
+			const { chance } = inObj;
 			if (inObj.type.toString() === `anywhere`) {
 				inObj.triggers.forEach((trigger) => {
 					if (inObj.message.content.toLowerCase().includes(trigger) && Math.random() * 100 <= chance) {

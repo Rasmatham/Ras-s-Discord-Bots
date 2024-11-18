@@ -1,5 +1,5 @@
 //#region imports
-import {CommandInteraction, EmbedBuilder} from "discord.js";
+import { CommandInteraction, EmbedBuilder } from "discord.js";
 import { genericCatch } from "./generalUse";
 //#endregion
 
@@ -39,7 +39,7 @@ export const dice = (inObjs: { interaction: CommandInteraction }[]) => {
 							}
 						]);
 					inObj.interaction.followUp({
-						embeds: [ number10 ]
+						embeds: [number10]
 					}).catch(genericCatch);
 				}
 			}
@@ -59,7 +59,7 @@ export const dice = (inObjs: { interaction: CommandInteraction }[]) => {
 									value: `${(i + 1).toString()}/${diceCount.toString()}`
 								}
 							]);
-						inObj.interaction.followUp({ embeds: [ number100 ] }).catch(genericCatch);
+						inObj.interaction.followUp({ embeds: [number100] }).catch(genericCatch);
 					}
 				}
 				else {
@@ -78,7 +78,7 @@ export const dice = (inObjs: { interaction: CommandInteraction }[]) => {
 									value:`${(i + 1).toString()}/${diceCount.toString()}`
 								}
 							]);
-						inObj.interaction.followUp({ embeds: [ numberN ] }).catch(genericCatch);
+						inObj.interaction.followUp({ embeds: [numberN] }).catch(genericCatch);
 					}
 				}
 		}).catch(genericCatch);

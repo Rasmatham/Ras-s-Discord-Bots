@@ -1,5 +1,5 @@
 //#region imports
-import {ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelType, Message} from "discord.js";
+import { ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelType, Message } from "discord.js";
 import req, { Response } from "node-fetch";
 import { genericCatch } from "./generalUse";
 //#endregion

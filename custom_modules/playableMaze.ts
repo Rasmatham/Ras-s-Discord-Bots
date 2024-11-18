@@ -1,7 +1,7 @@
 
 //#region imports
-import { ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, CommandInteraction, EmojiIdentifierResolvable, Events, Interaction} from "discord.js";
-import {boolToInt, ephemeral, genericCatch} from "./generalUse";
+import { ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, CommandInteraction, EmojiIdentifierResolvable, Events, Interaction } from "discord.js";
+import { boolToInt, ephemeral, genericCatch } from "./generalUse";
 import mazeThing from "./mazegen";
 //#endregion
 
@@ -283,7 +283,7 @@ export const mazeFunction = (
 					.setStyle(ButtonStyle.Secondary)
 			]);
 		inObj.interaction.reply({
-			components: [ arrows ],
+			components: [arrows],
 			content: mazeMessage(createdClass),
 			ephemeral
 		}).then(() => {
