@@ -1,6 +1,6 @@
 //#region imports
-import {ActivityType, ApplicationCommandType, ApplicationIntegrationType, Client, ContextMenuCommandBuilder, Events, InteractionContextType, PresenceUpdateStatus, SlashCommandBuilder, SlashCommandOptionsOnlyBuilder, SlashCommandSubcommandsOnlyBuilder} from "discord.js";
-import {genericCatch, intents, login, simpleCommand} from "./custom_modules/generalUse.js";
+import { ActivityType, ApplicationCommandType, ApplicationIntegrationType, Client, ContextMenuCommandBuilder, Events, InteractionContextType, PresenceUpdateStatus, SlashCommandBuilder, SlashCommandOptionsOnlyBuilder, SlashCommandSubcommandsOnlyBuilder } from "discord.js";
+import { genericCatch, intents, login, simpleCommand } from "./custom_modules/generalUse.js";
 import * as dotenv from "dotenv";
 dotenv.config();
 //#endregion
@@ -14,7 +14,7 @@ interface commandObject {
 //#endregion
 
 //#region default client options
-const client = () => new Client({ intents, presence: { activities: [ { name: `Doing some maintenance`, type: ActivityType.Playing } ], status: PresenceUpdateStatus.DoNotDisturb } });
+const client = () => new Client({ intents, presence: { activities: [{ name: `Doing some maintenance`, type: ActivityType.Playing }], status: PresenceUpdateStatus.DoNotDisturb } });
 //#endregion
 
 //#region instantiating clients
@@ -134,7 +134,7 @@ gladosCommands:commandObject[] = [
 			.addStringOption(option => option
 				.setName(`style`)
 				.setDescription(`What style of maze do you want?`)
-				.addChoices(...[ {name: `normal`, value: `0`}, {name: `zelda`, value: `1`} ])
+				.addChoices(...[{ name: `normal`, value: `0` }, { name: `zelda`, value: `1` }])
 			),
 		id: `862460610435612682`
 	},
@@ -158,7 +158,7 @@ gladosCommands:commandObject[] = [
 				.setName(`side`)
 				.setDescription(`Which side do you choose?`)
 				.setRequired(true)
-				.addChoices(...[ {name: `heads`, value: `heads`}, {name: `tails`, value: `tails`} ])
+				.addChoices(...[{ name: `heads`, value: `heads` }, { name: `tails`, value: `tails` }])
 			),
 		id: `0`
 	},
@@ -168,7 +168,7 @@ gladosCommands:commandObject[] = [
 				.setName(`thing`)
 				.setDescription(`What should be listed?`)
 				.setRequired(true)
-				.addChoices(...[ {name: `channels`, value: `channels`}, {name: `emojis`, value: `emojis`}, {name: `roles`, value: `roles`} ])
+				.addChoices(...[{ name: `channels`, value: `channels` }, { name: `emojis`, value: `emojis` }, { name: `roles`, value: `roles` }])
 			)
 	},
 	{

@@ -19,7 +19,7 @@ export const ticTacToe = (inObjs: { interaction: CommandInteraction }[]) => {
 						.setStyle(ButtonStyle.Danger)
 				]);
 			inObj.interaction.reply({
-				components: [ choices ],
+				components: [choices],
 				content: `<@${playerTwo.id}>, <@${inObj.interaction.user.id}> has invited you to play tic tac toe. Do you accept?`
 			}).catch((err: unknown) => {
 				console.error(err);
@@ -100,8 +100,8 @@ export const ticTacToe = (inObjs: { interaction: CommandInteraction }[]) => {
 								const buttons:ButtonComponent[] = [],
 								movePieces = !(buttonInteraction.message.content.includes(`no`)),
 								players:[ { id: string }, { id: string } ] = [
-									buttonGuild.members.cache.get(buttonInteraction.message.content.split(` `)[3].replace(/<@!?(?=\d*)|(?<=\d*)>/gu, ``) as `${bigint}`) ?? {id: ``},
-									buttonGuild.members.cache.get(buttonInteraction.message.content.split(` `)[6].replace(/<@!?(?=\d*)|(?<=\d*)>/gu, ``) as `${bigint}`) ?? {id: ``}
+									buttonGuild.members.cache.get(buttonInteraction.message.content.split(` `)[3].replace(/<@!?(?=\d*)|(?<=\d*)>/gu, ``) as `${bigint}`) ?? { id: `` },
+									buttonGuild.members.cache.get(buttonInteraction.message.content.split(` `)[6].replace(/<@!?(?=\d*)|(?<=\d*)>/gu, ``) as `${bigint}`) ?? { id: `` }
 								];
 								// eslint-disable-next-line id-length
 								let O = 0, X = 0;
@@ -134,7 +134,7 @@ export const ticTacToe = (inObjs: { interaction: CommandInteraction }[]) => {
 										const BM = buttonInteraction.message, style = ButtonStyle.Secondary;
 								
 										if (movePieces)
-											buttonInteraction.update({content: `this mode has not been added yet. Please set the movepieces parameter to false instead`}).catch(genericCatch);
+											buttonInteraction.update({ content: `this mode has not been added yet. Please set the movepieces parameter to false instead` }).catch(genericCatch);
 										else {
 											const newButton = (row: number, collumn: number):ButtonBuilder => {
 												const messageButton:ButtonComponent = BM.components[row].components[collumn] as ButtonComponent;
@@ -325,22 +325,22 @@ export const ticTacToe = (inObjs: { interaction: CommandInteraction }[]) => {
 													});
 												});
 												if (buttonArray[0] !== XO.RAS || buttonArray[4] !== XO.RAS || buttonArray[8] !== XO.RAS) {
-													return checkThree([0, 1, 2], XO.XX) ||
-														checkThree([0, 3, 6], XO.XX) ||
-														checkThree([6, 7, 8], XO.XX) ||
-														checkThree([2, 5, 8], XO.XX) ||
-														checkThree([0, 4, 8], XO.XX) ||
-														checkThree([1, 4, 7], XO.XX) ||
-														checkThree([2, 4, 6], XO.XX) ||
-														checkThree([3, 4, 5], XO.XX) ||
-														checkThree([0, 3, 6], XO.OO) ||
-														checkThree([0, 1, 2], XO.OO) ||
-														checkThree([6, 7, 8], XO.OO) ||
-														checkThree([2, 5, 8], XO.OO) ||
-														checkThree([0, 4, 8], XO.OO) ||
-														checkThree([1, 4, 7], XO.OO) ||
-														checkThree([2, 4, 6], XO.OO) ||
-														checkThree([3, 4, 5], XO.OO);
+													return checkThree([ 0, 1, 2 ], XO.XX) ||
+														checkThree([ 0, 3, 6 ], XO.XX) ||
+														checkThree([ 6, 7, 8 ], XO.XX) ||
+														checkThree([ 2, 5, 8 ], XO.XX) ||
+														checkThree([ 0, 4, 8 ], XO.XX) ||
+														checkThree([ 1, 4, 7 ], XO.XX) ||
+														checkThree([ 2, 4, 6 ], XO.XX) ||
+														checkThree([ 3, 4, 5 ], XO.XX) ||
+														checkThree([ 0, 3, 6 ], XO.OO) ||
+														checkThree([ 0, 1, 2 ], XO.OO) ||
+														checkThree([ 6, 7, 8 ], XO.OO) ||
+														checkThree([ 2, 5, 8 ], XO.OO) ||
+														checkThree([ 0, 4, 8 ], XO.OO) ||
+														checkThree([ 1, 4, 7 ], XO.OO) ||
+														checkThree([ 2, 4, 6 ], XO.OO) ||
+														checkThree([ 3, 4, 5 ], XO.OO);
 												}
 												return false;
 											};

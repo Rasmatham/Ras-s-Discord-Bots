@@ -14,7 +14,7 @@ type ObjectKey<T, V> = {[K in keyof T]-?: T[K] extends V ? K : never}[keyof T & 
 const 
 uniq = <T>(array: T[]): T[] => [...new Set(array)],
 compact = <T>(array: T[]): T[] => array.filter(Boolean),
-difference = <T>(arr1: T[], arr2: T[]): T[] => [arr1, arr2].reduce((a, b) => a.filter(x => !b.includes(x))),
+difference = <T>(arr1: T[], arr2: T[]): T[] => [ arr1, arr2 ].reduce((a, b) => a.filter(x => !b.includes(x))),
 initial = <T>(array: T[]): T[] => array.slice(0, -1),
 groupBy = <T>(list: T[], key: ObjectKey<T, number>): Record<number, T[]> => {
 	const keys = list.map(item => item[key] as number),

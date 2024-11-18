@@ -52,7 +52,7 @@ export const natDex = (inObj: {query: string | number}):MessageReplyOptions => {
 	}
 	const attachment = { attachment: `./Pokebot/Pokemon/1-151/250px-${pokemon[dexNumber].nat}${pokemon[dexNumber].name}.png` },
 	secType = ():string => {
-		const [, secondaryType ] = pokemon[dexNumber].types;
+		const [ , secondaryType ] = pokemon[dexNumber].types;
 		if (typeof secondaryType === `undefined`) 
 			return `None`;
 		return secondaryType.name;
@@ -68,6 +68,6 @@ export const natDex = (inObj: {query: string | number}):MessageReplyOptions => {
 			{ name: `Secondary type`, value: secType() }
 		])
 		.setImage(`attachment://250px-${pokemon[dexNumber].nat}${pokemon[dexNumber].name}.png`);
-	return { embeds: [ embed ], files: [ attachment ] };
+	return { embeds: [embed], files: [attachment] };
 };
 //#endregion

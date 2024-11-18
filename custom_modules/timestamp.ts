@@ -59,7 +59,7 @@ export const create = (inObjs: {interaction: Interaction}[]) => {
 				.setStyle(ButtonStyle.Primary),
 			row = new ActionRowBuilder<ButtonBuilder>()
 				.addComponents(relativeButton, absoluteButton);
-			inObj.interaction.reply({components: [row], embeds: [embed], ephemeral}).catch(genericCatch);
+			inObj.interaction.reply({ components: [row], embeds: [embed], ephemeral }).catch(genericCatch);
 		}
 	});
 };
@@ -203,7 +203,7 @@ export const relativeModalInteraction = (inObjs: {interaction: ModalMessageModal
 		offset += hours * 3600;
 		offset += minutes * 60;
 		offset += seconds;
-		offset = [`Y`,`y`,`Yes`,`yes`,`true`,`1`].includes(negativeTime) ? 0 - offset : offset;
+		offset = [ `Y`,`y`,`Yes`,`yes`,`true`,`1` ].includes(negativeTime) ? 0 - offset : offset;
 
 		// eslint-disable-next-line one-var
 		const timestamp = (style: TimestampStylesString) => `<t:${(Math.floor(new Date().getTime()/1000) + offset).toString()}:${style}>`;
@@ -456,11 +456,11 @@ export const saveTimezoneModalResponse = (inObjs: {interaction: ModalSubmitInter
 		if (!timezone.length) {
 			interaction.reply({ content: `Removing timezone`, ephemeral }).then(() => {
 				if (!existsSync(`./${inObj.interaction.client.user.id}/userinfo/${inObj.interaction.user.id}/tz.txt`)) {
-					interaction.editReply({content: `You have not set a timezone`}).catch(genericCatch);
+					interaction.editReply({ content: `You have not set a timezone` }).catch(genericCatch);
 					return;
 				}
 				rmSync(`./${inObj.interaction.client.user.id}/userinfo/${inObj.interaction.user.id}/tz.txt`);
-				interaction.editReply({content: `Timezone removed`}).catch(genericCatch);
+				interaction.editReply({ content: `Timezone removed` }).catch(genericCatch);
 			}).catch(genericCatch);
 			return;
 		}
@@ -476,7 +476,7 @@ export const saveTimezoneModalResponse = (inObjs: {interaction: ModalSubmitInter
 		setup(inObj);
 		interaction.reply({ content: `Setting timezone to: ${timezone}`, ephemeral }).then(() => {
 			writeFileSync(`./${interaction.client.user.id}/userinfo/${interaction.user.id}/tz.txt`, timezone);
-			interaction.editReply({content: `Timezone set to: ${timezone}`}).catch(genericCatch);
+			interaction.editReply({ content: `Timezone set to: ${timezone}` }).catch(genericCatch);
 		}).catch(genericCatch);
 	});
 };

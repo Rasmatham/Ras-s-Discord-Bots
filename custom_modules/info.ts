@@ -1,6 +1,6 @@
 //#region imports
-import {ChannelType, ColorResolvable, CommandInteraction, EmbedBuilder, Guild, GuildMember, InteractionReplyOptions, User} from "discord.js";
-import {checkFor, ephemeral, genericCatch} from "./generalUse.js";
+import { ChannelType, ColorResolvable, CommandInteraction, EmbedBuilder, Guild, GuildMember, InteractionReplyOptions, User } from "discord.js";
+import { checkFor, ephemeral, genericCatch } from "./generalUse.js";
 //#endregion
 
 //#region channelCount
@@ -48,7 +48,7 @@ export const userInfo = async (
 		interaction: CommandInteraction
 	}
 ):Promise<InteractionReplyOptions> => {
-	const {guild} = inObj.interaction;
+	const { guild } = inObj.interaction;
 	return {
 		content: `test`,
 		files: [
@@ -73,7 +73,7 @@ export const serverInfo = (
 	}[]
 ) => {
 	inObjs.forEach((inObj) => {
-		const {guild} = inObj.interaction;
+		const { guild } = inObj.interaction;
 		if (inObj.interaction.guild === null) {
 			if ((inObj.interaction.member as GuildMember).user.id === `588511925944582186`) {
 				inObj.interaction.reply({
@@ -132,7 +132,7 @@ export const serverInfo = (
 // eslint-disable-next-line one-var
 export const joindate = (inObj: { interaction: CommandInteraction }):{ embeds: EmbedBuilder[], ephemeral: boolean } => {
 	if (!((inObj.interaction.member as GuildMember).user instanceof User)) 
-		return {embeds: [new EmbedBuilder], ephemeral};
+		return { embeds: [new EmbedBuilder], ephemeral };
 	const date = new Date((inObj.interaction.member as GuildMember).user.createdTimestamp);
 	// eslint-disable-next-line one-var
 	const embed:EmbedBuilder = new EmbedBuilder()
@@ -151,6 +151,6 @@ export const joindate = (inObj: { interaction: CommandInteraction }):{ embeds: E
 		]);
 	// eslint-disable-next-line one-var
 	const empherealOption = inObj.interaction.options.get(`public`);
-	return { embeds: [ embed ], ephemeral: !empherealOption?.value };
+	return { embeds: [embed], ephemeral: !empherealOption?.value };
 };
 //#endregion

@@ -44,7 +44,7 @@ zeldaLink = `https://discordapp.com/oauth2/authorize?&client_id=6547869650900746
 
 //#region instantiating Clients
 // eslint-disable-next-line one-var
-const client = (name: string, state: string) => new Client({ intents, presence: { activities: [ { name, state, type: ActivityType.Custom } ] } });
+const client = (name: string, state: string) => new Client({ intents, presence: { activities: [{ name, state, type: ActivityType.Custom }] } });
 // eslint-disable-next-line one-var
 const amber = client(`Amber`, ``),
 artoo = client(`R2D2`, `[screaming sounds]`),
@@ -70,8 +70,8 @@ login(zelda, process.env.ZELDATOKEN, `Zelda Bot could not figure out where BOTW/
 login(croissant, process.env.CROISSANTTOKEN, `Le Franciosle bot français n'a pas réussi à s'authentifier`);
 login(canine, process.env.K9TOKEN, `K9 was not affirmative`);
 // eslint-disable-next-line one-var
-const bots = [buzzBot, ebnj, glados, pokebot, artoo, random, amber, zelda, croissant, canine];
-botReady([{bots}]);
+const bots = [ buzzBot, ebnj, glados, pokebot, artoo, random, amber, zelda, croissant, canine ];
+botReady([{ bots }]);
 technicalStuff(process, bots);
 
 //#endregion
@@ -113,7 +113,7 @@ buzzBot.on(Events.MessageCreate, (message) => {
 			chance: 10,
 			message,
 			reply: { content: `It's BeeMrtz, you insensitive prick!` },
-			triggers: [ `bymrtz` ],
+			triggers: [`bymrtz`],
 			type: `exact`
 		},{
 			chance: 10,
@@ -124,26 +124,26 @@ buzzBot.on(Events.MessageCreate, (message) => {
 		},{
 			message,
 			reply: { content: buzzLink },
-			triggers: [ `botlink buzzbot` ],
+			triggers: [`botlink buzzbot`],
 			type: `anywhere`
 		},{
 			message,
 			reply: { content: `The hivemind is the absolute truth` },
-			triggers: [ `hive` ],
+			triggers: [`hive`],
 			type: `anywhere`
 		},{
 			message,
 			reply: { content: `you have no choice` },
-			triggers: [ `join us` ],
+			triggers: [`join us`],
 			type: `anywhere`
 		},{
 			message,
 			reply: { content: buzzes() },
-			triggers: [ `buzz` ],
+			triggers: [`buzz`],
 			type: `anywhere`
 		}
 	]);
-	forwarding.messageForwarding([{message}]);
+	forwarding.messageForwarding([{ message }]);
 });
 //#endregion
 
@@ -159,27 +159,27 @@ ebnj.on(Events.MessageCreate, (message) => {
 		{
 			message,
 			reply: { content: ebnjLink },
-			triggers: [ `botlink ebnj` ],
+			triggers: [`botlink ebnj`],
 			type: `anywhere`
 		},{
 			message,
 			reply: { content: `🦆 <:Minecoins:656622021240815623>` },
-			triggers: [ `minecoin` ],
+			triggers: [`minecoin`],
 			type: `anywhere`
 		},{
 			message,
 			reply: { content: `Nice\nJava` },
-			triggers: [ `java` ],
+			triggers: [`java`],
 			type: `anywhere`
 		},{
 			message,
 			reply: { content: `Ew\nBedrock` },
-			triggers: [ `bedrock` ],
+			triggers: [`bedrock`],
 			type: `anywhere`
 		},{
 			message,
 			reply: { content: `R.I.P. Earth\nApparently nobody liked you` },
-			triggers: [ `earth` ],
+			triggers: [`earth`],
 			type: `anywhere`
 		},{
 			chance: 10,
@@ -193,11 +193,11 @@ ebnj.on(Events.MessageCreate, (message) => {
 		{
 			emotes: [ `🇫`, `🇺`, `🇨`, `🇰`, `➖`, `🇩`, `ℹ️`, `🇴`, `🇷`, `🇮`, `🇹`, `🇪` ],
 			message,
-			triggers: [ `diorite` ],
+			triggers: [`diorite`],
 			type: `anywhere`,
 		}
 	]);
-	forwarding.messageForwarding([{message}]);
+	forwarding.messageForwarding([{ message }]);
 });
 //#endregion
 
@@ -215,7 +215,7 @@ const lemonrant = new EmbedBuilder()
 		}
 	])
 	.setThumbnail(`https://cdn.discordapp.com/attachments/647924443078852621/947515795590754355/test.png`)
-	.setFooter({text: `-Cave Johnson`})
+	.setFooter({ text: `-Cave Johnson` })
 	.setColor(`Yellow`),
 stillalive = new EmbedBuilder()
 	.setColor(`#FFFFFF`)
@@ -237,7 +237,7 @@ stillalive = new EmbedBuilder()
 
 //#region welcome/goodbye Message
 glados.on(Events.GuildMemberAdd, (member) => {
-	const channelCount = info.channelCount({guild: member.guild}).all.toString(),
+	const channelCount = info.channelCount({ guild: member.guild }).all.toString(),
 	memberCount = member.guild.memberCount.toString();
 	if (member.guild.systemChannel !== null) {
 		const content = `Welcome to the server, #${memberCount}\nWe currently have ${channelCount}/500 channels used`;
@@ -270,37 +270,37 @@ glados.on(Events.MessageCreate, (message) => {
 		},{
 			message,
 			reply: { content: `I will tell you what is not a lie\nThe cake` },
-			triggers: [ `lie` ],
+			triggers: [`lie`],
 			type: `exact`
 		},{
 			message,
-			reply: { files: [ `./GLaDOS/files/BSOD.png` ] },
-			triggers: [ `neurotoxin` ],
+			reply: { files: [`./GLaDOS/files/BSOD.png`] },
+			triggers: [`neurotoxin`],
 			type: `anywhere`
 		},{
 			message,
-			reply: { content: `<@${process.env.RASID ?? ``}>`},
-			triggers: [ `@ras` ],
+			reply: { content: `<@${process.env.RASID ?? ``}>` },
+			triggers: [`@ras`],
 			type: `exact`
 		},{
 			message,
 			reply: { content: `<@454340813388775445>` },
-			triggers: [ `@kelp` ],
+			triggers: [`@kelp`],
 			type: `exact`
 		},{
 			message,
-			reply: { embeds: [ stillalive ] },
-			triggers: [ `still alive` ],
+			reply: { embeds: [stillalive] },
+			triggers: [`still alive`],
 			type: `anywhere`
 		},{
 			message,
 			reply: { content: `P I N G` },
-			triggers: [ `680053684243398693` ],
+			triggers: [`680053684243398693`],
 			type: `mention`
 		},{
 			message,
 			reply: { content: `P I N G\nWait\nNevermind` },
-			triggers: [ `654074851337699328` ],
+			triggers: [`654074851337699328`],
 			type: `mention`
 		},{
 			chance: 10,
@@ -318,32 +318,32 @@ glados.on(Events.MessageCreate, (message) => {
 			chance: 50,
 			message,
 			reply: { content: `Say hi to him for me 😳` },
-			triggers: [ `espen bot` ],
+			triggers: [`espen bot`],
 			type: `exact`
 		}
 	]);
 	containsWord.reactThing([
 		{
-			emotes: [ `838084115629735976` ],
+			emotes: [`838084115629735976`],
 			message,
-			triggers: [ `science` ],
+			triggers: [`science`],
 			type: `anywhere`
 		},{
-			emotes: [ `838084115391053844` ],
+			emotes: [`838084115391053844`],
 			message,
 			triggers: [ `blue`, `blå` ],
 			type: `anywhere`
 		},{
-			emotes: [ `838084116653670420` ],
+			emotes: [`838084116653670420`],
 			message,
 			triggers: [ `orange`, `oransje` ],
 			type: `anywhere`
 		}
 	]);
-	forwarding.channelLink([{ch1: `842486821510447115`, ch2: `842486725347508266`, message}]);
-	inspiroBot.sendMessage([{message}]);
-	forwarding.messageForwarding([{message}]);
-	stupidStuff.hencefortifier([{message}]);
+	forwarding.channelLink([{ ch1: `842486821510447115`, ch2: `842486725347508266`, message }]);
+	inspiroBot.sendMessage([{ message }]);
+	forwarding.messageForwarding([{ message }]);
+	stupidStuff.hencefortifier([{ message }]);
 	stupidStuff.espenBotReplacement([
 		{
 			chance: 1,
@@ -370,7 +370,7 @@ glados.on(Events.InteractionCreate, (interaction) => {
 				interaction.reply({ content: `That button worked`, ephemeral }).catch(genericCatch);
 			switch (interaction.customId) {
 				case `inspirobot`: {
-					inspiroBot.sendMessage([{message: interaction}]);
+					inspiroBot.sendMessage([{ message: interaction }]);
 					break;
 				}
 				default: {
@@ -424,15 +424,15 @@ glados.on(Events.InteractionCreate, (interaction) => {
 				break;
 			}
 			case `serverinfo`: {
-				info.serverInfo([{interaction}]);
+				info.serverInfo([{ interaction }]);
 				break;
 			}
 			case `joindate`: {
-				interaction.reply(info.joindate({interaction})).catch(genericCatch);
+				interaction.reply(info.joindate({ interaction })).catch(genericCatch);
 				break;
 			}
 			case `grid`: {
-				interaction.reply(stupidStuff.buttonGrid({interaction})).catch(genericCatch);
+				interaction.reply(stupidStuff.buttonGrid({ interaction })).catch(genericCatch);
 				break;
 			}
 			case `selectmenu`: {
@@ -440,23 +440,23 @@ glados.on(Events.InteractionCreate, (interaction) => {
 				break;
 			}
 			case `d`: {
-				dice.dice([{interaction}]);
+				dice.dice([{ interaction }]);
 				break;
 			}
 			case `xkcd`: {
-				xkcd.xkcdFunct([{interaction}]);
+				xkcd.xkcdFunct([{ interaction }]);
 				break;
 			}
 			case `maze`: {
-				maze.mazeFunction([{interaction}]);
+				maze.mazeFunction([{ interaction }]);
 				break;
 			}
 			case `tictactoe`: {
-				ticTacToe.ticTacToe([{interaction}]);
+				ticTacToe.ticTacToe([{ interaction }]);
 				break;
 			}
 			case `coinflip`: {
-				coinflip.flip([{interaction}]);
+				coinflip.flip([{ interaction }]);
 				break;
 			}
 			case `gladle`: {
@@ -500,11 +500,11 @@ pokebot.on(Events.MessageCreate, (message) => {
 		{
 			message,
 			reply: { content: pokeLink },
-			triggers: [ `botlink pokebot` ],
+			triggers: [`botlink pokebot`],
 			type: `anywhere`
 		}
 	]);
-	forwarding.messageForwarding([{message}]);
+	forwarding.messageForwarding([{ message }]);
 	if (pokebot.user !== null) {
 		if (message.author.id !== pokebot.user.id) {
 			if (message.content.toLowerCase().startsWith(`pd`)) {
@@ -514,7 +514,7 @@ pokebot.on(Events.MessageCreate, (message) => {
 							message,
 							name: pokedex.trainers[Math.round(Math.random() * pokedex.trainers.length)],
 							pfp: pokebot.user.avatarURL() ?? ``,
-							sendMessage: pokedex.natDex({query: message.content.toLowerCase().split(` `)[1]}),
+							sendMessage: pokedex.natDex({ query: message.content.toLowerCase().split(` `)[1] }),
 							sendTo: message.channel,
 						}
 					]);
@@ -531,7 +531,7 @@ pokebot.on(Events.MessageCreate, (message) => {
 
 //#region Long stuff
 // eslint-disable-next-line one-var
-const SWWords = [ `star`, `wars`, `anakin`, `luke`, `obi`, `wan`, `kenobi`, `han`, `solo`, `leia`, `yoda`, `mace`, `windu`, `force`, `c3po`, `chewbacca`, `chewie`, `darth`, `vader`, `maul`, `sidius`, `plagueis`, `c-3po`, `r2`, `d2`, `emperor`, `palpatine`, `skywalker`, `jango`, `fett`, `padme`, `padmé`, `amidala`, `doku`, `tyranus`, `grievous`, `qui`, `gon`, `jinn`, `ackbar`, `tarkin`, `jabba`, `hut`, `lando`, `calrissian`, `boba`, `naboo`, `kashyyyk`, `alderaan`, `geonosis`, `kamino`, `dagobah`, `hoth`, `endor`, `bespin`, `mustafar`, `coruscant`, `tatooine`],
+const SWWords = [ `star`, `wars`, `anakin`, `luke`, `obi`, `wan`, `kenobi`, `han`, `solo`, `leia`, `yoda`, `mace`, `windu`, `force`, `c3po`, `chewbacca`, `chewie`, `darth`, `vader`, `maul`, `sidius`, `plagueis`, `c-3po`, `r2`, `d2`, `emperor`, `palpatine`, `skywalker`, `jango`, `fett`, `padme`, `padmé`, `amidala`, `doku`, `tyranus`, `grievous`, `qui`, `gon`, `jinn`, `ackbar`, `tarkin`, `jabba`, `hut`, `lando`, `calrissian`, `boba`, `naboo`, `kashyyyk`, `alderaan`, `geonosis`, `kamino`, `dagobah`, `hoth`, `endor`, `bespin`, `mustafar`, `coruscant`, `tatooine` ],
 generalRas = `General Ras.\nYears ago you served my father in the Clone Wars.\nNow he begs you to help him in his struggle against the Empire.\nI regret that I am unable to present my father's request to you in person, but my ship has fallen under attack, and I'm afraid my mission to bring you to Alderaan has failed.\nI have placed information vital to the survival of the Rebellion into the memory systems of this R2 unit.\nMy father will know how to retrieve it.\nYou must see this droid safely delivered to him on Alderaan.\nThis is our most desperate hour.\nHelp me, Rasmatham.\nYou're my only hope.`;
 //#endregion
 
@@ -553,7 +553,7 @@ artoo.on(Events.MessageCreate, (message) => {
 		{
 			message,
 			reply: { content: r2Link },
-			triggers: [ `botlink artoo` ],
+			triggers: [`botlink artoo`],
 			type: `anywhere`
 		},
 		{
@@ -570,7 +570,7 @@ artoo.on(Events.MessageCreate, (message) => {
 			type: `anywhere`
 		}
 	]);
-	forwarding.messageForwarding([{message}]);
+	forwarding.messageForwarding([{ message }]);
 });
 //#endregion
 
@@ -586,7 +586,7 @@ random.on(Events.MessageCreate, (message) => {
 		{
 			message,
 			reply: { content: randomLink },
-			triggers: [ `botlink random stuff` ],
+			triggers: [`botlink random stuff`],
 			type: `anywhere`
 		},
 		{
@@ -598,45 +598,45 @@ random.on(Events.MessageCreate, (message) => {
 	]);
 	containsWord.reactThing([
 		{
-			emotes: [ `653023282945196042` ],
+			emotes: [`653023282945196042`],
 			message,
-			triggers: [ `espen` ],
+			triggers: [`espen`],
 			type: `exact`
 		},
 		{
-			emotes: [ `642497812885405707` ],
+			emotes: [`642497812885405707`],
 			message,
-			triggers: [ `wolfo` ],
+			triggers: [`wolfo`],
 			type: `exact`
 		},
 		{
-			emotes: [ `654428027995815976` ],
+			emotes: [`654428027995815976`],
 			message,
-			triggers: [ `no u` ],
+			triggers: [`no u`],
 			type: `exact`
 		},
 		{
-			emotes: [ `699747136144932925` ],
+			emotes: [`699747136144932925`],
 			message,
 			triggers: [ `emily`, `impa` ],
 			type: `exact`
 		},
 		{
-			emotes: [ `699743387817082891` ],
+			emotes: [`699743387817082891`],
 			message,
 			triggers: [ `ahk`, `ahkrin`, `ck`, `ck32`, `creeper_killer`, `creeper_killer32` ],
 			type: `exact`
 		},
 		{
-			emotes: [ `656207221792702466` ],
+			emotes: [`656207221792702466`],
 			message,
 			triggers: [ `enndal,`, `ganon`, `ganondorf`, `ganond0rf` ],
 			type: `exact`
 		},
 		{
-			emotes: [ `656223106788229121` ],
+			emotes: [`656223106788229121`],
 			message,
-			triggers: [ `force` ],
+			triggers: [`force`],
 			type: `anywhere`
 		},
 		{
@@ -648,11 +648,11 @@ random.on(Events.MessageCreate, (message) => {
 		{
 			emotes: [ `0️⃣`, `1️⃣`, `2️⃣`, `3️⃣`, `4️⃣`, `5️⃣`, `6️⃣`, `7️⃣`, `8️⃣`, `9️⃣`, `🔟` ],
 			message,
-			triggers: [ `multichoice` ],
+			triggers: [`multichoice`],
 			type: `anywhere`
 		}
 	]);
-	forwarding.messageForwarding([{message}]);
+	forwarding.messageForwarding([{ message }]);
 });
 //#endregion
 
@@ -680,7 +680,7 @@ amber.on(Events.UserUpdate, (oldUser, newUser) => {
 amber.on(Events.MessageCreate, (message) => {
 	if (message.channel.isDMBased()) return;
 	if (blackList.includes(message.channel.name)) return;
-	forwarding.messageForwarding([{message}]);
+	forwarding.messageForwarding([{ message }]);
 });
 //#endregion
 
@@ -696,7 +696,7 @@ zelda.on(Events.MessageCreate, (message) => {
 		{
 			message,
 			reply: { content: zeldaLink },
-			triggers: [ `botlink zelda` ],
+			triggers: [`botlink zelda`],
 			type: `anywhere`
 		},
 		{
@@ -709,38 +709,38 @@ zelda.on(Events.MessageCreate, (message) => {
 	]);
 	containsWord.reactThing([
 		{
-			emotes: [ `642474761204662284` ],
+			emotes: [`642474761204662284`],
 			message,
-			triggers: [ `courage` ],
+			triggers: [`courage`],
 			type: `anywhere`
 		},
 		{
-			emotes: [ `642474761804578826` ],
+			emotes: [`642474761804578826`],
 			message,
-			triggers: [ `power` ],
+			triggers: [`power`],
 			type: `anywhere`
 		},
 		{
-			emotes: [ `642474761821224990` ],
+			emotes: [`642474761821224990`],
 			message,
-			triggers: [ `wisdom` ],
+			triggers: [`wisdom`],
 			type: `anywhere`
 		},
 		{
-			emotes: [ `642474761754247168` ],
+			emotes: [`642474761754247168`],
 			message,
-			triggers: [ `neutral` ],
+			triggers: [`neutral`],
 			type: `anywhere`
 		}
 	]);
-	forwarding.messageForwarding([{message}]);
+	forwarding.messageForwarding([{ message }]);
 });
 //#endregion
 
 //#endregion
 
 //#region CroissantBot
-croissant.on(Events.MessageCreate, (message) => {forwarding.messageForwarding([{message}]);});
+croissant.on(Events.MessageCreate, (message) => {forwarding.messageForwarding([{ message }]);});
 //#endregion
 
 //#region K9
@@ -751,12 +751,12 @@ canine.on(Events.InteractionCreate, (interaction) => {
 		switch (interaction.commandName) {
 			case `timestamp`:
 			case `Create Timestamp`: {
-				timestamps.create([{interaction}]);
+				timestamps.create([{ interaction }]);
 				break;
 			}
 			case `set_timezone`:
 			case `Set Timezone`: {
-				timestamps.saveTimezone([{interaction}]);
+				timestamps.saveTimezone([{ interaction }]);
 				break;
 			}
 			default: {
@@ -769,11 +769,11 @@ canine.on(Events.InteractionCreate, (interaction) => {
 		if (interaction.isFromMessage()) {
 			switch (interaction.customId) {
 				case `relative`: {
-					timestamps.relativeModalInteraction([{interaction}]);
+					timestamps.relativeModalInteraction([{ interaction }]);
 					break;
 				}
 				case `absolute`: {
-					timestamps.absoluteModalInteraction([{interaction}]);
+					timestamps.absoluteModalInteraction([{ interaction }]);
 					break;
 				}
 				default: {
@@ -783,7 +783,7 @@ canine.on(Events.InteractionCreate, (interaction) => {
 		} else {
 			switch (interaction.customId) {
 				case `setTz`: {
-					timestamps.saveTimezoneModalResponse([{interaction}]);
+					timestamps.saveTimezoneModalResponse([{ interaction }]);
 					break;
 				}
 				default: {
@@ -794,15 +794,15 @@ canine.on(Events.InteractionCreate, (interaction) => {
 	} else if (interaction.isButton()) {
 		switch (interaction.customId) {
 			case `setTz`:{
-				timestamps.saveTimezone([{interaction}]);
+				timestamps.saveTimezone([{ interaction }]);
 				break;
 			}
 			case `relative`:{
-				timestamps.relativeButtonInteraction([{interaction}]);
+				timestamps.relativeButtonInteraction([{ interaction }]);
 				break;
 			}
 			case `absolute`:{
-				timestamps.absoluteButtonInteraction([{interaction}]);
+				timestamps.absoluteButtonInteraction([{ interaction }]);
 				break;
 			}
 			default: {

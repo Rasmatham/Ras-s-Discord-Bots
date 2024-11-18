@@ -1,6 +1,6 @@
 //#region imports
-import {ColorResolvable, CommandInteraction, EmbedBuilder} from "discord.js";
-import {existsSync, mkdirSync, readFileSync, writeFileSync} from "fs";
+import { ColorResolvable, CommandInteraction, EmbedBuilder } from "discord.js";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import { genericCatch } from "./generalUse";
 //#endregion
 

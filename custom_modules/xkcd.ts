@@ -92,7 +92,7 @@ export const xkcdFunct = (inObjs: {interaction: CommandInteraction}[]) => {
 						.setURL(`https://xkcd.com/${xkcdObj.num.toString()}/`)
 						.setDescription(xkcdObj.alt)
 						.setImage(xkcdObj.img.toString());
-					inObj.interaction.reply({ embeds: [ xkcdEmbed ] }).catch(genericCatch);
+					inObj.interaction.reply({ embeds: [xkcdEmbed] }).catch(genericCatch);
 				}, num);
 			}
 		});

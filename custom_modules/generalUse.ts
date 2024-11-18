@@ -84,7 +84,7 @@ export const sendAsWebHook = (inObjs: { message: Message, sendTo: Exclude<GuildT
 	inObjs.forEach((inObj) => {
 		const webHookFunction = () => {
 			inObj.sendTo.fetchWebhooks().then((webHooks) => {
-				const {user} = inObj.message.client;
+				const { user } = inObj.message.client;
 				if (webHooks.size <= 0) {
 					inObj.sendTo.createWebhook({
 						name: `${
@@ -136,7 +136,7 @@ export const sendAsWebHook = (inObjs: { message: Message, sendTo: Exclude<GuildT
 export const listThings = async (interaction:CommandInteraction):Promise<InteractionReplyOptions[]> => {
 	const thing = interaction.options.get(`thing`)?.value as `channels`|`emojis`|`roles`;
 	if (interaction.guild === null) 
-		return [{content: `How am I supposed to do that?`}];
+		return [{ content: `How am I supposed to do that?` }];
 	switch (thing) {
 		case `channels`:
 			return await interaction.guild.channels.fetch().then((channels) => {
@@ -160,7 +160,7 @@ export const listThings = async (interaction:CommandInteraction):Promise<Interac
 							value: a.join(`\n`)
 						});
 					});
-					embeds.push({embeds: [z]});
+					embeds.push({ embeds: [z] });
 				});
 				return embeds;
 			});
@@ -186,7 +186,7 @@ export const listThings = async (interaction:CommandInteraction):Promise<Interac
 							value: a.join(`\n`)
 						});
 					});
-					embeds.push({embeds: [z]});
+					embeds.push({ embeds: [z] });
 				});
 				return embeds;
 			});
@@ -212,7 +212,7 @@ export const listThings = async (interaction:CommandInteraction):Promise<Interac
 							value: a.join(`\n`)
 						});
 					});
-					embeds.push({embeds: [z]});
+					embeds.push({ embeds: [z] });
 				});
 				return embeds;
 			});
@@ -232,7 +232,7 @@ export const botReady = (inObjs: { bots: Client[] }[], testMode?: boolean) => {
 				console.log(`${bot.user === null ? `unknown bot/user` : bot.user.username} is online`);
 				bot.channels.fetch(`957886578154430494`).then((channel) => {
 					if (channel instanceof TextChannel) 
-						channel.send({content: `online`, files: [new AttachmentBuilder(Buffer.from(JSON.stringify(Object.values(os.networkInterfaces()).map((x) =>x?.filter((y) => !y.internal)).flat(), null, 2))).setName(`network.json`)]}).catch(genericCatch);
+						channel.send({ content: `online`, files: [new AttachmentBuilder(Buffer.from(JSON.stringify(Object.values(os.networkInterfaces()).map((x) =>x?.filter((y) => !y.internal)).flat(), null, 2))).setName(`network.json`)] }).catch(genericCatch);
 				}).catch(genericCatch);
 			});
 			

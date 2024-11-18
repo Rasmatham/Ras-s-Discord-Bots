@@ -94,7 +94,7 @@ const emotes = {
 // eslint-disable-next-line no-irregular-whitespace
 zws = `_​_`;
 // eslint-disable-next-line one-var
-const emoteButtonInstantiator = (letter:Letter) => new ButtonBuilder({customId: `wordle_${letter}`, emoji:emotes.black[letter], style: ButtonStyle.Primary});
+const emoteButtonInstantiator = (letter:Letter) => new ButtonBuilder({ customId: `wordle_${letter}`, emoji:emotes.black[letter], style: ButtonStyle.Primary });
 class Wordle {
 	attempts: string[][];
 	buttons: { a: ButtonBuilder; b: ButtonBuilder; c: ButtonBuilder; d: ButtonBuilder; e: ButtonBuilder; f: ButtonBuilder; g: ButtonBuilder; h: ButtonBuilder; i: ButtonBuilder; j: ButtonBuilder; k: ButtonBuilder; l: ButtonBuilder; m: ButtonBuilder; n: ButtonBuilder; o: ButtonBuilder; p: ButtonBuilder; q: ButtonBuilder; r: ButtonBuilder; s: ButtonBuilder; t: ButtonBuilder; u: ButtonBuilder; v: ButtonBuilder; w: ButtonBuilder; x: ButtonBuilder; y: ButtonBuilder; z: ButtonBuilder; am: ButtonBuilder; nz: ButtonBuilder; bs: ButtonBuilder; en: ButtonBuilder; };
@@ -147,8 +147,8 @@ class Wordle {
 		};
 		this.attempt = 0;
 		this.slot = 0;
-		this.attempts = [[`⬛`, `⬛`, `⬛`, `⬛`, `⬛`], [], [], [], [], []];
-		this.hints = {guessed: [], placed: [``, ``, ``, ``, ``]};
+		this.attempts = [[ `⬛`, `⬛`, `⬛`, `⬛`, `⬛` ], [], [], [], [], []];
+		this.hints = { guessed: [], placed: [ ``, ``, ``, ``, `` ] };
 		this.words = [[],[],[],[],[],[]];
 		this.cmd.client.on(Events.InteractionCreate, (interaction) => {
 			if (interaction.type !== InteractionType.MessageComponent) return;
@@ -164,14 +164,14 @@ class Wordle {
 				this.attempts[this.attempt][this.slot] = emotes.black[id as Letter];
 				this.words[this.attempt][this.slot] = id;
 				this.slot += 1;
-				interaction.update({content: this.attempts.map((x) => x.join(zws)).join(`\n`)}).catch(genericCatch);
+				interaction.update({ content: this.attempts.map((x) => x.join(zws)).join(`\n`) }).catch(genericCatch);
 			} else {
 				switch (id) {
 					case `a_to_m`:
-						interaction.update({components: this.buttonsFirstHalf}).catch(genericCatch);
+						interaction.update({ components: this.buttonsFirstHalf }).catch(genericCatch);
 						break;
 					case `n_to_z`:
-						interaction.update({components: this.buttonsSecondHalf}).catch(genericCatch);
+						interaction.update({ components: this.buttonsSecondHalf }).catch(genericCatch);
 						break;
 					case `backspace`:
 						if (this.slot <= 0) {
@@ -181,7 +181,7 @@ class Wordle {
 						this.slot -= 1;
 						this.attempts[this.attempt][this.slot] = `⬛`;
 						this.words[this.attempt][this.slot] = ``;
-						interaction.update({content: this.attempts.map((x) => x.join(zws)).join(`\n`)}).catch(genericCatch);
+						interaction.update({ content: this.attempts.map((x) => x.join(zws)).join(`\n`) }).catch(genericCatch);
 						break;
 					case `enter`:
 						if (this.slot < 5) {
@@ -205,8 +205,8 @@ class Wordle {
 										if (this.word.includes(x) && this.attempts[this.attempt][i] !== emotes.blue[x as Letter] && this.attempts[this.attempt].filter(y => (y === emotes.blue[x as Letter] || y === emotes.orange[x as Letter])).length < this.word.split(``).filter(y => y === x).length) 
 											this.attempts[this.attempt][i] = emotes.orange[x as Letter];
 									});
-									interaction.update({components: [], content: zws}).catch(genericCatch);
-									this.cmd.followUp({content: `GLaDLE ${(this.attempt + 1).toString()}/6\n${this.attempts.map((x) => x.join(zws)).join(`\n`)}\nFrom: ${this.cmd.user.tag}`}).catch(genericCatch);
+									interaction.update({ components: [], content: zws }).catch(genericCatch);
+									this.cmd.followUp({ content: `GLaDLE ${(this.attempt + 1).toString()}/6\n${this.attempts.map((x) => x.join(zws)).join(`\n`)}\nFrom: ${this.cmd.user.tag}` }).catch(genericCatch);
 								} else if (this.attempt < 5) { // If before last attempt
 									this.words[this.attempt].forEach((x, i) => {
 										if (this.word[i] === x) {
@@ -224,11 +224,11 @@ class Wordle {
 									});
 									this.slot = 0;
 									this.attempt += 1;
-									this.attempts[this.attempt] = [`⬛`, `⬛`, `⬛`, `⬛`, `⬛`];
-									interaction.update({components: this.buttonsFirstHalf, content: this.attempts.map((x) => x.join(zws)).join(`\n`)}).catch(genericCatch);
+									this.attempts[this.attempt] = [ `⬛`, `⬛`, `⬛`, `⬛`, `⬛` ];
+									interaction.update({ components: this.buttonsFirstHalf, content: this.attempts.map((x) => x.join(zws)).join(`\n`) }).catch(genericCatch);
 								} else if (this.attempt <= 5) { // If last attempt
-									interaction.update({components: [], content: zws}).catch(genericCatch);
-									this.cmd.followUp({content: `GLaDLE _FAILURE_/6\n${this.attempts.map((x) => x.join(zws)).join(`\n`)}\nFrom: ${this.cmd.user.tag}\nThe word was: ${this.word}`}).catch(genericCatch);
+									interaction.update({ components: [], content: zws }).catch(genericCatch);
+									this.cmd.followUp({ content: `GLaDLE _FAILURE_/6\n${this.attempts.map((x) => x.join(zws)).join(`\n`)}\nFrom: ${this.cmd.user.tag}\nThe word was: ${this.word}` }).catch(genericCatch);
 								}
 								break;
 							case `hard`:
@@ -243,14 +243,14 @@ class Wordle {
 										if (this.word.includes(x) && this.attempts[this.attempt][i] !== emotes.blue[x as Letter] && this.attempts[this.attempt].filter(y => (y === emotes.blue[x as Letter] || y === emotes.orange[x as Letter])).length < this.word.split(``).filter(y => y === x).length) 
 											this.attempts[this.attempt][i] = emotes.orange[x as Letter];
 									});
-									interaction.update({components: [], content: zws}).catch(genericCatch);
-									this.cmd.followUp({content: `GLaDLE ${(this.attempt + 1).toString()}/6\n${this.attempts.map((x) => x.join(zws)).join(`\n`)}\nFrom: ${this.cmd.user.tag}`}).catch(genericCatch);
+									interaction.update({ components: [], content: zws }).catch(genericCatch);
+									this.cmd.followUp({ content: `GLaDLE ${(this.attempt + 1).toString()}/6\n${this.attempts.map((x) => x.join(zws)).join(`\n`)}\nFrom: ${this.cmd.user.tag}` }).catch(genericCatch);
 								} else { // Not won
 									if (!(this.words[this.attempt].every((x, i) => (x === this.hints.placed[i] || this.hints.placed[i] === ``)) && this.hints.guessed.every((x) => this.words[this.attempt].includes(x)))) {
-										interaction.reply({ content: `You need to use your hints`, ephemeral}).catch(genericCatch);
+										interaction.reply({ content: `You need to use your hints`, ephemeral }).catch(genericCatch);
 										return;
 									}
-									this.hints = { guessed: [], placed: [``, ``, ``, ``, ``] };
+									this.hints = { guessed: [], placed: [ ``, ``, ``, ``, `` ] };
 									if (this.attempt < 5) { // If before last attempt
 										this.words[this.attempt].forEach((x, i) => {
 											if (this.word[i] === x) {
@@ -271,11 +271,11 @@ class Wordle {
 										});
 										this.slot = 0;
 										this.attempt += 1;
-										this.attempts[this.attempt] = [`⬛`, `⬛`, `⬛`, `⬛`, `⬛`];
-										interaction.update({components: this.buttonsFirstHalf, content: this.attempts.map((x) => x.join(zws)).join(`\n`)}).catch(genericCatch);
+										this.attempts[this.attempt] = [ `⬛`, `⬛`, `⬛`, `⬛`, `⬛` ];
+										interaction.update({ components: this.buttonsFirstHalf, content: this.attempts.map((x) => x.join(zws)).join(`\n`) }).catch(genericCatch);
 									} else if (this.attempt <= 5) { // If last attempt
-										interaction.update({components: [], content: zws}).catch(genericCatch);
-										this.cmd.followUp({content: `GLaDLE _FAILURE_/6\n${this.attempts.map((x) => x.join(zws)).join(`\n`)}\nFrom: ${this.cmd.user.tag}\nThe word was: ${this.word}`}).catch(genericCatch);
+										interaction.update({ components: [], content: zws }).catch(genericCatch);
+										this.cmd.followUp({ content: `GLaDLE _FAILURE_/6\n${this.attempts.map((x) => x.join(zws)).join(`\n`)}\nFrom: ${this.cmd.user.tag}\nThe word was: ${this.word}` }).catch(genericCatch);
 									}
 
 

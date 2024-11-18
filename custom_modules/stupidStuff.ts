@@ -181,7 +181,7 @@ export const selectMenu = ():InteractionReplyOptions => {
 				])
 		]);
 	return {
-		components: [ bar ],
+		components: [bar],
 		content: `sample menus:`
 	};
 };
