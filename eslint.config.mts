@@ -38,6 +38,7 @@ export default tseslint.config(
 				default: `array-simple`
 			}],
 			"@typescript-eslint/class-methods-use-this": [`error`],
+			"@typescript-eslint/consistent-type-exports": [`error`],
 			"@typescript-eslint/no-shadow": [`error`],
 			"array-bracket-spacing": [ `error`, `always`, {
 				"arraysInArrays": false,
