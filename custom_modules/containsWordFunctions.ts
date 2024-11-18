@@ -1,34 +1,28 @@
 //#region imports
 import {ChannelType, Message, MessageCreateOptions} from "discord.js";
+import { genericCatch } from "./generalUse";
 //#endregion
 
 //#region reply
 
-//function int
-const reply = (
-	inObjs: {
-		message: Message,
-		chance?: number,
-		reply: MessageCreateOptions
-	}[]
-) => {
+// Function int
+const reply = (inObjs: { message: Message, chance?: number, reply: MessageCreateOptions }[]) => {
 	inObjs.forEach((inObj) => {
-		if (typeof inObj.chance == `undefined`) {
+		if (typeof inObj.chance === `undefined`) 
 			inObj.chance = 100;
-		}
 		if (Math.random() * 100 <= inObj.chance) {
-			if (inObj.message.channel.type === ChannelType.GuildText)
-				inObj.message.channel.sendTyping()
-					.finally(() => {
-						if (inObj.message.channel.type === ChannelType.GuildText)
-							inObj.message.channel.send(inObj.reply).catch((err: unknown) => {console.error(err)});
-					})
-					.catch((err: unknown) => {console.error(err)});
+			if (inObj.message.channel.type === ChannelType.GuildText) {
+				inObj.message.channel.sendTyping().finally(() => {
+					if (inObj.message.channel.type === ChannelType.GuildText)
+						inObj.message.channel.send(inObj.reply).catch(genericCatch);
+				}).catch(genericCatch);
+			}
 		}
 	});
 };
 
-//function ext
+// Function ext
+// eslint-disable-next-line one-var
 export const replyThing = (
 	inObjs: {
 		message: Message,
@@ -39,31 +33,30 @@ export const replyThing = (
 	}[]
 ) => {
 	inObjs.forEach((inObj) => {
-		if (typeof inObj.chance == `undefined`) {
+		if (typeof inObj.chance === `undefined`) 
 			inObj.chance = 100;
-		}
 		if (!inObj.message.author.bot) {
-			if (inObj.type.toString() == `anywhere`) {
+			if (inObj.type.toString() === `anywhere`) {
 				inObj.triggers.forEach((trigger) => {
 					if (inObj.message.content.toLowerCase().includes(trigger)) {
 						reply([
 							{
-								message: inObj.message,
 								chance: inObj.chance,
+								message: inObj.message,
 								reply: inObj.reply
 							}
 						]);
 					}
 				});
 			}
-			else if (inObj.type.toString() == `exact`) {
+			else if (inObj.type.toString() === `exact`) {
 				inObj.message.content.split(` `).forEach((word) => {
 					inObj.triggers.forEach((trigger) => {
-						if (word == trigger) {
+						if (word === trigger) {
 							reply([
 								{
-									message: inObj.message,
 									chance: inObj.chance,
+									message: inObj.message,
 									reply: inObj.reply
 								}
 							]);
@@ -71,13 +64,13 @@ export const replyThing = (
 					});
 				});
 			}
-			else if (inObj.type.toString() == `mention`) {
+			else if (inObj.type.toString() === `mention`) {
 				inObj.triggers.forEach((trigger) => {
 					if (inObj.message.mentions.users.has(trigger as `${bigint}`)) {
 						reply([
 							{
-								message: inObj.message,
 								chance: inObj.chance,
+								message: inObj.message,
 								reply: inObj.reply
 							}
 						]);
@@ -92,7 +85,8 @@ export const replyThing = (
 
 //#region react
 	
-//function int
+// Function int
+// eslint-disable-next-line one-var
 const react = (
 	inObjs: {
 		message: Message,
@@ -101,17 +95,17 @@ const react = (
 	}[]
 ) => {
 	inObjs.forEach((inObj) => {
-		if (typeof inObj.chance == `undefined`) {
+		if (typeof inObj.chance === `undefined`) 
 			inObj.chance = 100;
-		}
 		if (Math.random() * 100 <= inObj.chance) {
 			inObj.emotes.forEach(emote => {
-				inObj.message.react(emote).catch((err: unknown) => {console.error(err)});
+				inObj.message.react(emote).catch(genericCatch);
 			});
 		}
 	});
 };
-	//Function ext
+// Function ext
+// eslint-disable-next-line one-var
 export const reactThing = (
 	inObjs: {
 		message: Message,
@@ -121,47 +115,46 @@ export const reactThing = (
 	}[]
 ) => {
 	inObjs.forEach((inObj) => {
-		if (typeof inObj.chance == `undefined`) {
+		if (typeof inObj.chance === `undefined`) 
 			inObj.chance = 100;
-		}
 		if (!inObj.message.author.bot) {
-			const chance = inObj.chance;
-			if (inObj.type.toString() == `anywhere`) {
+			const {chance} = inObj;
+			if (inObj.type.toString() === `anywhere`) {
 				inObj.triggers.forEach((trigger) => {
 					if (inObj.message.content.toLowerCase().includes(trigger) && Math.random() * 100 <= chance) {
 						react([
 							{
-								message: inObj.message,
 								chance: inObj.chance,
-								emotes: inObj.emotes
+								emotes: inObj.emotes,
+								message: inObj.message
 							}
 						]);
 					}
 				});
 			}
-			else if (inObj.type.toString() == `exact`) {
+			else if (inObj.type.toString() === `exact`) {
 				inObj.message.content.split(` `).forEach((word) => {
 					inObj.triggers.forEach((trigger) => {
-						if (word == trigger) {
+						if (word === trigger) {
 							react([
 								{
-									message: inObj.message,
 									chance: inObj.chance,
-									emotes: inObj.emotes
+									emotes: inObj.emotes,
+									message: inObj.message
 								}
 							]);
 						}
 					});
 				});
 			}
-			else if (inObj.type.toString() == `mention`) {
+			else if (inObj.type.toString() === `mention`) {
 				inObj.triggers.forEach((trigger) => {
 					if (inObj.message.mentions.users.has(trigger as `${bigint}`) && Math.random() * 100 <= chance) {
 						react([
 							{
-								message: inObj.message,
 								chance: inObj.chance,
-								emotes: inObj.emotes
+								emotes: inObj.emotes,
+								message: inObj.message
 							}
 						]);
 					}

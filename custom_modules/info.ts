@@ -1,25 +1,21 @@
 //#region imports
-import {CommandInteraction, EmbedBuilder, Guild, User, ColorResolvable, InteractionReplyOptions, GuildMember, ChannelType} from "discord.js";
-import {checkFor} from "./generalUse.js";
+import {ChannelType, ColorResolvable, CommandInteraction, EmbedBuilder, Guild, GuildMember, InteractionReplyOptions, User} from "discord.js";
+import {checkFor, ephemeral, genericCatch} from "./generalUse.js";
 //#endregion
 
 //#region channelCount
-export const channelCount = (
-	inObj: {
-		guild: Guild
-	}
-):{
+export const channelCount = (inObj: { guild: Guild }):{
 	textChannels: number | `unknown`,
 	voiceChannels: number | `unknown`,
-	Categories: number | `unknown`,
-	Unknown: number | `unknown`,
+	categories: number | `unknown`,
+	unknown: number | `unknown`,
 	all: number | `unknown`
 } => {
-	const TC:string[] = [];
-	const VC:string[] = [];
-	const Cat:string[] = [];
-	const UK:string[] = [];
-	inObj.guild.channels.cache.map((channel) => {
+	const Cat:string[] = [],
+	TC:string[] = [],
+	UK:string[] = [],
+	VC:string[] = [];
+	inObj.guild.channels.cache.forEach((channel) => {
 		switch (channel.type) {
 		case ChannelType.GuildText:
 			TC.push(channel.name);
@@ -36,22 +32,23 @@ export const channelCount = (
 		}
 	});
 	return {
+		all: TC.length+VC.length+Cat.length+UK.length,
+		categories: Cat.length,
 		textChannels: TC.length,
+		unknown: UK.length,
 		voiceChannels: VC.length,
-		Categories: Cat.length,
-		Unknown: UK.length,
-		all: TC.length+VC.length+Cat.length+UK.length
 	};
 };
 //#endregion
 
 //#region userinfo
+// eslint-disable-next-line one-var
 export const userInfo = async (
 	inObj: {
 		interaction: CommandInteraction
 	}
 ):Promise<InteractionReplyOptions> => {
-	const guild = inObj.interaction.guild;
+	const {guild} = inObj.interaction;
 	return {
 		content: `test`,
 		files: [
@@ -69,18 +66,32 @@ export const userInfo = async (
 //#endregion
 
 //#region serverinfo
+// eslint-disable-next-line one-var
 export const serverInfo = (
 	inObjs: {
 		interaction: CommandInteraction
 	}[]
 ) => {
 	inObjs.forEach((inObj) => {
-		const guild = inObj.interaction.guild;
-		if (inObj.interaction.guild != null) {
-			const textChannels:string[] = [];
-			const voiceChannels:string[] = [];
-			const categories:string[] = [];
-			const unknown:string[] = [];
+		const {guild} = inObj.interaction;
+		if (inObj.interaction.guild === null) {
+			if ((inObj.interaction.member as GuildMember).user.id === `588511925944582186`) {
+				inObj.interaction.reply({
+					content: `stop tring to kill me, smh`
+				}).catch(genericCatch);
+			}
+			else {
+				inObj.interaction.reply({
+					content: `I'm sorry, Dave, but I'm afraid I can't let you do that`
+				}).catch(genericCatch);
+			}
+		}
+		else {
+			const 
+			categories:string[] = [],
+			textChannels:string[] = [],
+			unknown:string[] = [],
+			voiceChannels:string[] = []
 			inObj.interaction.guild.channels.fetch().then((channels) => {
 				channels.forEach((channel) => {
 					switch (channel?.type) {
@@ -98,111 +109,48 @@ export const serverInfo = (
 						break;
 					}
 				});
-			})
-				.then(() => {
-					const embed = new EmbedBuilder().addFields(checkFor(
-						[
-							{
-								arr: textChannels,
-								str: `Text channels`,
-								inline: true
-							},
-							{
-								arr: voiceChannels,
-								str: `Voice channels`,
-								inline: true
-							},
-							{
-								arr: categories,
-								str: `Categories`,
-								inline: true
-							},
-							{
-								arr: unknown,
-								str: `Other channels`,
-								inline: true
-							},
-						]
-					)).addFields(
-						[
-							{
-								name: `Total channels`,
-								value: (textChannels.length + voiceChannels.length + categories.length + unknown.length).toString(),
-								inline: true
-							},
-							{
-								name: `Channels left`,
-								value: (500 - (textChannels.length + voiceChannels.length + categories.length + unknown.length)).toString(),
-								inline: true
-							},
-							{
-								name: `Members`,
-								value: guild?.memberCount.toString() ?? `error`,
-								inline: true
-							},
-						]
-					).setThumbnail(guild?.iconURL() ?? `https://cdn.discordapp.com/embed/avatars/${(Math.abs(Number.parseInt(guild?.id ?? `0`) >> 22) % 6).toString()}.png`)
-						.setColor(`#0099FF`);
-					inObj.interaction.reply({
-						embeds: [embed]
-					}).catch((err: unknown) => {console.error(err)});
-				})
-				.catch((err: unknown) => {console.error(err)});
-		}
-		else {
-			if ((inObj.interaction.member as GuildMember).user.id == `588511925944582186`) {
-				inObj.interaction.reply({
-					content: `stop tring to kill me, smh`
-				}).catch((err: unknown) => {console.error(err)});
-			}
-			else {
-				inObj.interaction.reply({
-					content: `I'm sorry, Dave, but I'm afraid I can't let you do that`
-				}).catch((err: unknown) => {console.error(err)});
-			}
+			}).then(() => {
+				const embed = new EmbedBuilder().addFields(checkFor([
+					{ arr: textChannels, inline: true, str: `Text channels` },
+					{ arr: voiceChannels, inline: true, str: `Voice channels` },
+					{ arr: categories, inline: true, str: `Categories` },
+					{ arr: unknown, inline: true, str: `Other channels` }
+				])).addFields([
+					{ inline: true, name: `Total channels`, value: (textChannels.length + voiceChannels.length + categories.length + unknown.length).toString() },
+					{ inline: true, name: `Channels left`, value: (500 - (textChannels.length + voiceChannels.length + categories.length + unknown.length)).toString() },
+					{ inline: true, name: `Members`, value: guild?.memberCount.toString() ?? `error` }
+				]).setThumbnail(guild?.iconURL() ?? `https://cdn.discordapp.com/embed/avatars/${(Math.abs(Number.parseInt(guild?.id ?? `0`, 10) >> 22) % 6).toString()}.png`)
+					.setColor(`#0099FF`);
+					inObj.interaction.reply({ embeds: [embed] }).catch(genericCatch);
+				}).catch(genericCatch);
 		}
 	});
 };
 //#endregion
 
 //#region join date
-export const joindate = (
-	inObj: {
-		interaction: CommandInteraction
-	}
-):{
-	embeds: EmbedBuilder[],
-	ephemeral: boolean
-} => {
-	if (!((inObj.interaction.member as GuildMember).user instanceof User)) {
-		return {embeds: [new EmbedBuilder], ephemeral: true};
-	}
-	const ms:number = (inObj.interaction.member as GuildMember).user.createdTimestamp;
-	const date:Date = new Date(ms);
+// eslint-disable-next-line one-var
+export const joindate = (inObj: { interaction: CommandInteraction }):{ embeds: EmbedBuilder[], ephemeral: boolean } => {
+	if (!((inObj.interaction.member as GuildMember).user instanceof User)) 
+		return {embeds: [new EmbedBuilder], ephemeral};
+	const date = new Date((inObj.interaction.member as GuildMember).user.createdTimestamp);
+	// eslint-disable-next-line one-var
 	const embed:EmbedBuilder = new EmbedBuilder()
 		.setColor(`FFFFFF` as ColorResolvable)
 		.setTitle(`You joined:`)
 		.setThumbnail(`https://cdn.discordapp.com/attachments/656164355381133332/715651846584270899/ezgif-3-ea387cdabbbe.gif`)
-		.addFields({
-			name: `Date`,
-			value: date.toLocaleDateString(`en-GB`, {
-				timeZone: `utc` 
-			}),
-		},
-		{
-			name: `Time`,
-			value: date.toLocaleTimeString(`en-GB`, {
-				timeZone: `utc`,
-				timeZoneName: `short`,
-			}),
-		}
-		);
+		.addFields([
+			{
+				name: `Date`,
+				value: date.toLocaleDateString(`en-GB`, { timeZone: `utc` }),
+			},
+			{
+				name: `Time`,
+				value: date.toLocaleTimeString(`en-GB`, { timeZone: `utc`, timeZoneName: `short` }),
+			}
+		]);
+	// eslint-disable-next-line one-var
 	const empherealOption = inObj.interaction.options.get(`public`);
-	return {
-		embeds: [
-			embed
-		],
-		ephemeral: !empherealOption?.value
-	};
+	return { embeds: [ embed ], ephemeral: !empherealOption?.value };
 };
 //#endregion

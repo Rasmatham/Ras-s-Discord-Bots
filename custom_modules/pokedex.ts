@@ -1,6 +1,6 @@
 //#region imports
-import {EmbedBuilder, MessageReplyOptions, ColorResolvable} from "discord.js";
-import {pokemon, trainerList, pokeObjType} from "../Pokebot/PokeDB.js";
+import { ColorResolvable, EmbedBuilder, MessageReplyOptions } from "discord.js";
+import { pokeObjType, pokemon, trainerList } from "../Pokebot/PokeDB.js";
 //#endregion
 
 //#region trainers
@@ -28,79 +28,46 @@ type pokeRange =
 //#endregion
 
 //#region dex embed
+// eslint-disable-next-line one-var
 export const natDex = (inObj: {query: string | number}):MessageReplyOptions => {
 	let dexNumber = 0 as pokeRange;
-	if (!isNaN(Number(inObj.query))) {
+	if (!isNaN(Number(inObj.query))) 
 		inObj.query = Number(inObj.query);
-	}
 	switch (typeof inObj.query) {
-	case `number`:
-		if (Number(inObj.query) <= 151 && Number(inObj.query) > 0) {
-			dexNumber = Number(inObj.query) as pokeRange;
-			break;
-		}
-		else {
-			break;
-		}
-	case `string`:
-		Object.keys(pokemon).forEach(i => {
-			const pokeObj:pokeObjType = pokemon[Number(i) as pokeRange];
-			if (inObj.query == pokeObj.name.toLowerCase()) {
-				dexNumber = Number(pokeObj.nat) as pokeRange;
+		case `number`:
+			if (Number(inObj.query) <= 151 && Number(inObj.query) > 0) {
+				dexNumber = Number(inObj.query) as pokeRange;
+				break;
 			}
-		});
-		break;
-	default:
-		break;
+			else break;
+		case `string`:
+			Object.keys(pokemon).forEach(i => {
+				const pokeObj:pokeObjType = pokemon[Number(i) as pokeRange];
+				if (inObj.query === pokeObj.name.toLowerCase()) 
+					dexNumber = Number(pokeObj.nat) as pokeRange;
+			});
+			break;
+		default:
+			break;
 	}
-	const secType = ():string => {
-		const x = pokemon[dexNumber].types[1];
-		if (typeof x != `undefined`) {
-			return x.name;
-		}
-		else {
+	const attachment = { attachment: `./Pokebot/Pokemon/1-151/250px-${pokemon[dexNumber].nat}${pokemon[dexNumber].name}.png` },
+	secType = ():string => {
+		const [, secondaryType ] = pokemon[dexNumber].types;
+		if (typeof secondaryType === `undefined`) 
 			return `None`;
-		}
-	};
-	const attachment = {
-		attachment: `./Pokebot/Pokemon/1-151/250px-${
-			pokemon[dexNumber].nat
-		}${
-			pokemon[dexNumber].name
-		}.png`
-	};
+		return secondaryType.name;
+	}
+	// eslint-disable-next-line one-var
 	const embed:EmbedBuilder = new EmbedBuilder()
 		.setColor(pokemon[dexNumber].types[0].color as ColorResolvable)
 		.setTitle(pokemon[dexNumber].name)
-		.addFields({
-			name: `National dex number:`,
-			value: pokemon[dexNumber].nat
-		},
-		{
-			name: `Regional dex nunber:`,
-			value: pokemon[dexNumber].reg
-		},
-		{
-			name: `Primary type`,
-			value: pokemon[dexNumber].types[0].name
-		},
-		{
-			name: `Secondary type`,
-			value: secType()
-		}
-		)
-		.setImage(`attachment://250px-${
-			pokemon[dexNumber].nat
-		}${
-			pokemon[dexNumber].name
-		}.png`);
-	return {
-		embeds: [
-			embed
-		],
-		files: [
-			attachment
-		]
-	};
+		.addFields([
+			{ name: `National dex number:`, value: pokemon[dexNumber].nat },
+			{ name: `Regional dex nunber:`, value: pokemon[dexNumber].reg },
+			{ name: `Primary type`, value: pokemon[dexNumber].types[0].name },
+			{ name: `Secondary type`, value: secType() }
+		])
+		.setImage(`attachment://250px-${pokemon[dexNumber].nat}${pokemon[dexNumber].name}.png`);
+	return { embeds: [ embed ], files: [ attachment ] };
 };
 //#endregion
