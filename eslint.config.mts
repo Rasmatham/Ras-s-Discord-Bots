@@ -37,12 +37,14 @@ export default tseslint.config(
 			"@typescript-eslint/array-type": [ `error`, {
 				default: `array-simple`
 			}],
+			"@typescript-eslint/class-methods-use-this": [`error`],
 			"@typescript-eslint/no-shadow": [`error`],
 			"array-bracket-spacing": [ `error`, `always`, {
 				"arraysInArrays": false,
 				"objectsInArrays": false,
 				"singleValue": false,
 			}],
+			"class-methods-use-this": [`off`],
 			"complexity": [`off`],
 			"computed-property-spacing": [ `error`, `never` ],
 			"curly": [ `error`, `multi-or-nest` ],
