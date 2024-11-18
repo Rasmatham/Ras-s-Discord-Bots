@@ -62,9 +62,9 @@ export const types: Record<string, pokeType> = {
 	bird: {
 		color: `68A090`,
 		name: `Bird`,
-		noDamageTo: [ `?` ],
-		strongTo: [ `?` ],
-		weakTo: [ `?` ]
+		noDamageTo: [`?`],
+		strongTo: [`?`],
+		weakTo: [`?`]
 	},
 	bug: {
 		color: `C7CF78`,
@@ -238,7 +238,7 @@ export const pokemon: pokeObjType[] = [
 		rarity: 0,
 		reg: `000`,
 		types: [ types.bird, types.normal ],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -283,7 +283,7 @@ export const pokemon: pokeObjType[] = [
 			types.grass,
 			types.poison
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -328,7 +328,7 @@ export const pokemon: pokeObjType[] = [
 			types.grass,
 			types.poison
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -373,7 +373,7 @@ export const pokemon: pokeObjType[] = [
 			types.grass,
 			types.poison
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -417,7 +417,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.fire
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -461,7 +461,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.fire
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -506,7 +506,7 @@ export const pokemon: pokeObjType[] = [
 			types.fire,
 			types.flying
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -550,7 +550,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.water
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -594,7 +594,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.water
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -638,7 +638,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.water
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -682,7 +682,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.bug
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -726,7 +726,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.bug
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -771,7 +771,7 @@ export const pokemon: pokeObjType[] = [
 			types.bug,
 			types.flying
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -816,7 +816,7 @@ export const pokemon: pokeObjType[] = [
 			types.bug,
 			types.poison
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -861,7 +861,7 @@ export const pokemon: pokeObjType[] = [
 			types.bug,
 			types.poison
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -906,7 +906,7 @@ export const pokemon: pokeObjType[] = [
 			types.bug,
 			types.poison
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -951,7 +951,7 @@ export const pokemon: pokeObjType[] = [
 			types.normal,
 			types.flying
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -996,7 +996,7 @@ export const pokemon: pokeObjType[] = [
 			types.normal,
 			types.flying
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -1041,7 +1041,7 @@ export const pokemon: pokeObjType[] = [
 			types.normal,
 			types.flying
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -1085,7 +1085,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.normal
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -1129,7 +1129,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.normal
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -1174,7 +1174,7 @@ export const pokemon: pokeObjType[] = [
 			types.normal,
 			types.flying
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -1219,7 +1219,7 @@ export const pokemon: pokeObjType[] = [
 			types.normal,
 			types.flying
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -1263,7 +1263,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.poison
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -1307,7 +1307,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.poison
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -1351,7 +1351,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.electric
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -1395,7 +1395,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.electric
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -1439,7 +1439,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.ground
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -1483,7 +1483,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.ground
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -1527,7 +1527,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.poison
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -1571,7 +1571,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.poison
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -1616,7 +1616,7 @@ export const pokemon: pokeObjType[] = [
 			types.poison,
 			types.ground
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -1660,7 +1660,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.poison
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -1704,7 +1704,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.poison
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -1749,7 +1749,7 @@ export const pokemon: pokeObjType[] = [
 			types.poison,
 			types.ground
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -1793,7 +1793,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.fairy
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -1837,7 +1837,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.fairy
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -1881,7 +1881,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.fire
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -1925,7 +1925,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.fire
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -1970,7 +1970,7 @@ export const pokemon: pokeObjType[] = [
 			types.normal,
 			types.fairy
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -2015,7 +2015,7 @@ export const pokemon: pokeObjType[] = [
 			types.normal,
 			types.fairy
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -2060,7 +2060,7 @@ export const pokemon: pokeObjType[] = [
 			types.poison,
 			types.flying
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -2105,7 +2105,7 @@ export const pokemon: pokeObjType[] = [
 			types.poison,
 			types.flying
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -2150,7 +2150,7 @@ export const pokemon: pokeObjType[] = [
 			types.grass,
 			types.poison
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -2195,7 +2195,7 @@ export const pokemon: pokeObjType[] = [
 			types.grass,
 			types.poison
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -2240,7 +2240,7 @@ export const pokemon: pokeObjType[] = [
 			types.grass,
 			types.poison
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -2285,7 +2285,7 @@ export const pokemon: pokeObjType[] = [
 			types.bug,
 			types.grass
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -2330,7 +2330,7 @@ export const pokemon: pokeObjType[] = [
 			types.bug,
 			types.grass
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -2375,7 +2375,7 @@ export const pokemon: pokeObjType[] = [
 			types.bug,
 			types.poison
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -2420,7 +2420,7 @@ export const pokemon: pokeObjType[] = [
 			types.bug,
 			types.poison
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -2464,7 +2464,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.ground
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -2508,7 +2508,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.ground
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -2552,7 +2552,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.normal
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -2596,7 +2596,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.normal
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -2640,7 +2640,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.water
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -2684,7 +2684,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.water
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -2728,7 +2728,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.fighting
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -2772,7 +2772,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.fighting
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -2816,7 +2816,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.fire
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -2860,7 +2860,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.fire
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -2904,7 +2904,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.water
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -2948,7 +2948,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.water
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -2993,7 +2993,7 @@ export const pokemon: pokeObjType[] = [
 			types.water,
 			types.fighting
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -3037,7 +3037,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.psychic
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -3081,7 +3081,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.psychic
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -3125,7 +3125,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.psychic
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -3169,7 +3169,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.fighting
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -3213,7 +3213,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.fighting
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -3257,7 +3257,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.fighting
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -3302,7 +3302,7 @@ export const pokemon: pokeObjType[] = [
 			types.grass,
 			types.poison
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -3347,7 +3347,7 @@ export const pokemon: pokeObjType[] = [
 			types.grass,
 			types.poison
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -3392,7 +3392,7 @@ export const pokemon: pokeObjType[] = [
 			types.grass,
 			types.poison
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -3437,7 +3437,7 @@ export const pokemon: pokeObjType[] = [
 			types.water,
 			types.poison
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -3482,7 +3482,7 @@ export const pokemon: pokeObjType[] = [
 			types.water,
 			types.poison
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -3527,7 +3527,7 @@ export const pokemon: pokeObjType[] = [
 			types.rock,
 			types.ground
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -3572,7 +3572,7 @@ export const pokemon: pokeObjType[] = [
 			types.rock,
 			types.ground
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -3617,7 +3617,7 @@ export const pokemon: pokeObjType[] = [
 			types.rock,
 			types.ground
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -3661,7 +3661,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.fire
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -3705,7 +3705,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.fire
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -3750,7 +3750,7 @@ export const pokemon: pokeObjType[] = [
 			types.water,
 			types.psychic
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -3795,7 +3795,7 @@ export const pokemon: pokeObjType[] = [
 			types.water,
 			types.psychic
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -3840,7 +3840,7 @@ export const pokemon: pokeObjType[] = [
 			types.electric,
 			types.steel
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -3885,7 +3885,7 @@ export const pokemon: pokeObjType[] = [
 			types.electric,
 			types.steel
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -3930,7 +3930,7 @@ export const pokemon: pokeObjType[] = [
 			types.normal,
 			types.flying
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -3975,7 +3975,7 @@ export const pokemon: pokeObjType[] = [
 			types.normal,
 			types.flying
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -4020,7 +4020,7 @@ export const pokemon: pokeObjType[] = [
 			types.normal,
 			types.flying
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -4064,7 +4064,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.water
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -4109,7 +4109,7 @@ export const pokemon: pokeObjType[] = [
 			types.water,
 			types.ice
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -4153,7 +4153,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.poison
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -4197,7 +4197,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.poison
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -4241,7 +4241,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.water
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -4286,7 +4286,7 @@ export const pokemon: pokeObjType[] = [
 			types.water,
 			types.ice
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -4331,7 +4331,7 @@ export const pokemon: pokeObjType[] = [
 			types.ghost,
 			types.poison
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -4376,7 +4376,7 @@ export const pokemon: pokeObjType[] = [
 			types.ghost,
 			types.poison
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -4421,7 +4421,7 @@ export const pokemon: pokeObjType[] = [
 			types.ghost,
 			types.poison
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -4466,7 +4466,7 @@ export const pokemon: pokeObjType[] = [
 			types.rock,
 			types.ground
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -4510,7 +4510,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.psychic
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -4554,7 +4554,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.psychic
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -4598,7 +4598,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.water
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -4642,7 +4642,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.water
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -4686,7 +4686,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.electric
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -4730,7 +4730,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.electric
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -4775,7 +4775,7 @@ export const pokemon: pokeObjType[] = [
 			types.grass,
 			types.psychic
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -4820,7 +4820,7 @@ export const pokemon: pokeObjType[] = [
 			types.grass,
 			types.psychic
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -4864,7 +4864,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.ground
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -4908,7 +4908,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.ground
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -4952,7 +4952,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.fighting
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -4996,7 +4996,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.fighting
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -5040,7 +5040,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.normal
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -5084,7 +5084,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.poison
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -5128,7 +5128,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.poison
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -5173,7 +5173,7 @@ export const pokemon: pokeObjType[] = [
 			types.ground,
 			types.rock
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -5218,7 +5218,7 @@ export const pokemon: pokeObjType[] = [
 			types.ground,
 			types.rock
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -5262,7 +5262,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.normal
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -5306,7 +5306,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.grass
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -5350,7 +5350,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.normal
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -5394,7 +5394,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.water
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -5438,7 +5438,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.water
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -5482,7 +5482,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.water
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -5526,7 +5526,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.water
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -5570,7 +5570,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.water
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -5615,7 +5615,7 @@ export const pokemon: pokeObjType[] = [
 			types.water,
 			types.psychic
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -5660,7 +5660,7 @@ export const pokemon: pokeObjType[] = [
 			types.psychic,
 			types.fairy
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -5705,7 +5705,7 @@ export const pokemon: pokeObjType[] = [
 			types.bug,
 			types.flying
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -5750,7 +5750,7 @@ export const pokemon: pokeObjType[] = [
 			types.ice,
 			types.psychic
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -5794,7 +5794,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.electric
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -5838,7 +5838,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.fire
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -5882,7 +5882,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.bug
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -5926,7 +5926,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.normal
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -5970,7 +5970,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.water
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -6015,7 +6015,7 @@ export const pokemon: pokeObjType[] = [
 			types.water,
 			types.flying
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -6060,7 +6060,7 @@ export const pokemon: pokeObjType[] = [
 			types.water,
 			types.ice
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -6104,7 +6104,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.normal
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -6148,7 +6148,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.normal
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -6192,7 +6192,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.water
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -6236,7 +6236,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.electric
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -6280,7 +6280,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.fire
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -6324,7 +6324,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.normal
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -6369,7 +6369,7 @@ export const pokemon: pokeObjType[] = [
 			types.rock,
 			types.water
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -6414,7 +6414,7 @@ export const pokemon: pokeObjType[] = [
 			types.rock,
 			types.water
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -6459,7 +6459,7 @@ export const pokemon: pokeObjType[] = [
 			types.rock,
 			types.water
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -6504,7 +6504,7 @@ export const pokemon: pokeObjType[] = [
 			types.rock,
 			types.water
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -6549,7 +6549,7 @@ export const pokemon: pokeObjType[] = [
 			types.rock,
 			types.flying
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -6593,7 +6593,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.normal
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -6638,7 +6638,7 @@ export const pokemon: pokeObjType[] = [
 			types.ice,
 			types.flying
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -6683,7 +6683,7 @@ export const pokemon: pokeObjType[] = [
 			types.electric,
 			types.flying
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -6728,7 +6728,7 @@ export const pokemon: pokeObjType[] = [
 			types.fire,
 			types.flying
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -6772,7 +6772,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.dragon
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -6816,7 +6816,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.dragon
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -6861,7 +6861,7 @@ export const pokemon: pokeObjType[] = [
 			types.dragon,
 			types.flying
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -6905,7 +6905,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.psychic
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	},
 	{
 		dexEntries: {
@@ -6949,7 +6949,7 @@ export const pokemon: pokeObjType[] = [
 		types: [
 			types.psychic
 		],
-		weight: [`impweight`, `metweight` ]
+		weight: [ `impweight`, `metweight` ]
 	}
 ];
 //#endregion
