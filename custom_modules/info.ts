@@ -91,7 +91,7 @@ export const serverInfo = (
 			categories:string[] = [],
 			textChannels:string[] = [],
 			unknown:string[] = [],
-			voiceChannels:string[] = []
+			voiceChannels:string[] = [];
 			inObj.interaction.guild.channels.fetch().then((channels) => {
 				channels.forEach((channel) => {
 					switch (channel?.type) {

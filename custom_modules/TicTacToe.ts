@@ -58,7 +58,7 @@ export const ticTacToe = (inObjs: { interaction: CommandInteraction }[]) => {
 			memberMentions = mentions.members,
 			firstMemberMention = memberMentions?.first(),
 			lastMemberMention = memberMentions?.last(),
-			buttonGuild = buttonInteraction.guild
+			buttonGuild = buttonInteraction.guild;
 			/* eslint-enable sort-vars */
 			if (buttonInteraction.message.mentions instanceof MessageMentions) {
 				switch (buttonInteraction.customId) {
@@ -102,7 +102,7 @@ export const ticTacToe = (inObjs: { interaction: CommandInteraction }[]) => {
 								players:[ { id: string }, { id: string } ] = [
 									buttonGuild.members.cache.get(buttonInteraction.message.content.split(` `)[3].replace(/<@!?(?=\d*)|(?<=\d*)>/gu, ``) as `${bigint}`) ?? {id: ``},
 									buttonGuild.members.cache.get(buttonInteraction.message.content.split(` `)[6].replace(/<@!?(?=\d*)|(?<=\d*)>/gu, ``) as `${bigint}`) ?? {id: ``}
-								]
+								];
 								// eslint-disable-next-line id-length
 								let O = 0, X = 0;
 							
@@ -318,7 +318,7 @@ export const ticTacToe = (inObjs: { interaction: CommandInteraction }[]) => {
 											newButtons = [ row1, row2, row3 ],
 											winBoard = (rows: ActionRowBuilder<ButtonBuilder>[]) => {
 												const check = (index: number, type: XO) => buttonArray[index] === type,
-												checkThree = (index:[number, number, number], type: XO) => check(index[0], type) && check(index[1], type) && check(index[2], type)
+												checkThree = (index:[number, number, number], type: XO) => check(index[0], type) && check(index[1], type) && check(index[2], type);
 												rows.forEach((row) => {
 													row.components.forEach((button) => {
 														buttonArray.push((button.toJSON() as APIButtonComponentWithCustomId).emoji?.name as (XO | undefined) ?? XO.RAS);

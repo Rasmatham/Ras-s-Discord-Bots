@@ -54,6 +54,7 @@ export default tseslint.config(
 			"no-shadow": [`off`],
 			"no-ternary": [`off`],
 			"quotes": [ `error`, `backtick` ],
+			"semi": [ `error`, `always`, {}],
 			"sort-imports": [`error`, {
 				memberSyntaxSortOrder: [ `multiple`, `single`, `all`, `none` ]
 			}]

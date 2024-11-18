@@ -45,7 +45,7 @@ export const messageForwarding = (
 			}
 		}
 		else if (inObj.message.content.startsWith(`<@`) && !inObj.message.content.startsWith(`<@&`) /*&& message.member.hasPermission(`ADMINISTRATOR`)*/) {
-			if (inObj.message.channel.type !== ChannelType.GuildText) return
+			if (inObj.message.channel.type !== ChannelType.GuildText) return;
 			if ([
 				`dm-as-${
 					bot.user.username.toLowerCase()

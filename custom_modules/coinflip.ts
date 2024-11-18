@@ -32,7 +32,7 @@ export const flip = (inObjs: { interaction: CommandInteraction }[]) => {
 			coinfilel = `${coinPath}/losses.log`,
 			coinfilew = `${coinPath}/wins.log`,
 			side = inObj.interaction.options.get(`side`)?.value as `${`heads` | `tails`}`;
-			setup(inObj)
+			setup(inObj);
 			if (side === `heads`) {
 				if ((Math.random() * 10) < 5) {
 					const losecount:string = readFileSync(coinfilel, `utf8`),

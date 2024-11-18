@@ -4,37 +4,37 @@ import * as os from "os";
 //#endregion
 
 //#region generic catch
-export const genericCatch = (err: unknown) => {console.error(err)}
+export const genericCatch = (err: unknown) => {console.error(err);};
 //#endregion
 
 //#region ephemeral
 // eslint-disable-next-line one-var
-export const ephemeral = true
+export const ephemeral = true;
 //#endregion
 
 //#region login
 // eslint-disable-next-line one-var
 export const login = (bot: Client, token: string | undefined, message: string) => {
 	try {
-		bot.login(token).catch(genericCatch)
+		bot.login(token).catch(genericCatch);
 	} catch (err) {
 		// eslint-disable-next-line no-console
-		console.log(message)
-		console.error(err)
+		console.log(message);
+		console.error(err);
 	}
-}
+};
 //#endregion
 
 //#region simple command
 // eslint-disable-next-line one-var
 export const simpleCommand = (name: string, desc: string) => new SlashCommandBuilder()
 	.setName(name)
-	.setDescription(desc)
+	.setDescription(desc);
 //#endregion
 
 //#region headerless field
 // eslint-disable-next-line one-var
-export const headerlessField = (value: string) => ({ name: `᲼`, value })
+export const headerlessField = (value: string) => ({ name: `᲼`, value });
 //#endregion
 
 //#region intent
@@ -115,7 +115,7 @@ export const sendAsWebHook = (inObjs: { message: Message, sendTo: Exclude<GuildT
 							}).catch(genericCatch);
 						}
 						else if (i >= webHooks.size - 1) {
-							inObj.sendTo.createWebhook({ name: `${user.username}-Webhook` }).then(() => {webHookFunction()}).catch((err: unknown) => {
+							inObj.sendTo.createWebhook({ name: `${user.username}-Webhook` }).then(() => {webHookFunction();}).catch((err: unknown) => {
 								console.error(err);
 								if (inObj.message.channel.type === ChannelType.GuildText)
 									inObj.message.channel.send(`Something went wrong`).catch(genericCatch);
@@ -158,7 +158,7 @@ export const listThings = async (interaction:CommandInteraction):Promise<Interac
 						z.addFields({
 							name: `${((i*50)+((j*14)+1)).toString()}-${((i*50)+(j+1)*14).toString()}`,
 							value: a.join(`\n`)
-						})
+						});
 					});
 					embeds.push({embeds: [z]});
 				});
@@ -184,7 +184,7 @@ export const listThings = async (interaction:CommandInteraction):Promise<Interac
 						z.addFields({
 							name: `${((i*50)+((j*5)+1)).toString()}-${((i*50)+(j+1)*5).toString()}`,
 							value: a.join(`\n`)
-						})
+						});
 					});
 					embeds.push({embeds: [z]});
 				});
@@ -210,14 +210,14 @@ export const listThings = async (interaction:CommandInteraction):Promise<Interac
 						z.addFields({
 							name: `${((i*50)+((j*10)+1)).toString()}-${((i*50)+(j+1)*10).toString()}`,
 							value: a.join(`\n`)
-						})
+						});
 					});
 					embeds.push({embeds: [z]});
 				});
 				return embeds;
 			});
 		default:
-			return []
+			return [];
 	}
 };
 
@@ -237,8 +237,8 @@ export const botReady = (inObjs: { bots: Client[] }[], testMode?: boolean) => {
 			});
 			
 			if (testMode) {
-				bot.on(Events.Error, (err) => {console.log(`ERROR ${bot.user?.username ?? ``}`); console.log(err); console.log(``)})
-				bot.on(Events.Debug, (deb) => {console.log(`DEBUG ${bot.user?.username ?? ``}`); console.log(deb); console.log(``)})
+				bot.on(Events.Error, (err) => {console.log(`ERROR ${bot.user?.username ?? ``}`); console.log(err); console.log(``);});
+				bot.on(Events.Debug, (deb) => {console.log(`DEBUG ${bot.user?.username ?? ``}`); console.log(deb); console.log(``);});
 			}
 		});
 	});

@@ -14,7 +14,7 @@ interface commandObject {
 //#endregion
 
 //#region default client options
-const client = () => new Client({ intents, presence: { activities: [ { name: `Doing some maintenance`, type: ActivityType.Playing } ], status: PresenceUpdateStatus.DoNotDisturb } })
+const client = () => new Client({ intents, presence: { activities: [ { name: `Doing some maintenance`, type: ActivityType.Playing } ], status: PresenceUpdateStatus.DoNotDisturb } });
 //#endregion
 
 //#region instantiating clients
@@ -35,16 +35,16 @@ zelda = client();
 
 //#endregion
 //#region logins
-login(buzzBot, process.env.BUZZBOTTOKEN, `Buzzbot did not like jazz`)
-login(ebnj, process.env.EBNJTOKEN, `EBNJ booted up the wrong edition of Minecraft`)
-login(glados, process.env.GLADOSTOKEN, `GLaDOS was turned into a potato`)
-login(pokebot, process.env.POKETOKEN, `Pokébot could not catch them all`)
-login(artoo, process.env.ARTOOTOKEN, `R2 missed the lightsaber throw`)
-login(random, process.env.RANDOMTOKEN, `Random Bot got a divide by 0 error`)
-login(amber, process.env.AMBERTOKEN, `Amber lost a Splatoon game`)
-login(zelda, process.env.ZELDATOKEN, `Zelda Bot could not figure out where BOTW/AOC/TOTK falls on the timeline`)
-login(croissant, process.env.CROISSANTTOKEN, `Le Franciosle bot français n'a pas réussi à s'authentifier`)
-login(canine, process.env.K9TOKEN, `K9 was not affirmative`)
+login(buzzBot, process.env.BUZZBOTTOKEN, `Buzzbot did not like jazz`);
+login(ebnj, process.env.EBNJTOKEN, `EBNJ booted up the wrong edition of Minecraft`);
+login(glados, process.env.GLADOSTOKEN, `GLaDOS was turned into a potato`);
+login(pokebot, process.env.POKETOKEN, `Pokébot could not catch them all`);
+login(artoo, process.env.ARTOOTOKEN, `R2 missed the lightsaber throw`);
+login(random, process.env.RANDOMTOKEN, `Random Bot got a divide by 0 error`);
+login(amber, process.env.AMBERTOKEN, `Amber lost a Splatoon game`);
+login(zelda, process.env.ZELDATOKEN, `Zelda Bot could not figure out where BOTW/AOC/TOTK falls on the timeline`);
+login(croissant, process.env.CROISSANTTOKEN, `Le Franciosle bot français n'a pas réussi à s'authentifier`);
+login(canine, process.env.K9TOKEN, `K9 was not affirmative`);
 //#endregion
 
 //#region commands
@@ -193,7 +193,7 @@ gladosCommands:commandObject[] = [
 ],
 pokebotCommands:commandObject[] = [],
 randomCommands:commandObject[] = [],
-zeldaCommands:commandObject[] = []
+zeldaCommands:commandObject[] = [];
 //#endregion
 
 //#region arrays
@@ -215,14 +215,14 @@ bots.forEach((bot, i) => {
 		bot.application?.commands.fetch().then((commands) => {
 			console.log(`${bot.user?.tag ?? `[unknown bot tag]`} is active`);
 			commands.forEach((command) => {
-				console.log(`Removing command ${command.name}`)
+				console.log(`Removing command ${command.name}`);
 				command.delete().catch(genericCatch);
 			});
 			commandGroup[i].forEach((command, j) => {
 				bot.application?.commands.create(command.command, command.guild)
 					.then((cmd) => {
 						const current = (j + 1).toString(),
-						total = commandGroup[i].length.toString()
+						total = commandGroup[i].length.toString();
 						console.log(`[${current}/${total}] Command: "${cmd.name}" updated`);
 					}).catch(genericCatch);
 			});

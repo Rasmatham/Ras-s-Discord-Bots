@@ -74,7 +74,7 @@ export const buttonGrid = (inObj: {interaction: CommandInteraction}):Interaction
 	const buttonContent:string = inObj.interaction.options.get(`button_content`)?.value as string,
 	discordEmoji = /^<(?:a?)?:.+?:\d+>$/gui,
 	discordEmojiNotExact = /<(?:a?)?:.+?:\d+>/giu,
-	unicodeEmoji = /^\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff]$/gui
+	unicodeEmoji = /^\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff]$/gui;
 	if (buttonContent.length <= 80) {
 		if (buttonContent.match(unicodeEmoji) || buttonContent.match(discordEmoji)) {
 			const button = (id:string) => new ButtonBuilder().setCustomId(id).setEmoji(buttonContent).setStyle(ButtonStyle.Secondary);

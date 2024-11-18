@@ -12975,4 +12975,4 @@ validWords = [
 	`zymes`,
 	`zymic`
 ];
-module.exports = { spoilers, validWords }
+module.exports = { spoilers, validWords };

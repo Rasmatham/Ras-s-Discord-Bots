@@ -56,7 +56,7 @@ export const natDex = (inObj: {query: string | number}):MessageReplyOptions => {
 		if (typeof secondaryType === `undefined`) 
 			return `None`;
 		return secondaryType.name;
-	}
+	};
 	// eslint-disable-next-line one-var
 	const embed:EmbedBuilder = new EmbedBuilder()
 		.setColor(pokemon[dexNumber].types[0].color as ColorResolvable)

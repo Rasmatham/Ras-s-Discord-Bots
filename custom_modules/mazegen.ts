@@ -25,7 +25,7 @@ groupBy = <T>(list: T[], key: ObjectKey<T, number>): Record<number, T[]> => {
 last = <T>(array: T[]): T => array[array.length - 1],
 range = (n: number, end = 0): number[] => end ? Array.from(Array(end - n).keys()).map(x => x + n) : Array.from(Array(n).keys()),
 sampleSize = <T>(array: T[], n: number, random: () => number) => {
-	let num = n, index = -1
+	let num = n, index = -1;
 	const { length } = array;
 	if (!length || num < 1) 
 		return [];
@@ -118,6 +118,6 @@ generate = (width = 8, height = width, closed = true, seed = 1) => {
 	mergeRandomSetsIn(lastRow, random, 1);
 	
 	return maze;
-}
+};
 
 export default generate;

@@ -92,7 +92,7 @@ const emotes = {
 },
 /* eslint-enable id-length */
 // eslint-disable-next-line no-irregular-whitespace
-zws = `_​_`
+zws = `_​_`;
 // eslint-disable-next-line one-var
 const emoteButtonInstantiator = (letter:Letter) => new ButtonBuilder({customId: `wordle_${letter}`, emoji:emotes.black[letter], style: ButtonStyle.Primary});
 class Wordle {
@@ -104,7 +104,7 @@ class Wordle {
 	attempt: number;
 	slot: number;
 	words: string[][];
-	hints: {placed: [string, string, string, string, string], guessed: string[]}
+	hints: {placed: [string, string, string, string, string], guessed: string[]};
 	difficulty: string;
 	constructor (commandInteraction: ChatInputCommandInteraction) {
 		this.cmd = commandInteraction;
@@ -298,7 +298,7 @@ class Wordle {
 			new ActionRowBuilder<ButtonBuilder>().setComponents(this.buttons.f, this.buttons.g, this.buttons.h, this.buttons.i, this.buttons.j),
 			new ActionRowBuilder<ButtonBuilder>().setComponents(this.buttons.k, this.buttons.l, this.buttons.m, this.buttons.bs, this.buttons.en),
 			new ActionRowBuilder<ButtonBuilder>().setComponents(this.buttons.nz)
-		]
+		];
 	}
 	get buttonsSecondHalf() {
 		return [
@@ -306,14 +306,14 @@ class Wordle {
 			new ActionRowBuilder<ButtonBuilder>().setComponents(this.buttons.s, this.buttons.t, this.buttons.u, this.buttons.v, this.buttons.w),
 			new ActionRowBuilder<ButtonBuilder>().setComponents(this.buttons.x, this.buttons.y, this.buttons.z, this.buttons.bs, this.buttons.en),
 			new ActionRowBuilder<ButtonBuilder>().setComponents(this.buttons.am)
-		]
+		];
 	}
 	start = () => {
 		this.cmd.editReply({
 			components: this.buttonsFirstHalf,
 			content: this.attempts.map((x) => x.join(zws)).join(`\n`)
 		}).catch(genericCatch);
-	}
+	};
 }
 
 // eslint-disable-next-line one-var

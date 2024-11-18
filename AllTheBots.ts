@@ -44,7 +44,7 @@ zeldaLink = `https://discordapp.com/oauth2/authorize?&client_id=6547869650900746
 
 //#region instantiating Clients
 // eslint-disable-next-line one-var
-const client = (name: string, state: string) => new Client({ intents, presence: { activities: [ { name, state, type: ActivityType.Custom } ] } })
+const client = (name: string, state: string) => new Client({ intents, presence: { activities: [ { name, state, type: ActivityType.Custom } ] } });
 // eslint-disable-next-line one-var
 const amber = client(`Amber`, ``),
 artoo = client(`R2D2`, `[screaming sounds]`),
@@ -59,16 +59,16 @@ zelda = client(`Zelda`, `Committing Korok genocide`);
 //#endregion
 
 //#region logins
-login(buzzBot, process.env.BUZZBOTTOKEN, `Buzzbot did not like jazz`)
-login(ebnj, process.env.EBNJTOKEN, `EBNJ booted up the wrong edition of Minecraft`)
-login(glados, process.env.GLADOSTOKEN, `GLaDOS was turned into a potato`)
-login(pokebot, process.env.POKETOKEN, `Pokébot could not catch them all`)
-login(artoo, process.env.ARTOOTOKEN, `R2 missed the lightsaber throw`)
-login(random, process.env.RANDOMTOKEN, `Random Bot got a divide by 0 error`)
-login(amber, process.env.AMBERTOKEN, `Amber lost a Splatoon game`)
-login(zelda, process.env.ZELDATOKEN, `Zelda Bot could not figure out where BOTW/AOC/TOTK falls on the timeline`)
-login(croissant, process.env.CROISSANTTOKEN, `Le Franciosle bot français n'a pas réussi à s'authentifier`)
-login(canine, process.env.K9TOKEN, `K9 was not affirmative`)
+login(buzzBot, process.env.BUZZBOTTOKEN, `Buzzbot did not like jazz`);
+login(ebnj, process.env.EBNJTOKEN, `EBNJ booted up the wrong edition of Minecraft`);
+login(glados, process.env.GLADOSTOKEN, `GLaDOS was turned into a potato`);
+login(pokebot, process.env.POKETOKEN, `Pokébot could not catch them all`);
+login(artoo, process.env.ARTOOTOKEN, `R2 missed the lightsaber throw`);
+login(random, process.env.RANDOMTOKEN, `Random Bot got a divide by 0 error`);
+login(amber, process.env.AMBERTOKEN, `Amber lost a Splatoon game`);
+login(zelda, process.env.ZELDATOKEN, `Zelda Bot could not figure out where BOTW/AOC/TOTK falls on the timeline`);
+login(croissant, process.env.CROISSANTTOKEN, `Le Franciosle bot français n'a pas réussi à s'authentifier`);
+login(canine, process.env.K9TOKEN, `K9 was not affirmative`);
 // eslint-disable-next-line one-var
 const bots = [buzzBot, ebnj, glados, pokebot, artoo, random, amber, zelda, croissant, canine];
 botReady([{bots}]);
@@ -91,8 +91,8 @@ const mrtz = `Did you know BeeMrtz is short for Bee Master? He just had a tiny s
 //#region functions
 // eslint-disable-next-line one-var
 const buzzes = (buzz = `buzz`, count: number = Math.floor(Math.random() * 9)): string => {
-	let buzzTmp = buzz, countTmp = count
-	buzzTmp = (Math.round(Math.random() << 1)? `buzz ` : `buzz, `).concat(buzzTmp)
+	let buzzTmp = buzz, countTmp = count;
+	buzzTmp = (Math.round(Math.random() << 1)? `buzz ` : `buzz, `).concat(buzzTmp);
 	countTmp = countTmp? countTmp-1 : countTmp;
 	return countTmp? buzzes(buzzTmp, countTmp) : buzzTmp;
 };
@@ -238,9 +238,9 @@ stillalive = new EmbedBuilder()
 //#region welcome/goodbye Message
 glados.on(Events.GuildMemberAdd, (member) => {
 	const channelCount = info.channelCount({guild: member.guild}).all.toString(),
-	memberCount = member.guild.memberCount.toString()
+	memberCount = member.guild.memberCount.toString();
 	if (member.guild.systemChannel !== null) {
-		const content = `Welcome to the server, #${memberCount}\nWe currently have ${channelCount}/500 channels used`
+		const content = `Welcome to the server, #${memberCount}\nWe currently have ${channelCount}/500 channels used`;
 		member.guild.systemChannel.send({ content }).catch(genericCatch);
 	}
 });
@@ -400,7 +400,7 @@ glados.on(Events.InteractionCreate, (interaction) => {
 							interaction.followUp(element).catch(genericCatch);
 						});
 					}).catch(genericCatch);
-				}).catch(genericCatch)
+				}).catch(genericCatch);
 				break;
 			}
 			case `botlink`: {
@@ -420,7 +420,7 @@ glados.on(Events.InteractionCreate, (interaction) => {
 				break;
 			}
 			case `userinfo`: {
-				info.userInfo({ interaction }).then((message) => {interaction.reply(message).catch(genericCatch)}).catch(genericCatch);
+				info.userInfo({ interaction }).then((message) => {interaction.reply(message).catch(genericCatch);}).catch(genericCatch);
 				break;
 			}
 			case `serverinfo`: {
@@ -740,7 +740,7 @@ zelda.on(Events.MessageCreate, (message) => {
 //#endregion
 
 //#region CroissantBot
-croissant.on(Events.MessageCreate, (message) => {forwarding.messageForwarding([{message}])})
+croissant.on(Events.MessageCreate, (message) => {forwarding.messageForwarding([{message}]);});
 //#endregion
 
 //#region K9
@@ -769,44 +769,44 @@ canine.on(Events.InteractionCreate, (interaction) => {
 		if (interaction.isFromMessage()) {
 			switch (interaction.customId) {
 				case `relative`: {
-					timestamps.relativeModalInteraction([{interaction}])
+					timestamps.relativeModalInteraction([{interaction}]);
 					break;
 				}
 				case `absolute`: {
-					timestamps.absoluteModalInteraction([{interaction}])
+					timestamps.absoluteModalInteraction([{interaction}]);
 					break;
 				}
 				default: {
-					interaction.reply({ content: `Unknown interaction`, ephemeral }).catch(genericCatch)
+					interaction.reply({ content: `Unknown interaction`, ephemeral }).catch(genericCatch);
 				}
 			}
 		} else {
 			switch (interaction.customId) {
 				case `setTz`: {
-					timestamps.saveTimezoneModalResponse([{interaction}])
+					timestamps.saveTimezoneModalResponse([{interaction}]);
 					break;
 				}
 				default: {
-					interaction.reply({ content: `Unknown interaction`, ephemeral }).catch(genericCatch)
+					interaction.reply({ content: `Unknown interaction`, ephemeral }).catch(genericCatch);
 				}
 			}
 		}
 	} else if (interaction.isButton()) {
 		switch (interaction.customId) {
 			case `setTz`:{
-				timestamps.saveTimezone([{interaction}])
+				timestamps.saveTimezone([{interaction}]);
 				break;
 			}
 			case `relative`:{
-				timestamps.relativeButtonInteraction([{interaction}])
+				timestamps.relativeButtonInteraction([{interaction}]);
 				break;
 			}
 			case `absolute`:{
-				timestamps.absoluteButtonInteraction([{interaction}])
+				timestamps.absoluteButtonInteraction([{interaction}]);
 				break;
 			}
 			default: {
-				interaction.reply({ content: `Unknown interaction`, ephemeral }).catch(genericCatch)
+				interaction.reply({ content: `Unknown interaction`, ephemeral }).catch(genericCatch);
 			}
 		}
 	}

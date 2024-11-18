@@ -23,28 +23,28 @@ interface RawXkcdJson {
 }
 
 class Xkcd {
-	readonly num: number
-	readonly link: string
-	readonly news: string
-	readonly safeTitle: string
-	readonly transcript: string
-	readonly alt: string
-	readonly img: URL
-	readonly title: string
-	readonly extraParts?: unknown
-	readonly date: Date
+	readonly num: number;
+	readonly link: string;
+	readonly news: string;
+	readonly safeTitle: string;
+	readonly transcript: string;
+	readonly alt: string;
+	readonly img: URL;
+	readonly title: string;
+	readonly extraParts?: unknown;
+	readonly date: Date;
 
 	constructor(rawJson: RawXkcdJson) {
-		this.num = rawJson.num
-		this.link = rawJson.link
-		this.news = rawJson.news
-		this.safeTitle = rawJson.safe_title
-		this.transcript = rawJson.transcript
-		this.alt = rawJson.alt
-		this.img = new URL(rawJson.img)
-		this.title = rawJson.title
-		this.extraParts = rawJson.extra_parts
-		this.date = new Date(Number.parseInt(rawJson.year, 10), Number.parseInt(rawJson.month, 10), Number.parseInt(rawJson.day, 10))
+		this.num = rawJson.num;
+		this.link = rawJson.link;
+		this.news = rawJson.news;
+		this.safeTitle = rawJson.safe_title;
+		this.transcript = rawJson.transcript;
+		this.alt = rawJson.alt;
+		this.img = new URL(rawJson.img);
+		this.title = rawJson.title;
+		this.extraParts = rawJson.extra_parts;
+		this.date = new Date(Number.parseInt(rawJson.year, 10), Number.parseInt(rawJson.month, 10), Number.parseInt(rawJson.day, 10));
 	}
 
 }
@@ -59,13 +59,13 @@ const xkcdModule = (cb: (data:Xkcd | Error) => void, id?: string | number) => {
 	url = DOMAIN + idURL + PATH;
 	https.get(url, (res) => {
 		let body = ``;
-		res.on(`data`, (chunk) => { body += chunk as string });
+		res.on(`data`, (chunk) => { body += chunk as string; });
 		res.on(`end`, () => {
 			const data = JSON.parse(body) as RawXkcdJson;
 			cb(new Xkcd(data));
 		});
 	}).on(`error`, cb);
-}
+};
 
 //#region send xkcd message
 // eslint-disable-next-line one-var
