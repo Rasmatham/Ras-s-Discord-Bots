@@ -1,4 +1,4 @@
-import * as djs from "discord.js";
+import type * as djs from "discord.js";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface Bots {

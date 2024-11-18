@@ -1,5 +1,6 @@
 //#region imports
-import { APIButtonComponentWithCustomId, ActionRowBuilder, ButtonBuilder, ButtonComponent, ButtonInteraction, ButtonStyle, CommandInteraction, ComponentEmojiResolvable, ComponentType, EmojiIdentifierResolvable, Events, MessageMentions, User, UserResolvable } from "discord.js";
+import type { APIButtonComponentWithCustomId, ButtonInteraction, CommandInteraction, ComponentEmojiResolvable, EmojiIdentifierResolvable, User, UserResolvable } from "discord.js";
+import { ActionRowBuilder, ButtonBuilder, ButtonComponent, ButtonStyle, ComponentType, Events, MessageMentions } from "discord.js";
 import { ephemeral, genericCatch } from "./generalUse";
 //#endregion
 

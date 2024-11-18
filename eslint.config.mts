@@ -39,6 +39,7 @@ export default tseslint.config(
 			}],
 			"@typescript-eslint/class-methods-use-this": [`error`],
 			"@typescript-eslint/consistent-type-exports": [`error`],
+			"@typescript-eslint/consistent-type-imports": [`error`],
 			"@typescript-eslint/no-shadow": [`error`],
 			"array-bracket-spacing": [ `error`, `always`, {
 				"arraysInArrays": false,
@@ -61,6 +62,7 @@ export default tseslint.config(
 			"no-console": [ `warn`, {
 				"allow": [ `error`, `info`, `warn` ]
 			}],
+			"no-duplicate-imports": [`off`],
 			"no-inline-comments": [`off`],
 			"no-magic-numbers": [`off`],
 			"no-shadow": [`off`],

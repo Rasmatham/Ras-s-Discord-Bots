@@ -1,6 +1,7 @@
 //#region imports
-import { CommandInteraction, EmbedBuilder } from "discord.js";
 import { ephemeral, genericCatch } from "./generalUse";
+import type { CommandInteraction } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 import * as https from "https";
 //#endregion
 

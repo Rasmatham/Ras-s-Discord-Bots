@@ -1,5 +1,6 @@
 //#region imports
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, ChannelType, CommandInteraction, EmojiIdentifierResolvable, InteractionReplyOptions, Message, MessageCreateOptions, StringSelectMenuBuilder } from "discord.js";
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, ChannelType, StringSelectMenuBuilder } from "discord.js";
+import type { CommandInteraction, EmojiIdentifierResolvable, InteractionReplyOptions, Message, MessageCreateOptions } from "discord.js";
 import { blackList, genericCatch } from "./generalUse.js";
 //#endregion
 
@@ -40,12 +41,10 @@ export const userWordBan = (inObjs: Array<{ message: Message, word: string, user
 //#endregion
 
 //#region smh, Espen bot doesn't work
-/* eslint-disable @typescript-eslint/no-shadow */
 export enum EBTypes {
 	Message,
 	React
 }
-/* eslint-enable @typescript-eslint/no-shadow */
 
 // eslint-disable-next-line one-var
 export const espenBotReplacement = (inObjs: Array<{ type: EBTypes, message: Message, chance: number, victim: `${bigint}`, out: MessageCreateOptions | EmojiIdentifierResolvable}>) => {

@@ -1,5 +1,6 @@
 //#region imports
-import { ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, EmbedBuilder, Interaction, ModalBuilder, ModalMessageModalSubmitInteraction, ModalSubmitInteraction, TextInputBuilder, TextInputStyle, TimestampStylesString } from "discord.js";
+import { ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } from "discord.js";
+import type { ButtonInteraction, Interaction, ModalMessageModalSubmitInteraction, ModalSubmitInteraction, TimestampStylesString } from "discord.js";
 import { ephemeral, genericCatch } from "./generalUse";
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "fs";
 //#endregion

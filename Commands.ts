@@ -1,5 +1,6 @@
 //#region imports
-import { ActivityType, ApplicationCommandType, ApplicationIntegrationType, Client, ContextMenuCommandBuilder, Events, InteractionContextType, PresenceUpdateStatus, SlashCommandBuilder, SlashCommandOptionsOnlyBuilder, SlashCommandSubcommandsOnlyBuilder } from "discord.js";
+import { ActivityType, ApplicationCommandType, ApplicationIntegrationType, Client, ContextMenuCommandBuilder, Events, InteractionContextType, PresenceUpdateStatus } from "discord.js";
+import type { SlashCommandBuilder, SlashCommandOptionsOnlyBuilder, SlashCommandSubcommandsOnlyBuilder } from "discord.js";
 import { genericCatch, intents, login, simpleCommand } from "./custom_modules/generalUse.js";
 import * as dotenv from "dotenv";
 dotenv.config();

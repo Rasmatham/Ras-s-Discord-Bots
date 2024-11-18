@@ -1,6 +1,8 @@
 //#region imports
-import { ColorResolvable, EmbedBuilder, MessageReplyOptions } from "discord.js";
-import { pokeObjType, pokemon, trainerList } from "../Pokebot/PokeDB.js";
+import type { ColorResolvable, MessageReplyOptions } from "discord.js";
+import { pokemon, trainerList } from "../Pokebot/PokeDB.js";
+import { EmbedBuilder } from "discord.js";
+import type { pokeObjType } from "../Pokebot/PokeDB.js";
 //#endregion
 
 //#region trainers

@@ -1,5 +1,6 @@
 //#region imports
-import { CommandInteraction, EmbedBuilder } from "discord.js";
+import type { CommandInteraction } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 import { genericCatch } from "./generalUse";
 //#endregion
 

@@ -1,5 +1,6 @@
 //#region imports
-import { AnyThreadChannel, AttachmentBuilder, BufferResolvable, ChannelType, Client, CommandInteraction, EmbedBuilder, EmbedField, Events, GatewayIntentBits, GuildTextBasedChannel, IntentsBitField, InteractionReplyOptions, Message, MessageCreateOptions, SlashCommandBuilder, TextChannel, User, Webhook, WebhookClient } from "discord.js";
+import type { AnyThreadChannel, BufferResolvable, Client, CommandInteraction, EmbedField, GuildTextBasedChannel, InteractionReplyOptions, Message, MessageCreateOptions, Webhook } from "discord.js";
+import { AttachmentBuilder, ChannelType, EmbedBuilder, Events, GatewayIntentBits, IntentsBitField, SlashCommandBuilder, TextChannel, User, WebhookClient } from "discord.js";
 import * as os from "os";
 //#endregion
 

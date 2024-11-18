@@ -1,6 +1,7 @@
 
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, ChatInputCommandInteraction, Events, InteractionType } from "discord.js";
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, Events, InteractionType } from "discord.js";
 import { ephemeral, genericCatch } from "../generalUse";
+import type { ChatInputCommandInteraction } from "discord.js";
 import * as words from "./words";
 type Letter = `a` | `b` | `c` | `d` | `e` | `f` | `g` | `h` | `i` | `j` | `k` | `l` | `m` | `n` | `o` | `p` | `q` | `r` | `s` | `t` | `u` | `v` | `w` | `x` | `y` | `z`;
 /* eslint-disable id-length */

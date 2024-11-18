@@ -1,5 +1,6 @@
 //#region imports
-import { ChannelType, Message, MessageCreateOptions } from "discord.js";
+import type { Message, MessageCreateOptions } from "discord.js";
+import { ChannelType } from "discord.js";
 import { genericCatch } from "./generalUse";
 //#endregion
 
