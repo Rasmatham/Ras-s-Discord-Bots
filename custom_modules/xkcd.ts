@@ -24,18 +24,18 @@ interface RawXkcdJson {
 }
 
 class Xkcd {
-	readonly num: number;
-	readonly link: string;
-	readonly news: string;
-	readonly safeTitle: string;
-	readonly transcript: string;
-	readonly alt: string;
-	readonly img: URL;
-	readonly title: string;
-	readonly extraParts?: unknown;
-	readonly date: Date;
+	public readonly num: number;
+	public readonly link: string;
+	public readonly news: string;
+	public readonly safeTitle: string;
+	public readonly transcript: string;
+	public readonly alt: string;
+	public readonly img: URL;
+	public readonly title: string;
+	public readonly extraParts?: unknown;
+	public readonly date: Date;
 
-	constructor(rawJson: RawXkcdJson) {
+	public constructor(rawJson: RawXkcdJson) {
 		this.num = rawJson.num;
 		this.link = rawJson.link;
 		this.news = rawJson.news;

@@ -152,35 +152,35 @@ export const mazeFunction = (inObjs: Array<{interaction: CommandInteraction}>): 
 		style = typeof options?.value === `number` ? options.value : 0;
 	
 		class Cell {
-			private emotes:emoteTypeList;
+			public emotes:emoteTypeList;
 			private loc: number[];
 			private hasPlayer: boolean;
 			private walls: halfBitAsString;
-			constructor(emoteList:emoteTypeList, x: number, y: number, hasPlayer: boolean, walls: halfBitAsString) {
+			public constructor(emoteList:emoteTypeList, x: number, y: number, hasPlayer: boolean, walls: halfBitAsString) {
 				this.emotes = emotes;
 				this.loc = [ x, y ];
 				this.hasPlayer = hasPlayer;
 				this.walls = walls;
 			}
-			get playerState(): boolean {
+			public get playerState(): boolean {
 				return this.hasPlayer;
 			}
-			get x(): number {
+			public get x(): number {
 				return this.loc[0];
 			}
-			get y(): number {
+			public get y(): number {
 				return this.loc[1];
 			}
-			movePlayer(): void {
+			public movePlayer(): void {
 				this.hasPlayer = !this.hasPlayer;
 			}
-			get getWalls(): EmojiIdentifierResolvable {
+			public get getWalls(): EmojiIdentifierResolvable {
 				if (this.loc[0] === 7 && this.loc[1] === 7) 
 					return this.emotes[boolToInt({ bool: this.hasPlayer })][style].goal[this.walls as `OOII` | `OIII` | `IOII`];
 				return this.emotes[boolToInt({ bool: this.hasPlayer })][style][this.walls];
 				
 			}
-			get boolWalls(): string[] {
+			public get boolWalls(): string[] {
 				return this.walls.split(``);
 			}
 		}
@@ -188,18 +188,18 @@ export const mazeFunction = (inObjs: Array<{interaction: CommandInteraction}>): 
 			private emotes:emoteTypeList;
 			private playerLoc: number[];
 			private cells: Cell[];
-			constructor(emoteList:emoteTypeList) {
+			public constructor(emoteList:emoteTypeList) {
 				this.emotes = emoteList;
 				this.playerLoc = [ 0, 0 ];
 				this.cells = [];
 			}
-			get cellArr(): Cell[] {
+			public get cellArr(): Cell[] {
 				return this.cells;
 			}
-			addCell(x: number, y: number, walls: halfBitAsString): void {
+			public addCell(x: number, y: number, walls: halfBitAsString): void {
 				this.cells.push(new Cell(this.emotes, x, y, x === 0 && y === 0, walls));
 			}
-			moveLeft(): void {
+			public moveLeft(): void {
 				let lock = true;
 				this.cells.forEach((cell, i) => {
 					if (cell.playerState && cell.y > 0 && lock && cell.boolWalls[0] === `O`) {
@@ -209,7 +209,7 @@ export const mazeFunction = (inObjs: Array<{interaction: CommandInteraction}>): 
 					}
 				});
 			}
-			moveUp(): void {
+			public moveUp(): void {
 				let lock = true;
 				this.cells.forEach((cell, i) => {
 					if (cell.playerState && cell.x > 0 && lock && cell.boolWalls[1] === `O`) {
@@ -219,7 +219,7 @@ export const mazeFunction = (inObjs: Array<{interaction: CommandInteraction}>): 
 					}
 				});
 			}
-			moveDown(): void {
+			public moveDown(): void {
 				let lock = true;
 				this.cells.forEach((cell, i) => {
 					if (cell.playerState && cell.x < 7 && lock && cell.boolWalls[3] === `O`) {
@@ -229,7 +229,7 @@ export const mazeFunction = (inObjs: Array<{interaction: CommandInteraction}>): 
 					}
 				});
 			}
-			moveRight(): void {
+			public moveRight(): void {
 				let lock = true;
 				this.cells.forEach((cell, i) => {
 					if (cell.playerState && cell.y < 7 && lock && cell.boolWalls[2] === `O`) {

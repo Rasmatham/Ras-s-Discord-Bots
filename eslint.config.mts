@@ -42,6 +42,7 @@ export default tseslint.config(
 			"@typescript-eslint/consistent-type-imports": [`error`],
 			"@typescript-eslint/default-param-last": [`error`],
 			"@typescript-eslint/explicit-function-return-type": [`error`],
+			"@typescript-eslint/explicit-member-accessibility": [`error`],
 			"@typescript-eslint/no-shadow": [`error`],
 			"array-bracket-spacing": [ `error`, `always`, {
 				"arraysInArrays": false,

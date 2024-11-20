@@ -97,17 +97,17 @@ zws = `_​_`;
 // eslint-disable-next-line one-var
 const emoteButtonInstantiator = (letter:Letter): ButtonBuilder => new ButtonBuilder({ customId: `wordle_${letter}`, emoji:emotes.black[letter], style: ButtonStyle.Primary });
 class Wordle {
-	attempts: string[][];
-	buttons: { a: ButtonBuilder; b: ButtonBuilder; c: ButtonBuilder; d: ButtonBuilder; e: ButtonBuilder; f: ButtonBuilder; g: ButtonBuilder; h: ButtonBuilder; i: ButtonBuilder; j: ButtonBuilder; k: ButtonBuilder; l: ButtonBuilder; m: ButtonBuilder; n: ButtonBuilder; o: ButtonBuilder; p: ButtonBuilder; q: ButtonBuilder; r: ButtonBuilder; s: ButtonBuilder; t: ButtonBuilder; u: ButtonBuilder; v: ButtonBuilder; w: ButtonBuilder; x: ButtonBuilder; y: ButtonBuilder; z: ButtonBuilder; am: ButtonBuilder; nz: ButtonBuilder; bs: ButtonBuilder; en: ButtonBuilder; };
-	cmd: ChatInputCommandInteraction;
-	gameID: string;
-	word: string;
-	attempt: number;
-	slot: number;
-	words: string[][];
-	hints: {placed: [string, string, string, string, string], guessed: string[]};
-	difficulty: string;
-	constructor (commandInteraction: ChatInputCommandInteraction) {
+	private attempts: string[][];
+	private buttons: { a: ButtonBuilder; b: ButtonBuilder; c: ButtonBuilder; d: ButtonBuilder; e: ButtonBuilder; f: ButtonBuilder; g: ButtonBuilder; h: ButtonBuilder; i: ButtonBuilder; j: ButtonBuilder; k: ButtonBuilder; l: ButtonBuilder; m: ButtonBuilder; n: ButtonBuilder; o: ButtonBuilder; p: ButtonBuilder; q: ButtonBuilder; r: ButtonBuilder; s: ButtonBuilder; t: ButtonBuilder; u: ButtonBuilder; v: ButtonBuilder; w: ButtonBuilder; x: ButtonBuilder; y: ButtonBuilder; z: ButtonBuilder; am: ButtonBuilder; nz: ButtonBuilder; bs: ButtonBuilder; en: ButtonBuilder; };
+	private cmd: ChatInputCommandInteraction;
+	private gameID: string;
+	private word: string;
+	private attempt: number;
+	private slot: number;
+	private words: string[][];
+	private hints: {placed: [string, string, string, string, string], guessed: string[]};
+	private difficulty: string;
+	public constructor (commandInteraction: ChatInputCommandInteraction) {
 		this.cmd = commandInteraction;
 		this.difficulty = this.cmd.options.getSubcommand(true);
 		this.gameID = commandInteraction.id;
@@ -293,7 +293,7 @@ class Wordle {
 			}
 		});
 	}
-	get buttonsFirstHalf(): Array<ActionRowBuilder<ButtonBuilder>> {
+	private get buttonsFirstHalf(): Array<ActionRowBuilder<ButtonBuilder>> {
 		return [
 			new ActionRowBuilder<ButtonBuilder>().setComponents(this.buttons.a, this.buttons.b, this.buttons.c, this.buttons.d, this.buttons.e),
 			new ActionRowBuilder<ButtonBuilder>().setComponents(this.buttons.f, this.buttons.g, this.buttons.h, this.buttons.i, this.buttons.j),
@@ -301,7 +301,7 @@ class Wordle {
 			new ActionRowBuilder<ButtonBuilder>().setComponents(this.buttons.nz)
 		];
 	}
-	get buttonsSecondHalf(): Array<ActionRowBuilder<ButtonBuilder>> {
+	private get buttonsSecondHalf(): Array<ActionRowBuilder<ButtonBuilder>> {
 		return [
 			new ActionRowBuilder<ButtonBuilder>().setComponents(this.buttons.n, this.buttons.o, this.buttons.p, this.buttons.q, this.buttons.r),
 			new ActionRowBuilder<ButtonBuilder>().setComponents(this.buttons.s, this.buttons.t, this.buttons.u, this.buttons.v, this.buttons.w),
@@ -309,7 +309,7 @@ class Wordle {
 			new ActionRowBuilder<ButtonBuilder>().setComponents(this.buttons.am)
 		];
 	}
-	start = (): void => {
+	public start = (): void => {
 		this.cmd.editReply({
 			components: this.buttonsFirstHalf,
 			content: this.attempts.map((x) => x.join(zws)).join(`\n`)
