@@ -148,6 +148,10 @@ export default tseslint.config(
 			"@typescript-eslint/init-declarations": [ `error`, `never`, { "ignoreForLoopInit": true }],
 			"@typescript-eslint/method-signature-style": [`error`],
 			"@typescript-eslint/naming-convention": [ `error`, ...namingConventions ],
+			"@typescript-eslint/no-floating-promises": [ `error`, {
+				"checkThenables": true,
+				"ignoreVoid": false
+			}],
 			"@typescript-eslint/no-shadow": [`error`]
 		}
 	},
