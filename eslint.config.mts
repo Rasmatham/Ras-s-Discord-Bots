@@ -127,6 +127,7 @@ export default tseslint.config(
 			"no-bitwise": `off`,
 			"no-duplicate-imports": `off`,
 			"no-inline-comments": `off`,
+			"no-loop-func": `off`,
 			"no-magic-numbers": `off`,
 			"no-shadow": `off`,
 			"no-ternary": `off`
@@ -153,6 +154,7 @@ export default tseslint.config(
 				"ignoreVoid": false
 			}],
 			"@typescript-eslint/no-import-type-side-effects": [`error`],
+			"@typescript-eslint/no-loop-func": [`error`],
 			"@typescript-eslint/no-shadow": [`error`]
 		}
 	},
