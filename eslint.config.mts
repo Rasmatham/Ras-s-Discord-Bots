@@ -152,6 +152,7 @@ export default tseslint.config(
 				"checkThenables": true,
 				"ignoreVoid": false
 			}],
+			"@typescript-eslint/no-import-type-side-effects": [`error`],
 			"@typescript-eslint/no-shadow": [`error`]
 		}
 	},
