@@ -5,7 +5,7 @@ import { blackList, genericCatch } from "./generalUse.js";
 //#endregion
 
 //#region Frick that one rule
-export const hencefortifier = (inObjs: Array<{ message: Message }>) => {
+export const hencefortifier = (inObjs: Array<{ message: Message }>): void => {
 	inObjs.forEach((inObj) => {
 		if (inObj.message.author.id !== inObj.message.client.user.id && inObj.message.guild !== null && inObj.message.content.toLowerCase().includes(`from now on`)) {
 			if (inObj.message.guild.id === `646155122992480266`) {
@@ -30,7 +30,7 @@ export const hencefortifier = (inObjs: Array<{ message: Message }>) => {
 
 //#region Flit no lasting! Flit no lasting! Flit no lasting!
 // eslint-disable-next-line one-var
-export const userWordBan = (inObjs: Array<{ message: Message, word: string, userID: `${bigint}` }>) => {
+export const userWordBan = (inObjs: Array<{ message: Message, word: string, userID: `${bigint}` }>): void => {
 	inObjs.forEach((inObj) => {
 		if (inObj.message.author.id === inObj.userID) {
 			if (inObj.message.content.toLowerCase().includes(inObj.word))
@@ -47,7 +47,7 @@ export enum EBTypes {
 }
 
 // eslint-disable-next-line one-var
-export const espenBotReplacement = (inObjs: Array<{ type: EBTypes, message: Message, chance: number, victim: `${bigint}`, out: MessageCreateOptions | EmojiIdentifierResolvable}>) => {
+export const espenBotReplacement = (inObjs: Array<{ type: EBTypes, message: Message, chance: number, victim: `${bigint}`, out: MessageCreateOptions | EmojiIdentifierResolvable}>): void => {
 	inObjs.forEach((inObj) => {
 		if (inObj.message.author.id === inObj.victim && Math.floor(Math.random() * 100) <= inObj.chance) {
 			switch (inObj.type) {
@@ -76,9 +76,9 @@ export const buttonGrid = (inObj: {interaction: CommandInteraction}):Interaction
 	unicodeEmoji = /^\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff]$/gui;
 	if (buttonContent.length <= 80) {
 		if (buttonContent.match(unicodeEmoji) || buttonContent.match(discordEmoji)) {
-			const button = (id:string) => new ButtonBuilder().setCustomId(id).setEmoji(buttonContent).setStyle(ButtonStyle.Secondary);
+			const button = (id:string): ButtonBuilder => new ButtonBuilder().setCustomId(id).setEmoji(buttonContent).setStyle(ButtonStyle.Secondary);
 			// eslint-disable-next-line one-var
-			const bar = (rowNumber:string) => new ActionRowBuilder<ButtonBuilder>().addComponents([
+			const bar = (rowNumber:string): ActionRowBuilder<ButtonBuilder> => new ActionRowBuilder<ButtonBuilder>().addComponents([
 				button(`Dummy: ${rowNumber}-1`),
 				button(`Dummy: ${rowNumber}-2`),
 				button(`Dummy: ${rowNumber}-3`),
@@ -99,7 +99,7 @@ export const buttonGrid = (inObj: {interaction: CommandInteraction}):Interaction
 		else if (buttonContent.match(discordEmojiNotExact)) {
 			const button = (id:string):ButtonBuilder => new ButtonBuilder().setCustomId(id).setLabel(buttonContent.replace(discordEmojiNotExact, ``)).setStyle(ButtonStyle.Secondary);
 			// eslint-disable-next-line one-var
-			const bar = (rowNumber:string) => new ActionRowBuilder<ButtonBuilder>().addComponents([
+			const bar = (rowNumber:string): ActionRowBuilder<ButtonBuilder> => new ActionRowBuilder<ButtonBuilder>().addComponents([
 				button(`Dummy: ${rowNumber}-1`),
 				button(`Dummy: ${rowNumber}-2`),
 				button(`Dummy: ${rowNumber}-3`),
@@ -119,7 +119,7 @@ export const buttonGrid = (inObj: {interaction: CommandInteraction}):Interaction
 		}
 		const button = (id:string):ButtonBuilder => new ButtonBuilder().setCustomId(id).setLabel(buttonContent).setStyle(ButtonStyle.Secondary);
 		// eslint-disable-next-line one-var
-		const bar = (rowNumber:string) => new ActionRowBuilder<ButtonBuilder>().addComponents([
+		const bar = (rowNumber:string): ActionRowBuilder<ButtonBuilder> => new ActionRowBuilder<ButtonBuilder>().addComponents([
 			button(`Dummy: ${rowNumber}-1`),
 			button(`Dummy: ${rowNumber}-2`),
 			button(`Dummy: ${rowNumber}-3`),
@@ -140,7 +140,7 @@ export const buttonGrid = (inObj: {interaction: CommandInteraction}):Interaction
 	// eslint-disable-next-line one-var
 	const button = (id:string):ButtonBuilder => new ButtonBuilder().setCustomId(id).setLabel(`error`).setStyle(ButtonStyle.Secondary);
 	// eslint-disable-next-line one-var
-	const bar = (rowNumber:string) => new ActionRowBuilder<ButtonBuilder>().addComponents(
+	const bar = (rowNumber:string): ActionRowBuilder<ButtonBuilder> => new ActionRowBuilder<ButtonBuilder>().addComponents(
 			button(`Dummy: ${rowNumber}-1`),
 			button(`Dummy: ${rowNumber}-2`),
 			button(`Dummy: ${rowNumber}-3`),

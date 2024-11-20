@@ -5,7 +5,7 @@ import * as os from "os";
 //#endregion
 
 //#region generic catch
-export const genericCatch = (err: unknown) => {console.error(err);};
+export const genericCatch = (err: unknown): void => {console.error(err);};
 //#endregion
 
 //#region ephemeral
@@ -15,7 +15,7 @@ export const ephemeral = true;
 
 //#region login
 // eslint-disable-next-line one-var
-export const login = (bot: Client, token: string | undefined, message: string) => {
+export const login = (bot: Client, token: string | undefined, message: string): void => {
 	try {
 		bot.login(token).catch(genericCatch);
 	} catch (err) {
@@ -27,14 +27,14 @@ export const login = (bot: Client, token: string | undefined, message: string) =
 
 //#region simple command
 // eslint-disable-next-line one-var
-export const simpleCommand = (name: string, desc: string) => new SlashCommandBuilder()
+export const simpleCommand = (name: string, desc: string): SlashCommandBuilder => new SlashCommandBuilder()
 	.setName(name)
 	.setDescription(desc);
 //#endregion
 
 //#region headerless field
 // eslint-disable-next-line one-var
-export const headerlessField = (value: string) => ({ name: `᲼`, value });
+export const headerlessField = (value: string): EmbedField => ({ inline: false, name: `᲼`, value });
 //#endregion
 
 //#region intent
@@ -66,7 +66,7 @@ export const intents:IntentsBitField = new IntentsBitField([
 
 //#region Check amount
 // eslint-disable-next-line one-var
-export const checkFor = (inObjs: Array<{ arr: string[], str: string, inline?:boolean }>) => {
+export const checkFor = (inObjs: Array<{ arr: string[], str: string, inline?:boolean }>): EmbedField[] => {
 	const out:EmbedField[] = [];
 	inObjs.forEach((inObj) => {
 		if (inObj.arr.length > 0) {
@@ -80,9 +80,9 @@ export const checkFor = (inObjs: Array<{ arr: string[], str: string, inline?:boo
 
 //#region send as webhook
 // eslint-disable-next-line one-var
-export const sendAsWebHook = (inObjs: Array<{ message: Message, sendTo: Exclude<GuildTextBasedChannel, AnyThreadChannel>, sendMessage: MessageCreateOptions, name: string, pfp: BufferResolvable }>) => {
+export const sendAsWebHook = (inObjs: Array<{ message: Message, sendTo: Exclude<GuildTextBasedChannel, AnyThreadChannel>, sendMessage: MessageCreateOptions, name: string, pfp: BufferResolvable }>): void => {
 	inObjs.forEach((inObj) => {
-		const webHookFunction = () => {
+		const webHookFunction = (): void => {
 			inObj.sendTo.fetchWebhooks().then((webHooks) => {
 				const { user } = inObj.message.client;
 				if (webHooks.size <= 0) {
@@ -225,7 +225,7 @@ export const listThings = async (interaction:CommandInteraction):Promise<Interac
 
 //#region Bot check
 // eslint-disable-next-line one-var
-export const botReady = (inObjs: Array<{ bots: Client[] }>, testMode?: boolean) => {
+export const botReady = (inObjs: Array<{ bots: Client[] }>, testMode?: boolean): void => {
 	inObjs.forEach((inObj) => {
 		inObj.bots.forEach((bot) => {
 			bot.on(Events.ClientReady, () => {
@@ -268,8 +268,8 @@ export const blackList:string[] = [
 
 //#region general stuff for the process
 // eslint-disable-next-line one-var
-export const technicalStuff = (process:NodeJS.Process, bots:Client[]) => {
-	const exitSequence = () => {
+export const technicalStuff = (process:NodeJS.Process, bots:Client[]): void => {
+	const exitSequence = (): void => {
 		bots[0].channels.fetch(`957886578154430494`).then((channel) => {
 			if (channel instanceof TextChannel) {
 				channel.send({

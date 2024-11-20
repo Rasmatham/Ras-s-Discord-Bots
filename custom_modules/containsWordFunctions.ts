@@ -7,7 +7,7 @@ import { genericCatch } from "./generalUse";
 //#region reply
 
 // Function int
-const reply = (inObjs: Array<{ message: Message, chance?: number, reply: MessageCreateOptions }>) => {
+const reply = (inObjs: Array<{ message: Message, chance?: number, reply: MessageCreateOptions }>): void => {
 	inObjs.forEach((inObj) => {
 		if (typeof inObj.chance === `undefined`) 
 			inObj.chance = 100;
@@ -24,15 +24,7 @@ const reply = (inObjs: Array<{ message: Message, chance?: number, reply: Message
 
 // Function ext
 // eslint-disable-next-line one-var
-export const replyThing = (
-	inObjs: Array<{
-		message: Message,
-		type: `anywhere` | `exact` | `mention`,
-		chance?: number,
-		reply: MessageCreateOptions,
-		triggers: string[] | Array<`${bigint}`>
-	}>
-) => {
+export const replyThing = (inObjs: Array<{ message: Message,type: `anywhere` | `exact` | `mention`,chance?: number,reply: MessageCreateOptions,triggers: string[] | Array<`${bigint}`> }>): void => {
 	inObjs.forEach((inObj) => {
 		if (typeof inObj.chance === `undefined`) 
 			inObj.chance = 100;
@@ -88,13 +80,7 @@ export const replyThing = (
 	
 // Function int
 // eslint-disable-next-line one-var
-const react = (
-	inObjs: Array<{
-		message: Message,
-		chance?: number,
-		emotes: string[]
-	}>
-) => {
+const react = (inObjs: Array<{ message: Message, chance?: number, emotes: string[] }>): void => {
 	inObjs.forEach((inObj) => {
 		if (typeof inObj.chance === `undefined`) 
 			inObj.chance = 100;
@@ -107,14 +93,7 @@ const react = (
 };
 // Function ext
 // eslint-disable-next-line one-var
-export const reactThing = (
-	inObjs: Array<{
-		message: Message,
-		type: `anywhere` | `exact` | `mention`,
-		chance?: number, emotes: string[],
-		triggers: string[] | Array<`${bigint}`>
-	}>
-) => {
+export const reactThing = (inObjs: Array<{ message: Message, type: `anywhere` | `exact` | `mention`, chance?: number, emotes: string[], triggers: string[] | Array<`${bigint}`> }>): void => {
 	inObjs.forEach((inObj) => {
 		if (typeof inObj.chance === `undefined`) 
 			inObj.chance = 100;

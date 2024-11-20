@@ -5,9 +5,7 @@ import { blackList, genericCatch, sendAsWebHook } from "./generalUse.js";
 //#endregion
 
 //#region forwarding
-export const messageForwarding = (
-	inObjs: Array<{message: Message}>
-) => {
+export const messageForwarding = (inObjs: Array<{message: Message}>): void => {
 	inObjs.forEach((inObj) => {
 		if (inObj.message.channel.type === ChannelType.DM) return;
 		const bot:Client = inObj.message.client;
@@ -65,12 +63,7 @@ export const messageForwarding = (
 
 //#region DM spy
 // eslint-disable-next-line one-var
-export const DMSpy = (
-	inObjs: Array<{
-		message: Message,
-		ChID: `${bigint}`
-	}>
-) => {
+export const DMSpy = (inObjs: Array<{ message: Message, ChID: `${bigint}` }>): void => {
 	inObjs.forEach(inObj => {
 		if (inObj.message.channel.type === ChannelType.DM && !inObj.message.author.bot /*&& message.author.id != process.env.RASID*/) {
 			inObj.message.client.channels.fetch(inObj.ChID).then((channel) => {
@@ -99,13 +92,7 @@ export const DMSpy = (
 
 //#region Channel link
 // eslint-disable-next-line one-var
-export const channelLink = (
-	inObjs: Array<{
-		message: Message,
-		ch1: `${bigint}`,
-		ch2: `${bigint}`
-	}>
-) => {
+export const channelLink = (inObjs: Array<{ message: Message, ch1: `${bigint}`, ch2: `${bigint}` }>): void => {
 	inObjs.forEach((inObj) => {
 		if (!inObj.message.author.bot && (inObj.message.channel.id === inObj.ch1 || inObj.message.channel.id === inObj.ch2)) {
 			inObj.message.client.channels.fetch(inObj.ch1).then((ch1) => {

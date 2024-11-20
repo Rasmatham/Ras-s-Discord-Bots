@@ -55,7 +55,7 @@ class Xkcd {
 // @param cb [Function] The callback that passes (`err`, `data`)
 // @example current(2, function(err, data){ console.log(data); });
 // eslint-disable-next-line one-var
-const xkcdModule = (cb: (data:Xkcd | Error) => void, id?: string | number) => {
+const xkcdModule = (cb: (data:Xkcd | Error) => void, id?: string | number): void => {
 	const idURL = id ? `${id.toString()}/` : ``,
 	url = DOMAIN + idURL + PATH;
 	https.get(url, (res) => {
@@ -70,7 +70,7 @@ const xkcdModule = (cb: (data:Xkcd | Error) => void, id?: string | number) => {
 
 //#region send xkcd message
 // eslint-disable-next-line one-var
-export const xkcdFunct = (inObjs: Array<{interaction: CommandInteraction}>) => {
+export const xkcdFunct = (inObjs: Array<{interaction: CommandInteraction}>): void => {
 	inObjs.forEach((inObj) => {
 		xkcdModule((xkcdObjOuter) => {
 			if (xkcdObjOuter instanceof Error) {

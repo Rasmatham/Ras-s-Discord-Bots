@@ -6,7 +6,7 @@ import { genericCatch } from "./generalUse";
 //#endregion
 
 //#region setup
-const setup = (inObj: { interaction: CommandInteraction }) => {
+const setup = (inObj: { interaction: CommandInteraction }): void => {
 	const clientId = inObj.interaction.client.user.id,
 	userId = inObj.interaction.user.id;
 	if (!existsSync(`./${clientId}`))
@@ -26,7 +26,7 @@ const setup = (inObj: { interaction: CommandInteraction }) => {
 
 //#region game code
 // eslint-disable-next-line one-var
-export const flip = (inObjs: Array<{ interaction: CommandInteraction }>) => {
+export const flip = (inObjs: Array<{ interaction: CommandInteraction }>): void => {
 	inObjs.forEach((inObj) => {
 		if (inObj.interaction.options.get(`side`) !== null) {
 			const coinPath = `./${inObj.interaction.client.user.id}/userinfo/${inObj.interaction.user.id}/coinflip`,

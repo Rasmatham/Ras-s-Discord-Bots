@@ -5,7 +5,7 @@ import { genericCatch } from "./generalUse";
 //#endregion
 
 //#region die roller
-export const dice = (inObjs: Array<{ interaction: CommandInteraction }>) => {
+export const dice = (inObjs: Array<{ interaction: CommandInteraction }>): void => {
 	inObjs.forEach((inObj) => {
 		let diceCount = 1, dieSides = 6;
 		if (inObj.interaction.options.get(`die_sides`) !== null) {

@@ -68,7 +68,7 @@ export const userInfo = async (
 
 //#region serverinfo
 // eslint-disable-next-line one-var
-export const serverInfo = (inObjs: Array<{interaction: CommandInteraction}>) => {
+export const serverInfo = (inObjs: Array<{interaction: CommandInteraction}>): void => {
 	inObjs.forEach((inObj) => {
 		const { guild } = inObj.interaction;
 		if (inObj.interaction.guild === null) {

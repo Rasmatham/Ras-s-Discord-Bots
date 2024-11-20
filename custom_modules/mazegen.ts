@@ -24,7 +24,7 @@ groupBy = <T>(list: T[], key: ObjectKey<T, number>): Record<number, T[]> => {
 },
 last = <T>(array: T[]): T => array[array.length - 1],
 range = (n: number, end = 0): number[] => end ? Array.from(Array(end - n).keys()).map(x => x + n) : Array.from(Array(n).keys()),
-sampleSize = <T>(array: T[], n: number, random: () => number) => {
+sampleSize = <T>(array: T[], n: number, random: () => number): T[] => {
 	let num = n, index = -1;
 	const { length } = array;
 	if (!length || num < 1) 
@@ -41,24 +41,24 @@ sampleSize = <T>(array: T[], n: number, random: () => number) => {
 	}
 	return result.slice(0, n);
 },
-mulberry32 = (seed: number) => () => {
+mulberry32 = (seed: number) => (): number => {
 	let x = seed + 0x6D2B79F5;
 	x = Math.imul(x ^ x >>> 15, x | 1);
 	x ^= x + Math.imul(x ^ x >>> 7, x | 61);
 	return ((x ^ x >>> 14) >>> 0) / 4294967296;
 },
-mergeSetWith = (row: Cell[], oldSet: number, newSet: number) => {
+mergeSetWith = (row: Cell[], oldSet: number, newSet: number): void => {
 	row.forEach(box => {
 		if (box.set === oldSet) box.set = newSet;
 	});
 },
-populateMissingSets = (row: Cell[], random: () => number) => {
+populateMissingSets = (row: Cell[], random: () => number): void => {
 	const setsInUse = compact(uniq(row.map(x => x.set))),
 	allSets = range(1, row.length + 1),
 	availableSets = difference(allSets, setsInUse).sort(() => 0.5 - random());
 	row.filter(box => !box.set).forEach((box, i) => (box.set = availableSets[i]));
 },
-mergeRandomSetsIn = (row: Cell[], random: () => number, probability = 0.5) => {
+mergeRandomSetsIn = (row: Cell[], random: () => number, probability = 0.5): void => {
 	// Randomly merge some disjoint sets
 	const allBoxesButLast = initial(row);
 	allBoxesButLast.forEach((current, x) => {
@@ -72,7 +72,7 @@ mergeRandomSetsIn = (row: Cell[], random: () => number, probability = 0.5) => {
 		}
 	});
 },
-addSetExits = (row: Cell[], nextRow: Cell[], random: () => number) => {
+addSetExits = (row: Cell[], nextRow: Cell[], random: () => number): void => {
 	// Randomly add bottom exit for each set
 	const setsInRow = Object.values(groupBy(row, `set`)),
 	{ ceil } = Math;
@@ -86,7 +86,7 @@ addSetExits = (row: Cell[], nextRow: Cell[], random: () => number) => {
 		});
 	});
 },
-generate = (width = 8, height = width, closed = true, seed = 1) => {
+generate = (width = 8, height = width, closed = true, seed = 1): Cell[][] => {
 	const random = mulberry32(seed),
 	maze: Cell[][] = [],
 	rangeArr = range(width);

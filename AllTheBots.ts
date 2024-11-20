@@ -44,7 +44,7 @@ zeldaLink = `https://discordapp.com/oauth2/authorize?&client_id=6547869650900746
 
 //#region instantiating Clients
 // eslint-disable-next-line one-var
-const client = (name: string, state: string) => new Client({ intents, presence: { activities: [{ name, state, type: ActivityType.Custom }] } });
+const client = (name: string, state: string): Client => new Client({ intents, presence: { activities: [{ name, state, type: ActivityType.Custom }] } });
 // eslint-disable-next-line one-var
 const amber = client(`Amber`, ``),
 artoo = client(`R2D2`, `[screaming sounds]`),
@@ -537,7 +537,7 @@ generalRas = `General Ras.\nYears ago you served my father in the Clone Wars.\nN
 
 //#region functions
 // eslint-disable-next-line one-var
-const beeps = () => {
+const beeps = (): string => {
 	let str = ``;
 	for (let i = 0; i < Math.floor(Math.random() * 10); i += 1) 
 		str = Math.floor(Math.random() << 1) ? `${str}beep ` : `${str}boop `;

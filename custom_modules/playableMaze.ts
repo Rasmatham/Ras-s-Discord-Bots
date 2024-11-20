@@ -47,7 +47,7 @@ type halfBitAsString = `${ `I` | `O` }${ `I` | `O` }${ `I` | `O` }${ `I` | `O` }
 //#endregion
 
 //#region maze generator
-export const mazeFunction = (inObjs: Array<{interaction: CommandInteraction}>) => {
+export const mazeFunction = (inObjs: Array<{interaction: CommandInteraction}>): void => {
 	inObjs.forEach((inObj) => {
 		const 
 		emotes:emoteTypeList = [
@@ -162,25 +162,25 @@ export const mazeFunction = (inObjs: Array<{interaction: CommandInteraction}>) =
 				this.hasPlayer = hasPlayer;
 				this.walls = walls;
 			}
-			get playerState() {
+			get playerState(): boolean {
 				return this.hasPlayer;
 			}
-			get x() {
+			get x(): number {
 				return this.loc[0];
 			}
-			get y() {
+			get y(): number {
 				return this.loc[1];
 			}
-			movePlayer() {
+			movePlayer(): void {
 				this.hasPlayer = !this.hasPlayer;
 			}
-			get getWalls() {
+			get getWalls(): EmojiIdentifierResolvable {
 				if (this.loc[0] === 7 && this.loc[1] === 7) 
 					return this.emotes[boolToInt({ bool: this.hasPlayer })][style].goal[this.walls as `OOII` | `OIII` | `IOII`];
 				return this.emotes[boolToInt({ bool: this.hasPlayer })][style][this.walls];
 				
 			}
-			get boolWalls() {
+			get boolWalls(): string[] {
 				return this.walls.split(``);
 			}
 		}
@@ -193,13 +193,13 @@ export const mazeFunction = (inObjs: Array<{interaction: CommandInteraction}>) =
 				this.playerLoc = [ 0, 0 ];
 				this.cells = [];
 			}
-			get cellArr() {
+			get cellArr(): Cell[] {
 				return this.cells;
 			}
-			addCell(x: number, y: number, walls: halfBitAsString) {
+			addCell(x: number, y: number, walls: halfBitAsString): void {
 				this.cells.push(new Cell(this.emotes, x, y, x === 0 && y === 0, walls));
 			}
-			moveLeft() {
+			moveLeft(): void {
 				let lock = true;
 				this.cells.forEach((cell, i) => {
 					if (cell.playerState && cell.y > 0 && lock && cell.boolWalls[0] === `O`) {
@@ -209,7 +209,7 @@ export const mazeFunction = (inObjs: Array<{interaction: CommandInteraction}>) =
 					}
 				});
 			}
-			moveUp() {
+			moveUp(): void {
 				let lock = true;
 				this.cells.forEach((cell, i) => {
 					if (cell.playerState && cell.x > 0 && lock && cell.boolWalls[1] === `O`) {
@@ -219,7 +219,7 @@ export const mazeFunction = (inObjs: Array<{interaction: CommandInteraction}>) =
 					}
 				});
 			}
-			moveDown() {
+			moveDown(): void {
 				let lock = true;
 				this.cells.forEach((cell, i) => {
 					if (cell.playerState && cell.x < 7 && lock && cell.boolWalls[3] === `O`) {
@@ -229,7 +229,7 @@ export const mazeFunction = (inObjs: Array<{interaction: CommandInteraction}>) =
 					}
 				});
 			}
-			moveRight() {
+			moveRight(): void {
 				let lock = true;
 				this.cells.forEach((cell, i) => {
 					if (cell.playerState && cell.y < 7 && lock && cell.boolWalls[2] === `O`) {

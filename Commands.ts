@@ -15,7 +15,7 @@ interface commandObject {
 //#endregion
 
 //#region default client options
-const client = () => new Client({ intents, presence: { activities: [{ name: `Doing some maintenance`, type: ActivityType.Playing }], status: PresenceUpdateStatus.DoNotDisturb } });
+const client = (): Client => new Client({ intents, presence: { activities: [{ name: `Doing some maintenance`, type: ActivityType.Playing }], status: PresenceUpdateStatus.DoNotDisturb } });
 //#endregion
 
 //#region instantiating clients

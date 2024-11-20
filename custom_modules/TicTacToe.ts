@@ -5,7 +5,7 @@ import { ephemeral, genericCatch } from "./generalUse";
 //#endregion
 
 //#region tic tac toe game
-export const ticTacToe = (inObjs: Array<{ interaction: CommandInteraction }>) => {
+export const ticTacToe = (inObjs: Array<{ interaction: CommandInteraction }>): void => {
 	inObjs.forEach((inObj) => {
 		inObj.interaction.guild?.members.fetch(inObj.interaction.options.get(`playertwo`)?.user ?? ``).then((playerTwo) => {
 			const choices = new ActionRowBuilder<ButtonBuilder>()
@@ -28,7 +28,7 @@ export const ticTacToe = (inObjs: Array<{ interaction: CommandInteraction }>) =>
 			});
 		}).catch(genericCatch);
 	
-		const rasButton = (ID: string) => new ButtonBuilder().setCustomId(ID).setEmoji(`<:ras:741303046574702652>`).setStyle(ButtonStyle.Secondary);
+		const rasButton = (ID: string): ButtonBuilder => new ButtonBuilder().setCustomId(ID).setEmoji(`<:ras:741303046574702652>`).setStyle(ButtonStyle.Secondary);
 	
 		// eslint-disable-next-line one-var
 		const startingGrid = [
@@ -315,9 +315,9 @@ export const ticTacToe = (inObjs: Array<{ interaction: CommandInteraction }>) =>
 											// eslint-disable-next-line one-var
 											const buttonArray:XO[] = [],
 											newButtons = [ row1, row2, row3 ],
-											winBoard = (rows: Array<ActionRowBuilder<ButtonBuilder>>) => {
-												const check = (index: number, type: XO) => buttonArray[index] === type,
-												checkThree = (index:[number, number, number], type: XO) => check(index[0], type) && check(index[1], type) && check(index[2], type);
+											winBoard = (rows: Array<ActionRowBuilder<ButtonBuilder>>): boolean => {
+												const check = (index: number, type: XO): boolean => buttonArray[index] === type,
+												checkThree = (index:[number, number, number], type: XO): boolean => check(index[0], type) && check(index[1], type) && check(index[2], type);
 												rows.forEach((row) => {
 													row.components.forEach((button) => {
 														buttonArray.push((button.toJSON() as APIButtonComponentWithCustomId).emoji?.name as (XO | undefined) ?? XO.RAS);
