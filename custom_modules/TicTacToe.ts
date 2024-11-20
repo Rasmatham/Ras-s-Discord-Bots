@@ -103,7 +103,9 @@ export const ticTacToe = (inObjs: Array<{ interaction: CommandInteraction }>): v
 									buttonGuild.members.cache.get(buttonInteraction.message.content.split(` `)[6].replace(/<@!?(?=\d*)|(?<=\d*)>/gu, ``) as `${bigint}`) ?? { id: `` }
 								];
 								// eslint-disable-next-line id-length
-								let O = 0, X = 0;
+								let O: number, X: number;
+								O = 0;
+								X = 0;
 							
 								buttonInteraction.message.components.forEach((row) => {
 									row.components.forEach((component) => {
@@ -144,8 +146,9 @@ export const ticTacToe = (inObjs: Array<{ interaction: CommandInteraction }>): v
 												return new ButtonBuilder().setCustomId(messageButton.customId ?? ``).setEmoji(emoji).setStyle(style);
 											};
 								
-											let row1 = new ActionRowBuilder<ButtonBuilder>().addComponents([ newButton(0, 0), newButton(0, 1), newButton(0, 2) ]),
-											row2 = new ActionRowBuilder<ButtonBuilder>().addComponents([ newButton(1, 0), newButton(1, 1), newButton(1, 2) ]),
+											let row1, row2, row3;
+											row1 = new ActionRowBuilder<ButtonBuilder>().addComponents([ newButton(0, 0), newButton(0, 1), newButton(0, 2) ]);
+											row2 = new ActionRowBuilder<ButtonBuilder>().addComponents([ newButton(1, 0), newButton(1, 1), newButton(1, 2) ]);
 											row3 = new ActionRowBuilder<ButtonBuilder>().addComponents([ newButton(2, 0), newButton(2, 1), newButton(2, 2) ]);
 								
 											if (X > O) {

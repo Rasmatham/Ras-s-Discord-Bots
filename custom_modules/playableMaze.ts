@@ -200,7 +200,8 @@ export const mazeFunction = (inObjs: Array<{interaction: CommandInteraction}>): 
 				this.cells.push(new Cell(this.emotes, x, y, x === 0 && y === 0, walls));
 			}
 			public moveLeft(): void {
-				let lock = true;
+				let lock: boolean;
+				lock = true;
 				this.cells.forEach((cell, i) => {
 					if (cell.playerState && cell.y > 0 && lock && cell.boolWalls[0] === `O`) {
 						cell.movePlayer();
@@ -210,7 +211,8 @@ export const mazeFunction = (inObjs: Array<{interaction: CommandInteraction}>): 
 				});
 			}
 			public moveUp(): void {
-				let lock = true;
+				let lock: boolean;
+				lock = true;
 				this.cells.forEach((cell, i) => {
 					if (cell.playerState && cell.x > 0 && lock && cell.boolWalls[1] === `O`) {
 						cell.movePlayer();
@@ -220,7 +222,8 @@ export const mazeFunction = (inObjs: Array<{interaction: CommandInteraction}>): 
 				});
 			}
 			public moveDown(): void {
-				let lock = true;
+				let lock: boolean;
+				lock = true;
 				this.cells.forEach((cell, i) => {
 					if (cell.playerState && cell.x < 7 && lock && cell.boolWalls[3] === `O`) {
 						cell.movePlayer();
@@ -230,7 +233,8 @@ export const mazeFunction = (inObjs: Array<{interaction: CommandInteraction}>): 
 				});
 			}
 			public moveRight(): void {
-				let lock = true;
+				let lock: boolean;
+				lock = true;
 				this.cells.forEach((cell, i) => {
 					if (cell.playerState && cell.y < 7 && lock && cell.boolWalls[2] === `O`) {
 						cell.movePlayer();
@@ -251,7 +255,8 @@ export const mazeFunction = (inObjs: Array<{interaction: CommandInteraction}>): 
 	
 		// eslint-disable-next-line one-var
 		const mazeMessage = (mazeObj: Maze):string => {
-			let messageText = ``;
+			let messageText;
+			messageText = ``;
 			for (let i = 0; i < 8; i += 1) {
 				for (let j = 0; j < 8; j += 1) 
 					messageText = `${messageText}${mazeObj.cellArr[i * 8 + j].getWalls.toString()}`;

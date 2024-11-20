@@ -59,7 +59,8 @@ const xkcdModule = (cb: (data:Xkcd | Error) => void, id?: string | number): void
 	const idURL = id ? `${id.toString()}/` : ``,
 	url = DOMAIN + idURL + PATH;
 	https.get(url, (res) => {
-		let body = ``;
+		let body: string;
+		body = ``;
 		res.on(`data`, (chunk) => { body += chunk as string; });
 		res.on(`end`, () => {
 			const data = JSON.parse(body) as RawXkcdJson;
@@ -77,7 +78,8 @@ export const xkcdFunct = (inObjs: Array<{interaction: CommandInteraction}>): voi
 				console.error(xkcdObjOuter);
 				return;
 			}
-			let num = Math.ceil(Math.random() * (xkcdObjOuter.num));
+			let num;
+			num = Math.ceil(Math.random() * (xkcdObjOuter.num));
 			if (inObj.interaction.options.get(`xkcd_number`) !== null)
 				num = inObj.interaction.options.get(`xkcd_number`)?.value as number;
 			if (num > (xkcdObjOuter.num) || num <= 0) 

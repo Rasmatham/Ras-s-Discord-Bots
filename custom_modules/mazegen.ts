@@ -25,7 +25,9 @@ groupBy = <T>(list: T[], key: ObjectKey<T, number>): Record<number, T[]> => {
 last = <T>(array: T[]): T => array[array.length - 1],
 range = (n: number, end = 0): number[] => end ? Array.from(Array(end - n).keys()).map(x => x + n) : Array.from(Array(n).keys()),
 sampleSize = <T>(array: T[], n: number, random: () => number): T[] => {
-	let num = n, index = -1;
+	let num, index;
+	num = n;
+	index = -1;
 	const { length } = array;
 	if (!length || num < 1) 
 		return [];
@@ -42,7 +44,8 @@ sampleSize = <T>(array: T[], n: number, random: () => number): T[] => {
 	return result.slice(0, n);
 },
 mulberry32 = (seed: number) => (): number => {
-	let x = seed + 0x6D2B79F5;
+	let x;
+	x = seed + 0x6D2B79F5;
 	x = Math.imul(x ^ x >>> 15, x | 1);
 	x ^= x + Math.imul(x ^ x >>> 7, x | 61);
 	return ((x ^ x >>> 14) >>> 0) / 4294967296;

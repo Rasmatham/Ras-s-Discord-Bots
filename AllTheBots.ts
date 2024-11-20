@@ -91,7 +91,9 @@ const mrtz = `Did you know BeeMrtz is short for Bee Master? He just had a tiny s
 //#region functions
 // eslint-disable-next-line one-var
 const buzzes = (buzz = `buzz`, count: number = Math.floor(Math.random() * 9)): string => {
-	let buzzTmp = buzz, countTmp = count;
+	let buzzTmp, countTmp;
+	buzzTmp = buzz;
+	countTmp = count;
 	buzzTmp = (Math.round(Math.random() << 1)? `buzz ` : `buzz, `).concat(buzzTmp);
 	countTmp = countTmp? countTmp-1 : countTmp;
 	return countTmp? buzzes(buzzTmp, countTmp) : buzzTmp;
@@ -538,7 +540,8 @@ generalRas = `General Ras.\nYears ago you served my father in the Clone Wars.\nN
 //#region functions
 // eslint-disable-next-line one-var
 const beeps = (): string => {
-	let str = ``;
+	let str;
+	str = ``;
 	for (let i = 0; i < Math.floor(Math.random() * 10); i += 1) 
 		str = Math.floor(Math.random() << 1) ? `${str}beep ` : `${str}boop `;
 	return str;

@@ -100,7 +100,8 @@ export const sendAsWebHook = (inObjs: Array<{ message: Message, sendTo: Exclude<
 								inObj.message.channel.send(`Something went wrong`).catch(genericCatch);
 						});
 				}
-				let i = 0;
+				let i: number;
+				i = 0;
 				webHooks.forEach((webHook: Webhook) => {
 					if (webHook.owner instanceof User) {
 						if (webHook.owner.id === user.id) {

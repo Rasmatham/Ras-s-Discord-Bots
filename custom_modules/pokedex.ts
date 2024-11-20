@@ -32,7 +32,8 @@ type pokeRange =
 //#region dex embed
 // eslint-disable-next-line one-var
 export const natDex = (inObj: {query: string | number}):MessageReplyOptions => {
-	let dexNumber = 0 as pokeRange;
+	let dexNumber: pokeRange;
+	dexNumber = 0;
 	if (!isNaN(Number(inObj.query))) 
 		inObj.query = Number(inObj.query);
 	switch (typeof inObj.query) {

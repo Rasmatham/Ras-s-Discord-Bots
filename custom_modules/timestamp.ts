@@ -114,15 +114,16 @@ export const relativeButtonInteraction = (inObjs: Array<{interaction: ButtonInte
 // eslint-disable-next-line one-var
 export const relativeModalInteraction = (inObjs: Array<{interaction: ModalMessageModalSubmitInteraction}>): void => {
 	inObjs.forEach((inObj) => {
-		/* eslint-disable no-useless-assignment, sort-vars */
-		let offset = 0,
-		years = 0,
-		months = 0,
-		days = 0,
-		hours = 0,
-		minutes = 0,
+		let days, hours, minutes, months, offset, seconds, years;
+		/* eslint-disable no-useless-assignment */
+		offset = 0;
+		years = 0;
+		months = 0;
+		days = 0;
+		hours = 0;
+		minutes = 0;
 		seconds = 0;
-		/* eslint-enable no-useless-assignment, sort-vars */
+		/* eslint-enable no-useless-assignment */
 
 		const { interaction } = inObj,
 		longTime = interaction.fields.getTextInputValue(`long_time`),
@@ -296,14 +297,15 @@ export const absoluteModalInteraction = (inObjs: Array<{interaction: ModalMessag
 			return;
 		}
 
-		/* eslint-disable no-useless-assignment, sort-vars */
-		let year = 0,
-		month = 0,
-		day = 0,
-		hour = 0,
-		minute = 0,
+		let day, hour, minute, month, second, year;
+		/* eslint-disable no-useless-assignment */
+		year = 0;
+		month = 0;
+		day = 0;
+		hour = 0;
+		minute = 0;
 		second = 0;
-		/* eslint-enable no-useless-assignment, sort-vars */
+		/* eslint-enable no-useless-assignment */
 
 		// eslint-disable-next-line one-var
 		const hoursMinutesRegex = /^[0-9]{1,2}:[0-9]{1,2}$/u,

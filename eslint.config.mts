@@ -65,6 +65,7 @@ export default tseslint.config(
 			"@typescript-eslint/explicit-function-return-type": [`error`],
 			"@typescript-eslint/explicit-member-accessibility": [`error`],
 			"@typescript-eslint/explicit-module-boundary-types": [`error`],
+			"@typescript-eslint/init-declarations": [ `error`, `never`, { "ignoreForLoopInit": true }],
 			"@typescript-eslint/no-shadow": [`error`]
 		}
 	},
