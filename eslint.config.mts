@@ -35,21 +35,21 @@ export default tseslint.config(
 	{
 		// Disabled rules
 		rules: {
-			"class-methods-use-this": [`off`],
-			"complexity": [`off`],
-			"default-param-last": [`off`],
-			"init-declarations": [`off`],
-			"max-classes-per-file": [`off`],
-			"max-lines": [`off`],
-			"max-lines-per-function": [`off`],
-			"max-params": [`off`],
-			"max-statements": [`off`],
-			"no-bitwise": [`off`],
-			"no-duplicate-imports": [`off`],
-			"no-inline-comments": [`off`],
-			"no-magic-numbers": [`off`],
-			"no-shadow": [`off`],
-			"no-ternary": [`off`]
+			"class-methods-use-this": `off`,
+			"complexity": `off`,
+			"default-param-last": `off`,
+			"init-declarations": `off`,
+			"max-classes-per-file": `off`,
+			"max-lines": `off`,
+			"max-lines-per-function": `off`,
+			"max-params": `off`,
+			"max-statements": `off`,
+			"no-bitwise": `off`,
+			"no-duplicate-imports": `off`,
+			"no-inline-comments": `off`,
+			"no-magic-numbers": `off`,
+			"no-shadow": `off`,
+			"no-ternary": `off`
 		}
 	},
 	{
