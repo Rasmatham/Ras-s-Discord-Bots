@@ -63,10 +63,10 @@ export const messageForwarding = (inObjs: Array<{message: Message}>): void => {
 
 //#region DM spy
 // eslint-disable-next-line one-var
-export const DMSpy = (inObjs: Array<{ message: Message, ChID: `${bigint}` }>): void => {
+export const dmSpy = (inObjs: Array<{ message: Message, channelId: `${bigint}` }>): void => {
 	inObjs.forEach(inObj => {
 		if (inObj.message.channel.type === ChannelType.DM && !inObj.message.author.bot /*&& message.author.id != process.env.RASID*/) {
-			inObj.message.client.channels.fetch(inObj.ChID).then((channel) => {
+			inObj.message.client.channels.fetch(inObj.channelId).then((channel) => {
 				if (!(channel instanceof TextChannel || channel instanceof NewsChannel)) return;
 				channel.send(`\`\`\`${
 					inObj.message.author.tag

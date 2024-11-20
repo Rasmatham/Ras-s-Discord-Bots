@@ -100,7 +100,7 @@ class Wordle {
 	private attempts: string[][];
 	private buttons: { a: ButtonBuilder; b: ButtonBuilder; c: ButtonBuilder; d: ButtonBuilder; e: ButtonBuilder; f: ButtonBuilder; g: ButtonBuilder; h: ButtonBuilder; i: ButtonBuilder; j: ButtonBuilder; k: ButtonBuilder; l: ButtonBuilder; m: ButtonBuilder; n: ButtonBuilder; o: ButtonBuilder; p: ButtonBuilder; q: ButtonBuilder; r: ButtonBuilder; s: ButtonBuilder; t: ButtonBuilder; u: ButtonBuilder; v: ButtonBuilder; w: ButtonBuilder; x: ButtonBuilder; y: ButtonBuilder; z: ButtonBuilder; am: ButtonBuilder; nz: ButtonBuilder; bs: ButtonBuilder; en: ButtonBuilder; };
 	private cmd: ChatInputCommandInteraction;
-	private gameID: string;
+	private gameId: string;
 	private word: string;
 	private attempt: number;
 	private slot: number;
@@ -110,7 +110,7 @@ class Wordle {
 	public constructor (commandInteraction: ChatInputCommandInteraction) {
 		this.cmd = commandInteraction;
 		this.difficulty = this.cmd.options.getSubcommand(true);
-		this.gameID = commandInteraction.id;
+		this.gameId = commandInteraction.id;
 		this.word = words.spoilers[Math.floor(Math.random()*words.spoilers.length)];
 		this.buttons = {
 			/* eslint-disable id-length */

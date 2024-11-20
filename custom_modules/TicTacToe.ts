@@ -28,7 +28,7 @@ export const ticTacToe = (inObjs: Array<{ interaction: CommandInteraction }>): v
 			});
 		}).catch(genericCatch);
 	
-		const rasButton = (ID: string): ButtonBuilder => new ButtonBuilder().setCustomId(ID).setEmoji(`<:ras:741303046574702652>`).setStyle(ButtonStyle.Secondary);
+		const rasButton = (id: string): ButtonBuilder => new ButtonBuilder().setCustomId(id).setEmoji(`<:ras:741303046574702652>`).setStyle(ButtonStyle.Secondary);
 	
 		// eslint-disable-next-line one-var
 		const startingGrid = [
@@ -103,9 +103,9 @@ export const ticTacToe = (inObjs: Array<{ interaction: CommandInteraction }>): v
 									buttonGuild.members.cache.get(buttonInteraction.message.content.split(` `)[6].replace(/<@!?(?=\d*)|(?<=\d*)>/gu, ``) as `${bigint}`) ?? { id: `` }
 								];
 								// eslint-disable-next-line id-length
-								let O: number, X: number;
-								O = 0;
-								X = 0;
+								let o: number, x: number;
+								o = 0;
+								x = 0;
 							
 								buttonInteraction.message.components.forEach((row) => {
 									row.components.forEach((component) => {
@@ -118,10 +118,10 @@ export const ticTacToe = (inObjs: Array<{ interaction: CommandInteraction }>): v
 									if (button.emoji !== null) {
 										switch (button.emoji.name) {
 										case `⭕`:
-											O += 1;
+											o += 1;
 											break;
 										case `❌`:
-											X += 1;
+											x += 1;
 											break;
 										default:
 											break;
@@ -132,17 +132,17 @@ export const ticTacToe = (inObjs: Array<{ interaction: CommandInteraction }>): v
 									if (buttonInteraction.component.emoji === null)
 										buttonInteraction.reply({ content: `Sorry, but you can't do that`, ephemeral }).catch(genericCatch);
 									else if (buttonInteraction.component.emoji.id === `741303046574702652`) {
-										const BM = buttonInteraction.message, style = ButtonStyle.Secondary;
+										const buttonMessage = buttonInteraction.message, style = ButtonStyle.Secondary;
 								
 										if (movePieces)
 											buttonInteraction.update({ content: `this mode has not been added yet. Please set the movepieces parameter to false instead` }).catch(genericCatch);
 										else {
 											const newButton = (row: number, collumn: number):ButtonBuilder => {
-												const messageButton:ButtonComponent = BM.components[row].components[collumn] as ButtonComponent;
+												const messageButton:ButtonComponent = buttonMessage.components[row].components[collumn] as ButtonComponent;
 												return new ButtonBuilder().setCustomId(messageButton.customId ?? ``).setEmoji(messageButton.emoji?.id ?? ``).setStyle(style);
 											},
 											newCheckedButton = (row: number, collumn: number, emoji: ComponentEmojiResolvable):ButtonBuilder => {
-												const messageButton:ButtonComponent = BM.components[row].components[collumn] as ButtonComponent;
+												const messageButton:ButtonComponent = buttonMessage.components[row].components[collumn] as ButtonComponent;
 												return new ButtonBuilder().setCustomId(messageButton.customId ?? ``).setEmoji(emoji).setStyle(style);
 											};
 								
@@ -151,7 +151,7 @@ export const ticTacToe = (inObjs: Array<{ interaction: CommandInteraction }>): v
 											row2 = new ActionRowBuilder<ButtonBuilder>().addComponents([ newButton(1, 0), newButton(1, 1), newButton(1, 2) ]);
 											row3 = new ActionRowBuilder<ButtonBuilder>().addComponents([ newButton(2, 0), newButton(2, 1), newButton(2, 2) ]);
 								
-											if (X > O) {
+											if (x > o) {
 												const emoji:EmojiIdentifierResolvable = `⭕`;
 												// eslint-disable-next-line max-depth
 												switch (buttonInteraction.customId) {
@@ -310,39 +310,39 @@ export const ticTacToe = (inObjs: Array<{ interaction: CommandInteraction }>): v
 													break;
 												}
 											}
-											enum XO {
-												XX = `❌`,
-												OO = `⭕`,
-												RAS = `ras`
+											enum PlayerSymbol {
+												X = `❌`,
+												O = `⭕`,
+												Ras = `ras`
 											}
 											// eslint-disable-next-line one-var
-											const buttonArray:XO[] = [],
+											const buttonArray:PlayerSymbol[] = [],
 											newButtons = [ row1, row2, row3 ],
 											winBoard = (rows: Array<ActionRowBuilder<ButtonBuilder>>): boolean => {
-												const check = (index: number, type: XO): boolean => buttonArray[index] === type,
-												checkThree = (index:[number, number, number], type: XO): boolean => check(index[0], type) && check(index[1], type) && check(index[2], type);
+												const check = (index: number, type: PlayerSymbol): boolean => buttonArray[index] === type,
+												checkThree = (index:[number, number, number], type: PlayerSymbol): boolean => check(index[0], type) && check(index[1], type) && check(index[2], type);
 												rows.forEach((row) => {
 													row.components.forEach((button) => {
-														buttonArray.push((button.toJSON() as APIButtonComponentWithCustomId).emoji?.name as (XO | undefined) ?? XO.RAS);
+														buttonArray.push((button.toJSON() as APIButtonComponentWithCustomId).emoji?.name as (PlayerSymbol | undefined) ?? PlayerSymbol.Ras);
 													});
 												});
-												if (buttonArray[0] !== XO.RAS || buttonArray[4] !== XO.RAS || buttonArray[8] !== XO.RAS) {
-													return checkThree([ 0, 1, 2 ], XO.XX) ||
-														checkThree([ 0, 3, 6 ], XO.XX) ||
-														checkThree([ 6, 7, 8 ], XO.XX) ||
-														checkThree([ 2, 5, 8 ], XO.XX) ||
-														checkThree([ 0, 4, 8 ], XO.XX) ||
-														checkThree([ 1, 4, 7 ], XO.XX) ||
-														checkThree([ 2, 4, 6 ], XO.XX) ||
-														checkThree([ 3, 4, 5 ], XO.XX) ||
-														checkThree([ 0, 3, 6 ], XO.OO) ||
-														checkThree([ 0, 1, 2 ], XO.OO) ||
-														checkThree([ 6, 7, 8 ], XO.OO) ||
-														checkThree([ 2, 5, 8 ], XO.OO) ||
-														checkThree([ 0, 4, 8 ], XO.OO) ||
-														checkThree([ 1, 4, 7 ], XO.OO) ||
-														checkThree([ 2, 4, 6 ], XO.OO) ||
-														checkThree([ 3, 4, 5 ], XO.OO);
+												if (buttonArray[0] !== PlayerSymbol.Ras || buttonArray[4] !== PlayerSymbol.Ras || buttonArray[8] !== PlayerSymbol.Ras) {
+													return checkThree([ 0, 1, 2 ], PlayerSymbol.X) ||
+														checkThree([ 0, 3, 6 ], PlayerSymbol.X) ||
+														checkThree([ 6, 7, 8 ], PlayerSymbol.X) ||
+														checkThree([ 2, 5, 8 ], PlayerSymbol.X) ||
+														checkThree([ 0, 4, 8 ], PlayerSymbol.X) ||
+														checkThree([ 1, 4, 7 ], PlayerSymbol.X) ||
+														checkThree([ 2, 4, 6 ], PlayerSymbol.X) ||
+														checkThree([ 3, 4, 5 ], PlayerSymbol.X) ||
+														checkThree([ 0, 3, 6 ], PlayerSymbol.O) ||
+														checkThree([ 0, 1, 2 ], PlayerSymbol.O) ||
+														checkThree([ 6, 7, 8 ], PlayerSymbol.O) ||
+														checkThree([ 2, 5, 8 ], PlayerSymbol.O) ||
+														checkThree([ 0, 4, 8 ], PlayerSymbol.O) ||
+														checkThree([ 1, 4, 7 ], PlayerSymbol.O) ||
+														checkThree([ 2, 4, 6 ], PlayerSymbol.O) ||
+														checkThree([ 3, 4, 5 ], PlayerSymbol.O);
 												}
 												return false;
 											};
@@ -371,7 +371,7 @@ export const ticTacToe = (inObjs: Array<{ interaction: CommandInteraction }>): v
 														buttonArray[8].replace(`ras`, `▫️`)
 													}`
 												}).catch(genericCatch);
-											} else if (buttonArray.includes(XO.RAS)) {
+											} else if (buttonArray.includes(PlayerSymbol.Ras)) {
 												buttonInteraction.update({ components: [] }).then(() => {
 													buttonInteraction.editReply({
 														components: newButtons,

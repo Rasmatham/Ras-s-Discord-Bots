@@ -13,7 +13,7 @@
 //#region imports
 import { ActivityType, Client, EmbedBuilder, Events } from "discord.js";
 import { blackList, botReady, ephemeral, genericCatch, headerlessField, intents, listThings, login, sendAsWebHook, technicalStuff } from "./custom_modules/generalUse";
-import { EBTypes } from "./custom_modules/stupidStuff";
+import { ReactionTypes } from "./custom_modules/stupidStuff";
 import * as coinflip from "./custom_modules/coinflip";
 import * as containsWord from "./custom_modules/containsWordFunctions";
 import * as dice from "./custom_modules/dice";
@@ -351,7 +351,7 @@ glados.on(Events.MessageCreate, (message) => {
 			chance: 1,
 			message,
 			out: { content: `https://cdn.discordapp.com/attachments/735213241860620308/781189544103247922/unknown.png` },
-			type: EBTypes.Message,
+			type: ReactionTypes.Message,
 			victim: process.env.RASID as `${bigint}`
 		}
 	]);
@@ -360,7 +360,7 @@ glados.on(Events.MessageCreate, (message) => {
 			chance: 100,
 			message,
 			out: `🦆`,
-			type: EBTypes.React,
+			type: ReactionTypes.React,
 			victim: process.env.ZARLID as `${bigint}`
 		}
 	]);
@@ -395,10 +395,10 @@ glados.on(Events.InteractionCreate, (interaction) => {
 	if (interaction.isChatInputCommand()) {
 		switch (interaction.commandName) {
 			case `list`: {
-				listThings(interaction).then((InteractionReplyOptions) => {
-					interaction.reply(InteractionReplyOptions[0]).then(() => {
-						InteractionReplyOptions.shift();
-						InteractionReplyOptions.forEach(element => {
+				listThings(interaction).then((interactionReplyOptions) => {
+					interaction.reply(interactionReplyOptions[0]).then(() => {
+						interactionReplyOptions.shift();
+						interactionReplyOptions.forEach(element => {
 							interaction.followUp(element).catch(genericCatch);
 						});
 					}).catch(genericCatch);
@@ -533,8 +533,8 @@ pokebot.on(Events.MessageCreate, (message) => {
 
 //#region Long stuff
 // eslint-disable-next-line one-var
-const SWWords = [ `star`, `wars`, `anakin`, `luke`, `obi`, `wan`, `kenobi`, `han`, `solo`, `leia`, `yoda`, `mace`, `windu`, `force`, `c3po`, `chewbacca`, `chewie`, `darth`, `vader`, `maul`, `sidius`, `plagueis`, `c-3po`, `r2`, `d2`, `emperor`, `palpatine`, `skywalker`, `jango`, `fett`, `padme`, `padmé`, `amidala`, `doku`, `tyranus`, `grievous`, `qui`, `gon`, `jinn`, `ackbar`, `tarkin`, `jabba`, `hut`, `lando`, `calrissian`, `boba`, `naboo`, `kashyyyk`, `alderaan`, `geonosis`, `kamino`, `dagobah`, `hoth`, `endor`, `bespin`, `mustafar`, `coruscant`, `tatooine` ],
-generalRas = `General Ras.\nYears ago you served my father in the Clone Wars.\nNow he begs you to help him in his struggle against the Empire.\nI regret that I am unable to present my father's request to you in person, but my ship has fallen under attack, and I'm afraid my mission to bring you to Alderaan has failed.\nI have placed information vital to the survival of the Rebellion into the memory systems of this R2 unit.\nMy father will know how to retrieve it.\nYou must see this droid safely delivered to him on Alderaan.\nThis is our most desperate hour.\nHelp me, Rasmatham.\nYou're my only hope.`;
+const generalRas = `General Ras.\nYears ago you served my father in the Clone Wars.\nNow he begs you to help him in his struggle against the Empire.\nI regret that I am unable to present my father's request to you in person, but my ship has fallen under attack, and I'm afraid my mission to bring you to Alderaan has failed.\nI have placed information vital to the survival of the Rebellion into the memory systems of this R2 unit.\nMy father will know how to retrieve it.\nYou must see this droid safely delivered to him on Alderaan.\nThis is our most desperate hour.\nHelp me, Rasmatham.\nYou're my only hope.`,
+starWarsWords = [ `star`, `wars`, `anakin`, `luke`, `obi`, `wan`, `kenobi`, `han`, `solo`, `leia`, `yoda`, `mace`, `windu`, `force`, `c3po`, `chewbacca`, `chewie`, `darth`, `vader`, `maul`, `sidius`, `plagueis`, `c-3po`, `r2`, `d2`, `emperor`, `palpatine`, `skywalker`, `jango`, `fett`, `padme`, `padmé`, `amidala`, `doku`, `tyranus`, `grievous`, `qui`, `gon`, `jinn`, `ackbar`, `tarkin`, `jabba`, `hut`, `lando`, `calrissian`, `boba`, `naboo`, `kashyyyk`, `alderaan`, `geonosis`, `kamino`, `dagobah`, `hoth`, `endor`, `bespin`, `mustafar`, `coruscant`, `tatooine` ];
 //#endregion
 
 //#region functions
@@ -569,7 +569,7 @@ artoo.on(Events.MessageCreate, (message) => {
 		{
 			message,
 			reply: { content: beeps() },
-			triggers: SWWords,
+			triggers: starWarsWords,
 			type: `anywhere`
 		}
 	]);

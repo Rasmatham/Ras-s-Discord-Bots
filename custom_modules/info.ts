@@ -12,32 +12,32 @@ export const channelCount = (inObj: { guild: Guild }):{
 	unknown: number | `unknown`,
 	all: number | `unknown`
 } => {
-	const Cat:string[] = [],
-	TC:string[] = [],
-	UK:string[] = [],
-	VC:string[] = [];
+	const categories:string[] = [],
+	textChannels:string[] = [],
+	unknown:string[] = [],
+	voiceChannels:string[] = [];
 	inObj.guild.channels.cache.forEach((channel) => {
 		switch (channel.type) {
 		case ChannelType.GuildText:
-			TC.push(channel.name);
+			textChannels.push(channel.name);
 			break;
 		case ChannelType.GuildVoice:
-			VC.push(channel.name);
+			voiceChannels.push(channel.name);
 			break;
 		case ChannelType.GuildCategory:
-			Cat.push(channel.name);
+			categories.push(channel.name);
 			break;
 		default:
-			UK.push(channel.name);
+			unknown.push(channel.name);
 			break;
 		}
 	});
 	return {
-		all: TC.length+VC.length+Cat.length+UK.length,
-		categories: Cat.length,
-		textChannels: TC.length,
-		unknown: UK.length,
-		voiceChannels: VC.length,
+		all: textChannels.length+voiceChannels.length+categories.length+unknown.length,
+		categories: categories.length,
+		textChannels: textChannels.length,
+		unknown: unknown.length,
+		voiceChannels: voiceChannels.length,
 	};
 };
 //#endregion

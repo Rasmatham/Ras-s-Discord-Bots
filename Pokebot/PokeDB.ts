@@ -1,5 +1,5 @@
 //#region type definitions
-interface dexEntriesType {
+interface DexEntriesType {
 	re: string,
 	bl: string,
 	yr: string,
@@ -32,19 +32,19 @@ interface dexEntriesType {
 	sw: string,
 	sh: string
 }
-export interface pokeType {
+export interface PokeType {
 	name: string,
 	color: string,
 	weakTo?: string[],
 	strongTo?: string[],
 	noDamageTo?: string[]
 }
-export interface pokeObjType {
+export interface PokeObjType {
 	name: string,
 	reg:string,
 	nat:string,
 	rarity:number,
-	types:[pokeType,pokeType] | [pokeType],
+	types:[PokeType,PokeType] | [PokeType],
 	height:[
 		string,
 		string
@@ -53,12 +53,12 @@ export interface pokeObjType {
 		string,
 		string
 	],
-	dexEntries:dexEntriesType
+	dexEntries:DexEntriesType
 }
 //#endregion
 
 //#region types
-export const types: Record<string, pokeType> = {
+export const types: Record<string, PokeType> = {
 	bird: {
 		color: `68A090`,
 		name: `Bird`,
@@ -197,7 +197,7 @@ export const types: Record<string, pokeType> = {
 
 //#region pokemon
 // eslint-disable-next-line one-var
-export const pokemon: pokeObjType[] = [
+export const pokemon: PokeObjType[] = [
 	{
 		dexEntries: {
 			as: `?`,

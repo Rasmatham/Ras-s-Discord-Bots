@@ -5,9 +5,10 @@ import { EmbedBuilder } from "discord.js";
 import * as https from "https";
 //#endregion
 
-const DOMAIN = `https://xkcd.com/`,
-PATH = `info.0.json`;
+const domain = `https://xkcd.com/`,
+path = `info.0.json`;
 
+/* eslint-disable @typescript-eslint/naming-convention */
 interface RawXkcdJson {
 	month: string,
 	num: number,
@@ -22,6 +23,7 @@ interface RawXkcdJson {
 	extra_parts?: unknown,
 	day: string
 }
+/* eslint-enable @typescript-eslint/naming-convention */
 
 class Xkcd {
 	public readonly num: number;
@@ -56,8 +58,8 @@ class Xkcd {
 // @example current(2, function(err, data){ console.log(data); });
 // eslint-disable-next-line one-var
 const xkcdModule = (cb: (data:Xkcd | Error) => void, id?: string | number): void => {
-	const idURL = id ? `${id.toString()}/` : ``,
-	url = DOMAIN + idURL + PATH;
+	const idUrl = id ? `${id.toString()}/` : ``,
+	url = domain + idUrl + path;
 	https.get(url, (res) => {
 		let body: string;
 		body = ``;

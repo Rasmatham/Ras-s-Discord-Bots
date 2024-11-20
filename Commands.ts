@@ -7,7 +7,7 @@ dotenv.config();
 //#endregion
 
 //#region type definitions
-interface commandObject {
+interface CommandObject {
 	id?:`${bigint}`, 
 	guild?:`${bigint}`,
 	command:SlashCommandBuilder | SlashCommandOptionsOnlyBuilder | SlashCommandSubcommandsOnlyBuilder | ContextMenuCommandBuilder
@@ -50,10 +50,10 @@ login(canine, process.env.K9TOKEN, `K9 was not affirmative`);
 
 //#region commands
 // eslint-disable-next-line one-var
-const amberCommands:commandObject[] = [],
-artooCommands:commandObject[] = [],
-buzzBotCommands:commandObject[] = [],
-canineCommands:commandObject[] = [
+const amberCommands:CommandObject[] = [],
+artooCommands:CommandObject[] = [],
+buzzBotCommands:CommandObject[] = [],
+canineCommands:CommandObject[] = [
 	{
 	command: simpleCommand(`set_timezone`, `Set or remove your timezone (This data will be stored for use with the /timestamp command)`)
 		.setContexts(InteractionContextType.BotDM, InteractionContextType.Guild, InteractionContextType.PrivateChannel)
@@ -76,9 +76,9 @@ canineCommands:commandObject[] = [
 			.setType(ApplicationCommandType.Message)
 	}
 ],
-croissantCommands:commandObject[] = [],
-ebnjCommands:commandObject[] = [],
-gladosCommands:commandObject[] = [
+croissantCommands:CommandObject[] = [],
+ebnjCommands:CommandObject[] = [],
+gladosCommands:CommandObject[] = [
 	{ command: simpleCommand(`sightingslink`, `Sends a link to the server this bot is mainly developed for`), id: `862460436423376947` },
 	{ command: simpleCommand(`invisicolor`, `Sends the hex color code for the backround color of Discord`), id: `862460437420310569` },
 	{ command: simpleCommand(`selectmenu`, `This is just a test command made to show off select menus`), id: `862460525329121280` },
@@ -192,15 +192,15 @@ gladosCommands:commandObject[] = [
 			)
 	},
 ],
-pokebotCommands:commandObject[] = [],
-randomCommands:commandObject[] = [],
-zeldaCommands:commandObject[] = [];
+pokebotCommands:CommandObject[] = [],
+randomCommands:CommandObject[] = [],
+zeldaCommands:CommandObject[] = [];
 //#endregion
 
 //#region arrays
 // eslint-disable-next-line one-var
 const bots:Client[] = [ buzzBot, ebnj, glados, pokebot, artoo, random, amber, zelda, croissant, canine ],
-commandGroup:commandObject[][] = [ buzzBotCommands, ebnjCommands, gladosCommands, pokebotCommands, artooCommands, randomCommands, amberCommands, zeldaCommands, croissantCommands, canineCommands ];
+commandGroup:CommandObject[][] = [ buzzBotCommands, ebnjCommands, gladosCommands, pokebotCommands, artooCommands, randomCommands, amberCommands, zeldaCommands, croissantCommands, canineCommands ];
 //#endregion
 
 //#region the stuff that creates/edits the commands

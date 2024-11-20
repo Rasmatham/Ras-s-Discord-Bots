@@ -30,9 +30,9 @@ export const hencefortifier = (inObjs: Array<{ message: Message }>): void => {
 
 //#region Flit no lasting! Flit no lasting! Flit no lasting!
 // eslint-disable-next-line one-var
-export const userWordBan = (inObjs: Array<{ message: Message, word: string, userID: `${bigint}` }>): void => {
+export const userWordBan = (inObjs: Array<{ message: Message, word: string, userId: `${bigint}` }>): void => {
 	inObjs.forEach((inObj) => {
-		if (inObj.message.author.id === inObj.userID) {
+		if (inObj.message.author.id === inObj.userId) {
 			if (inObj.message.content.toLowerCase().includes(inObj.word))
 				inObj.message.delete().catch(genericCatch);
 		}
@@ -41,21 +41,21 @@ export const userWordBan = (inObjs: Array<{ message: Message, word: string, user
 //#endregion
 
 //#region smh, Espen bot doesn't work
-export enum EBTypes {
+export enum ReactionTypes {
 	Message,
 	React
 }
 
 // eslint-disable-next-line one-var
-export const espenBotReplacement = (inObjs: Array<{ type: EBTypes, message: Message, chance: number, victim: `${bigint}`, out: MessageCreateOptions | EmojiIdentifierResolvable}>): void => {
+export const espenBotReplacement = (inObjs: Array<{ type: ReactionTypes, message: Message, chance: number, victim: `${bigint}`, out: MessageCreateOptions | EmojiIdentifierResolvable}>): void => {
 	inObjs.forEach((inObj) => {
 		if (inObj.message.author.id === inObj.victim && Math.floor(Math.random() * 100) <= inObj.chance) {
 			switch (inObj.type) {
-				case EBTypes.Message:
+				case ReactionTypes.Message:
 					if (inObj.message.channel.type === ChannelType.GuildText)
 						inObj.message.channel.send(inObj.out as MessageCreateOptions).catch(genericCatch);
 					break;
-				case EBTypes.React:
+				case ReactionTypes.React:
 					inObj.message.react(inObj.out as EmojiIdentifierResolvable).catch(genericCatch);
 					break;
 				default: {

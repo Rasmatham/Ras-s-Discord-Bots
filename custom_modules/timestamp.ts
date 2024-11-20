@@ -20,7 +20,7 @@ const setup = (inObj: { interaction: Interaction } ): void => {
 
 //#region utc converter
 // eslint-disable-next-line one-var
-const toUTC = (dateString = new Date().toISOString(), tzIdentifier = `Etc/UTC`):Date => {
+const toUtc = (dateString = new Date().toISOString(), tzIdentifier = `Etc/UTC`):Date => {
 	const utcDate = new Date(dateString);
 	return new Date((utcDate.getTime() << 1) - new Date(utcDate.toLocaleString(`en-US`, {
 		day: `2-digit`,
@@ -397,7 +397,7 @@ export const absoluteModalInteraction = (inObjs: Array<{interaction: ModalMessag
 		}
 		
 		// eslint-disable-next-line one-var
-		const utcDate = toUTC(`${year.toString().padStart(4, `0`)}-${month.toString().padStart(2, `0`)}-${day.toString().padStart(2, `0`)}T${hour.toString().padStart(2, `0`)}:${minute.toString().padStart(2, `0`)}:${second.toString().padStart(2, `0`)}.000`, timezone);
+		const utcDate = toUtc(`${year.toString().padStart(4, `0`)}-${month.toString().padStart(2, `0`)}-${day.toString().padStart(2, `0`)}T${hour.toString().padStart(2, `0`)}:${minute.toString().padStart(2, `0`)}:${second.toString().padStart(2, `0`)}.000`, timezone);
 
 		// eslint-disable-next-line one-var
 		const timestamp = (style: TimestampStylesString): `<t:${string}:${TimestampStylesString}>`  => `<t:${(Math.floor(utcDate.getTime()/1000)).toString()}:${style}>`;

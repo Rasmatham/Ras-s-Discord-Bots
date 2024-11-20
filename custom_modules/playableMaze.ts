@@ -7,34 +7,34 @@ import mazeThing from "./mazegen";
 //#endregion
 
 //#region type definitions
-interface emoteList {
-	OOOO: EmojiIdentifierResolvable,
-	OOOI: EmojiIdentifierResolvable,
-	OOIO: EmojiIdentifierResolvable,
-	OOII: EmojiIdentifierResolvable,
-	OIOO: EmojiIdentifierResolvable,
-	OIOI: EmojiIdentifierResolvable,
-	OIIO: EmojiIdentifierResolvable,
-	OIII: EmojiIdentifierResolvable,
-	IOOO: EmojiIdentifierResolvable,
-	IOOI: EmojiIdentifierResolvable,
-	IOIO: EmojiIdentifierResolvable,
-	IOII: EmojiIdentifierResolvable,
-	IIOO: EmojiIdentifierResolvable,
-	IIOI: EmojiIdentifierResolvable,
-	IIIO: EmojiIdentifierResolvable,
-	IIII: EmojiIdentifierResolvable,
+interface EmoteList {
+	oooo: EmojiIdentifierResolvable,
+	oooi: EmojiIdentifierResolvable,
+	ooio: EmojiIdentifierResolvable,
+	ooii: EmojiIdentifierResolvable,
+	oioo: EmojiIdentifierResolvable,
+	oioi: EmojiIdentifierResolvable,
+	oiio: EmojiIdentifierResolvable,
+	oiii: EmojiIdentifierResolvable,
+	iooo: EmojiIdentifierResolvable,
+	iooi: EmojiIdentifierResolvable,
+	ioio: EmojiIdentifierResolvable,
+	ioii: EmojiIdentifierResolvable,
+	iioo: EmojiIdentifierResolvable,
+	iioi: EmojiIdentifierResolvable,
+	iiio: EmojiIdentifierResolvable,
+	iiii: EmojiIdentifierResolvable,
 	goal: {
-		OOII: EmojiIdentifierResolvable,
-		OIII: EmojiIdentifierResolvable,
-		IOII: EmojiIdentifierResolvable
+		ooii: EmojiIdentifierResolvable,
+		oiii: EmojiIdentifierResolvable,
+		ioii: EmojiIdentifierResolvable
 	}
 }
-type emoteTypeList = [
-	emoteList[],
-	emoteList[]
+type EmoteTypeList = [
+	EmoteList[],
+	EmoteList[]
 ];
-interface mazeObj {
+interface MazeObj {
 	x: number,
 	y: number,
 	top: boolean,
@@ -43,108 +43,108 @@ interface mazeObj {
 	right: boolean,
 	set: number
 }
-type halfBitAsString = `${ `I` | `O` }${ `I` | `O` }${ `I` | `O` }${ `I` | `O` }`;
+type HalfByteAsString = `${ `i` | `o` }${ `i` | `o` }${ `i` | `o` }${ `i` | `o` }`;
 //#endregion
 
 //#region maze generator
 export const mazeFunction = (inObjs: Array<{interaction: CommandInteraction}>): void => {
 	inObjs.forEach((inObj) => {
 		const 
-		emotes:emoteTypeList = [
+		emotes:EmoteTypeList = [
 			[
 				{
-					IIII: `<:1111:733748792360304742>`,
-					IIIO: `<:1110:733748791974428813>`,
-					IIOI: `<:1101:733748792079286274>`,
-					IIOO: `<:1100:733748792209309797>`,
-					IOII: `<:1011:733748791978623099>`,
-					IOIO: `<:1010:733748792452579368>`,
-					IOOI: `<:1001:733748792238669865>`,
-					IOOO: `<:1000:733748792238800996>`,
-					OIII: `<:0111:733748792620220503>`,
-					OIIO: `<:0110:733748791920033823>`,
-					OIOI: `<:0101:733748791944937575>`,
-					OIOO: `<:0100:733748791869702276>`,
-					OOII: `<:0011:733748792133681212>`,
-					OOIO: `<:0010:733748792158847047>`,
-					OOOI: `<:0001:733748792138137702>`,
-					OOOO: `<:0000:733748791806525522>`,
 					goal: {
-						IOII: `<:G1011:826100214707519519>`,
-						OIII: `<:G0111:826100214737272842>`,
-						OOII: `<:G0011:826100214766239794>`,
+						ioii: `<:G1011:826100214707519519>`,
+						oiii: `<:G0111:826100214737272842>`,
+						ooii: `<:G0011:826100214766239794>`,
 					},
+					iiii: `<:1111:733748792360304742>`,
+					iiio: `<:1110:733748791974428813>`,
+					iioi: `<:1101:733748792079286274>`,
+					iioo: `<:1100:733748792209309797>`,
+					ioii: `<:1011:733748791978623099>`,
+					ioio: `<:1010:733748792452579368>`,
+					iooi: `<:1001:733748792238669865>`,
+					iooo: `<:1000:733748792238800996>`,
+					oiii: `<:0111:733748792620220503>`,
+					oiio: `<:0110:733748791920033823>`,
+					oioi: `<:0101:733748791944937575>`,
+					oioo: `<:0100:733748791869702276>`,
+					ooii: `<:0011:733748792133681212>`,
+					ooio: `<:0010:733748792158847047>`,
+					oooi: `<:0001:733748792138137702>`,
+					oooo: `<:0000:733748791806525522>`,
 				},
 				{
-					IIII: `<:1111Z:738891841641906326>`,
-					IIIO: `<:1110Z:738891841339916400>`,
-					IIOI: `<:1101Z:738891841415413813>`,
-					IIOO: `<:1100Z:738891841444774010>`,
-					IOII: `<:1011Z:738891841667334265>`,
-					IOIO: `<:1010Z:738891841394704455>`,
-					IOOI: `<:1001Z:738891841549893725>`,
-					IOOO: `<:1000Z:738891841633517608>`,
-					OIII: `<:0111Z:738891841604419646>`,
-					OIIO: `<:0110Z:738891841264549960>`,
-					OIOI: `<:0101Z:738891841289584691>`,
-					OIOO: `<:0100Z:738891841587380225>`,
-					OOII: `<:0011Z:738891841599963286>`,
-					OOIO: `<:0010Z:738891841570865153>`,
-					OOOI: `<:0001Z:738891841553956884>`,
-					OOOO: `<:0000Z:738891841667334214>`,
 					goal: {
-						IOII: `<:G1011Z:826100258018820186>`,
-						OIII: `<:G0111Z:826100257964032051>`,
-						OOII: `<:G0011Z:826100257871364167>`,
+						ioii: `<:G1011Z:826100258018820186>`,
+						oiii: `<:G0111Z:826100257964032051>`,
+						ooii: `<:G0011Z:826100257871364167>`,
 					},
+					iiii: `<:1111Z:738891841641906326>`,
+					iiio: `<:1110Z:738891841339916400>`,
+					iioi: `<:1101Z:738891841415413813>`,
+					iioo: `<:1100Z:738891841444774010>`,
+					ioii: `<:1011Z:738891841667334265>`,
+					ioio: `<:1010Z:738891841394704455>`,
+					iooi: `<:1001Z:738891841549893725>`,
+					iooo: `<:1000Z:738891841633517608>`,
+					oiii: `<:0111Z:738891841604419646>`,
+					oiio: `<:0110Z:738891841264549960>`,
+					oioi: `<:0101Z:738891841289584691>`,
+					oioo: `<:0100Z:738891841587380225>`,
+					ooii: `<:0011Z:738891841599963286>`,
+					ooio: `<:0010Z:738891841570865153>`,
+					oooi: `<:0001Z:738891841553956884>`,
+					oooo: `<:0000Z:738891841667334214>`,
 				},
 			],
 			[
 				{
-					IIII: `<:1111:739569121703755878>`,
-					IIIO: `<:1110:739569121938636860>`,
-					IIOI: `<:1101:739569121997357106>`,
-					IIOO: `<:1100:739569121976647792>`,
-					IOII: `<:1011:739569122182168667>`,
-					IOIO: `<:1010:739569121565343826>`,
-					IOOI: `<:1001:739569122165129287>`,
-					IOOO: `<:1000:739569121884110968>`,
-					OIII: `<:0111:739569121984905226>`,
-					OIIO: `<:0110:739569121422999715>`,
-					OIOI: `<:0101:739569121896955944>`,
-					OIOO: `<:0100:739569121523400776>`,
-					OOII: `<:0011:739569121846624326>`,
-					OOIO: `<:0010:739569121905213440>`,
-					OOOI: `<:0001:739569121695367280>`,
-					OOOO: `<:0000:739569121695498341>`,
 					goal: {
-						IOII: `<:G1011:826101334834020362>`,
-						OIII: `<:G0111:826101334809640974>`,
-						OOII: `<:G0011:826101334863642685>`,
+						ioii: `<:G1011:826101334834020362>`,
+						oiii: `<:G0111:826101334809640974>`,
+						ooii: `<:G0011:826101334863642685>`,
 					},
+					iiii: `<:1111:739569121703755878>`,
+					iiio: `<:1110:739569121938636860>`,
+					iioi: `<:1101:739569121997357106>`,
+					iioo: `<:1100:739569121976647792>`,
+					ioii: `<:1011:739569122182168667>`,
+					ioio: `<:1010:739569121565343826>`,
+					iooi: `<:1001:739569122165129287>`,
+					iooo: `<:1000:739569121884110968>`,
+					oiii: `<:0111:739569121984905226>`,
+					oiio: `<:0110:739569121422999715>`,
+					oioi: `<:0101:739569121896955944>`,
+					oioo: `<:0100:739569121523400776>`,
+					ooii: `<:0011:739569121846624326>`,
+					ooio: `<:0010:739569121905213440>`,
+					oooi: `<:0001:739569121695367280>`,
+					oooo: `<:0000:739569121695498341>`,
 				},
 				{
-					IIII: `<:1111Z:739569256399896678>`,
-					IIIO: `<:1110Z:739569256676720790>`,
-					IIOI: `<:1101Z:739569256412479510>`,
-					IIOO: `<:1100Z:739569256710013029>`,
-					IOII: `<:1011Z:739569256408154144>`,
-					IOIO: `<:1010Z:739569256806744115>`,
-					IOOI: `<:1001Z:825836934210781204>`,
-					IOOO: `<:1000Z:739569256756150383>`,
-					OIII: `<:0111Z:739569256659943544>`,
-					OIIO: `<:0110Z:739569256202502162>`,
-					OIOI: `<:0101Z:739569257087762473>`,
-					OIOO: `<:0100Z:739569256743567452>`,
-					OOII: `<:0011Z:739569256601092186>`,
-					OOIO: `<:0010Z:739569256550629417>`,
-					OOOI: `<:0001Z:739569256559149056>`,
-					OOOO: `<:0000Z:739569256521269372>`,
 					goal: {
-						IOII: `<:G1011Z:826101295357755442>`,
-						OIII: `<:G0111Z:826101295344517120>`,
-						OOII: `<:G0011Z:826101295189721136>`,
+						ioii: `<:G1011Z:826101295357755442>`,
+						oiii: `<:G0111Z:826101295344517120>`,
+						ooii: `<:G0011Z:826101295189721136>`,
 					},
+					iiii: `<:1111Z:739569256399896678>`,
+					iiio: `<:1110Z:739569256676720790>`,
+					iioi: `<:1101Z:739569256412479510>`,
+					iioo: `<:1100Z:739569256710013029>`,
+					ioii: `<:1011Z:739569256408154144>`,
+					ioio: `<:1010Z:739569256806744115>`,
+					iooi: `<:1001Z:825836934210781204>`,
+					iooo: `<:1000Z:739569256756150383>`,
+					oiii: `<:0111Z:739569256659943544>`,
+					oiio: `<:0110Z:739569256202502162>`,
+					oioi: `<:0101Z:739569257087762473>`,
+					oioo: `<:0100Z:739569256743567452>`,
+					ooii: `<:0011Z:739569256601092186>`,
+					ooio: `<:0010Z:739569256550629417>`,
+					oooi: `<:0001Z:739569256559149056>`,
+					oooo: `<:0000Z:739569256521269372>`,
 				},
 			]
 		],
@@ -152,11 +152,11 @@ export const mazeFunction = (inObjs: Array<{interaction: CommandInteraction}>): 
 		style = typeof options?.value === `number` ? options.value : 0;
 	
 		class Cell {
-			public emotes:emoteTypeList;
+			public emotes:EmoteTypeList;
 			private loc: number[];
 			private hasPlayer: boolean;
-			private walls: halfBitAsString;
-			public constructor(emoteList:emoteTypeList, x: number, y: number, hasPlayer: boolean, walls: halfBitAsString) {
+			private walls: HalfByteAsString;
+			public constructor(emoteList:EmoteTypeList, x: number, y: number, hasPlayer: boolean, walls: HalfByteAsString) {
 				this.emotes = emotes;
 				this.loc = [ x, y ];
 				this.hasPlayer = hasPlayer;
@@ -176,7 +176,7 @@ export const mazeFunction = (inObjs: Array<{interaction: CommandInteraction}>): 
 			}
 			public get getWalls(): EmojiIdentifierResolvable {
 				if (this.loc[0] === 7 && this.loc[1] === 7) 
-					return this.emotes[boolToInt({ bool: this.hasPlayer })][style].goal[this.walls as `OOII` | `OIII` | `IOII`];
+					return this.emotes[boolToInt({ bool: this.hasPlayer })][style].goal[this.walls as `ooii` | `oiii` | `ioii`];
 				return this.emotes[boolToInt({ bool: this.hasPlayer })][style][this.walls];
 				
 			}
@@ -185,10 +185,10 @@ export const mazeFunction = (inObjs: Array<{interaction: CommandInteraction}>): 
 			}
 		}
 		class Maze {
-			private emotes:emoteTypeList;
+			private emotes:EmoteTypeList;
 			private playerLoc: number[];
 			private cells: Cell[];
-			public constructor(emoteList:emoteTypeList) {
+			public constructor(emoteList:EmoteTypeList) {
 				this.emotes = emoteList;
 				this.playerLoc = [ 0, 0 ];
 				this.cells = [];
@@ -196,7 +196,7 @@ export const mazeFunction = (inObjs: Array<{interaction: CommandInteraction}>): 
 			public get cellArr(): Cell[] {
 				return this.cells;
 			}
-			public addCell(x: number, y: number, walls: halfBitAsString): void {
+			public addCell(x: number, y: number, walls: HalfByteAsString): void {
 				this.cells.push(new Cell(this.emotes, x, y, x === 0 && y === 0, walls));
 			}
 			public moveLeft(): void {
@@ -246,10 +246,10 @@ export const mazeFunction = (inObjs: Array<{interaction: CommandInteraction}>): 
 		}
 		// eslint-disable-next-line one-var
 		const createdClass:Maze = new Maze(emotes),
-		maze:mazeObj[][] = mazeThing(8, 8) as mazeObj[][];
-		maze.forEach((x: mazeObj[], i: number) => {
-			x.forEach((y: mazeObj, j: number) => {
-				createdClass.addCell(i, j, `${y.left ? `I` : `O`}${y.top? `I` : `O`}${y.right? `I` : `O`}${y.bottom? `I` : `O`}`);
+		maze:MazeObj[][] = mazeThing(8, 8) as MazeObj[][];
+		maze.forEach((x: MazeObj[], i: number) => {
+			x.forEach((y: MazeObj, j: number) => {
+				createdClass.addCell(i, j, `${y.left ? `i` : `o`}${y.top? `i` : `o`}${y.right? `i` : `o`}${y.bottom? `i` : `o`}`);
 			});
 		});
 	

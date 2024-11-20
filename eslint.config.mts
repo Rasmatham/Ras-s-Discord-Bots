@@ -2,6 +2,85 @@ import globals from "globals";
 import pluginJs from "@eslint/js";
 import tseslint from "typescript-eslint";
 
+const namingConventions = [
+	{
+		"format": [`strictCamelCase`],
+		"selector": `classicAccessor`
+	},
+	{
+		"format": [`strictCamelCase`],
+		"selector": `autoAccessor`
+	},
+	{
+		"format": [`StrictPascalCase`],
+		"selector": `class`
+	},
+	{
+		"format": [`strictCamelCase`],
+		"selector": `classMethod`
+	},
+	{
+		"format": [`strictCamelCase`],
+		"selector": `classProperty`
+	},
+	{
+		"format": [`StrictPascalCase`],
+		"selector": `enum`
+	},
+	{
+		"format": [`StrictPascalCase`],
+		"selector": `enumMember`
+	},
+	{
+		"format": [`strictCamelCase`],
+		"selector": `function`
+	},
+	{
+		"format": [`strictCamelCase`],
+		"selector": `import`
+	},
+	{
+		"format": [`StrictPascalCase`],
+		"selector": `interface`
+	},
+	{
+		"format": [`strictCamelCase`],
+		"selector": `objectLiteralMethod`
+	},
+	{
+		"format": [`strictCamelCase`],
+		"selector": `objectLiteralProperty`
+	},
+	{
+		"format": [`strictCamelCase`],
+		"selector": `parameter`
+	},
+	{
+		"format": [`strictCamelCase`],
+		"selector": `parameterProperty`
+	},
+	{
+		"format": [`StrictPascalCase`],
+		"selector": `typeAlias`
+	},
+	{
+		"format": [`strictCamelCase`],
+		"selector": `typeMethod`
+	},
+	{
+		"format": [`UPPER_CASE`],
+		"selector": `typeParameter`
+	},
+	{
+		"format": [`strictCamelCase`],
+		"selector": `typeProperty`
+	},
+	{
+		"format": [`strictCamelCase`],
+		"selector": `variable`
+	}
+];
+
 export default tseslint.config(
 	pluginJs.configs.all,
 	...tseslint.configs.recommendedTypeChecked,
@@ -32,6 +111,7 @@ export default tseslint.config(
 			}
 		},
 	},
+	/* eslint-disable @typescript-eslint/naming-convention */
 	{
 		// Disabled rules
 		rules: {
@@ -67,6 +147,7 @@ export default tseslint.config(
 			"@typescript-eslint/explicit-module-boundary-types": [`error`],
 			"@typescript-eslint/init-declarations": [ `error`, `never`, { "ignoreForLoopInit": true }],
 			"@typescript-eslint/method-signature-style": [`error`],
+			"@typescript-eslint/naming-convention": [ `error`, ...namingConventions ],
 			"@typescript-eslint/no-shadow": [`error`]
 		}
 	},
@@ -97,4 +178,5 @@ export default tseslint.config(
 			}]
 		}
 	}
+	/* eslint-enable @typescript-eslint/naming-convention */
 );

@@ -2,7 +2,7 @@
 import type { ColorResolvable, MessageReplyOptions } from "discord.js";
 import { pokemon, trainerList } from "../Pokebot/PokeDB.js";
 import { EmbedBuilder } from "discord.js";
-import type { pokeObjType } from "../Pokebot/PokeDB.js";
+import type { PokeObjType } from "../Pokebot/PokeDB.js";
 //#endregion
 
 //#region trainers
@@ -10,7 +10,7 @@ export const trainers = trainerList;
 //#endregion
 
 //#region type definitions
-type pokeRange = 
+type PokeRange = 
   0 |   1 |   2 |   3 |   4 |   5 |   6 |   7 |   8 |   9 | 
  10 |  11 |  12 |  13 |  14 |  15 |  16 |  17 |  18 |  19 | 
  20 |  21 |  22 |  23 |  24 |  25 |  26 |  27 |  28 |  29 | 
@@ -32,22 +32,22 @@ type pokeRange =
 //#region dex embed
 // eslint-disable-next-line one-var
 export const natDex = (inObj: {query: string | number}):MessageReplyOptions => {
-	let dexNumber: pokeRange;
+	let dexNumber: PokeRange;
 	dexNumber = 0;
 	if (!isNaN(Number(inObj.query))) 
 		inObj.query = Number(inObj.query);
 	switch (typeof inObj.query) {
 		case `number`:
 			if (Number(inObj.query) <= 151 && Number(inObj.query) > 0) {
-				dexNumber = Number(inObj.query) as pokeRange;
+				dexNumber = Number(inObj.query) as PokeRange;
 				break;
 			}
 			else break;
 		case `string`:
 			Object.keys(pokemon).forEach(i => {
-				const pokeObj:pokeObjType = pokemon[Number(i) as pokeRange];
+				const pokeObj:PokeObjType = pokemon[Number(i) as PokeRange];
 				if (inObj.query === pokeObj.name.toLowerCase()) 
-					dexNumber = Number(pokeObj.nat) as pokeRange;
+					dexNumber = Number(pokeObj.nat) as PokeRange;
 			});
 			break;
 		default:
