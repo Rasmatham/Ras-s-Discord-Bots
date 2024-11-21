@@ -131,7 +131,8 @@ export default tseslint.config(
 			"no-magic-numbers": `off`,
 			"no-shadow": `off`,
 			"no-ternary": `off`,
-			"no-use-before-define": `off`
+			"no-use-before-define": `off`,
+			"prefer-destructuring": `off`
 		}
 	},
 	{
@@ -165,7 +166,8 @@ export default tseslint.config(
 			"@typescript-eslint/no-unnecessary-qualifier": [`error`],
 			"@typescript-eslint/no-unsafe-type-assertion": [`error`],
 			"@typescript-eslint/no-use-before-define": [`error`],
-			"@typescript-eslint/no-useless-empty-export": [`error`]
+			"@typescript-eslint/no-useless-empty-export": [`error`],
+			"@typescript-eslint/prefer-destructuring": [`error`]
 		}
 	},
 	{
