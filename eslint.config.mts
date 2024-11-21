@@ -158,7 +158,8 @@ export default tseslint.config(
 				"ignoreEnums": true
 			}],
 			"@typescript-eslint/no-meaningless-void-operator": [ `error`, { "checkNever": true }],
-			"@typescript-eslint/no-shadow": [`error`]
+			"@typescript-eslint/no-shadow": [`error`],
+			"@typescript-eslint/no-this-alias": [`error`]
 		}
 	},
 	{
