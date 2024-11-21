@@ -6,7 +6,7 @@ import req from "node-fetch";
 //#endregion
 
 //#region fetches inspirobot URI
-export const getUrl = (): Promise<URL> => req(`https://inspirobot.me/api?generate=true`).then((res:Response):Promise<string> => res.text()).then((x:string) => new URL(x)).catch((err: unknown) => {
+export const getUrl = async (): Promise<URL> => req(`https://inspirobot.me/api?generate=true`).then(async (res:Response):Promise<string> => res.text()).then((x:string) => new URL(x)).catch((err: unknown) => {
 	genericCatch(err);
 	return new URL(`https://generated.inspirobot.me/a/1QJxwgY3ez.jpg`);
 });

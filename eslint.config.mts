@@ -170,7 +170,8 @@ export default tseslint.config(
 			"@typescript-eslint/prefer-destructuring": [`error`],
 			"@typescript-eslint/prefer-enum-initializers": [`error`],
 			"@typescript-eslint/prefer-find": [`error`],
-			"@typescript-eslint/prefer-readonly": [`error`]
+			"@typescript-eslint/prefer-readonly": [`error`],
+			"@typescript-eslint/promise-function-async": [`error`]
 		}
 	},
 	{
