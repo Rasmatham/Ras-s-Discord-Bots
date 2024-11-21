@@ -150,8 +150,7 @@ export default tseslint.config(
 			"@typescript-eslint/method-signature-style": [`error`],
 			"@typescript-eslint/naming-convention": [ `error`, ...namingConventions ],
 			"@typescript-eslint/no-floating-promises": [ `error`, {
-				"checkThenables": true,
-				"ignoreVoid": false
+				"checkThenables": true
 			}],
 			"@typescript-eslint/no-import-type-side-effects": [`error`],
 			"@typescript-eslint/no-loop-func": [`error`],
