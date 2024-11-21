@@ -42,8 +42,8 @@ export const userWordBan = (inObjs: Array<{ message: Message, word: string, user
 
 //#region smh, Espen bot doesn't work
 export enum ReactionTypes {
-	Message,
-	React
+	Message = 0,
+	React = 1
 }
 
 // eslint-disable-next-line one-var

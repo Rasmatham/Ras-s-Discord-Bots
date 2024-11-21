@@ -167,7 +167,8 @@ export default tseslint.config(
 			"@typescript-eslint/no-unsafe-type-assertion": [`error`],
 			"@typescript-eslint/no-use-before-define": [`error`],
 			"@typescript-eslint/no-useless-empty-export": [`error`],
-			"@typescript-eslint/prefer-destructuring": [`error`]
+			"@typescript-eslint/prefer-destructuring": [`error`],
+			"@typescript-eslint/prefer-enum-initializers": [`error`]
 		}
 	},
 	{
