@@ -158,6 +158,7 @@ export default tseslint.config(
 			"@typescript-eslint/no-magic-numbers": [ `error`, {
 				"ignoreEnums": true
 			}],
+			"@typescript-eslint/no-meaningless-void-operator": [ `error`, { "checkNever": true }],
 			"@typescript-eslint/no-shadow": [`error`]
 		}
 	},
