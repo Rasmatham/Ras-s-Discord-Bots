@@ -168,7 +168,8 @@ export default tseslint.config(
 			"@typescript-eslint/no-use-before-define": [`error`],
 			"@typescript-eslint/no-useless-empty-export": [`error`],
 			"@typescript-eslint/prefer-destructuring": [`error`],
-			"@typescript-eslint/prefer-enum-initializers": [`error`]
+			"@typescript-eslint/prefer-enum-initializers": [`error`],
+			"@typescript-eslint/prefer-find": [`error`]
 		}
 	},
 	{
