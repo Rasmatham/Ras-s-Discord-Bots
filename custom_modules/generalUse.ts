@@ -67,6 +67,21 @@ export const genericCatch = (err: unknown): void => {console.error(err);};
 export const ephemeral = true;
 //#endregion
 
+//#region ephemeral
+// eslint-disable-next-line one-var
+export const toBigInt = (value?: string): `${bigint}` => {
+	try {
+		// eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+		return `${BigInt(value ?? ``)}`;
+	}
+	catch (err) {
+		console.error(err);
+		// eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+		return `${BigInt(``)}`;
+	}
+};
+//#endregion
+
 //#region login
 // eslint-disable-next-line one-var
 export const login = (bot: Client, token: string | undefined, message: string): void => {
@@ -189,7 +204,7 @@ export const sendAsWebHook = (inObjs: Array<{ message: Message, sendTo: Exclude<
 //#region list guild things
 // eslint-disable-next-line one-var
 export const listThings = async (interaction:CommandInteraction):Promise<InteractionReplyOptions[]> => {
-	const thing = interaction.options.get(`thing`)?.value as `channels`|`emojis`|`roles`;
+	const thing = interaction.options.get(`thing`)?.value;
 	if (interaction.guild === null) 
 		return [{ content: `How am I supposed to do that?` }];
 	switch (thing) {

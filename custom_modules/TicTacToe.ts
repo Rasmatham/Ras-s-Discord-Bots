@@ -1,6 +1,6 @@
 //#region imports
-import type { APIButtonComponentWithCustomId, ButtonInteraction, CommandInteraction, ComponentEmojiResolvable, EmojiIdentifierResolvable, User, UserResolvable } from "discord.js";
 import { ActionRowBuilder, ButtonBuilder, ButtonComponent, ButtonStyle, ComponentType, Events, MessageMentions } from "discord.js";
+import type { CommandInteraction, ComponentEmojiResolvable, EmojiIdentifierResolvable, User, UserResolvable } from "discord.js";
 import { Index, ephemeral, genericCatch, inc, offByOne, zero } from "./generalUse";
 //#endregion
 
@@ -53,61 +53,61 @@ export const ticTacToe = (inObjs: Array<{ interaction: CommandInteraction }>): v
 		];
 	
 		inObj.interaction.client.on(Events.InteractionCreate, (interaction) => {
+			if (!interaction.isButton()) return;
 			/* eslint-disable sort-vars */
-			const buttonInteraction = interaction as ButtonInteraction,
-			{ mentions } = buttonInteraction.message,
+			const { mentions } = interaction.message,
 			memberMentions = mentions.members,
 			firstMemberMention = memberMentions?.first(),
 			lastMemberMention = memberMentions?.last(),
-			buttonGuild = buttonInteraction.guild;
+			buttonGuild = interaction.guild;
 			/* eslint-enable sort-vars */
-			if (buttonInteraction.message.mentions instanceof MessageMentions) {
-				switch (buttonInteraction.customId) {
+			if (interaction.message.mentions instanceof MessageMentions) {
+				switch (interaction.customId) {
 					//================================================================================================================
 					case `accept`:
-						if (buttonInteraction.user.id === firstMemberMention?.id && lastMemberMention?.user) {
+						if (interaction.user.id === firstMemberMention?.id && lastMemberMention?.user) {
 							const players:[ User, User ] = [ firstMemberMention.user, lastMemberMention.user ],
 							randomNumber:number = Math.round(Math.random()),
 							randomOrder:[ User, User ] = [ players[randomNumber], players[players.length-offByOne-randomNumber] ];
 						
-							buttonInteraction.update({ components: [] }).then(() => {
-								buttonInteraction.editReply({
+							interaction.update({ components: [] }).then(() => {
+								interaction.editReply({
 									components: startingGrid,
 									content: `(no alternate rules) <@${randomOrder[Index.First].id}> is starting. <@${randomOrder[Index.Second].id}> Please wait until your turn.`
 								}).catch(genericCatch);
 							}).catch((err: unknown) => {
 								console.error(err);
-								buttonInteraction.user.send({ content: `Something went horribly wrong` }).catch(genericCatch);
+								interaction.user.send({ content: `Something went horribly wrong` }).catch(genericCatch);
 							});
 						}
 						else
-							buttonInteraction.reply({ content: `Sorry, but you can't do that`, ephemeral }).catch(genericCatch);
+						interaction.reply({ content: `Sorry, but you can't do that`, ephemeral }).catch(genericCatch);
 						break;
 					//================================================================================================================
 					case `decline`:
-						if (buttonInteraction.user.id === firstMemberMention?.user.id)
-							buttonInteraction.update({ components: [], content: `The request was declined` }).catch(genericCatch);
+						if (interaction.user.id === firstMemberMention?.user.id)
+							interaction.update({ components: [], content: `The request was declined` }).catch(genericCatch);
 						else
-							buttonInteraction.reply({ content: `Sorry, but you can't do that`, ephemeral }).catch(genericCatch);
+						interaction.reply({ content: `Sorry, but you can't do that`, ephemeral }).catch(genericCatch);
 						break;
 					//================================================================================================================
 					default:
-						if (buttonInteraction.customId.startsWith(`TTT`)) {
-							buttonGuild?.members.fetch(buttonInteraction.message.content.split(` `)[Index.Fourth].replace(/<@!?(?=\d*)|(?<=\d*)>/gu, ``) as UserResolvable).then(() => {
-								buttonGuild.members.fetch(buttonInteraction.message.content.split(` `)[Index.Seventh].replace(/<@!?(?=\d*)|(?<=\d*)>/gu, ``) as UserResolvable).catch(genericCatch);
+						if (interaction.customId.startsWith(`TTT`)) {
+							buttonGuild?.members.fetch(interaction.message.content.split(` `)[Index.Fourth].replace(/<@!?(?=\d*)|(?<=\d*)>/gu, ``) as UserResolvable).then(() => {
+								buttonGuild.members.fetch(interaction.message.content.split(` `)[Index.Seventh].replace(/<@!?(?=\d*)|(?<=\d*)>/gu, ``) as UserResolvable).catch(genericCatch);
 							}).then(() => {
 								const buttons:ButtonComponent[] = [],
-								movePieces = !(buttonInteraction.message.content.includes(`no`)),
+								movePieces = !(interaction.message.content.includes(`no`)),
 								players:[ { id: string }, { id: string } ] = [
-									buttonGuild.members.cache.get(buttonInteraction.message.content.split(` `)[Index.Fourth].replace(/<@!?(?=\d*)|(?<=\d*)>/gu, ``) as `${bigint}`) ?? { id: `` },
-									buttonGuild.members.cache.get(buttonInteraction.message.content.split(` `)[Index.Seventh].replace(/<@!?(?=\d*)|(?<=\d*)>/gu, ``) as `${bigint}`) ?? { id: `` }
+									buttonGuild.members.cache.get(interaction.message.content.split(` `)[Index.Fourth].replace(/<@!?(?=\d*)|(?<=\d*)>/gu, ``)) ?? { id: `` },
+									buttonGuild.members.cache.get(interaction.message.content.split(` `)[Index.Seventh].replace(/<@!?(?=\d*)|(?<=\d*)>/gu, ``)) ?? { id: `` }
 								];
 								// eslint-disable-next-line id-length
 								let o: number, x: number;
 								o = zero;
 								x = zero;
 							
-								buttonInteraction.message.components.forEach((row) => {
+								interaction.message.components.forEach((row) => {
 									row.components.forEach((component) => {
 										if (component.type === ComponentType.Button)
 											buttons.push(component);
@@ -128,21 +128,21 @@ export const ticTacToe = (inObjs: Array<{ interaction: CommandInteraction }>): v
 										}
 									}
 								});
-								if (buttonInteraction.user.id === players[Index.First].id && buttonInteraction.component instanceof ButtonComponent) {
-									if (buttonInteraction.component.emoji === null)
-										buttonInteraction.reply({ content: `Sorry, but you can't do that`, ephemeral }).catch(genericCatch);
-									else if (buttonInteraction.component.emoji.id === `741303046574702652`) {
-										const buttonMessage = buttonInteraction.message, style = ButtonStyle.Secondary;
+								if (interaction.user.id === players[Index.First].id && interaction.component instanceof ButtonComponent) {
+									if (interaction.component.emoji === null)
+										interaction.reply({ content: `Sorry, but you can't do that`, ephemeral }).catch(genericCatch);
+									else if (interaction.component.emoji.id === `741303046574702652`) {
+										const buttonMessage = interaction.message, style = ButtonStyle.Secondary;
 								
 										if (movePieces)
-											buttonInteraction.update({ content: `this mode has not been added yet. Please set the movepieces parameter to false instead` }).catch(genericCatch);
+											interaction.update({ content: `this mode has not been added yet. Please set the movepieces parameter to false instead` }).catch(genericCatch);
 										else {
 											const newButton = (row: number, collumn: number):ButtonBuilder => {
-												const messageButton:ButtonComponent = buttonMessage.components[row].components[collumn] as ButtonComponent;
+												const messageButton:ButtonComponent = buttonMessage.components[row].components.filter(component => component.type === ComponentType.Button)[collumn];
 												return new ButtonBuilder().setCustomId(messageButton.customId ?? ``).setEmoji(messageButton.emoji?.id ?? ``).setStyle(style);
 											},
 											newCheckedButton = (row: number, collumn: number, emoji: ComponentEmojiResolvable):ButtonBuilder => {
-												const messageButton:ButtonComponent = buttonMessage.components[row].components[collumn] as ButtonComponent;
+												const messageButton:ButtonComponent = buttonMessage.components[row].components.filter(component => component.type === ComponentType.Button)[collumn];
 												return new ButtonBuilder().setCustomId(messageButton.customId ?? ``).setEmoji(emoji).setStyle(style);
 											};
 								
@@ -154,7 +154,7 @@ export const ticTacToe = (inObjs: Array<{ interaction: CommandInteraction }>): v
 											if (x > o) {
 												const emoji:EmojiIdentifierResolvable = `⭕`;
 												// eslint-disable-next-line max-depth
-												switch (buttonInteraction.customId) {
+												switch (interaction.customId) {
 													case `TTT1`:
 														row1 = new ActionRowBuilder<ButtonBuilder>()
 															.addComponents([
@@ -233,7 +233,7 @@ export const ticTacToe = (inObjs: Array<{ interaction: CommandInteraction }>): v
 											} else {
 												const emoji:EmojiIdentifierResolvable = `❌`;
 												// eslint-disable-next-line max-depth
-												switch (buttonInteraction.customId) {
+												switch (interaction.customId) {
 												case `TTT1`:
 													row1 = new ActionRowBuilder<ButtonBuilder>()
 														.addComponents([
@@ -323,7 +323,18 @@ export const ticTacToe = (inObjs: Array<{ interaction: CommandInteraction }>): v
 												checkThree = (index:[number, number, number], type: PlayerSymbol): boolean => check(index[Index.First], type) && check(index[Index.Second], type) && check(index[Index.Third], type);
 												rows.forEach((row) => {
 													row.components.forEach((button) => {
-														buttonArray.push((button.toJSON() as APIButtonComponentWithCustomId).emoji?.name as (PlayerSymbol | undefined) ?? PlayerSymbol.Ras);
+														const json = button.toJSON();
+														if (json.style === style) {
+															switch (json.emoji?.name) {
+																case PlayerSymbol.O:
+																case PlayerSymbol.X:
+																	buttonArray.push(json.emoji.name);
+																	break;
+																default:
+																	buttonArray.push(PlayerSymbol.Ras);
+																break;
+															}
+														}
 													});
 												});
 												if (buttonArray[Index.First] !== PlayerSymbol.Ras || buttonArray[Index.Fifth] !== PlayerSymbol.Ras || buttonArray[Index.Ninth] !== PlayerSymbol.Ras) {
@@ -347,7 +358,7 @@ export const ticTacToe = (inObjs: Array<{ interaction: CommandInteraction }>): v
 												return false;
 											};
 											if (winBoard(newButtons)) {
-												buttonInteraction.update({
+												interaction.update({
 													components: [],
 													content: `<@${
 														players[Index.First].id
@@ -372,14 +383,14 @@ export const ticTacToe = (inObjs: Array<{ interaction: CommandInteraction }>): v
 													}`
 												}).catch(genericCatch);
 											} else if (buttonArray.includes(PlayerSymbol.Ras)) {
-												buttonInteraction.update({ components: [] }).then(() => {
-													buttonInteraction.editReply({
+												interaction.update({ components: [] }).then(() => {
+													interaction.editReply({
 														components: newButtons,
 														content: `(no alternate rules) ${players[Index.Second].id} is playing. ${players[Index.First].id} Please wait until your turn.`
 													}).catch(genericCatch);
 												}).catch(genericCatch);
 											} else {
-												buttonInteraction.update({
+												interaction.update({
 													components: [],
 													content: `Looks like it ended in a tie\n${
 														buttonArray[Index.First].replace(`ras`, `▫️`)
@@ -405,7 +416,7 @@ export const ticTacToe = (inObjs: Array<{ interaction: CommandInteraction }>): v
 										}
 									}
 								} else
-									buttonInteraction.reply({ content: `Sorry, but you can't do that`, ephemeral }).catch(genericCatch);
+								interaction.reply({ content: `Sorry, but you can't do that`, ephemeral }).catch(genericCatch);
 							}).catch(genericCatch);
 							break;
 						}

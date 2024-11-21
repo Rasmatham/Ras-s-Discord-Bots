@@ -1,6 +1,6 @@
 //#region imports
 import { ChannelType, EmbedBuilder, User } from "discord.js";
-import type { ColorResolvable, CommandInteraction, Guild, GuildMember, InteractionReplyOptions } from "discord.js";
+import type { CommandInteraction, Guild, InteractionReplyOptions } from "discord.js";
 import { base2, checkFor, ephemeral, genericCatch } from "./generalUse.js";
 //#endregion
 
@@ -72,7 +72,7 @@ export const serverInfo = (inObjs: Array<{interaction: CommandInteraction}>): vo
 	inObjs.forEach((inObj) => {
 		const { guild } = inObj.interaction;
 		if (inObj.interaction.guild === null) {
-			if ((inObj.interaction.member as GuildMember).user.id === `588511925944582186`) {
+			if (inObj.interaction.member?.user.id === `588511925944582186`) {
 				inObj.interaction.reply({
 					content: `stop tring to kill me, smh`
 				}).catch(genericCatch);
@@ -132,12 +132,12 @@ export const serverInfo = (inObjs: Array<{interaction: CommandInteraction}>): vo
 //#region join date
 // eslint-disable-next-line one-var
 export const joindate = (inObj: { interaction: CommandInteraction }):{ embeds: EmbedBuilder[], ephemeral: boolean } => {
-	if (!((inObj.interaction.member as GuildMember).user instanceof User)) 
+	if (!(inObj.interaction.member?.user instanceof User)) 
 		return { embeds: [new EmbedBuilder], ephemeral };
-	const date = new Date((inObj.interaction.member as GuildMember).user.createdTimestamp);
+	const date = new Date(inObj.interaction.member.user.createdTimestamp);
 	// eslint-disable-next-line one-var
 	const embed:EmbedBuilder = new EmbedBuilder()
-		.setColor(`FFFFFF` as ColorResolvable)
+		.setColor(`#FFFFFF`)
 		.setTitle(`You joined:`)
 		.setThumbnail(`https://cdn.discordapp.com/attachments/656164355381133332/715651846584270899/ezgif-3-ea387cdabbbe.gif`)
 		.addFields([

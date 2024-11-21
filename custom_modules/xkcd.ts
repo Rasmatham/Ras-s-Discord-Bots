@@ -57,16 +57,32 @@ class Xkcd {
 // @param cb [Function] The callback that passes (`err`, `data`)
 // @example current(2, function(err, data){ console.log(data); });
 // eslint-disable-next-line one-var
-const xkcdModule = (cb: (data:Xkcd | Error) => void, id?: string | number): void => {
+const isRawXkcdJson = (obj: unknown): obj is RawXkcdJson  => {
+	if (obj === null || typeof obj !== `object`) return false;
+	return `month` in obj &&
+	`num` in obj &&
+	`link` in obj &&
+	`year` in obj &&
+	`news` in obj &&
+	`safe_title` in obj &&
+	`transcript` in obj &&
+	`alt` in obj &&
+	`img` in obj &&
+	`title` in obj &&
+	`day` in obj;
+},
+xkcdModule = (cb: (data:Xkcd | Error) => void, id?: string | number): void => {
 	const idUrl = id ? `${id.toString()}/` : ``,
 	url = domain + idUrl + path;
 	https.get(url, (res) => {
 		let body: string;
 		body = ``;
-		res.on(`data`, (chunk) => { body += chunk as string; });
+		res.on(`data`, (chunk) => { body += typeof chunk === `string` ? chunk : ``; });
 		res.on(`end`, () => {
-			const data = JSON.parse(body) as RawXkcdJson;
-			cb(new Xkcd(data));
+			const data: unknown = JSON.parse(body);
+			if (isRawXkcdJson(data))
+				cb(new Xkcd(data));
+			else throw Error(`Could not parse xkcd object`);
 		});
 	}).on(`error`, cb);
 };
@@ -82,8 +98,9 @@ export const xkcdFunct = (inObjs: Array<{interaction: CommandInteraction}>): voi
 			}
 			let num;
 			num = Math.ceil(Math.random() * (xkcdObjOuter.num));
-			if (inObj.interaction.options.get(`xkcd_number`) !== null)
-				num = inObj.interaction.options.get(`xkcd_number`)?.value as number;
+			const xkcdNumOption = inObj.interaction.options.get(`xkcd_number`);
+			if (typeof xkcdNumOption?.value === `number`)
+				num = xkcdNumOption.value;
 			if (num > (xkcdObjOuter.num) || num <= zero)
 				inObj.interaction.reply({ content: `Try a whole number from 1 to ${xkcdObjOuter.num.toString()}`, ephemeral }).catch(genericCatch);
 			else {

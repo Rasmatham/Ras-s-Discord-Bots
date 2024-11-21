@@ -12,7 +12,7 @@
 
 //#region imports
 import { ActivityType, Client, EmbedBuilder, Events } from "discord.js";
-import { Index, ShiftBy, blackList, botReady, decimalShift, ephemeral, genericCatch, headerlessField, inc, intents, listThings, login, msInS, offByOne, sendAsWebHook, technicalStuff } from "./custom_modules/generalUse";
+import { Index, ShiftBy, blackList, botReady, decimalShift, ephemeral, genericCatch, headerlessField, inc, intents, listThings, login, msInS, offByOne, sendAsWebHook, technicalStuff, toBigInt } from "./custom_modules/generalUse";
 import { ReactionTypes } from "./custom_modules/stupidStuff";
 import * as coinflip from "./custom_modules/coinflip";
 import * as containsWord from "./custom_modules/containsWordFunctions";
@@ -354,7 +354,7 @@ glados.on(Events.MessageCreate, (message) => {
 			message,
 			out: { content: `https://cdn.discordapp.com/attachments/735213241860620308/781189544103247922/unknown.png` },
 			type: ReactionTypes.Message,
-			victim: process.env.RASID as `${bigint}`
+			victim: toBigInt(process.env.RASID)
 		}
 	]);
 	stupidStuff.espenBotReplacement([
@@ -363,7 +363,7 @@ glados.on(Events.MessageCreate, (message) => {
 			message,
 			out: `🦆`,
 			type: ReactionTypes.React,
-			victim: process.env.ZARLID as `${bigint}`
+			victim: toBigInt(process.env.ZARLID)
 		}
 	]);
 });

@@ -1,3 +1,5 @@
+import type { ColorResolvable } from "discord.js";
+
 //#region type definitions
 interface DexEntriesType {
 	re: string,
@@ -34,7 +36,7 @@ interface DexEntriesType {
 }
 export interface PokeType {
 	name: string,
-	color: string,
+	color: ColorResolvable,
 	weakTo?: string[],
 	strongTo?: string[],
 	noDamageTo?: string[]
@@ -60,133 +62,133 @@ export interface PokeObjType {
 //#region types
 export const types: Record<string, PokeType> = {
 	bird: {
-		color: `68A090`,
+		color: `#68A090`,
 		name: `Bird`,
 		noDamageTo: [`?`],
 		strongTo: [`?`],
 		weakTo: [`?`]
 	},
 	bug: {
-		color: `C7CF78`,
+		color: `#C7CF78`,
 		name: `Bug`,
 		noDamageTo: [],
 		strongTo: [],
 		weakTo: []
 	},
 	dark: {
-		color: `A19189`,
+		color: `#A19189`,
 		name: `Dark`,
 		noDamageTo: [],
 		strongTo: [],
 		weakTo: []
 	},
 	dragon: {
-		color: `A082F4`,
+		color: `#A082F4`,
 		name: `Dragon`,
 		noDamageTo: [],
 		strongTo: [],
 		weakTo: []
 	},
 	electric: {
-		color: `F9DD83`,
+		color: `#F9DD83`,
 		name: `Electric`,
 		noDamageTo: [],
 		strongTo: [],
 		weakTo: []
 	},
 	fairy: {
-		color: `F2BCC9`,
+		color: `#F2BCC9`,
 		name: `Fairy`,
 		noDamageTo: [],
 		strongTo: [],
 		weakTo: []
 	},
 	fighting: {
-		color: `D37575`,
+		color: `#D37575`,
 		name: `Fighting`,
 		noDamageTo: [],
 		strongTo: [],
 		weakTo: []
 	},
 	fire: {
-		color: `F3A97E`,
+		color: `#F3A97E`,
 		name: `Fire`,
 		noDamageTo: [],
 		strongTo: [],
 		weakTo: []
 	},
 	flying: {
-		color: `C5B9F1`,
+		color: `#C5B9F1`,
 		name: `Flying`,
 		noDamageTo: [],
 		strongTo: [],
 		weakTo: []
 	},
 	ghost: {
-		color: `A193BA`,
+		color: `#A193BA`,
 		name: `Ghost`,
 		noDamageTo: [],
 		strongTo: [],
 		weakTo: []
 	},
 	grass: {
-		color: `AADA93`,
+		color: `#AADA93`,
 		name: `Grass`,
 		noDamageTo: [],
 		strongTo: [],
 		weakTo: []
 	},
 	ground: {
-		color: `EAD4A2`,
+		color: `#EAD4A2`,
 		name: `Ground`,
 		noDamageTo: [],
 		strongTo: [],
 		weakTo: []
 	},
 	ice: {
-		color: `BEE7E6`,
+		color: `#BEE7E6`,
 		name: `Ice`,
 		noDamageTo: [],
 		strongTo: [],
 		weakTo: []
 	},
 	normal: {
-		color: `C6C5A9`,
+		color: `#C6C5A9`,
 		name: `Normal`,
 		noDamageTo: [],
 		strongTo: [],
 		weakTo: []
 	},
 	poison: {
-		color: `BF83BE`,
+		color: `#BF83BE`,
 		name: `Poison`,
 		noDamageTo: [],
 		strongTo: [],
 		weakTo: []
 	},
 	psychic: {
-		color: `F790B1`,
+		color: `#F790B1`,
 		name: `Psychic`,
 		noDamageTo: [],
 		strongTo: [],
 		weakTo: []
 	},
 	rock: {
-		color: `D1BF84`,
+		color: `#D1BF84`,
 		name: `Rock`,
 		noDamageTo: [],
 		strongTo: [],
 		weakTo: []
 	},
 	steel: {
-		color: `D1D1DF`,
+		color: `#D1D1DF`,
 		name: `Steel`,
 		noDamageTo: [],
 		strongTo: [],
 		weakTo: []
 	},
 	water: {
-		color: `9EB9F1`,
+		color: `#9EB9F1`,
 		name: `Water`,
 		noDamageTo: [],
 		strongTo: [],

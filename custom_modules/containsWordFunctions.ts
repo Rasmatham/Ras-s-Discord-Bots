@@ -1,6 +1,6 @@
 //#region imports
 import type { Message, MessageCreateOptions } from "discord.js";
-import { ShiftBy, decimalShift, genericCatch } from "./generalUse";
+import { ShiftBy, decimalShift, genericCatch, toBigInt } from "./generalUse";
 import { ChannelType } from "discord.js";
 //#endregion
 
@@ -59,7 +59,7 @@ export const replyThing = (inObjs: Array<{ message: Message,type: `anywhere` | `
 			}
 			else if (inObj.type.toString() === `mention`) {
 				inObj.triggers.forEach((trigger) => {
-					if (inObj.message.mentions.users.has(trigger as `${bigint}`)) {
+					if (inObj.message.mentions.users.has(toBigInt(trigger))) {
 						reply([
 							{
 								chance: inObj.chance,
@@ -129,7 +129,7 @@ export const reactThing = (inObjs: Array<{ message: Message, type: `anywhere` | 
 			}
 			else if (inObj.type.toString() === `mention`) {
 				inObj.triggers.forEach((trigger) => {
-					if (inObj.message.mentions.users.has(trigger as `${bigint}`) && decimalShift(Math.random(), ShiftBy.P2) <= chance) {
+					if (inObj.message.mentions.users.has(toBigInt(trigger)) && decimalShift(Math.random(), ShiftBy.P2) <= chance) {
 						react([
 							{
 								chance: inObj.chance,

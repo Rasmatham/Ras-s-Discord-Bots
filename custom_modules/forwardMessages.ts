@@ -1,6 +1,6 @@
 //#region imports
-import type { BufferResolvable, Client, Message } from "discord.js";
 import { ChannelType, DMChannel, NewsChannel, TextChannel, ThreadChannel } from "discord.js";
+import type { Client, Message } from "discord.js";
 import { blackList, genericCatch, sendAsWebHook } from "./generalUse.js";
 //#endregion
 
@@ -77,7 +77,7 @@ export const dmSpy = (inObjs: Array<{ message: Message, channelId: `${bigint}` }
 					{
 						message: inObj.message,
 						name: inObj.message.author.username,
-						pfp: inObj.message.author.avatarURL() as BufferResolvable,
+						pfp: inObj.message.author.avatarURL() ?? inObj.message.author.defaultAvatarURL,
 						sendMessage: { content: inObj.message.content, files: inObj.message.attachments.map((value) => value) },
 						sendTo: channel,
 					}

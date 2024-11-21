@@ -19,9 +19,9 @@ compact = <T>(array: T[]): T[] => array.filter(Boolean),
 difference = <T>(arr1: T[], arr2: T[]): T[] => [ arr1, arr2 ].reduce((a, b) => a.filter(x => !b.includes(x))),
 initial = <T>(array: T[]): T[] => array.slice(Index.First, Index.Last),
 groupBy = <T>(list: T[], key: ObjectKey<T, number>): Record<number, T[]> => {
-	const keys = list.map(item => item[key] as number),
+	const keys = list.map(item => item[key]).filter(item => typeof item === `number`),
 	dict: Record<number, T[]> = uniq(keys).reduce((prev, next) => ({ ...prev, [next]: [] }), {});
-	list.forEach(item => dict[item[key] as number].push(item));
+	keys.map((item, i) => dict[item].push(list.filter(x => typeof x[key] === `number`)[i]));
 	return dict;
 },
 last = <T>(array: T[]): T => array[array.length - offByOne],

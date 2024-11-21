@@ -1,7 +1,7 @@
 //#region imports
-import type { ColorResolvable, CommandInteraction } from "discord.js";
 import { ShiftBy, decimalShift, genericCatch, offByOne } from "./generalUse";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
+import type { CommandInteraction } from "discord.js";
 import { EmbedBuilder } from "discord.js";
 //#endregion
 
@@ -33,7 +33,7 @@ export const flip = (inObjs: Array<{ interaction: CommandInteraction }>): void =
 			coinfilel = `${coinPath}/losses.log`,
 			coinfilew = `${coinPath}/wins.log`,
 			fiftyPercent = 50,
-			side = inObj.interaction.options.get(`side`)?.value as `${`heads` | `tails`}`;
+			side = inObj.interaction.options.get(`side`)?.value;
 			setup(inObj);
 			if (side === `heads`) {
 				if (decimalShift(Math.random(), ShiftBy.P2) < fiftyPercent) {
@@ -42,7 +42,7 @@ export const flip = (inObjs: Array<{ interaction: CommandInteraction }>): void =
 					writeFileSync(coinfilew, (parseInt(wincount, 10) + offByOne).toString());
 					// eslint-disable-next-line one-var
 					const embed:EmbedBuilder = new EmbedBuilder()
-						.setColor(`00FF00` as ColorResolvable)
+						.setColor(`#00FF00`)
 						.setTitle(`You won!`)
 						.setThumbnail(`https://cdn.discordapp.com/attachments/656164355381133332/715662587471331359/ezgif-3-b3ae702d4205.gif`)
 						.addFields({
@@ -69,7 +69,7 @@ export const flip = (inObjs: Array<{ interaction: CommandInteraction }>): void =
 					writeFileSync(coinfilel, (parseInt(losecount, 10) + offByOne).toString());
 					// eslint-disable-next-line one-var
 					const embed:EmbedBuilder = new EmbedBuilder()
-						.setColor(`FF0000` as ColorResolvable)
+						.setColor(`#FF0000`)
 						.setTitle(`You lost!`)
 						.setThumbnail(`https://cdn.discordapp.com/attachments/656164355381133332/715669285128634368/ezgif-3-b8913657fa57.gif`)
 						.addFields({
@@ -98,7 +98,7 @@ export const flip = (inObjs: Array<{ interaction: CommandInteraction }>): void =
 					writeFileSync(coinfilew, (parseInt(losecount, 10) + offByOne).toString());
 					// eslint-disable-next-line one-var
 					const embed:EmbedBuilder = new EmbedBuilder()
-						.setColor(`00FF00` as ColorResolvable)
+						.setColor(`#00FF00`)
 						.setTitle(`You won!`)
 						.setThumbnail(`https://cdn.discordapp.com/attachments/656164355381133332/715669285128634368/ezgif-3-b8913657fa57.gif`)
 						.addFields({
@@ -125,7 +125,7 @@ export const flip = (inObjs: Array<{ interaction: CommandInteraction }>): void =
 					writeFileSync(coinfilel, (parseInt(losecount, 10) + offByOne).toString());
 					// eslint-disable-next-line one-var
 					const embed:EmbedBuilder = new EmbedBuilder()
-						.setColor(`FF0000` as ColorResolvable)
+						.setColor(`#FF0000`)
 						.setTitle(`You lost!`)
 						.setThumbnail(`https://cdn.discordapp.com/attachments/656164355381133332/715662587471331359/ezgif-3-b3ae702d4205.gif`)
 						.addFields({

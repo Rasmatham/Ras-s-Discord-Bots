@@ -1,38 +1,42 @@
 
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, Events, InteractionType } from "discord.js";
+import type { ChatInputCommandInteraction, ComponentEmojiResolvable } from "discord.js";
 import { Index, ephemeral, genericCatch, inc, offByOne } from "../generalUse";
-import type { ChatInputCommandInteraction } from "discord.js";
 import * as words from "./words";
-type Letter = `a` | `b` | `c` | `d` | `e` | `f` | `g` | `h` | `i` | `j` | `k` | `l` | `m` | `n` | `o` | `p` | `q` | `r` | `s` | `t` | `u` | `v` | `w` | `x` | `y` | `z`;
 /* eslint-disable id-length */
-const emotes = {
+enum EmoteColors {
+	Black = `black`,
+	Blue = `blue`,
+	Orange = `orange`
+}
+const emotes: Record<EmoteColors , Record<string, ComponentEmojiResolvable>> = {
 	black: {
-		a: `<:A_:939208752396136449>`,
-		b: `<:B_:939208753885102080>`,
-		c: `<:C_:939208754686201866>`,
-		d: `<:D_:939208754694598678>`,
-		e: `<:E_:939208753402757210>`,
-		f: `<:F_:939208753562157207>`,
-		g: `<:G_:939208755311157248>`,
-		h: `<:H_:939208754493292576>`,
-		i: `<:I_:939208753499230268>`,
-		j: `<:J_:939208754652655647>`,
-		k: `<:K_:939208755269234749>`,
-		l: `<:L_:939208753834758214>`,
-		m: `<:M_:939208755743186965>`,
-		n: `<:N_:939208755344707634>`,
-		o: `<:O_:939208755495714816>`,
-		p: `<:P_:939208755072094288>`,
-		q: `<:Q_:939208756112277644>`,
-		r: `<:R_:939208755541844009>`,
-		s: `<:S_:939208756590411796>`,
-		t: `<:T_:939208754027708527>`,
-		u: `<:U_:939208755244060692>`,
-		v: `<:V_:939208755730583632>`,
-		w: `<:W_:939208756133261332>`,
-		x: `<:X_:939208756368146573>`,
-		y: `<:Y_:939208755428622356>`,
-		z: `<:Z_:939208755520893010>`
+		a: { id: `939208752396136449` },
+		b: { id: `939208753885102080` },
+		c: { id: `939208754686201866` },
+		d: { id: `939208754694598678` },
+		e: { id: `939208753402757210` },
+		f: { id: `939208753562157207` },
+		g: { id: `939208755311157248` },
+		h: { id: `939208754493292576` },
+		i: { id: `939208753499230268` },
+		j: { id: `939208754652655647` },
+		k: { id: `939208755269234749` },
+		l: { id: `939208753834758214` },
+		m: { id: `939208755743186965` },
+		n: { id: `939208755344707634` },
+		o: { id: `939208755495714816` },
+		p: { id: `939208755072094288` },
+		q: { id: `939208756112277644` },
+		r: { id: `939208755541844009` },
+		s: { id: `939208756590411796` },
+		t: { id: `939208754027708527` },
+		u: { id: `939208755244060692` },
+		v: { id: `939208755730583632` },
+		w: { id: `939208756133261332` },
+		x: { id: `939208756368146573` },
+		y: { id: `939208755428622356` },
+		z: { id: `939208755520893010` }
 	},
 	blue: {
 		a: `🇦`,
@@ -63,42 +67,45 @@ const emotes = {
 		z: `🇿`
 	},
 	orange: {
-		a: `<:A_:939208893333139506>`,
-		b: `<:B_:939208895149248532>`,
-		c: `<:C_:939208895610646548>`,
-		d: `<:D_:939208898261434408>`,
-		e: `<:E_:939208897066045500>`,
-		f: `<:F_:939208897569361920>`,
-		g: `<:G_:939208899301629962>`,
-		h: `<:H_:939208897456128040>`,
-		i: `<:I_:939208897749712976>`,
-		j: `<:J_:939208897695199292>`,
-		k: `<:K_:939208899301625916>`,
-		l: `<:L_:939208898148171776>`,
-		m: `<:M_:939208899708457041>`,
-		n: `<:N_:939208899670716437>`,
-		o: `<:O_:939208899595210842>`,
-		p: `<:P_:939208899175780473>`,
-		q: `<:Q_:939208900438269962>`,
-		r: `<:R_:939208899855286292>`,
-		s: `<:S_:939208899498770544>`,
-		t: `<:T_:939208898496311376>`,
-		u: `<:U_:939208899213525043>`,
-		v: `<:V_:939208899528118313>`,
-		w: `<:W_:939208900199211008>`,
-		x: `<:X_:939208899867848835>`,
-		y: `<:Y_:939208899138056263>`,
-		z: `<:Z_:939208899490381864>`
+		a: { id: `939208893333139506` },
+		b: { id: `939208895149248532` },
+		c: { id: `939208895610646548` },
+		d: { id: `939208898261434408` },
+		e: { id: `939208897066045500` },
+		f: { id: `939208897569361920` },
+		g: { id: `939208899301629962` },
+		h: { id: `939208897456128040` },
+		i: { id: `939208897749712976` },
+		j: { id: `939208897695199292` },
+		k: { id: `939208899301625916` },
+		l: { id: `939208898148171776` },
+		m: { id: `939208899708457041` },
+		n: { id: `939208899670716437` },
+		o: { id: `939208899595210842` },
+		p: { id: `939208899175780473` },
+		q: { id: `939208900438269962` },
+		r: { id: `939208899855286292` },
+		s: { id: `939208899498770544` },
+		t: { id: `939208898496311376` },
+		u: { id: `939208899213525043` },
+		v: { id: `939208899528118313` },
+		w: { id: `939208900199211008` },
+		x: { id: `939208899867848835` },
+		y: { id: `939208899138056263` },
+		z: { id: `939208899490381864` }
 	},
 },
 /* eslint-enable id-length */
 // eslint-disable-next-line no-irregular-whitespace
 zws = `_​_`;
 // eslint-disable-next-line one-var
-const emoteButtonInstantiator = (letter:Letter): ButtonBuilder => new ButtonBuilder({ customId: `wordle_${letter}`, emoji:emotes.black[letter], style: ButtonStyle.Primary });
+const emoteButtonInstantiator = (letter: string): ButtonBuilder => new ButtonBuilder()
+	.setCustomId(`wordle_${letter}`)
+	.setEmoji(emotes.black[letter])
+	.setStyle(ButtonStyle.Primary);
 class Wordle {
-	private attempts: string[][];
-	private buttons: { a: ButtonBuilder; b: ButtonBuilder; c: ButtonBuilder; d: ButtonBuilder; e: ButtonBuilder; f: ButtonBuilder; g: ButtonBuilder; h: ButtonBuilder; i: ButtonBuilder; j: ButtonBuilder; k: ButtonBuilder; l: ButtonBuilder; m: ButtonBuilder; n: ButtonBuilder; o: ButtonBuilder; p: ButtonBuilder; q: ButtonBuilder; r: ButtonBuilder; s: ButtonBuilder; t: ButtonBuilder; u: ButtonBuilder; v: ButtonBuilder; w: ButtonBuilder; x: ButtonBuilder; y: ButtonBuilder; z: ButtonBuilder; am: ButtonBuilder; nz: ButtonBuilder; bs: ButtonBuilder; en: ButtonBuilder; };
+	private attempts: ComponentEmojiResolvable[][];
+	private buttons: Record<string, ButtonBuilder>;
 	private cmd: ChatInputCommandInteraction;
 	private gameId: string;
 	private word: string;
@@ -162,7 +169,7 @@ class Wordle {
 					interaction.reply({ content: `You can't add more letters`, ephemeral }).catch(genericCatch);
 					return;
 				}
-				this.attempts[this.attempt][this.slot] = emotes.black[id as Letter];
+				this.attempts[this.attempt][this.slot] = emotes.black[id];
 				this.words[this.attempt][this.slot] = id;
 				this.slot += inc;
 				interaction.update({ content: this.attempts.map((x) => x.join(zws)).join(`\n`) }).catch(genericCatch);
@@ -198,29 +205,29 @@ class Wordle {
 								if (this.word === this.words[this.attempt].join(``)) { // If won
 									this.words[this.attempt].forEach((x, i) => {
 										if (this.word[i] === x) {
-											this.attempts[this.attempt][i] = emotes.blue[x as Letter];
-											this.buttons[x as Letter] = this.buttons[x as Letter].setEmoji(emotes.blue[x as Letter]);
+											this.attempts[this.attempt][i] = emotes.blue[x];
+											this.buttons[x] = this.buttons[x].setEmoji(emotes.blue[x]);
 										}
 									});
 									this.words[this.attempt].forEach((x, i) => {
-										if (this.word.includes(x) && this.attempts[this.attempt][i] !== emotes.blue[x as Letter] && this.attempts[this.attempt].filter(y => (y === emotes.blue[x as Letter] || y === emotes.orange[x as Letter])).length < this.word.split(``).filter(y => y === x).length) 
-											this.attempts[this.attempt][i] = emotes.orange[x as Letter];
+										if (this.word.includes(x) && this.attempts[this.attempt][i] !== emotes.blue[x] && this.attempts[this.attempt].filter(y => (y === emotes.blue[x] || y === emotes.orange[x])).length < this.word.split(``).filter(y => y === x).length) 
+											this.attempts[this.attempt][i] = emotes.orange[x];
 									});
 									interaction.update({ components: [], content: zws }).catch(genericCatch);
 									this.cmd.followUp({ content: `GLaDLE ${(this.attempt + offByOne).toString()}/6\n${this.attempts.map((x) => x.join(zws)).join(`\n`)}\nFrom: ${this.cmd.user.tag}` }).catch(genericCatch);
 								} else if (this.attempt < Index.Sixth) { // If before last attempt
 									this.words[this.attempt].forEach((x, i) => {
 										if (this.word[i] === x) {
-											this.attempts[this.attempt][i] = emotes.blue[x as Letter];
-											this.buttons[x as Letter] = this.buttons[x as Letter].setEmoji(emotes.blue[x as Letter]);
+											this.attempts[this.attempt][i] = emotes.blue[x];
+											this.buttons[x] = this.buttons[x].setEmoji(emotes.blue[x]);
 										} else 
-											this.buttons[x as Letter] = this.buttons[x as Letter].setStyle(ButtonStyle.Secondary);
+											this.buttons[x] = this.buttons[x].setStyle(ButtonStyle.Secondary);
 									});
 									this.words[this.attempt].forEach((x, i) => {
-										if (this.word.includes(x) && this.attempts[this.attempt][i] !== emotes.blue[x as Letter] && this.attempts[this.attempt].filter(y => (y === emotes.blue[x as Letter] || y === emotes.orange[x as Letter])).length < this.word.split(``).filter(y => y === x).length) {
-											this.attempts[this.attempt][i] = emotes.orange[x as Letter];
-											this.buttons[x as Letter].setEmoji(emotes.orange[x as Letter]);
-											this.buttons[x as Letter] = this.buttons[x as Letter].setStyle(ButtonStyle.Primary);
+										if (this.word.includes(x) && this.attempts[this.attempt][i] !== emotes.blue[x] && this.attempts[this.attempt].filter(y => (y === emotes.blue[x] || y === emotes.orange[x])).length < this.word.split(``).filter(y => y === x).length) {
+											this.attempts[this.attempt][i] = emotes.orange[x];
+											this.buttons[x].setEmoji(emotes.orange[x]);
+											this.buttons[x] = this.buttons[x].setStyle(ButtonStyle.Primary);
 										}
 									});
 									this.slot = 0;
@@ -236,13 +243,13 @@ class Wordle {
 								if (this.word === this.words[this.attempt].join(``)) { // If won
 									this.words[this.attempt].forEach((x, i) => {
 										if (this.word[i] === x) {
-											this.attempts[this.attempt][i] = emotes.blue[x as Letter];
-											this.buttons[x as Letter] = this.buttons[x as Letter].setEmoji(emotes.blue[x as Letter]);
+											this.attempts[this.attempt][i] = emotes.blue[x];
+											this.buttons[x] = this.buttons[x].setEmoji(emotes.blue[x]);
 										}
 									});
 									this.words[this.attempt].forEach((x, i) => {
-										if (this.word.includes(x) && this.attempts[this.attempt][i] !== emotes.blue[x as Letter] && this.attempts[this.attempt].filter(y => (y === emotes.blue[x as Letter] || y === emotes.orange[x as Letter])).length < this.word.split(``).filter(y => y === x).length) 
-											this.attempts[this.attempt][i] = emotes.orange[x as Letter];
+										if (this.word.includes(x) && this.attempts[this.attempt][i] !== emotes.blue[x] && this.attempts[this.attempt].filter(y => (y === emotes.blue[x] || y === emotes.orange[x])).length < this.word.split(``).filter(y => y === x).length) 
+											this.attempts[this.attempt][i] = emotes.orange[x];
 									});
 									interaction.update({ components: [], content: zws }).catch(genericCatch);
 									this.cmd.followUp({ content: `GLaDLE ${(this.attempt + offByOne).toString()}/6\n${this.attempts.map((x) => x.join(zws)).join(`\n`)}\nFrom: ${this.cmd.user.tag}` }).catch(genericCatch);
@@ -255,19 +262,19 @@ class Wordle {
 									if (this.attempt < Index.Sixth) { // If before last attempt
 										this.words[this.attempt].forEach((x, i) => {
 											if (this.word[i] === x) {
-												this.attempts[this.attempt][i] = emotes.blue[x as Letter];
-												this.buttons[x as Letter] = this.buttons[x as Letter].setEmoji(emotes.blue[x as Letter]);
+												this.attempts[this.attempt][i] = emotes.blue[x];
+												this.buttons[x] = this.buttons[x].setEmoji(emotes.blue[x]);
 												this.hints.placed[i] = x;
 											} else 
-												this.buttons[x as Letter] = this.buttons[x as Letter].setStyle(ButtonStyle.Secondary);
+												this.buttons[x] = this.buttons[x].setStyle(ButtonStyle.Secondary);
 											
 										});
 										this.words[this.attempt].forEach((x, i) => {
-											if (this.word.includes(x) && this.attempts[this.attempt][i] !== emotes.blue[x as Letter] && this.attempts[this.attempt].filter(y => (y === emotes.blue[x as Letter] || y === emotes.orange[x as Letter])).length < this.word.split(``).filter(y => y === x).length) {
-												this.attempts[this.attempt][i] = emotes.orange[x as Letter];
+											if (this.word.includes(x) && this.attempts[this.attempt][i] !== emotes.blue[x] && this.attempts[this.attempt].filter(y => (y === emotes.blue[x] || y === emotes.orange[x])).length < this.word.split(``).filter(y => y === x).length) {
+												this.attempts[this.attempt][i] = emotes.orange[x];
 												this.hints.guessed.push(x);
-												this.buttons[x as Letter].setEmoji(emotes.orange[x as Letter]);
-												this.buttons[x as Letter] = this.buttons[x as Letter].setStyle(ButtonStyle.Primary);
+												this.buttons[x].setEmoji(emotes.orange[x]);
+												this.buttons[x] = this.buttons[x].setStyle(ButtonStyle.Primary);
 											}
 										});
 										this.slot = 0;

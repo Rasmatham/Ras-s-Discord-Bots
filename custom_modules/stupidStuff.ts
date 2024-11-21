@@ -1,7 +1,7 @@
 //#region imports
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, ChannelType, StringSelectMenuBuilder } from "discord.js";
 import type { CommandInteraction, EmojiIdentifierResolvable, InteractionReplyOptions, Message, MessageCreateOptions } from "discord.js";
-import { ShiftBy, blackList, decimalShift, genericCatch, offByOne } from "./generalUse.js";
+import { ShiftBy, blackList, decimalShift, genericCatch, offByOne, toBigInt } from "./generalUse.js";
 //#endregion
 
 //#region Frick that one rule
@@ -14,7 +14,7 @@ export const hencefortifier = (inObjs: Array<{ message: Message }>): void => {
 					if (channel.type === ChannelType.GuildText) {
 						blackList.forEach((bannedChannel:string) => {
 							if (channel.name !== bannedChannel)
-								textChannels.push(channel.id as `${bigint}`);
+								textChannels.push(toBigInt(channel.id));
 						});
 					}
 				});
@@ -47,16 +47,16 @@ export enum ReactionTypes {
 }
 
 // eslint-disable-next-line one-var
-export const espenBotReplacement = (inObjs: Array<{ type: ReactionTypes, message: Message, chance: number, victim: `${bigint}`, out: MessageCreateOptions | EmojiIdentifierResolvable}>): void => {
+export const espenBotReplacement = (inObjs: Array<{ type: ReactionTypes.Message, message: Message, chance: number, victim: `${bigint}`, out: MessageCreateOptions} | { type: ReactionTypes.React, message: Message, chance: number, victim: `${bigint}`, out: EmojiIdentifierResolvable}>): void => {
 	inObjs.forEach((inObj) => {
 		if (inObj.message.author.id === inObj.victim && Math.floor(decimalShift(Math.random(), ShiftBy.P2)) <= inObj.chance) {
 			switch (inObj.type) {
 				case ReactionTypes.Message:
 					if (inObj.message.channel.type === ChannelType.GuildText)
-						inObj.message.channel.send(inObj.out as MessageCreateOptions).catch(genericCatch);
+						inObj.message.channel.send(inObj.out).catch(genericCatch);
 					break;
 				case ReactionTypes.React:
-					inObj.message.react(inObj.out as EmojiIdentifierResolvable).catch(genericCatch);
+					inObj.message.react(inObj.out).catch(genericCatch);
 					break;
 				default: {
 					break;
@@ -70,7 +70,9 @@ export const espenBotReplacement = (inObjs: Array<{ type: ReactionTypes, message
 //#region interaction tests
 // eslint-disable-next-line one-var
 export const buttonGrid = (inObj: {interaction: CommandInteraction}):InteractionReplyOptions => {
-	const buttonContent:string = inObj.interaction.options.get(`button_content`)?.value as string,
+	const buttonContentOption = inObj.interaction.options.get(`button_content`);
+	// eslint-disable-next-line one-var
+	const buttonContent = typeof buttonContentOption?.value === `string` ? buttonContentOption.value : ``,
 	discordEmoji = /^<(?:a?)?:.+?:\d+>$/gui,
 	discordEmojiNotExact = /<(?:a?)?:.+?:\d+>/giu,
 	maxLabelLength = 80,

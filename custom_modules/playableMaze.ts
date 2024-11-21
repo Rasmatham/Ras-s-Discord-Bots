@@ -175,8 +175,10 @@ export const mazeFunction = (inObjs: Array<{interaction: CommandInteraction}>): 
 				this.hasPlayer = !this.hasPlayer;
 			}
 			public getWalls(height: number, width: number): EmojiIdentifierResolvable {
-				if (this.loc[Index.First] === width - offByOne && this.loc[Index.Second] === height - offByOne) 
-					return this.emotes[boolToInt({ bool: this.hasPlayer })][style].goal[this.walls as `ooii` | `oiii` | `ioii`];
+				if (this.loc[Index.First] === width - offByOne && this.loc[Index.Second] === height - offByOne) {
+					if (this.walls === `ooii` || this.walls === `oiii` || this.walls === `ioii`)
+						return this.emotes[boolToInt({ bool: this.hasPlayer })][style].goal[this.walls];
+				}
 				return this.emotes[boolToInt({ bool: this.hasPlayer })][style][this.walls];
 				
 			}

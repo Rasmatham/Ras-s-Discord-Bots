@@ -161,7 +161,8 @@ export default tseslint.config(
 			"@typescript-eslint/no-shadow": [`error`],
 			"@typescript-eslint/no-this-alias": [`error`],
 			"@typescript-eslint/no-unnecessary-parameter-property-assignment": [`error`],
-			"@typescript-eslint/no-unnecessary-qualifier": [`error`]
+			"@typescript-eslint/no-unnecessary-qualifier": [`error`],
+			"@typescript-eslint/no-unsafe-type-assertion": [`error`]
 		}
 	},
 	{

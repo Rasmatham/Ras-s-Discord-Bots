@@ -13,11 +13,11 @@ export const dice = (inObjs: Array<{ interaction: CommandInteraction }>): void =
 		dieSides = defaultDie.sides;
 		if (inObj.interaction.options.get(`die_sides`) !== null) {
 			const dieSidesOption = inObj.interaction.options.get(`die_sides`);
-			dieSides = dieSidesOption?.value as number;
+			dieSides = typeof dieSidesOption?.value === `number` ? dieSidesOption.value : defaultDie.sides;
 		}
 		if (inObj.interaction.options.get(`dice_count`) !== null) {
 			const diceCountOption = inObj.interaction.options.get(`dice_count`);
-			diceCount = diceCountOption?.value as number;
+			diceCount = typeof diceCountOption?.value === `number` ? diceCountOption.value : defaultDie.count;
 		}
 		inObj.interaction.reply(`Rolling ${
 			diceCount.toString()
