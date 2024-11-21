@@ -159,7 +159,8 @@ export default tseslint.config(
 			}],
 			"@typescript-eslint/no-meaningless-void-operator": [ `error`, { "checkNever": true }],
 			"@typescript-eslint/no-shadow": [`error`],
-			"@typescript-eslint/no-this-alias": [`error`]
+			"@typescript-eslint/no-this-alias": [`error`],
+			"@typescript-eslint/no-unnecessary-parameter-property-assignment": [`error`]
 		}
 	},
 	{
