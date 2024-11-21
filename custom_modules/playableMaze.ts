@@ -153,9 +153,9 @@ export const mazeFunction = (inObjs: Array<{interaction: CommandInteraction}>): 
 		
 		class Cell {
 			public emotes:EmoteTypeList;
-			private loc: number[];
+			private readonly loc: number[];
 			private hasPlayer: boolean;
-			private walls: HalfByteAsString;
+			private readonly walls: HalfByteAsString;
 			public constructor(emoteList:EmoteTypeList, x: number, y: number, hasPlayer: boolean, walls: HalfByteAsString) {
 				this.emotes = emotes;
 				this.loc = [ x, y ];
@@ -187,9 +187,9 @@ export const mazeFunction = (inObjs: Array<{interaction: CommandInteraction}>): 
 			}
 		}
 		class Maze {
-			private emotes:EmoteTypeList;
-			private playerLoc: number[];
-			private cells: Cell[];
+			private readonly emotes:EmoteTypeList;
+			private readonly playerLoc: number[];
+			private readonly cells: Cell[];
 			public readonly width = defaultSize;
 			public readonly height = defaultSize;
 			public constructor(emoteList:EmoteTypeList) {

@@ -106,14 +106,14 @@ const emoteButtonInstantiator = (letter: string): ButtonBuilder => new ButtonBui
 class Wordle {
 	private attempts: ComponentEmojiResolvable[][];
 	private buttons: Record<string, ButtonBuilder>;
-	private cmd: ChatInputCommandInteraction;
-	private gameId: string;
-	private word: string;
+	private readonly cmd: ChatInputCommandInteraction;
+	private readonly gameId: string;
+	private readonly word: string;
 	private attempt: Index.First | Index.Second | Index.Third | Index.Fourth | Index.Fifth | Index.Sixth;
 	private slot: Index.First | Index.Second | Index.Third | Index.Fourth | Index.Fifth | Index.Sixth;
-	private words: string[][];
+	private readonly words: string[][];
 	private hints: {placed: [string, string, string, string, string], guessed: string[]};
-	private difficulty: string;
+	private readonly difficulty: string;
 	public constructor (commandInteraction: ChatInputCommandInteraction) {
 		this.cmd = commandInteraction;
 		this.difficulty = this.cmd.options.getSubcommand(true);
