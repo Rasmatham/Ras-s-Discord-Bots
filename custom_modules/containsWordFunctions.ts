@@ -24,7 +24,7 @@ const reply = (inObjs: Array<{ message: Message, chance?: number, reply: Message
 
 // Function ext
 // eslint-disable-next-line one-var
-export const replyThing = (inObjs: Array<{ message: Message,type: `anywhere` | `exact` | `mention`,chance?: number,reply: MessageCreateOptions,triggers: string[] | Array<`${bigint}`> }>): void => {
+export const replyThing = (inObjs: Array<{ message: Message,type: `anywhere` | `exact` | `mention`,chance?: number,reply: MessageCreateOptions,triggers: Array<`${bigint}`> | string[] }>): void => {
 	inObjs.forEach((inObj) => {
 		if (typeof inObj.chance === `undefined`) 
 			inObj.chance = 100;
@@ -93,7 +93,7 @@ const react = (inObjs: Array<{ message: Message, chance?: number, emotes: string
 };
 // Function ext
 // eslint-disable-next-line one-var
-export const reactThing = (inObjs: Array<{ message: Message, type: `anywhere` | `exact` | `mention`, chance?: number, emotes: string[], triggers: string[] | Array<`${bigint}`> }>): void => {
+export const reactThing = (inObjs: Array<{ message: Message, type: `anywhere` | `exact` | `mention`, chance?: number, emotes: string[], triggers: Array<`${bigint}`> | string[] }>): void => {
 	inObjs.forEach((inObj) => {
 		if (typeof inObj.chance === `undefined`) 
 			inObj.chance = 100;

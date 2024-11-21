@@ -10,7 +10,7 @@ dotenv.config();
 interface CommandObject {
 	id?:`${bigint}`, 
 	guild?:`${bigint}`,
-	command:SlashCommandBuilder | SlashCommandOptionsOnlyBuilder | SlashCommandSubcommandsOnlyBuilder | ContextMenuCommandBuilder
+	command:ContextMenuCommandBuilder | SlashCommandBuilder | SlashCommandOptionsOnlyBuilder | SlashCommandSubcommandsOnlyBuilder
 }
 //#endregion
 

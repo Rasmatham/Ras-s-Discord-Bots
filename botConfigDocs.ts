@@ -13,7 +13,7 @@ interface Bots {
 			commands?: {
 				generalReply?: Array<{		
 					active: boolean;
-					visibility?: `visible` | `private` | `choice`;
+					visibility?: `choice` | `private` | `visible`;
 					permissions?: {
 						everyone: boolean;
 						guildWhitelist?: djs.GuildResolvable[];
@@ -30,7 +30,7 @@ interface Bots {
 				}>;
 				botlink?: {
 					active: boolean;
-					visibility?: `visible` | `private` | `choice`;
+					visibility?: `choice` | `private` | `visible`;
 					permissions?: {
 						everyone: boolean;
 						guildWhitelist?: djs.GuildResolvable[];
@@ -45,7 +45,7 @@ interface Bots {
 				};
 				userinfo?: {
 					active: boolean;
-					visibility?: `visible` | `private` | `choice`;
+					visibility?: `choice` | `private` | `visible`;
 					permissions?: {
 						everyone: boolean;
 						guildWhitelist?: djs.GuildResolvable[];
@@ -60,7 +60,7 @@ interface Bots {
 				};
 				serverInfo?: {
 					active: boolean;
-					visibility?: `visible` | `private` | `choice`;
+					visibility?: `choice` | `private` | `visible`;
 					permissions?: {
 						everyone: boolean;
 						guildWhitelist?: djs.GuildResolvable[];
@@ -75,7 +75,7 @@ interface Bots {
 				};
 				joindate?: {
 					active: boolean;
-					visibility?: `visible` | `private` | `choice`;
+					visibility?: `choice` | `private` | `visible`;
 					permissions?: {
 						everyone: boolean;
 						guildWhitelist?: djs.GuildResolvable[];
@@ -90,7 +90,7 @@ interface Bots {
 				};
 				dice?: {
 					active: boolean;
-					visibility?: `visible` | `private` | `choice`;
+					visibility?: `choice` | `private` | `visible`;
 					permissions?: {
 						everyone: boolean;
 						guildWhitelist?: djs.GuildResolvable[];
@@ -105,7 +105,7 @@ interface Bots {
 				};
 				xkcd?: {
 					active: boolean;
-					visibility?: `visible` | `private` | `choice`;
+					visibility?: `choice` | `private` | `visible`;
 					permissions?: {
 						everyone: boolean;
 						guildWhitelist?: djs.GuildResolvable[];
@@ -120,7 +120,7 @@ interface Bots {
 				};
 				maze?: {
 					active: boolean;
-					visibility?: `visible` | `private` | `choice`;
+					visibility?: `choice` | `private` | `visible`;
 					permissions?: {
 						everyone: boolean;
 						guildWhitelist?: djs.GuildResolvable[];
@@ -135,7 +135,7 @@ interface Bots {
 				};
 				ticTacToe?: {
 					active: boolean;
-					visibility?: `visible` | `private` | `choice`;
+					visibility?: `choice` | `private` | `visible`;
 					permissions?: {
 						everyone: boolean;
 						guildWhitelist?: djs.GuildResolvable[];
@@ -150,7 +150,7 @@ interface Bots {
 				};
 				coinflip?: {
 					active: boolean;
-					visibility?: `visible` | `private` | `choice`;
+					visibility?: `choice` | `private` | `visible`;
 					permissions?: {
 						everyone: boolean;
 						guildWhitelist?: djs.GuildResolvable[];
@@ -165,7 +165,7 @@ interface Bots {
 				};
 				wordle?: {
 					active: boolean;
-					visibility?: `visible` | `private` | `choice`;
+					visibility?: `choice` | `private` | `visible`;
 					permissions?: {
 						everyone: boolean;
 						guildWhitelist?: djs.GuildResolvable[];
@@ -180,7 +180,7 @@ interface Bots {
 				};
 				reboot?: {
 					active: boolean;
-					visibility?: `visible` | `private` | `choice`;
+					visibility?: `choice` | `private` | `visible`;
 					permissions?: {
 						everyone: boolean;
 						guildWhitelist?: djs.GuildResolvable[];
@@ -197,25 +197,25 @@ interface Bots {
 			triggers?: Array<{
 				active: boolean;
 				input: {
-					type: `string`;
-					strict?: boolean;
-					triggers: string[];
+					type: `mention`;
+					triggers: Array<djs.ChannelResolvable | djs.RoleResolvable | djs.UserResolvable>
 				} | {
 					type: `reaction`;
 					triggers: djs.EmojiResolvable[];
 				} | {
-					type: `mention`;
-					triggers: Array<djs.UserResolvable | djs.ChannelResolvable | djs.RoleResolvable>
+					type: `string`;
+					strict?: boolean;
+					triggers: string[];
 				};
 				output: {
 					type: `message`;
 					message: djs.MessageReplyOptions
 				} | {
-					type: `reply`;
-					reply: djs.MessageReplyOptions
-				} | {
 					type: `reaction`;
 					emoji: djs.EmojiIdentifierResolvable
+				} | {
+					type: `reply`;
+					reply: djs.MessageReplyOptions
 				};
 			}>
 		}

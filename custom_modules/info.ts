@@ -6,11 +6,11 @@ import { base2, checkFor, ephemeral, genericCatch } from "./generalUse.js";
 
 //#region channelCount
 export const channelCount = (inObj: { guild: Guild }):{
-	textChannels: number | `unknown`,
-	voiceChannels: number | `unknown`,
-	categories: number | `unknown`,
-	unknown: number | `unknown`,
-	all: number | `unknown`
+	textChannels: `unknown` | number,
+	voiceChannels: `unknown` | number,
+	categories: `unknown` | number,
+	unknown: `unknown` | number,
+	all: `unknown` | number
 } => {
 	const categories:string[] = [],
 	textChannels:string[] = [],

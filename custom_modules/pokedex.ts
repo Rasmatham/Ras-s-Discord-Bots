@@ -14,7 +14,7 @@ export const trainers = trainerList;
 
 //#region dex embed
 // eslint-disable-next-line one-var
-export const natDex = (inObj: {query: string | number}):MessageReplyOptions => {
+export const natDex = (inObj: {query: number | string}):MessageReplyOptions => {
 	let dexNumber: number;
 	dexNumber = zero;
 	if (!isNaN(Number(inObj.query)))

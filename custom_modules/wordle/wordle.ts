@@ -109,8 +109,8 @@ class Wordle {
 	private readonly cmd: ChatInputCommandInteraction;
 	private readonly gameId: string;
 	private readonly word: string;
-	private attempt: Index.First | Index.Second | Index.Third | Index.Fourth | Index.Fifth | Index.Sixth;
-	private slot: Index.First | Index.Second | Index.Third | Index.Fourth | Index.Fifth | Index.Sixth;
+	private attempt: Index.Fifth | Index.First | Index.Fourth | Index.Second | Index.Sixth | Index.Third;
+	private slot: Index.Fifth | Index.First | Index.Fourth | Index.Second | Index.Sixth | Index.Third;
 	private readonly words: string[][];
 	private hints: {placed: [string, string, string, string, string], guessed: string[]};
 	private readonly difficulty: string;

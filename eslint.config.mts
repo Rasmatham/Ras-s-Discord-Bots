@@ -1,4 +1,5 @@
 import globals from "globals";
+import perfectionist from "eslint-plugin-perfectionist";
 import pluginJs from "@eslint/js";
 import tseslint from "typescript-eslint";
 
@@ -110,6 +111,9 @@ export default tseslint.config(
 				tsconfigRootDir: import.meta.dirname,
 			}
 		},
+		plugins: {
+			perfectionist,
+		}
 	},
 	/* eslint-disable @typescript-eslint/naming-convention */
 	{
@@ -173,6 +177,13 @@ export default tseslint.config(
 			"@typescript-eslint/prefer-readonly": [`error`],
 			"@typescript-eslint/promise-function-async": [`error`],
 			"@typescript-eslint/require-array-sort-compare": [`error`]
+		}
+	},
+	{
+		// Perfectionist rules
+		rules: {
+			"perfectionist/sort-intersection-types": [`error`],
+			"perfectionist/sort-union-types": [`error`]
 		}
 	},
 	{

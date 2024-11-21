@@ -71,7 +71,7 @@ const isRawXkcdJson = (obj: unknown): obj is RawXkcdJson  => {
 	`title` in obj &&
 	`day` in obj;
 },
-xkcdModule = (cb: (data:Xkcd | Error) => void, id?: string | number): void => {
+xkcdModule = (cb: (data:Error | Xkcd) => void, id?: number | string): void => {
 	const idUrl = id ? `${id.toString()}/` : ``,
 	url = domain + idUrl + path;
 	https.get(url, (res) => {

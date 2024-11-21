@@ -14,8 +14,8 @@ export const getUrl = async (): Promise<URL> => req(`https://inspirobot.me/api?g
 
 //#region Sends a Discord mesage
 // eslint-disable-next-line one-var
-export const sendMessage = (inObjs: Array<{ message: Message | ButtonInteraction }>): void => {
-	inObjs.forEach((inObj: {message: Message | ButtonInteraction}) => {
+export const sendMessage = (inObjs: Array<{ message: ButtonInteraction | Message }>): void => {
+	inObjs.forEach((inObj: {message: ButtonInteraction | Message}) => {
 		if(inObj.message instanceof ButtonInteraction){
 			if(inObj.message.message instanceof Message){
 				getUrl().then((url) => {
