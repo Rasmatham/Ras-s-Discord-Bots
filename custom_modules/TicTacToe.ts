@@ -1,7 +1,7 @@
 //#region imports
 import type { APIButtonComponentWithCustomId, ButtonInteraction, CommandInteraction, ComponentEmojiResolvable, EmojiIdentifierResolvable, User, UserResolvable } from "discord.js";
 import { ActionRowBuilder, ButtonBuilder, ButtonComponent, ButtonStyle, ComponentType, Events, MessageMentions } from "discord.js";
-import { ephemeral, genericCatch } from "./generalUse";
+import { Index, ephemeral, genericCatch, inc, offByOne, zero } from "./generalUse";
 //#endregion
 
 //#region tic tac toe game
@@ -68,12 +68,12 @@ export const ticTacToe = (inObjs: Array<{ interaction: CommandInteraction }>): v
 						if (buttonInteraction.user.id === firstMemberMention?.id && lastMemberMention?.user) {
 							const players:[ User, User ] = [ firstMemberMention.user, lastMemberMention.user ],
 							randomNumber:number = Math.round(Math.random()),
-							randomOrder:[ User, User ] = [ players[randomNumber], players[1-randomNumber] ];
+							randomOrder:[ User, User ] = [ players[randomNumber], players[players.length-offByOne-randomNumber] ];
 						
 							buttonInteraction.update({ components: [] }).then(() => {
 								buttonInteraction.editReply({
 									components: startingGrid,
-									content: `(no alternate rules) <@${randomOrder[0].id}> is starting. <@${randomOrder[1].id}> Please wait until your turn.`
+									content: `(no alternate rules) <@${randomOrder[Index.First].id}> is starting. <@${randomOrder[Index.Second].id}> Please wait until your turn.`
 								}).catch(genericCatch);
 							}).catch((err: unknown) => {
 								console.error(err);
@@ -93,19 +93,19 @@ export const ticTacToe = (inObjs: Array<{ interaction: CommandInteraction }>): v
 					//================================================================================================================
 					default:
 						if (buttonInteraction.customId.startsWith(`TTT`)) {
-							buttonGuild?.members.fetch(buttonInteraction.message.content.split(` `)[3].replace(/<@!?(?=\d*)|(?<=\d*)>/gu, ``) as UserResolvable).then(() => {
-								buttonGuild.members.fetch(buttonInteraction.message.content.split(` `)[6].replace(/<@!?(?=\d*)|(?<=\d*)>/gu, ``) as UserResolvable).catch(genericCatch);
+							buttonGuild?.members.fetch(buttonInteraction.message.content.split(` `)[Index.Fourth].replace(/<@!?(?=\d*)|(?<=\d*)>/gu, ``) as UserResolvable).then(() => {
+								buttonGuild.members.fetch(buttonInteraction.message.content.split(` `)[Index.Seventh].replace(/<@!?(?=\d*)|(?<=\d*)>/gu, ``) as UserResolvable).catch(genericCatch);
 							}).then(() => {
 								const buttons:ButtonComponent[] = [],
 								movePieces = !(buttonInteraction.message.content.includes(`no`)),
 								players:[ { id: string }, { id: string } ] = [
-									buttonGuild.members.cache.get(buttonInteraction.message.content.split(` `)[3].replace(/<@!?(?=\d*)|(?<=\d*)>/gu, ``) as `${bigint}`) ?? { id: `` },
-									buttonGuild.members.cache.get(buttonInteraction.message.content.split(` `)[6].replace(/<@!?(?=\d*)|(?<=\d*)>/gu, ``) as `${bigint}`) ?? { id: `` }
+									buttonGuild.members.cache.get(buttonInteraction.message.content.split(` `)[Index.Fourth].replace(/<@!?(?=\d*)|(?<=\d*)>/gu, ``) as `${bigint}`) ?? { id: `` },
+									buttonGuild.members.cache.get(buttonInteraction.message.content.split(` `)[Index.Seventh].replace(/<@!?(?=\d*)|(?<=\d*)>/gu, ``) as `${bigint}`) ?? { id: `` }
 								];
 								// eslint-disable-next-line id-length
 								let o: number, x: number;
-								o = 0;
-								x = 0;
+								o = zero;
+								x = zero;
 							
 								buttonInteraction.message.components.forEach((row) => {
 									row.components.forEach((component) => {
@@ -118,17 +118,17 @@ export const ticTacToe = (inObjs: Array<{ interaction: CommandInteraction }>): v
 									if (button.emoji !== null) {
 										switch (button.emoji.name) {
 										case `⭕`:
-											o += 1;
+											o += inc;
 											break;
 										case `❌`:
-											x += 1;
+											x += inc;
 											break;
 										default:
 											break;
 										}
 									}
 								});
-								if (buttonInteraction.user.id === players[0].id && buttonInteraction.component instanceof ButtonComponent) {
+								if (buttonInteraction.user.id === players[Index.First].id && buttonInteraction.component instanceof ButtonComponent) {
 									if (buttonInteraction.component.emoji === null)
 										buttonInteraction.reply({ content: `Sorry, but you can't do that`, ephemeral }).catch(genericCatch);
 									else if (buttonInteraction.component.emoji.id === `741303046574702652`) {
@@ -147,9 +147,9 @@ export const ticTacToe = (inObjs: Array<{ interaction: CommandInteraction }>): v
 											};
 								
 											let row1, row2, row3;
-											row1 = new ActionRowBuilder<ButtonBuilder>().addComponents([ newButton(0, 0), newButton(0, 1), newButton(0, 2) ]);
-											row2 = new ActionRowBuilder<ButtonBuilder>().addComponents([ newButton(1, 0), newButton(1, 1), newButton(1, 2) ]);
-											row3 = new ActionRowBuilder<ButtonBuilder>().addComponents([ newButton(2, 0), newButton(2, 1), newButton(2, 2) ]);
+											row1 = new ActionRowBuilder<ButtonBuilder>().addComponents([ newButton(Index.First, Index.First), newButton(Index.First, Index.Second), newButton(Index.First, Index.Third) ]);
+											row2 = new ActionRowBuilder<ButtonBuilder>().addComponents([ newButton(Index.Second, Index.First), newButton(Index.Second, Index.Second), newButton(Index.Second, Index.Third) ]);
+											row3 = new ActionRowBuilder<ButtonBuilder>().addComponents([ newButton(Index.Third, Index.First), newButton(Index.Third, Index.Second), newButton(Index.Third, Index.Third) ]);
 								
 											if (x > o) {
 												const emoji:EmojiIdentifierResolvable = `⭕`;
@@ -158,73 +158,73 @@ export const ticTacToe = (inObjs: Array<{ interaction: CommandInteraction }>): v
 													case `TTT1`:
 														row1 = new ActionRowBuilder<ButtonBuilder>()
 															.addComponents([
-																newCheckedButton(0, 0, emoji),
-																newButton(0, 1),
-																newButton(0, 2)
+																newCheckedButton(Index.First, Index.First, emoji),
+																newButton(Index.First, Index.Second),
+																newButton(Index.First, Index.Third)
 															]);
 														break;
 													case `TTT2`:
 														row1 = new ActionRowBuilder<ButtonBuilder>()
 															.addComponents([
-																newButton(0, 0),
-																newCheckedButton(0, 1, emoji),
-																newButton(0, 2)
+																newButton(Index.First, Index.First),
+																newCheckedButton(Index.First, Index.Second, emoji),
+																newButton(Index.First, Index.Third)
 															]);
 														break;
 													case `TTT3`:
 														row1 = new ActionRowBuilder<ButtonBuilder>()
 															.addComponents([
-																newButton(0, 0),
-																newButton(0, 1),
-																newCheckedButton(0, 2, emoji)
+																newButton(Index.First, Index.First),
+																newButton(Index.First, Index.Second),
+																newCheckedButton(Index.First, Index.Third, emoji)
 															]);
 														break;
 													case `TTT4`:
 														row2 = new ActionRowBuilder<ButtonBuilder>()
 															.addComponents([
-																newCheckedButton(1, 0, emoji),
-																newButton(1, 1),
-																newButton(1, 2)
+																newCheckedButton(Index.Second, Index.First, emoji),
+																newButton(Index.Second, Index.Second),
+																newButton(Index.Second, Index.Third)
 															]);
 														break;
 													case `TTT5`:
 														row2 = new ActionRowBuilder<ButtonBuilder>()
 															.addComponents([
-																newButton(1, 0),
-																newCheckedButton(1, 1, emoji),
-																newButton(1, 2)
+																newButton(Index.Second, Index.First),
+																newCheckedButton(Index.Second, Index.Second, emoji),
+																newButton(Index.Second, Index.Third)
 															]);
 														break;
 													case `TTT6`:
 														row2 = new ActionRowBuilder<ButtonBuilder>()
 															.addComponents([
-																newButton(1, 0),
-																newButton(1, 1),
-																newCheckedButton(1, 2, emoji)
+																newButton(Index.Second, Index.First),
+																newButton(Index.Second, Index.Second),
+																newCheckedButton(Index.Second, Index.Third, emoji)
 															]);
 														break;
 													case `TTT7`:
 														row3 = new ActionRowBuilder<ButtonBuilder>()
 															.addComponents([
-																newCheckedButton(2, 0, emoji),
-																newButton(2, 1),
-																newButton(2, 2)
+																newCheckedButton(Index.Third, Index.First, emoji),
+																newButton(Index.Third, Index.Second),
+																newButton(Index.Third, Index.Third)
 															]);
 														break;
 													case `TTT8`:
 														row3 = new ActionRowBuilder<ButtonBuilder>()
 															.addComponents([
-																newButton(2, 0),
-																newCheckedButton(2, 1, emoji),
-																newButton(2, 2)
+																newButton(Index.Third, Index.First),
+																newCheckedButton(Index.Third, Index.Second, emoji),
+																newButton(Index.Third, Index.Third)
 															]);
 														break;
 													case `TTT9`:
 														row3 = new ActionRowBuilder<ButtonBuilder>()
 															.addComponents([
-																newButton(2, 0),
-																newButton(2, 1),
-																newCheckedButton(2, 2, emoji)
+																newButton(Index.Third, Index.First),
+																newButton(Index.Third, Index.Second),
+																newCheckedButton(Index.Third, Index.Third, emoji)
 															]);
 														break;
 													default:
@@ -237,73 +237,73 @@ export const ticTacToe = (inObjs: Array<{ interaction: CommandInteraction }>): v
 												case `TTT1`:
 													row1 = new ActionRowBuilder<ButtonBuilder>()
 														.addComponents([
-															newCheckedButton(0, 0, emoji),
-															newButton(0, 1),
-															newButton(0, 2)
+															newCheckedButton(Index.First, Index.First, emoji),
+															newButton(Index.First, Index.Second),
+															newButton(Index.First, Index.Third)
 														]);
 													break;
 												case `TTT2`:
 													row1 = new ActionRowBuilder<ButtonBuilder>()
 														.addComponents([
-															newButton(0, 0),
-															newCheckedButton(0, 1, emoji),
-															newButton(0, 2)
+															newButton(Index.First, Index.First),
+															newCheckedButton(Index.First, Index.Second, emoji),
+															newButton(Index.First, Index.Third)
 														]);
 													break;
 												case `TTT3`:
 													row1 = new ActionRowBuilder<ButtonBuilder>()
 														.addComponents([
-															newButton(0, 0),
-															newButton(0, 1),
-															newCheckedButton(0, 2, emoji)
+															newButton(Index.First, Index.First),
+															newButton(Index.First, Index.Second),
+															newCheckedButton(Index.First, Index.Third, emoji)
 														]);
 													break;
 												case `TTT4`:
 													row2 = new ActionRowBuilder<ButtonBuilder>()
 														.addComponents([
-															newCheckedButton(1, 0, emoji),
-															newButton(1, 1),
-															newButton(1, 2)
+															newCheckedButton(Index.Second, Index.First, emoji),
+															newButton(Index.Second, Index.Second),
+															newButton(Index.Second, Index.Third)
 														]);
 													break;
 												case `TTT5`:
 													row2 = new ActionRowBuilder<ButtonBuilder>()
 														.addComponents([
-															newButton(1, 0),
-															newCheckedButton(1, 1, emoji),
-															newButton(1, 2)
+															newButton(Index.Second, Index.First),
+															newCheckedButton(Index.Second, Index.Second, emoji),
+															newButton(Index.Second, Index.Third)
 														]);
 													break;
 												case `TTT6`:
 													row2 = new ActionRowBuilder<ButtonBuilder>()
 														.addComponents([
-															newButton(1, 0),
-															newButton(1, 1),
-															newCheckedButton(1, 2, emoji)
+															newButton(Index.Second, Index.First),
+															newButton(Index.Second, Index.Second),
+															newCheckedButton(Index.Second, Index.Third, emoji)
 														]);
 													break;
 												case `TTT7`:
 													row3 = new ActionRowBuilder<ButtonBuilder>()
 														.addComponents([
-															newCheckedButton(2, 0, emoji),
-															newButton(2, 1),
-															newButton(2, 2)
+															newCheckedButton(Index.Third, Index.First, emoji),
+															newButton(Index.Third, Index.Second),
+															newButton(Index.Third, Index.Third)
 														]);
 													break;
 												case `TTT8`:
 													row3 = new ActionRowBuilder<ButtonBuilder>()
 														.addComponents([
-															newButton(2, 0),
-															newCheckedButton(2, 1, emoji),
-															newButton(2, 2)
+															newButton(Index.Third, Index.First),
+															newCheckedButton(Index.Third, Index.Second, emoji),
+															newButton(Index.Third, Index.Third)
 														]);
 													break;
 												case `TTT9`:
 													row3 = new ActionRowBuilder<ButtonBuilder>()
 														.addComponents([
-															newButton(2, 0),
-															newButton(2, 1),
-															newCheckedButton(2, 2, emoji)
+															newButton(Index.Third, Index.First),
+															newButton(Index.Third, Index.Second),
+															newCheckedButton(Index.Third, Index.Third, emoji)
 														]);
 													break;
 												default:
@@ -320,29 +320,29 @@ export const ticTacToe = (inObjs: Array<{ interaction: CommandInteraction }>): v
 											newButtons = [ row1, row2, row3 ],
 											winBoard = (rows: Array<ActionRowBuilder<ButtonBuilder>>): boolean => {
 												const check = (index: number, type: PlayerSymbol): boolean => buttonArray[index] === type,
-												checkThree = (index:[number, number, number], type: PlayerSymbol): boolean => check(index[0], type) && check(index[1], type) && check(index[2], type);
+												checkThree = (index:[number, number, number], type: PlayerSymbol): boolean => check(index[Index.First], type) && check(index[Index.Second], type) && check(index[Index.Third], type);
 												rows.forEach((row) => {
 													row.components.forEach((button) => {
 														buttonArray.push((button.toJSON() as APIButtonComponentWithCustomId).emoji?.name as (PlayerSymbol | undefined) ?? PlayerSymbol.Ras);
 													});
 												});
-												if (buttonArray[0] !== PlayerSymbol.Ras || buttonArray[4] !== PlayerSymbol.Ras || buttonArray[8] !== PlayerSymbol.Ras) {
-													return checkThree([ 0, 1, 2 ], PlayerSymbol.X) ||
-														checkThree([ 0, 3, 6 ], PlayerSymbol.X) ||
-														checkThree([ 6, 7, 8 ], PlayerSymbol.X) ||
-														checkThree([ 2, 5, 8 ], PlayerSymbol.X) ||
-														checkThree([ 0, 4, 8 ], PlayerSymbol.X) ||
-														checkThree([ 1, 4, 7 ], PlayerSymbol.X) ||
-														checkThree([ 2, 4, 6 ], PlayerSymbol.X) ||
-														checkThree([ 3, 4, 5 ], PlayerSymbol.X) ||
-														checkThree([ 0, 3, 6 ], PlayerSymbol.O) ||
-														checkThree([ 0, 1, 2 ], PlayerSymbol.O) ||
-														checkThree([ 6, 7, 8 ], PlayerSymbol.O) ||
-														checkThree([ 2, 5, 8 ], PlayerSymbol.O) ||
-														checkThree([ 0, 4, 8 ], PlayerSymbol.O) ||
-														checkThree([ 1, 4, 7 ], PlayerSymbol.O) ||
-														checkThree([ 2, 4, 6 ], PlayerSymbol.O) ||
-														checkThree([ 3, 4, 5 ], PlayerSymbol.O);
+												if (buttonArray[Index.First] !== PlayerSymbol.Ras || buttonArray[Index.Fifth] !== PlayerSymbol.Ras || buttonArray[Index.Ninth] !== PlayerSymbol.Ras) {
+													return checkThree([ Index.First, Index.Second, Index.Third ], PlayerSymbol.X) ||
+														checkThree([ Index.First, Index.Fourth, Index.Seventh ], PlayerSymbol.X) ||
+														checkThree([ Index.Seventh, Index.Eighth, Index.Ninth ], PlayerSymbol.X) ||
+														checkThree([ Index.Third, Index.Sixth, Index.Ninth ], PlayerSymbol.X) ||
+														checkThree([ Index.First, Index.Fifth, Index.Ninth ], PlayerSymbol.X) ||
+														checkThree([ Index.Second, Index.Fifth, Index.Eighth ], PlayerSymbol.X) ||
+														checkThree([ Index.Third, Index.Fifth, Index.Seventh ], PlayerSymbol.X) ||
+														checkThree([ Index.Fourth, Index.Fifth, Index.Sixth ], PlayerSymbol.X) ||
+														checkThree([ Index.First, Index.Fourth, Index.Seventh ], PlayerSymbol.O) ||
+														checkThree([ Index.First, Index.Second, Index.Third ], PlayerSymbol.O) ||
+														checkThree([ Index.Seventh, Index.Eighth, Index.Ninth ], PlayerSymbol.O) ||
+														checkThree([ Index.Third, Index.Sixth, Index.Ninth ], PlayerSymbol.O) ||
+														checkThree([ Index.First, Index.Fifth, Index.Ninth ], PlayerSymbol.O) ||
+														checkThree([ Index.Second, Index.Fifth, Index.Eighth ], PlayerSymbol.O) ||
+														checkThree([ Index.Third, Index.Fifth, Index.Seventh ], PlayerSymbol.O) ||
+														checkThree([ Index.Fourth, Index.Fifth, Index.Sixth ], PlayerSymbol.O);
 												}
 												return false;
 											};
@@ -350,55 +350,55 @@ export const ticTacToe = (inObjs: Array<{ interaction: CommandInteraction }>): v
 												buttonInteraction.update({
 													components: [],
 													content: `<@${
-														players[0].id
+														players[Index.First].id
 													}> won!\n${
-														buttonArray[0].replace(`ras`, `▫️`)
+														buttonArray[Index.First].replace(`ras`, `▫️`)
 													}${
-														buttonArray[1].replace(`ras`, `▫️`)
+														buttonArray[Index.Second].replace(`ras`, `▫️`)
 													}${
-														buttonArray[2].replace(`ras`, `▫️`)
+														buttonArray[Index.Third].replace(`ras`, `▫️`)
 													}\n${
-														buttonArray[3].replace(`ras`, `▫️`)
+														buttonArray[Index.Fourth].replace(`ras`, `▫️`)
 													}${
-														buttonArray[4].replace(`ras`, `▫️`)
+														buttonArray[Index.Fifth].replace(`ras`, `▫️`)
 													}${
-														buttonArray[5].replace(`ras`, `▫️`)
+														buttonArray[Index.Sixth].replace(`ras`, `▫️`)
 													}\n${
-														buttonArray[6].replace(`ras`, `▫️`)
+														buttonArray[Index.Seventh].replace(`ras`, `▫️`)
 													}${
-														buttonArray[7].replace(`ras`, `▫️`)
+														buttonArray[Index.Eighth].replace(`ras`, `▫️`)
 													}${
-														buttonArray[8].replace(`ras`, `▫️`)
+														buttonArray[Index.Ninth].replace(`ras`, `▫️`)
 													}`
 												}).catch(genericCatch);
 											} else if (buttonArray.includes(PlayerSymbol.Ras)) {
 												buttonInteraction.update({ components: [] }).then(() => {
 													buttonInteraction.editReply({
 														components: newButtons,
-														content: `(no alternate rules) ${players[1].id} is playing. ${players[0].id} Please wait until your turn.`
+														content: `(no alternate rules) ${players[Index.Second].id} is playing. ${players[Index.First].id} Please wait until your turn.`
 													}).catch(genericCatch);
 												}).catch(genericCatch);
 											} else {
 												buttonInteraction.update({
 													components: [],
 													content: `Looks like it ended in a tie\n${
-														buttonArray[0].replace(`ras`, `▫️`)
+														buttonArray[Index.First].replace(`ras`, `▫️`)
 													}${
-														buttonArray[1].replace(`ras`, `▫️`)
+														buttonArray[Index.Second].replace(`ras`, `▫️`)
 													}${
-														buttonArray[2].replace(`ras`, `▫️`)
+														buttonArray[Index.Third].replace(`ras`, `▫️`)
 													}\n${
-														buttonArray[3].replace(`ras`, `▫️`)
+														buttonArray[Index.Fourth].replace(`ras`, `▫️`)
 													}${
-														buttonArray[4].replace(`ras`, `▫️`)
+														buttonArray[Index.Fifth].replace(`ras`, `▫️`)
 													}${
-														buttonArray[5].replace(`ras`, `▫️`)
+														buttonArray[Index.Sixth].replace(`ras`, `▫️`)
 													}\n${
-														buttonArray[6].replace(`ras`, `▫️`)
+														buttonArray[Index.Seventh].replace(`ras`, `▫️`)
 													}${
-														buttonArray[7].replace(`ras`, `▫️`)
+														buttonArray[Index.Eighth].replace(`ras`, `▫️`)
 													}${
-														buttonArray[8].replace(`ras`, `▫️`)
+														buttonArray[Index.Ninth].replace(`ras`, `▫️`)
 													}`
 												}).catch(genericCatch);
 											}

@@ -1,3 +1,5 @@
+import { Index, inc, offByOne, zero } from "./generalUse";
+
 /* eslint-disable sort-vars */
 interface Cell {
 	x: number,
@@ -15,57 +17,60 @@ const
 uniq = <T>(array: T[]): T[] => [...new Set(array)],
 compact = <T>(array: T[]): T[] => array.filter(Boolean),
 difference = <T>(arr1: T[], arr2: T[]): T[] => [ arr1, arr2 ].reduce((a, b) => a.filter(x => !b.includes(x))),
-initial = <T>(array: T[]): T[] => array.slice(0, -1),
+initial = <T>(array: T[]): T[] => array.slice(Index.First, Index.Last),
 groupBy = <T>(list: T[], key: ObjectKey<T, number>): Record<number, T[]> => {
 	const keys = list.map(item => item[key] as number),
 	dict: Record<number, T[]> = uniq(keys).reduce((prev, next) => ({ ...prev, [next]: [] }), {});
 	list.forEach(item => dict[item[key] as number].push(item));
 	return dict;
 },
-last = <T>(array: T[]): T => array[array.length - 1],
-range = (n: number, end = 0): number[] => end ? Array.from(Array(end - n).keys()).map(x => x + n) : Array.from(Array(n).keys()),
+last = <T>(array: T[]): T => array[array.length - offByOne],
+range = (n: number, end = zero): number[] => end ? Array.from(Array(end - n).keys()).map(x => x + n) : Array.from(Array(n).keys()),
 sampleSize = <T>(array: T[], n: number, random: () => number): T[] => {
 	let num, index;
 	num = n;
-	index = -1;
+	index = Index.Last;
 	const { length } = array;
-	if (!length || num < 1) 
+	if (!length || num <= zero) 
 		return [];
 	num = num > length ? length : num;
 	// eslint-disable-next-line one-var
-	const lastIndex = length - 1,
+	const lastIndex = length - offByOne,
 	result = [...array];
-	while ((index += 1) < num) {
-		const rand = index + Math.floor(random() * (lastIndex - index + 1)),
+	while ((index += inc) < num) {
+		const rand = index + Math.floor(random() * (lastIndex - index + offByOne)),
 		value = result[rand];
 		result[rand] = result[index];
 		result[index] = value;
 	}
-	return result.slice(0, n);
+	return result.slice(Index.First, n);
 },
 mulberry32 = (seed: number) => (): number => {
+	/* eslint-disable @typescript-eslint/no-magic-numbers */
 	let x;
 	x = seed + 0x6D2B79F5;
 	x = Math.imul(x ^ x >>> 15, x | 1);
 	x ^= x + Math.imul(x ^ x >>> 7, x | 61);
 	return ((x ^ x >>> 14) >>> 0) / 4294967296;
+	/* eslint-enable @typescript-eslint/no-magic-numbers */
 },
 mergeSetWith = (row: Cell[], oldSet: number, newSet: number): void => {
 	row.forEach(box => {
 		if (box.set === oldSet) box.set = newSet;
 	});
 },
+half = 0.5,
 populateMissingSets = (row: Cell[], random: () => number): void => {
 	const setsInUse = compact(uniq(row.map(x => x.set))),
-	allSets = range(1, row.length + 1),
-	availableSets = difference(allSets, setsInUse).sort(() => 0.5 - random());
+	allSets = range(Index.Second, row.length + offByOne),
+	availableSets = difference(allSets, setsInUse).sort(() => half - random());
 	row.filter(box => !box.set).forEach((box, i) => (box.set = availableSets[i]));
 },
-mergeRandomSetsIn = (row: Cell[], random: () => number, probability = 0.5): void => {
+mergeRandomSetsIn = (row: Cell[], random: () => number, probability = half): void => {
 	// Randomly merge some disjoint sets
 	const allBoxesButLast = initial(row);
 	allBoxesButLast.forEach((current, x) => {
-		const next = row[x + 1],
+		const next = row[x + offByOne],
 		differentSets = current.set !== next.set,
 		shouldMerge = random() <= probability;
 		if (differentSets && shouldMerge) {
@@ -89,19 +94,21 @@ addSetExits = (row: Cell[], nextRow: Cell[], random: () => number): void => {
 		});
 	});
 },
-generate = (width = 8, height = width, closed = true, seed = 1): Cell[][] => {
+defaultWidth = 8,
+defaultSeed = 1,
+generate = (width = defaultWidth, height = width, closed = true, seed = defaultSeed): Cell[][] => {
 	const random = mulberry32(seed),
 	maze: Cell[][] = [],
 	rangeArr = range(width);
 	
 	// Populate maze with empty cells:
-	for (let y = 0; y < height; y += 1) {
+	for (let y = 0; y < height; y += inc) {
 		const row: Cell[] = rangeArr.map(x => ({
-			bottom: closed || y < (height - 1),
-			left: closed || x > 0,
-			right: closed || x < (width - 1),
+			bottom: closed || y < (height - offByOne),
+			left: closed || x > zero,
+			right: closed || x < (width - offByOne),
 			set: NaN,
-			top: closed || y > 0,
+			top: closed || y > zero,
 			x,
 			y,
 			}));
@@ -112,13 +119,14 @@ generate = (width = 8, height = width, closed = true, seed = 1): Cell[][] => {
 	initial(maze).forEach((row, y) => {
 		populateMissingSets(row, random);
 		mergeRandomSetsIn(row, random);
-		addSetExits(row, maze[y + 1], random);
+		addSetExits(row, maze[y + offByOne], random);
 	});
 	
 	// eslint-disable-next-line one-var
-	const lastRow = last(maze);
+	const lastRow = last(maze),
+	probability = 1;
 	populateMissingSets(lastRow, random);
-	mergeRandomSetsIn(lastRow, random, 1);
+	mergeRandomSetsIn(lastRow, random, probability);
 	
 	return maze;
 };

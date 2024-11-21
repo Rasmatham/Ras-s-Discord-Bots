@@ -2,7 +2,7 @@
 //#region imports
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, Events } from "discord.js";
 import type { ButtonInteraction, CommandInteraction, EmojiIdentifierResolvable, Interaction } from "discord.js";
-import { boolToInt, ephemeral, genericCatch } from "./generalUse";
+import { Index, boolToInt, ephemeral, genericCatch, inc, offByOne, zero } from "./generalUse";
 import mazeThing from "./mazegen";
 //#endregion
 
@@ -49,7 +49,7 @@ type HalfByteAsString = `${ `i` | `o` }${ `i` | `o` }${ `i` | `o` }${ `i` | `o` 
 //#region maze generator
 export const mazeFunction = (inObjs: Array<{interaction: CommandInteraction}>): void => {
 	inObjs.forEach((inObj) => {
-		const 
+		const defaultSize = 8,
 		emotes:EmoteTypeList = [
 			[
 				{
@@ -149,8 +149,8 @@ export const mazeFunction = (inObjs: Array<{interaction: CommandInteraction}>): 
 			]
 		],
 		options = inObj.interaction.options.get(`style`),
-		style = typeof options?.value === `number` ? options.value : 0;
-	
+		style = typeof options?.value === `number` ? options.value : zero;
+		
 		class Cell {
 			public emotes:EmoteTypeList;
 			private loc: number[];
@@ -166,16 +166,16 @@ export const mazeFunction = (inObjs: Array<{interaction: CommandInteraction}>): 
 				return this.hasPlayer;
 			}
 			public get x(): number {
-				return this.loc[0];
+				return this.loc[Index.First];
 			}
 			public get y(): number {
-				return this.loc[1];
+				return this.loc[Index.Second];
 			}
 			public movePlayer(): void {
 				this.hasPlayer = !this.hasPlayer;
 			}
-			public get getWalls(): EmojiIdentifierResolvable {
-				if (this.loc[0] === 7 && this.loc[1] === 7) 
+			public getWalls(height: number, width: number): EmojiIdentifierResolvable {
+				if (this.loc[Index.First] === width - offByOne && this.loc[Index.Second] === height - offByOne) 
 					return this.emotes[boolToInt({ bool: this.hasPlayer })][style].goal[this.walls as `ooii` | `oiii` | `ioii`];
 				return this.emotes[boolToInt({ bool: this.hasPlayer })][style][this.walls];
 				
@@ -188,24 +188,26 @@ export const mazeFunction = (inObjs: Array<{interaction: CommandInteraction}>): 
 			private emotes:EmoteTypeList;
 			private playerLoc: number[];
 			private cells: Cell[];
+			public readonly width = defaultSize;
+			public readonly height = defaultSize;
 			public constructor(emoteList:EmoteTypeList) {
 				this.emotes = emoteList;
-				this.playerLoc = [ 0, 0 ];
+				this.playerLoc = [ zero, zero ];
 				this.cells = [];
 			}
 			public get cellArr(): Cell[] {
 				return this.cells;
 			}
 			public addCell(x: number, y: number, walls: HalfByteAsString): void {
-				this.cells.push(new Cell(this.emotes, x, y, x === 0 && y === 0, walls));
+				this.cells.push(new Cell(this.emotes, x, y, x === zero && y === zero, walls));
 			}
 			public moveLeft(): void {
 				let lock: boolean;
 				lock = true;
 				this.cells.forEach((cell, i) => {
-					if (cell.playerState && cell.y > 0 && lock && cell.boolWalls[0] === `O`) {
+					if (cell.playerState && cell.y > zero && lock && cell.boolWalls[Index.First] === `O`) {
 						cell.movePlayer();
-						this.cells[i - 1].movePlayer();
+						this.cells[i - offByOne].movePlayer();
 						lock = !lock;
 					}
 				});
@@ -214,9 +216,9 @@ export const mazeFunction = (inObjs: Array<{interaction: CommandInteraction}>): 
 				let lock: boolean;
 				lock = true;
 				this.cells.forEach((cell, i) => {
-					if (cell.playerState && cell.x > 0 && lock && cell.boolWalls[1] === `O`) {
+					if (cell.playerState && cell.x > zero && lock && cell.boolWalls[Index.Second] === `O`) {
 						cell.movePlayer();
-						this.cells[i - 8].movePlayer();
+						this.cells[i - this.height].movePlayer();
 						lock = !lock;
 					}
 				});
@@ -225,9 +227,9 @@ export const mazeFunction = (inObjs: Array<{interaction: CommandInteraction}>): 
 				let lock: boolean;
 				lock = true;
 				this.cells.forEach((cell, i) => {
-					if (cell.playerState && cell.x < 7 && lock && cell.boolWalls[3] === `O`) {
+					if (cell.playerState && cell.x < this.height-offByOne && lock && cell.boolWalls[Index.Fourth] === `O`) {
 						cell.movePlayer();
-						this.cells[i + 8].movePlayer();
+						this.cells[i + this.height].movePlayer();
 						lock = !lock;
 					}
 				});
@@ -236,9 +238,9 @@ export const mazeFunction = (inObjs: Array<{interaction: CommandInteraction}>): 
 				let lock: boolean;
 				lock = true;
 				this.cells.forEach((cell, i) => {
-					if (cell.playerState && cell.y < 7 && lock && cell.boolWalls[2] === `O`) {
+					if (cell.playerState && cell.y < this.width-offByOne && lock && cell.boolWalls[Index.Third] === `O`) {
 						cell.movePlayer();
-						this.cells[i + 1].movePlayer();
+						this.cells[i + offByOne].movePlayer();
 						lock = !lock;
 					}
 				});
@@ -246,7 +248,7 @@ export const mazeFunction = (inObjs: Array<{interaction: CommandInteraction}>): 
 		}
 		// eslint-disable-next-line one-var
 		const createdClass:Maze = new Maze(emotes),
-		maze:MazeObj[][] = mazeThing(8, 8) as MazeObj[][];
+		maze:MazeObj[][] = mazeThing(defaultSize, defaultSize) as MazeObj[][];
 		maze.forEach((x: MazeObj[], i: number) => {
 			x.forEach((y: MazeObj, j: number) => {
 				createdClass.addCell(i, j, `${y.left ? `i` : `o`}${y.top? `i` : `o`}${y.right? `i` : `o`}${y.bottom? `i` : `o`}`);
@@ -257,9 +259,9 @@ export const mazeFunction = (inObjs: Array<{interaction: CommandInteraction}>): 
 		const mazeMessage = (mazeObj: Maze):string => {
 			let messageText;
 			messageText = ``;
-			for (let i = 0; i < 8; i += 1) {
-				for (let j = 0; j < 8; j += 1) 
-					messageText = `${messageText}${mazeObj.cellArr[i * 8 + j].getWalls.toString()}`;
+			for (let i = 0; i < defaultSize; i += inc) {
+				for (let j = 0; j < defaultSize; j += inc) 
+					messageText = `${messageText}${mazeObj.cellArr[i * defaultSize + j].getWalls.toString()}`;
 				messageText = `${messageText}\n`;
 			}
 			return messageText;
@@ -291,32 +293,33 @@ export const mazeFunction = (inObjs: Array<{interaction: CommandInteraction}>): 
 		}).then(() => {
 			inObj.interaction.client.on(Events.InteractionCreate, (interaction: Interaction) => {
 				if (interaction.isButton()) {
-					const buttonInteraction:ButtonInteraction = interaction;
+					const buttonInteraction:ButtonInteraction = interaction,
+					totalCells = createdClass.height*createdClass.width;
 					switch (buttonInteraction.customId) {
 					case `Left`:
 						createdClass.moveLeft();
-						if (!createdClass.cellArr[63].playerState) 
+						if (!createdClass.cellArr[totalCells-offByOne].playerState) 
 							buttonInteraction.update(mazeMessage(createdClass)).catch(genericCatch);
 						break;
 					case `Up`:
 						createdClass.moveUp();
-						if (!createdClass.cellArr[63].playerState) 
+						if (!createdClass.cellArr[totalCells-offByOne].playerState) 
 							buttonInteraction.update(mazeMessage(createdClass)).catch(genericCatch);
 						break;
 					case `Down`:
 						createdClass.moveDown();
-						if (!createdClass.cellArr[63].playerState) 
+						if (!createdClass.cellArr[totalCells-offByOne].playerState) 
 							buttonInteraction.update(mazeMessage(createdClass)).catch(genericCatch);
 						break;
 					case `Right`:
 						createdClass.moveRight();
-						if (!createdClass.cellArr[63].playerState) 
+						if (!createdClass.cellArr[totalCells-offByOne].playerState) 
 							buttonInteraction.update(mazeMessage(createdClass)).catch(genericCatch);
 						break;
 					default:
 						break;
 					}
-					if (createdClass.cellArr[63].playerState) {
+					if (createdClass.cellArr[totalCells-offByOne].playerState) {
 						buttonInteraction.update({
 							components: [],
 							content: `**Congratulations!**\nYou managed to navigate through a maze even one of my ~~test subjects~~paid workers could finish!`

@@ -1,7 +1,7 @@
 //#region imports
 import { ActivityType, ApplicationCommandType, ApplicationIntegrationType, Client, ContextMenuCommandBuilder, Events, InteractionContextType, PresenceUpdateStatus } from "discord.js";
 import type { SlashCommandBuilder, SlashCommandOptionsOnlyBuilder, SlashCommandSubcommandsOnlyBuilder } from "discord.js";
-import { genericCatch, intents, login, simpleCommand } from "./custom_modules/generalUse.js";
+import { genericCatch, intents, login, offByOne, simpleCommand } from "./custom_modules/generalUse.js";
 import * as dotenv from "dotenv";
 dotenv.config();
 //#endregion
@@ -222,7 +222,7 @@ bots.forEach((bot, i) => {
 			commandGroup[i].forEach((command, j) => {
 				bot.application?.commands.create(command.command, command.guild)
 					.then((cmd) => {
-						const current = (j + 1).toString(),
+						const current = (j + offByOne).toString(),
 						total = commandGroup[i].length.toString();
 						console.info(`[${current}/${total}] Command: "${cmd.name}" updated`);
 					}).catch(genericCatch);

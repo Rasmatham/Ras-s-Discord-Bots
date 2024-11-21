@@ -1,5 +1,6 @@
 //#region imports
 import type { ColorResolvable, MessageReplyOptions } from "discord.js";
+import { Index, offByOne, zero } from "./generalUse.js";
 import { pokemon, trainerList } from "../Pokebot/PokeDB.js";
 import { EmbedBuilder } from "discord.js";
 import type { PokeObjType } from "../Pokebot/PokeDB.js";
@@ -10,6 +11,7 @@ export const trainers = trainerList;
 //#endregion
 
 //#region type definitions
+/* eslint-disable @typescript-eslint/no-magic-numbers */
 type PokeRange = 
   0 |   1 |   2 |   3 |   4 |   5 |   6 |   7 |   8 |   9 | 
  10 |  11 |  12 |  13 |  14 |  15 |  16 |  17 |  18 |  19 | 
@@ -27,18 +29,20 @@ type PokeRange =
 130 | 131 | 132 | 133 | 134 | 135 | 136 | 137 | 138 | 139 | 
 140 | 141 | 142 | 143 | 144 | 145 | 146 | 147 | 148 | 149 | 
 150 | 151;
+/* eslint-enable @typescript-eslint/no-magic-numbers */
+
 //#endregion
 
 //#region dex embed
 // eslint-disable-next-line one-var
 export const natDex = (inObj: {query: string | number}):MessageReplyOptions => {
 	let dexNumber: PokeRange;
-	dexNumber = 0;
+	dexNumber = zero;
 	if (!isNaN(Number(inObj.query))) 
 		inObj.query = Number(inObj.query);
 	switch (typeof inObj.query) {
 		case `number`:
-			if (Number(inObj.query) <= 151 && Number(inObj.query) > 0) {
+			if (Number(inObj.query) <= pokemon.length-offByOne && Number(inObj.query) > zero) {
 				dexNumber = Number(inObj.query) as PokeRange;
 				break;
 			}
@@ -62,12 +66,12 @@ export const natDex = (inObj: {query: string | number}):MessageReplyOptions => {
 	};
 	// eslint-disable-next-line one-var
 	const embed:EmbedBuilder = new EmbedBuilder()
-		.setColor(pokemon[dexNumber].types[0].color as ColorResolvable)
+		.setColor(pokemon[dexNumber].types[Index.First].color as ColorResolvable)
 		.setTitle(pokemon[dexNumber].name)
 		.addFields([
 			{ name: `National dex number:`, value: pokemon[dexNumber].nat },
 			{ name: `Regional dex nunber:`, value: pokemon[dexNumber].reg },
-			{ name: `Primary type`, value: pokemon[dexNumber].types[0].name },
+			{ name: `Primary type`, value: pokemon[dexNumber].types[Index.First].name },
 			{ name: `Secondary type`, value: secType() }
 		])
 		.setImage(`attachment://250px-${pokemon[dexNumber].nat}${pokemon[dexNumber].name}.png`);

@@ -12,7 +12,7 @@
 
 //#region imports
 import { ActivityType, Client, EmbedBuilder, Events } from "discord.js";
-import { blackList, botReady, ephemeral, genericCatch, headerlessField, intents, listThings, login, sendAsWebHook, technicalStuff } from "./custom_modules/generalUse";
+import { Index, ShiftBy, blackList, botReady, decimalShift, ephemeral, genericCatch, headerlessField, inc, intents, listThings, login, msInS, offByOne, sendAsWebHook, technicalStuff } from "./custom_modules/generalUse";
 import { ReactionTypes } from "./custom_modules/stupidStuff";
 import * as coinflip from "./custom_modules/coinflip";
 import * as containsWord from "./custom_modules/containsWordFunctions";
@@ -90,12 +90,14 @@ const mrtz = `Did you know BeeMrtz is short for Bee Master? He just had a tiny s
 
 //#region functions
 // eslint-disable-next-line one-var
-const buzzes = (buzz = `buzz`, count: number = Math.floor(Math.random() * 9)): string => {
+const buzzChance = 9, commaChance = 2;
+// eslint-disable-next-line one-var
+const buzzes = (buzz = `buzz`, count = Math.floor(Math.random() * buzzChance)): string => {
 	let buzzTmp, countTmp;
 	buzzTmp = buzz;
 	countTmp = count;
-	buzzTmp = (Math.round(Math.random() << 1)? `buzz ` : `buzz, `).concat(buzzTmp);
-	countTmp = countTmp? countTmp-1 : countTmp;
+	buzzTmp = (Math.round(Math.random() * commaChance)? `buzz ` : `buzz, `).concat(buzzTmp);
+	countTmp = countTmp? countTmp-offByOne : countTmp;
 	return countTmp? buzzes(buzzTmp, countTmp) : buzzTmp;
 };
 //#endregion
@@ -396,7 +398,7 @@ glados.on(Events.InteractionCreate, (interaction) => {
 		switch (interaction.commandName) {
 			case `list`: {
 				listThings(interaction).then((interactionReplyOptions) => {
-					interaction.reply(interactionReplyOptions[0]).then(() => {
+					interaction.reply(interactionReplyOptions[Index.First]).then(() => {
 						interactionReplyOptions.shift();
 						interactionReplyOptions.forEach(element => {
 							interaction.followUp(element).catch(genericCatch);
@@ -483,7 +485,8 @@ glados.on(Events.InteractionCreate, (interaction) => {
 
 //#region ghost message thing
 glados.on(Events.MessageDelete, (message) => {
-	if ((Math.floor(new Date().getTime() / 1000) - Math.floor(message.createdTimestamp / 1000)) < 10) {
+	const timeout = 10;
+	if ((Math.floor(new Date().getTime() / msInS) - Math.floor(message.createdTimestamp / msInS)) < timeout) {
 		if (message.author !== null)
 			message.channel.send(`${message.author.tag} deleted a message within 10 seconds of sending it`).catch(genericCatch);
 	}
@@ -516,7 +519,7 @@ pokebot.on(Events.MessageCreate, (message) => {
 							message,
 							name: pokedex.trainers[Math.round(Math.random() * pokedex.trainers.length)],
 							pfp: pokebot.user.avatarURL() ?? ``,
-							sendMessage: pokedex.natDex({ query: message.content.toLowerCase().split(` `)[1] }),
+							sendMessage: pokedex.natDex({ query: message.content.toLowerCase().split(` `)[Index.Second] }),
 							sendTo: message.channel,
 						}
 					]);
@@ -542,8 +545,9 @@ starWarsWords = [ `star`, `wars`, `anakin`, `luke`, `obi`, `wan`, `kenobi`, `han
 const beeps = (): string => {
 	let str;
 	str = ``;
-	for (let i = 0; i < Math.floor(Math.random() * 10); i += 1) 
-		str = Math.floor(Math.random() << 1) ? `${str}beep ` : `${str}boop `;
+	const beepChance = 2;
+	for (let i = 0; i < Math.floor(decimalShift(Math.random(), ShiftBy.P1)); i += inc) 
+		str = Math.floor(Math.random() * beepChance) ? `${str}beep ` : `${str}boop `;
 	return str;
 };
 //#endregion

@@ -1,6 +1,6 @@
 
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, Events, InteractionType } from "discord.js";
-import { ephemeral, genericCatch } from "../generalUse";
+import { Index, ephemeral, genericCatch, inc, offByOne } from "../generalUse";
 import type { ChatInputCommandInteraction } from "discord.js";
 import * as words from "./words";
 type Letter = `a` | `b` | `c` | `d` | `e` | `f` | `g` | `h` | `i` | `j` | `k` | `l` | `m` | `n` | `o` | `p` | `q` | `r` | `s` | `t` | `u` | `v` | `w` | `x` | `y` | `z`;
@@ -102,8 +102,8 @@ class Wordle {
 	private cmd: ChatInputCommandInteraction;
 	private gameId: string;
 	private word: string;
-	private attempt: number;
-	private slot: number;
+	private attempt: Index.First | Index.Second | Index.Third | Index.Fourth | Index.Fifth | Index.Sixth;
+	private slot: Index.First | Index.Second | Index.Third | Index.Fourth | Index.Fifth | Index.Sixth;
 	private words: string[][];
 	private hints: {placed: [string, string, string, string, string], guessed: string[]};
 	private difficulty: string;
@@ -158,13 +158,13 @@ class Wordle {
 			if (!interaction.customId.startsWith(`wordle_`)) return;
 			const id = interaction.customId.replace(`wordle_`, ``);
 			if (/^[a-z]{1}$/u.test(id)) {
-				if (this.slot >= 5) {
+				if (this.slot >= Index.Sixth) {
 					interaction.reply({ content: `You can't add more letters`, ephemeral }).catch(genericCatch);
 					return;
 				}
 				this.attempts[this.attempt][this.slot] = emotes.black[id as Letter];
 				this.words[this.attempt][this.slot] = id;
-				this.slot += 1;
+				this.slot += inc;
 				interaction.update({ content: this.attempts.map((x) => x.join(zws)).join(`\n`) }).catch(genericCatch);
 			} else {
 				switch (id) {
@@ -175,7 +175,7 @@ class Wordle {
 						interaction.update({ components: this.buttonsSecondHalf }).catch(genericCatch);
 						break;
 					case `backspace`:
-						if (this.slot <= 0) {
+						if (this.slot <= Index.First) {
 							interaction.reply({ content: `You can't have less than 0 letters`, ephemeral }).catch(genericCatch);
 							return;
 						}
@@ -185,7 +185,7 @@ class Wordle {
 						interaction.update({ content: this.attempts.map((x) => x.join(zws)).join(`\n`) }).catch(genericCatch);
 						break;
 					case `enter`:
-						if (this.slot < 5) {
+						if (this.slot < Index.Sixth) {
 							interaction.reply({ content: `You need 5 letters to submit`, ephemeral }).catch(genericCatch);
 							return;
 						}
@@ -207,8 +207,8 @@ class Wordle {
 											this.attempts[this.attempt][i] = emotes.orange[x as Letter];
 									});
 									interaction.update({ components: [], content: zws }).catch(genericCatch);
-									this.cmd.followUp({ content: `GLaDLE ${(this.attempt + 1).toString()}/6\n${this.attempts.map((x) => x.join(zws)).join(`\n`)}\nFrom: ${this.cmd.user.tag}` }).catch(genericCatch);
-								} else if (this.attempt < 5) { // If before last attempt
+									this.cmd.followUp({ content: `GLaDLE ${(this.attempt + offByOne).toString()}/6\n${this.attempts.map((x) => x.join(zws)).join(`\n`)}\nFrom: ${this.cmd.user.tag}` }).catch(genericCatch);
+								} else if (this.attempt < Index.Sixth) { // If before last attempt
 									this.words[this.attempt].forEach((x, i) => {
 										if (this.word[i] === x) {
 											this.attempts[this.attempt][i] = emotes.blue[x as Letter];
@@ -227,7 +227,7 @@ class Wordle {
 									this.attempt += 1;
 									this.attempts[this.attempt] = [ `⬛`, `⬛`, `⬛`, `⬛`, `⬛` ];
 									interaction.update({ components: this.buttonsFirstHalf, content: this.attempts.map((x) => x.join(zws)).join(`\n`) }).catch(genericCatch);
-								} else if (this.attempt <= 5) { // If last attempt
+								} else if (this.attempt <= Index.Sixth) { // If last attempt
 									interaction.update({ components: [], content: zws }).catch(genericCatch);
 									this.cmd.followUp({ content: `GLaDLE _FAILURE_/6\n${this.attempts.map((x) => x.join(zws)).join(`\n`)}\nFrom: ${this.cmd.user.tag}\nThe word was: ${this.word}` }).catch(genericCatch);
 								}
@@ -245,14 +245,14 @@ class Wordle {
 											this.attempts[this.attempt][i] = emotes.orange[x as Letter];
 									});
 									interaction.update({ components: [], content: zws }).catch(genericCatch);
-									this.cmd.followUp({ content: `GLaDLE ${(this.attempt + 1).toString()}/6\n${this.attempts.map((x) => x.join(zws)).join(`\n`)}\nFrom: ${this.cmd.user.tag}` }).catch(genericCatch);
+									this.cmd.followUp({ content: `GLaDLE ${(this.attempt + offByOne).toString()}/6\n${this.attempts.map((x) => x.join(zws)).join(`\n`)}\nFrom: ${this.cmd.user.tag}` }).catch(genericCatch);
 								} else { // Not won
 									if (!(this.words[this.attempt].every((x, i) => (x === this.hints.placed[i] || this.hints.placed[i] === ``)) && this.hints.guessed.every((x) => this.words[this.attempt].includes(x)))) {
 										interaction.reply({ content: `You need to use your hints`, ephemeral }).catch(genericCatch);
 										return;
 									}
 									this.hints = { guessed: [], placed: [ ``, ``, ``, ``, `` ] };
-									if (this.attempt < 5) { // If before last attempt
+									if (this.attempt < Index.Sixth) { // If before last attempt
 										this.words[this.attempt].forEach((x, i) => {
 											if (this.word[i] === x) {
 												this.attempts[this.attempt][i] = emotes.blue[x as Letter];
@@ -274,7 +274,7 @@ class Wordle {
 										this.attempt += 1;
 										this.attempts[this.attempt] = [ `⬛`, `⬛`, `⬛`, `⬛`, `⬛` ];
 										interaction.update({ components: this.buttonsFirstHalf, content: this.attempts.map((x) => x.join(zws)).join(`\n`) }).catch(genericCatch);
-									} else if (this.attempt <= 5) { // If last attempt
+									} else if (this.attempt <= Index.Sixth) { // If last attempt
 										interaction.update({ components: [], content: zws }).catch(genericCatch);
 										this.cmd.followUp({ content: `GLaDLE _FAILURE_/6\n${this.attempts.map((x) => x.join(zws)).join(`\n`)}\nFrom: ${this.cmd.user.tag}\nThe word was: ${this.word}` }).catch(genericCatch);
 									}

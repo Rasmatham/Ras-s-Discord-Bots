@@ -155,6 +155,9 @@ export default tseslint.config(
 			}],
 			"@typescript-eslint/no-import-type-side-effects": [`error`],
 			"@typescript-eslint/no-loop-func": [`error`],
+			"@typescript-eslint/no-magic-numbers": [ `error`, {
+				"ignoreEnums": true
+			}],
 			"@typescript-eslint/no-shadow": [`error`]
 		}
 	},

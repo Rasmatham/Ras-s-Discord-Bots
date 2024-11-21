@@ -1,7 +1,7 @@
 //#region imports
 import { ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } from "discord.js";
 import type { ButtonInteraction, Interaction, ModalMessageModalSubmitInteraction, ModalSubmitInteraction, TimestampStylesString } from "discord.js";
-import { ephemeral, genericCatch } from "./generalUse";
+import { Index, ShiftBy, binaryShift, ephemeral, genericCatch, msInS, zero } from "./generalUse";
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "fs";
 //#endregion
 
@@ -22,7 +22,7 @@ const setup = (inObj: { interaction: Interaction } ): void => {
 // eslint-disable-next-line one-var
 const toUtc = (dateString = new Date().toISOString(), tzIdentifier = `Etc/UTC`):Date => {
 	const utcDate = new Date(dateString);
-	return new Date((utcDate.getTime() << 1) - new Date(utcDate.toLocaleString(`en-US`, {
+	return new Date(binaryShift(utcDate.getTime(), ShiftBy.P1) - new Date(utcDate.toLocaleString(`en-US`, {
 		day: `2-digit`,
 		fractionalSecondDigits: 3,
 		hour: `2-digit`,
@@ -69,6 +69,10 @@ export const create = (inObjs: Array<{interaction: Interaction}>): void => {
 // eslint-disable-next-line one-var
 export const relativeButtonInteraction = (inObjs: Array<{interaction: ButtonInteraction}>): void => {
 	inObjs.forEach((inObj) => {
+		const dateFormats = [ `YYYY-MM-DD`, `MM-DD`, `DD` ],
+		negativeFormats = [ `Y/N`, `y/n`, `Yes/No`, `yes/no`, `true/false`, `1/0` ],
+		timeFormats = [ `HH:mm:ss`, `HH:mm`, `mm` ];
+		// eslint-disable-next-line one-var
 		const modal = new ModalBuilder()
 			.setCustomId(`relative`)
 			.setTitle(`Relative timestamp creation`)
@@ -79,8 +83,8 @@ export const relativeButtonInteraction = (inObjs: Array<{interaction: ButtonInte
 							.setCustomId(`long_time`)
 							.setLabel(`Years, months, and days offset`)
 							.setStyle(TextInputStyle.Short)
-							.setPlaceholder(`YYYY-MM-DD | MM-DD | DD`)
-							.setMaxLength(10)
+							.setPlaceholder(dateFormats.join(` | `))
+							.setMaxLength(Math.max(...dateFormats.map((x) => x.length)))
 							.setRequired(false)
 					]),
 				new ActionRowBuilder<TextInputBuilder>()
@@ -89,8 +93,8 @@ export const relativeButtonInteraction = (inObjs: Array<{interaction: ButtonInte
 							.setCustomId(`short_time`)
 							.setLabel(`Hours and minutes offset`)
 							.setStyle(TextInputStyle.Short)
-							.setPlaceholder(`HH:mm:ss | HH:mm | mm`)
-							.setMaxLength(8)
+							.setPlaceholder(timeFormats.join(` | `))
+							.setMaxLength(Math.max(...timeFormats.map((x) => x.length)))
 							.setRequired(false)
 					]),
 				new ActionRowBuilder<TextInputBuilder>()
@@ -100,9 +104,9 @@ export const relativeButtonInteraction = (inObjs: Array<{interaction: ButtonInte
 							.setLabel(`Is the timestamp in the past?`)
 							.setStyle(TextInputStyle.Short)
 							.setValue(`No`)
-							.setPlaceholder(`Y/N | y/n | Yes/No | yes/no | true/false | 1/0`)
-							.setMinLength(1)
-							.setMaxLength(4)
+							.setPlaceholder(negativeFormats.join(` | `))
+							.setMinLength(Math.min(...negativeFormats.map((a) => Math.min(...a.split(`/`).map((b) => b.length)))))
+							.setMaxLength(Math.max(...negativeFormats.map((a) => Math.max(...a.split(`/`).map((b) => b.length)))))
 							.setRequired(true)
 					])
 			]);
@@ -116,13 +120,13 @@ export const relativeModalInteraction = (inObjs: Array<{interaction: ModalMessag
 	inObjs.forEach((inObj) => {
 		let days, hours, minutes, months, offset, seconds, years;
 		/* eslint-disable no-useless-assignment */
-		offset = 0;
-		years = 0;
-		months = 0;
-		days = 0;
-		hours = 0;
-		minutes = 0;
-		seconds = 0;
+		offset = zero;
+		years = zero;
+		months = zero;
+		days = zero;
+		hours = zero;
+		minutes = zero;
+		seconds = zero;
 		/* eslint-enable no-useless-assignment */
 
 		const { interaction } = inObj,
@@ -143,27 +147,27 @@ export const relativeModalInteraction = (inObjs: Array<{interaction: ModalMessag
 
 		if (yearsMonthsDaysRegex.test(longTime)) {
 
-			years = Number.parseInt(splitDate[0], 10);
-			months = Number.parseInt(splitDate[1], 10);
-			days = Number.parseInt(splitDate[2], 10);
+			years = Number.parseInt(splitDate[Index.First], 10);
+			months = Number.parseInt(splitDate[Index.Second], 10);
+			days = Number.parseInt(splitDate[Index.Third], 10);
 
 		} else if (monthsDaysRegex.test(longTime)) {
 
-			years = 0;
-			months = Number.parseInt(splitDate[1], 10);
-			days = Number.parseInt(splitDate[2], 10);
+			years = zero;
+			months = Number.parseInt(splitDate[Index.First], 10);
+			days = Number.parseInt(splitDate[Index.Second], 10);
 
 		} else if (daysRegex.test(longTime)) {
 
-			years = 0;
-			months = 0;
+			years = zero;
+			months = zero;
 			days = Number.parseInt(longTime, 10);
 
-		} else if (longTime.length === 0) {
+		} else if (longTime.length === zero) {
 
-			years = 0;
-			months = 0;
-			days = 0;
+			years = zero;
+			months = zero;
+			days = zero;
 
 		} else {
 			interaction.update({ components: [], content: `Error paring date`, embeds: [] }).catch(genericCatch);
@@ -172,43 +176,55 @@ export const relativeModalInteraction = (inObjs: Array<{interaction: ModalMessag
 
 		if (hoursMinutesSecondsRegex.test(shortTime)) {
 
-			hours = Number.parseInt(splitTime[0], 10);
-			minutes = Number.parseInt(splitTime[1], 10);
-			seconds = Number.parseInt(splitTime[2], 10);
+			hours = Number.parseInt(splitTime[Index.First], 10);
+			minutes = Number.parseInt(splitTime[Index.Second], 10);
+			seconds = Number.parseInt(splitTime[Index.Third], 10);
 
 		} else if (hoursMinutesRegex.test(shortTime)) {
 
-			hours = Number.parseInt(splitTime[1], 10);
-			minutes = Number.parseInt(splitTime[2], 10);
-			seconds = 0;
+			hours = Number.parseInt(splitTime[Index.Second], 10);
+			minutes = Number.parseInt(splitTime[Index.Third], 10);
+			seconds = zero;
 
 		} else if (minutesRegex.test(shortTime)) {
 
-			hours = 0;
+			hours = zero;
 			minutes = Number.parseInt(shortTime, 10);
-			seconds = 0;
+			seconds = zero;
 
-		} else if (shortTime.length === 0) {
+		} else if (shortTime.length === zero) {
 
-			hours = 0;
-			minutes = 0;
-			seconds = 0;
+			hours = zero;
+			minutes = zero;
+			seconds = zero;
 
 		} else {
 			interaction.update({ components: [], content: `Error paring time`, embeds: [] }).catch(genericCatch);
 			return;
 		}
+		/* eslint-disable sort-vars */
+		// eslint-disable-next-line one-var
+		const minutesPerHour = 60,
+		hoursPerDay = 24,
+		daysPerMonth = 30,
+		daysPerYear = 365,
+		secondsPerMinute = 60,
+		secondsPerHour = minutesPerHour * secondsPerMinute,
+		secondsPerDay = hoursPerDay * secondsPerHour,
+		secondsPerMonth = daysPerMonth * secondsPerDay,
+		secondsPerYear = daysPerYear * secondsPerDay;
+		/* eslint-enable sort-vars */
 
-		offset += years * 31536000;
-		offset += months * 2592000;
-		offset += days * 86400;
-		offset += hours * 3600;
-		offset += minutes * 60;
+		offset += years * secondsPerYear;
+		offset += months * secondsPerMonth;
+		offset += days * secondsPerDay;
+		offset += hours * secondsPerHour;
+		offset += minutes * secondsPerMinute;
 		offset += seconds;
-		offset = [ `Y`,`y`,`Yes`,`yes`,`true`,`1` ].includes(negativeTime) ? 0 - offset : offset;
+		offset = [ `Y`,`y`,`Yes`,`yes`,`true`,`1` ].includes(negativeTime) ? -offset : offset;
 
 		// eslint-disable-next-line one-var
-		const timestamp = (style: TimestampStylesString): `<t:${string}:${TimestampStylesString}>` => `<t:${(Math.floor(new Date().getTime()/1000) + offset).toString()}:${style}>`;
+		const timestamp = (style: TimestampStylesString): `<t:${string}:${TimestampStylesString}>` => `<t:${(Math.floor(new Date().getTime()/msInS) + offset).toString()}:${style}>`;
 
 		// eslint-disable-next-line one-var
 		const embed = new EmbedBuilder()
@@ -236,6 +252,9 @@ export const absoluteButtonInteraction = (inObjs: Array<{interaction: ButtonInte
 	inObjs.forEach((inObj) => {
 		const path = `./${inObj.interaction.client.user.id}/userinfo/${inObj.interaction.user.id}/tz.txt`;
 		// eslint-disable-next-line one-var
+		const dateFormats = [`YYYY-MM-DD`],
+		timeFormats = [ `HH:mm:ss`, `HH:mm` ];
+		// eslint-disable-next-line one-var
 		const modal = new ModalBuilder()
 			.setCustomId(`absolute`)
 			.setTitle(`Absolute timestamp creation`)
@@ -246,8 +265,8 @@ export const absoluteButtonInteraction = (inObjs: Array<{interaction: ButtonInte
 							.setCustomId(`date`)
 							.setLabel(`Date (1979-01-01 if not specified)`)
 							.setStyle(TextInputStyle.Short)
-							.setPlaceholder(`YYYY-MM-DD`)
-							.setMaxLength(10)
+							.setPlaceholder(dateFormats.join(` | `))
+							.setMaxLength(Math.max(...dateFormats.map((a) => a.length)))
 							.setRequired(false)
 					]),
 				new ActionRowBuilder<TextInputBuilder>()
@@ -256,8 +275,8 @@ export const absoluteButtonInteraction = (inObjs: Array<{interaction: ButtonInte
 							.setCustomId(`time`)
 							.setLabel(`Time (00:00:00 if not specified)`)
 							.setStyle(TextInputStyle.Short)
-							.setPlaceholder(`HH:mm:ss | HH:mm`)
-							.setMaxLength(8)
+							.setPlaceholder(timeFormats.join(` | `))
+							.setMaxLength(Math.max(...timeFormats.map((a) => a.length)))
 							.setRequired(false)
 					]),
 				new ActionRowBuilder<TextInputBuilder>()
@@ -267,8 +286,8 @@ export const absoluteButtonInteraction = (inObjs: Array<{interaction: ButtonInte
 						.setLabel(`Which timezone are you using?`)
 						.setStyle(TextInputStyle.Short)
 						.setPlaceholder(existsSync(path) ? readFileSync(path, `utf8`) : `Europe/Oslo`)
-						.setMinLength(Intl.supportedValuesOf(`timeZone`).reduce((a, b) => a.length < b.length ? a : b).length)
-						.setMaxLength(Intl.supportedValuesOf(`timeZone`).reduce((a, b) => a.length > b.length ? a : b).length)
+						.setMinLength(Math.min(...Intl.supportedValuesOf(`timeZone`).map((a) => a.length)))
+						.setMaxLength(Math.max(...Intl.supportedValuesOf(`timeZone`).map((a) => a.length)))
 						.setRequired(true)
 						.setValue(existsSync(path) ? readFileSync(path, `utf8`) : ``)
 					])
@@ -297,14 +316,31 @@ export const absoluteModalInteraction = (inObjs: Array<{interaction: ModalMessag
 			return;
 		}
 
-		let day, hour, minute, month, second, year;
+		enum Months {
+			January = 1,
+			February = 2,
+			March = 3,
+			April = 4,
+			May = 5,
+			June = 6,
+			July = 7,
+			August = 8,
+			September = 9,
+			October = 10,
+			November = 11,
+			December = 12
+		}
+
+
+
+		let day, hour, minute, month: Months, second, year;
 		/* eslint-disable no-useless-assignment */
-		year = 0;
-		month = 0;
-		day = 0;
-		hour = 0;
-		minute = 0;
-		second = 0;
+		year = zero;
+		month = Months.January;
+		day = zero;
+		hour = zero;
+		minute = zero;
+		second = zero;
 		/* eslint-enable no-useless-assignment */
 
 		// eslint-disable-next-line one-var
@@ -314,15 +350,16 @@ export const absoluteModalInteraction = (inObjs: Array<{interaction: ModalMessag
 
 		if (yearsMonthsDaysRegex.test(date)) {
 
-			year = Number.parseInt(splitDate[0], 10);
-			month = Number.parseInt(splitDate[1], 10);
-			day = Number.parseInt(splitDate[2], 10);
+			year = Number.parseInt(splitDate[Index.First], 10);
+			month = Number.parseInt(splitDate[Index.Second], 10);
+			day = Number.parseInt(splitDate[Index.Third], 10);
 
-		} else if (date.length === 0) {
+		} else if (date.length === zero) {
 
-			year = 1970;
-			month = 1;
-			day = 1;
+			const unix = new Date(zero);
+			year = unix.getUTCFullYear();
+			month = unix.getUTCMonth();
+			day = unix.getUTCDate();
 
 		} else {
 			interaction.update({ components: [], content: `Error paring date`, embeds: [] }).catch(genericCatch);
@@ -331,64 +368,86 @@ export const absoluteModalInteraction = (inObjs: Array<{interaction: ModalMessag
 
 		if (hoursMinutesSecondsRegex.test(time)) {
 
-			hour = Number.parseInt(splitTime[0], 10);
-			minute = Number.parseInt(splitTime[1], 10);
-			second = Number.parseInt(splitTime[2], 10);
+			hour = Number.parseInt(splitTime[Index.First], 10);
+			minute = Number.parseInt(splitTime[Index.Second], 10);
+			second = Number.parseInt(splitTime[Index.Third], 10);
 
 		} else if (hoursMinutesRegex.test(time)) {
 
-			hour = Number.parseInt(splitTime[0], 10);
-			minute = Number.parseInt(splitTime[1], 10);
-			second = 0;
+			hour = Number.parseInt(splitTime[Index.First], 10);
+			minute = Number.parseInt(splitTime[Index.Second], 10);
+			second = zero;
 
-		} else if (time.length === 0) {
+		} else if (time.length === zero) {
 
-			hour = 0;
-			minute = 0;
-			second = 0;
+			hour = zero;
+			minute = zero;
+			second = zero;
 
 		} else {
 			interaction.update({ components: [], content: `Error paring time`, embeds: [] }).catch(genericCatch);
 			return;
 		}
 
-		year = year < 100 ? 100 : year;
-		month = month < 1 ? 1 : month;
-		day = day < 1 ? 1 : day;
-		hour = hour < 0 ? 0 : hour;
-		minute = minute < 0 ? 0 : minute;
-		second = second < 0 ? 0 : second;
+		// eslint-disable-next-line one-var
+		const maxValues = {
+			feb: 28,
+			hour: 23,
+			leapFeb: 29,
+			longMonth: 31,
+			minute: 59,
+			month: Months.December,
+			second: 59,
+			shotMonth: 30,
+			year: 9999
+		},
+		minValues = {
+			day: 1,
+			hour: 0,
+			minute: 0,
+			month: Months.January,
+			second: 0,
+			year: 100
+		};
 
-		year = year > 9999 ? 9999 : year;
-		month = month > 12 ? 12 : month;
-		hour = hour > 23 ? 23 : hour;
-		minute = minute > 59 ? 59 : minute;
-		second = second > 59 ? 59 : second;
+		year = Math.max(minValues.year, year);
+		month = Math.max(minValues.month, month);
+		day = Math.max(minValues.day, day);
+		hour = Math.max(minValues.hour, hour);
+		minute = Math.max(minValues.minute, minute);
+		second = Math.max(minValues.second, second);
+		
+		year = Math.min(maxValues.year, year);
+		month = Math.min(maxValues.month, month);
+		hour = Math.min(maxValues.hour, hour);
+		minute = Math.min(maxValues.minute, minute);
+		second = Math.min(maxValues.second, second);
 
 		switch (month) {
-			case 2: {
+			case Months.February: {
+				// eslint-disable-next-line @typescript-eslint/no-magic-numbers
 				if (!(year % 4) && (year % 100 || !(year % 400))) {
-					day = day > 29 ? 29 : day;
+					day = Math.min(maxValues.leapFeb, day);
 					break;
 				}
-				day = day > 28 ? 28 : day;
+				day = Math.min(maxValues.feb, day);
 				break;
 			}
-			case 4:
-			case 6:
-			case 9:
-			case 11: {
-				day = day > 30 ? 30 : day;
+			case Months.April:
+			case Months.June:
+			case Months.September:
+			case Months.November: {
+				day = Math.min(maxValues.shotMonth, day);
 				break;
 			}
-			case 1:
-			case 3:
-			case 5:
-			case 7:
-			case 8:
-			case 10:
-			case 12: {
-				day = day > 31 ? 31 : day;
+			case Months.January:
+			case Months.March:
+			case Months.May:
+			case Months.July:
+			case Months.August:
+			case Months.October:
+			case Months.December: {
+				day = Math.min(maxValues.longMonth, day);
 				break;
 			}
 			default: {
@@ -397,10 +456,10 @@ export const absoluteModalInteraction = (inObjs: Array<{interaction: ModalMessag
 		}
 		
 		// eslint-disable-next-line one-var
-		const utcDate = toUtc(`${year.toString().padStart(4, `0`)}-${month.toString().padStart(2, `0`)}-${day.toString().padStart(2, `0`)}T${hour.toString().padStart(2, `0`)}:${minute.toString().padStart(2, `0`)}:${second.toString().padStart(2, `0`)}.000`, timezone);
+		const utcDate = toUtc(`${year.toString().padStart(maxValues.year.toString().length, `0`)}-${month.toString().padStart(maxValues.month.toString().length, `0`)}-${day.toString().padStart(maxValues.longMonth.toString().length, `0`)}T${hour.toString().padStart(maxValues.hour.toString().length, `0`)}:${minute.toString().padStart(maxValues.minute.toString().length, `0`)}:${second.toString().padStart(maxValues.second.toString().length, `0`)}.000`, timezone);
 
 		// eslint-disable-next-line one-var
-		const timestamp = (style: TimestampStylesString): `<t:${string}:${TimestampStylesString}>`  => `<t:${(Math.floor(utcDate.getTime()/1000)).toString()}:${style}>`;
+		const timestamp = (style: TimestampStylesString): `<t:${string}:${TimestampStylesString}>`  => `<t:${(Math.floor(utcDate.getTime()/msInS)).toString()}:${style}>`;
 
 		// eslint-disable-next-line one-var
 		const embed = new EmbedBuilder()
@@ -440,7 +499,6 @@ export const saveTimezone = (inObjs: Array<{interaction: Interaction}>): void =>
 							.setStyle(TextInputStyle.Short)
 							.setPlaceholder(`Europe/Oslo`)
 							.setRequired(false)
-							.setMinLength(1)
 							.setMaxLength(Intl.supportedValuesOf(`timeZone`).reduce((a, b) => a.length > b.length ? a : b).length)
 					])
 				]);

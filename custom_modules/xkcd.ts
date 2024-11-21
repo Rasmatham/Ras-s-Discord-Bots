@@ -1,5 +1,5 @@
 //#region imports
-import { ephemeral, genericCatch } from "./generalUse";
+import { ephemeral, genericCatch, zero } from "./generalUse";
 import type { CommandInteraction } from "discord.js";
 import { EmbedBuilder } from "discord.js";
 import * as https from "https";
@@ -84,7 +84,7 @@ export const xkcdFunct = (inObjs: Array<{interaction: CommandInteraction}>): voi
 			num = Math.ceil(Math.random() * (xkcdObjOuter.num));
 			if (inObj.interaction.options.get(`xkcd_number`) !== null)
 				num = inObj.interaction.options.get(`xkcd_number`)?.value as number;
-			if (num > (xkcdObjOuter.num) || num <= 0) 
+			if (num > (xkcdObjOuter.num) || num <= zero)
 				inObj.interaction.reply({ content: `Try a whole number from 1 to ${xkcdObjOuter.num.toString()}`, ephemeral }).catch(genericCatch);
 			else {
 				xkcdModule((xkcdObj) => {

@@ -1,7 +1,7 @@
 //#region imports
 import type { Message, MessageCreateOptions } from "discord.js";
+import { ShiftBy, decimalShift, genericCatch } from "./generalUse";
 import { ChannelType } from "discord.js";
-import { genericCatch } from "./generalUse";
 //#endregion
 
 //#region reply
@@ -11,7 +11,7 @@ const reply = (inObjs: Array<{ message: Message, chance?: number, reply: Message
 	inObjs.forEach((inObj) => {
 		if (typeof inObj.chance === `undefined`) 
 			inObj.chance = 100;
-		if (Math.random() * 100 <= inObj.chance) {
+		if (decimalShift(Math.random(), ShiftBy.P2) <= inObj.chance) {
 			if (inObj.message.channel.type === ChannelType.GuildText) {
 				inObj.message.channel.sendTyping().finally(() => {
 					if (inObj.message.channel.type === ChannelType.GuildText)
@@ -84,7 +84,7 @@ const react = (inObjs: Array<{ message: Message, chance?: number, emotes: string
 	inObjs.forEach((inObj) => {
 		if (typeof inObj.chance === `undefined`) 
 			inObj.chance = 100;
-		if (Math.random() * 100 <= inObj.chance) {
+		if (decimalShift(Math.random(), ShiftBy.P2) <= inObj.chance) {
 			inObj.emotes.forEach(emote => {
 				inObj.message.react(emote).catch(genericCatch);
 			});
@@ -101,7 +101,7 @@ export const reactThing = (inObjs: Array<{ message: Message, type: `anywhere` | 
 			const { chance } = inObj;
 			if (inObj.type.toString() === `anywhere`) {
 				inObj.triggers.forEach((trigger) => {
-					if (inObj.message.content.toLowerCase().includes(trigger) && Math.random() * 100 <= chance) {
+					if (inObj.message.content.toLowerCase().includes(trigger) && decimalShift(Math.random(), ShiftBy.P2) <= chance) {
 						react([
 							{
 								chance: inObj.chance,
@@ -129,7 +129,7 @@ export const reactThing = (inObjs: Array<{ message: Message, type: `anywhere` | 
 			}
 			else if (inObj.type.toString() === `mention`) {
 				inObj.triggers.forEach((trigger) => {
-					if (inObj.message.mentions.users.has(trigger as `${bigint}`) && Math.random() * 100 <= chance) {
+					if (inObj.message.mentions.users.has(trigger as `${bigint}`) && decimalShift(Math.random(), ShiftBy.P2) <= chance) {
 						react([
 							{
 								chance: inObj.chance,

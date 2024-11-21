@@ -1,7 +1,7 @@
 //#region imports
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, ChannelType, StringSelectMenuBuilder } from "discord.js";
 import type { CommandInteraction, EmojiIdentifierResolvable, InteractionReplyOptions, Message, MessageCreateOptions } from "discord.js";
-import { blackList, genericCatch } from "./generalUse.js";
+import { ShiftBy, blackList, decimalShift, genericCatch, offByOne } from "./generalUse.js";
 //#endregion
 
 //#region Frick that one rule
@@ -18,7 +18,7 @@ export const hencefortifier = (inObjs: Array<{ message: Message }>): void => {
 						});
 					}
 				});
-				inObj.message.client.channels.fetch(textChannels[Math.floor(Math.random() * (textChannels.length - 1))]).then((channel) => {
+				inObj.message.client.channels.fetch(textChannels[Math.floor(Math.random() * (textChannels.length - offByOne))]).then((channel) => {
 					if (channel?.isSendable())
 						channel.send(`<@${inObj.message.author.id}>, you did an oopsie`).catch(genericCatch);
 				}).catch(genericCatch);
@@ -49,7 +49,7 @@ export enum ReactionTypes {
 // eslint-disable-next-line one-var
 export const espenBotReplacement = (inObjs: Array<{ type: ReactionTypes, message: Message, chance: number, victim: `${bigint}`, out: MessageCreateOptions | EmojiIdentifierResolvable}>): void => {
 	inObjs.forEach((inObj) => {
-		if (inObj.message.author.id === inObj.victim && Math.floor(Math.random() * 100) <= inObj.chance) {
+		if (inObj.message.author.id === inObj.victim && Math.floor(decimalShift(Math.random(), ShiftBy.P2)) <= inObj.chance) {
 			switch (inObj.type) {
 				case ReactionTypes.Message:
 					if (inObj.message.channel.type === ChannelType.GuildText)
@@ -73,8 +73,9 @@ export const buttonGrid = (inObj: {interaction: CommandInteraction}):Interaction
 	const buttonContent:string = inObj.interaction.options.get(`button_content`)?.value as string,
 	discordEmoji = /^<(?:a?)?:.+?:\d+>$/gui,
 	discordEmojiNotExact = /<(?:a?)?:.+?:\d+>/giu,
+	maxLabelLength = 80,
 	unicodeEmoji = /^\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff]$/gui;
-	if (buttonContent.length <= 80) {
+	if (buttonContent.length <= maxLabelLength) {
 		if (buttonContent.match(unicodeEmoji) || buttonContent.match(discordEmoji)) {
 			const button = (id:string): ButtonBuilder => new ButtonBuilder().setCustomId(id).setEmoji(buttonContent).setStyle(ButtonStyle.Secondary);
 			// eslint-disable-next-line one-var

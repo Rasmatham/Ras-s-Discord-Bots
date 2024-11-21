@@ -1,7 +1,7 @@
 //#region imports
 import { ChannelType, EmbedBuilder, User } from "discord.js";
 import type { ColorResolvable, CommandInteraction, Guild, GuildMember, InteractionReplyOptions } from "discord.js";
-import { checkFor, ephemeral, genericCatch } from "./generalUse.js";
+import { base2, checkFor, ephemeral, genericCatch } from "./generalUse.js";
 //#endregion
 
 //#region channelCount
@@ -54,11 +54,11 @@ export const userInfo = async (
 		content: `test`,
 		files: [
 			{
-				attachment: Buffer.from(JSON.stringify(await guild?.members.fetch(inObj.interaction.user), null, 2)),
+				attachment: Buffer.from(JSON.stringify(await guild?.members.fetch(inObj.interaction.user), null, base2)),
 				name:`user.json`
 			},
 			{
-				attachment: Buffer.from(JSON.stringify(await inObj.interaction.user.fetch(true), null, 2)),
+				attachment: Buffer.from(JSON.stringify(await inObj.interaction.user.fetch(true), null, base2)),
 				name: `member.json`
 			}
 		]
@@ -107,6 +107,10 @@ export const serverInfo = (inObjs: Array<{interaction: CommandInteraction}>): vo
 					}
 				});
 			}).then(() => {
+				const maxChannels = 500,
+				snowflakeTimestampBitShift = 22,
+				uniqueDefaultAvatars = 6;
+				// eslint-disable-next-line one-var
 				const embed = new EmbedBuilder().addFields(checkFor([
 					{ arr: textChannels, inline: true, str: `Text channels` },
 					{ arr: voiceChannels, inline: true, str: `Voice channels` },
@@ -114,9 +118,9 @@ export const serverInfo = (inObjs: Array<{interaction: CommandInteraction}>): vo
 					{ arr: unknown, inline: true, str: `Other channels` }
 				])).addFields([
 					{ inline: true, name: `Total channels`, value: (textChannels.length + voiceChannels.length + categories.length + unknown.length).toString() },
-					{ inline: true, name: `Channels left`, value: (500 - (textChannels.length + voiceChannels.length + categories.length + unknown.length)).toString() },
+					{ inline: true, name: `Channels left`, value: (maxChannels - (textChannels.length + voiceChannels.length + categories.length + unknown.length)).toString() },
 					{ inline: true, name: `Members`, value: guild?.memberCount.toString() ?? `error` }
-				]).setThumbnail(guild?.iconURL() ?? `https://cdn.discordapp.com/embed/avatars/${(Math.abs(Number.parseInt(guild?.id ?? `0`, 10) >> 22) % 6).toString()}.png`)
+				]).setThumbnail(guild?.iconURL() ?? `https://cdn.discordapp.com/embed/avatars/${(Math.abs(Number.parseInt(guild?.id ?? `0`, 10) >> snowflakeTimestampBitShift) % uniqueDefaultAvatars).toString()}.png`)
 					.setColor(`#0099FF`);
 					inObj.interaction.reply({ embeds: [embed] }).catch(genericCatch);
 				}).catch(genericCatch);

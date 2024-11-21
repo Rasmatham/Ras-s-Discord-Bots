@@ -1,8 +1,8 @@
 //#region imports
 import type { ColorResolvable, CommandInteraction } from "discord.js";
+import { ShiftBy, decimalShift, genericCatch, offByOne } from "./generalUse";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import { EmbedBuilder } from "discord.js";
-import { genericCatch } from "./generalUse";
 //#endregion
 
 //#region setup
@@ -32,13 +32,14 @@ export const flip = (inObjs: Array<{ interaction: CommandInteraction }>): void =
 			const coinPath = `./${inObj.interaction.client.user.id}/userinfo/${inObj.interaction.user.id}/coinflip`,
 			coinfilel = `${coinPath}/losses.log`,
 			coinfilew = `${coinPath}/wins.log`,
+			fiftyPercent = 50,
 			side = inObj.interaction.options.get(`side`)?.value as `${`heads` | `tails`}`;
 			setup(inObj);
 			if (side === `heads`) {
-				if ((Math.random() * 10) < 5) {
+				if (decimalShift(Math.random(), ShiftBy.P2) < fiftyPercent) {
 					const losecount:string = readFileSync(coinfilel, `utf8`),
 					wincount:string = readFileSync(coinfilew, `utf8`);
-					writeFileSync(coinfilew, (parseInt(wincount, 10) + 1).toString());
+					writeFileSync(coinfilew, (parseInt(wincount, 10) + offByOne).toString());
 					// eslint-disable-next-line one-var
 					const embed:EmbedBuilder = new EmbedBuilder()
 						.setColor(`00FF00` as ColorResolvable)
@@ -50,7 +51,7 @@ export const flip = (inObjs: Array<{ interaction: CommandInteraction }>): void =
 						},
 						{
 							name: `Wins`,
-							value: (parseInt(wincount, 10) + 1).toString()
+							value: (parseInt(wincount, 10) + offByOne).toString()
 						},
 						{
 							name: `Losses`,
@@ -65,7 +66,7 @@ export const flip = (inObjs: Array<{ interaction: CommandInteraction }>): void =
 				else {
 					const losecount:string = readFileSync(coinfilel, `utf8`),
 					wincount:string = readFileSync(coinfilew, `utf8`);
-					writeFileSync(coinfilel, (parseInt(losecount, 10) + 1).toString());
+					writeFileSync(coinfilel, (parseInt(losecount, 10) + offByOne).toString());
 					// eslint-disable-next-line one-var
 					const embed:EmbedBuilder = new EmbedBuilder()
 						.setColor(`FF0000` as ColorResolvable)
@@ -81,7 +82,7 @@ export const flip = (inObjs: Array<{ interaction: CommandInteraction }>): void =
 						},
 						{
 							name: `Losses`,
-							value: (parseInt(losecount, 10) + 1).toString()
+							value: (parseInt(losecount, 10) + offByOne).toString()
 						});
 					inObj.interaction.reply({
 						embeds: [
@@ -91,10 +92,10 @@ export const flip = (inObjs: Array<{ interaction: CommandInteraction }>): void =
 				}
 			}
 			if (side === `tails`) {
-				if ((Math.random() * 10) < 5) {
+				if (decimalShift(Math.random(), ShiftBy.P2) < fiftyPercent) {
 					const losecount:string = readFileSync(coinfilel, `utf8`),
 					wincount:string = readFileSync(coinfilew, `utf8`);
-					writeFileSync(coinfilew, (parseInt(losecount, 10) + 1).toString());
+					writeFileSync(coinfilew, (parseInt(losecount, 10) + offByOne).toString());
 					// eslint-disable-next-line one-var
 					const embed:EmbedBuilder = new EmbedBuilder()
 						.setColor(`00FF00` as ColorResolvable)
@@ -106,7 +107,7 @@ export const flip = (inObjs: Array<{ interaction: CommandInteraction }>): void =
 						},
 						{
 							name: `Wins`,
-							value: (parseInt(wincount, 10) + 1).toString()
+							value: (parseInt(wincount, 10) + offByOne).toString()
 						},
 						{
 							name: `Losses`,
@@ -121,7 +122,7 @@ export const flip = (inObjs: Array<{ interaction: CommandInteraction }>): void =
 				else {
 					const losecount:string = readFileSync(coinfilel, `utf8`),
 					wincount:string = readFileSync(coinfilew, `utf8`);
-					writeFileSync(coinfilel, (parseInt(losecount, 10) + 1).toString());
+					writeFileSync(coinfilel, (parseInt(losecount, 10) + offByOne).toString());
 					// eslint-disable-next-line one-var
 					const embed:EmbedBuilder = new EmbedBuilder()
 						.setColor(`FF0000` as ColorResolvable)
@@ -137,7 +138,7 @@ export const flip = (inObjs: Array<{ interaction: CommandInteraction }>): void =
 						},
 						{
 							name: `Losses`,
-							value: (parseInt(losecount, 10) + 1).toString()
+							value: (parseInt(losecount, 10) + offByOne).toString()
 						});
 					inObj.interaction.reply({
 						embeds: [

@@ -7091,5 +7091,6 @@ export const trainerList = [
 			],
 		],
 	],
+// eslint-disable-next-line @typescript-eslint/no-magic-numbers
 ].flat(4);
 //#endregion
