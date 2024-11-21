@@ -130,7 +130,8 @@ export default tseslint.config(
 			"no-loop-func": `off`,
 			"no-magic-numbers": `off`,
 			"no-shadow": `off`,
-			"no-ternary": `off`
+			"no-ternary": `off`,
+			"no-use-before-define": `off`
 		}
 	},
 	{
@@ -162,7 +163,8 @@ export default tseslint.config(
 			"@typescript-eslint/no-this-alias": [`error`],
 			"@typescript-eslint/no-unnecessary-parameter-property-assignment": [`error`],
 			"@typescript-eslint/no-unnecessary-qualifier": [`error`],
-			"@typescript-eslint/no-unsafe-type-assertion": [`error`]
+			"@typescript-eslint/no-unsafe-type-assertion": [`error`],
+			"@typescript-eslint/no-use-before-define": [`error`]
 		}
 	},
 	{
