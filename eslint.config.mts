@@ -3,83 +3,23 @@ import perfectionist from "eslint-plugin-perfectionist";
 import pluginJs from "@eslint/js";
 import tseslint from "typescript-eslint";
 
+enum NamingConventionFormat {
+	/* eslint-disable @typescript-eslint/naming-convention */
+	camelCase = `camelCase`,
+	PascalCase = `PascalCase`,
+	snake_case = `snake_case`,
+	strictCamelCase = `strictCamelCase`,
+	StrictPascalCase = `StrictPascalCase`,
+	UPPER_CASE = `UPPER_CASE`
+	/* eslint-enable @typescript-eslint/naming-convention */
+}
+interface NamingConventionRule { format: NamingConventionFormat[], selector: string|string[] }
+const easyNamingConvention = (selectors: string[], format: NamingConventionFormat[] = [NamingConventionFormat.strictCamelCase]):NamingConventionRule[] => selectors.map((selector) => ({ format, selector }));
+
+// eslint-disable-next-line one-var
 const namingConventions = [
-	{
-		"format": [`strictCamelCase`],
-		"selector": `classicAccessor`
-	},
-	{
-		"format": [`strictCamelCase`],
-		"selector": `autoAccessor`
-	},
-	{
-		"format": [`StrictPascalCase`],
-		"selector": `class`
-	},
-	{
-		"format": [`strictCamelCase`],
-		"selector": `classMethod`
-	},
-	{
-		"format": [`strictCamelCase`],
-		"selector": `classProperty`
-	},
-	{
-		"format": [`StrictPascalCase`],
-		"selector": `enum`
-	},
-	{
-		"format": [`StrictPascalCase`],
-		"selector": `enumMember`
-	},
-	{
-		"format": [`strictCamelCase`],
-		"selector": `function`
-	},
-	{
-		"format": [`strictCamelCase`],
-		"selector": `import`
-	},
-	{
-		"format": [`StrictPascalCase`],
-		"selector": `interface`
-	},
-	{
-		"format": [`strictCamelCase`],
-		"selector": `objectLiteralMethod`
-	},
-	{
-		"format": [`strictCamelCase`],
-		"selector": `objectLiteralProperty`
-	},
-	{
-		"format": [`strictCamelCase`],
-		"selector": `parameter`
-	},
-	{
-		"format": [`strictCamelCase`],
-		"selector": `parameterProperty`
-	},
-	{
-		"format": [`StrictPascalCase`],
-		"selector": `typeAlias`
-	},
-	{
-		"format": [`strictCamelCase`],
-		"selector": `typeMethod`
-	},
-	{
-		"format": [`UPPER_CASE`],
-		"selector": `typeParameter`
-	},
-	{
-		"format": [`strictCamelCase`],
-		"selector": `typeProperty`
-	},
-	{
-		"format": [`strictCamelCase`],
-		"selector": `variable`
-	}
+	...easyNamingConvention([ `classicAccessor`, `autoAccessor`, `classMethod`, `classProperty`, `function`, `import`, `objectLiteralMethod`, `objectLiteralProperty`, `parameter`, `parameterProperty`, `typeMethod`, `typeProperty`, `variable` ]),
+	...easyNamingConvention([ `class`, `enum`, `enumMember`, `interface`, `typeAlias`, `typeParameter` ], [NamingConventionFormat.StrictPascalCase]),
 ];
 
 export default tseslint.config(
