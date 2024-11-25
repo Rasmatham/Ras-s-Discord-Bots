@@ -176,7 +176,8 @@ export default tseslint.config(
 			"@typescript-eslint/prefer-find": [`error`],
 			"@typescript-eslint/prefer-readonly": [`error`],
 			"@typescript-eslint/promise-function-async": [`error`],
-			"@typescript-eslint/require-array-sort-compare": [`error`]
+			"@typescript-eslint/require-array-sort-compare": [`error`],
+			"@typescript-eslint/strict-boolean-expressions": [`error`]
 		}
 	},
 	{

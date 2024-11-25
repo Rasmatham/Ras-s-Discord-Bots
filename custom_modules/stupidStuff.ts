@@ -19,8 +19,10 @@ export const hencefortifier = (inObjs: Array<{ message: Message }>): void => {
 					}
 				});
 				inObj.message.client.channels.fetch(textChannels[Math.floor(Math.random() * (textChannels.length - offByOne))]).then((channel) => {
-					if (channel?.isSendable())
-						channel.send(`<@${inObj.message.author.id}>, you did an oopsie`).catch(genericCatch);
+					if (channel !== null) {
+						if (channel.isSendable())
+							channel.send(`<@${inObj.message.author.id}>, you did an oopsie`).catch(genericCatch);
+					}
 				}).catch(genericCatch);
 			}
 		}

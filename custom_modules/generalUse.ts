@@ -212,8 +212,8 @@ export const listThings = async (interaction:CommandInteraction):Promise<Interac
 			return await interaction.guild.channels.fetch().then((channels) => {
 				const channelsFormated = channels.map((channel) => {
 					const channelData = {
-						createdDate: time(Math.round((channel?.createdTimestamp ? channel.createdTimestamp : zero)/msInS), TimestampStyles.LongDate),
-						createdTime: time(Math.round((channel?.createdTimestamp ? channel.createdTimestamp : zero)/msInS), TimestampStyles.LongTime),
+						createdDate: time(Math.round((channel?.createdTimestamp ?? zero)/msInS), TimestampStyles.LongDate),
+						createdTime: time(Math.round((channel?.createdTimestamp ?? zero)/msInS), TimestampStyles.LongTime),
 						mention: channelMention(channel?.id ?? `error`),
 						type: channel === null ? `error` : ChannelType[channel.type].toString()
 					};
@@ -342,7 +342,7 @@ export const botReady = (inObjs: Array<{ bots: Client[] }>, testMode?: boolean):
 				}).catch(genericCatch);
 			});
 			
-			if (testMode) {
+			if (testMode ?? false) {
 				bot.on(Events.Error, (err) => {console.error(`ERROR ${bot.user?.username ?? ``}`); console.error(err); console.error(``);});
 				bot.on(Events.Debug, (deb) => {console.info(`DEBUG ${bot.user?.username ?? ``}`); console.info(deb); console.info(``);});
 			}

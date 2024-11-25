@@ -6,7 +6,7 @@ import * as https from "https";
 //#endregion
 
 const domain = `https://xkcd.com/`,
-path = `info.0.json`;
+path = `/info.0.json`;
 
 /* eslint-disable @typescript-eslint/naming-convention */
 interface RawXkcdJson {
@@ -72,7 +72,7 @@ const isRawXkcdJson = (obj: unknown): obj is RawXkcdJson  => {
 	`day` in obj;
 },
 xkcdModule = (cb: (data:Error | Xkcd) => void, id?: number | string): void => {
-	const idUrl = id ? `${id.toString()}/` : ``,
+	const idUrl = id?.toString() ?? ``,
 	url = domain + idUrl + path;
 	https.get(url, (res) => {
 		let body: string;

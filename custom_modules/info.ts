@@ -102,7 +102,7 @@ export const serverInfo = (inObjs: Array<{interaction: CommandInteraction}>): vo
 						categories.push(channel.name);
 						break;
 					default:
-						unknown.push(channel?.name ? channel.name : ``);
+						unknown.push(channel?.name ?? ``);
 						break;
 					}
 				});
@@ -131,7 +131,7 @@ export const serverInfo = (inObjs: Array<{interaction: CommandInteraction}>): vo
 
 //#region join date
 // eslint-disable-next-line one-var
-export const joindate = (inObj: { interaction: CommandInteraction }):{ embeds: EmbedBuilder[], ephemeral: boolean } => {
+export const joindate = (inObj: { interaction: CommandInteraction }): InteractionReplyOptions => {
 	if (!(inObj.interaction.member?.user instanceof User)) 
 		return { embeds: [new EmbedBuilder], ephemeral };
 	const date = new Date(inObj.interaction.member.user.createdTimestamp);
@@ -152,6 +152,8 @@ export const joindate = (inObj: { interaction: CommandInteraction }):{ embeds: E
 		]);
 	// eslint-disable-next-line one-var
 	const empherealOption = inObj.interaction.options.get(`public`);
-	return { embeds: [embed], ephemeral: !empherealOption?.value };
+	if (typeof empherealOption?.value !== `boolean`)
+		return {};
+	return { embeds: [embed], ephemeral: !empherealOption.value };
 };
 //#endregion
