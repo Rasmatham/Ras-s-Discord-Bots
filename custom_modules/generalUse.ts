@@ -135,12 +135,12 @@ export const intents:IntentsBitField = new IntentsBitField([
 
 //#region Check amount
 // eslint-disable-next-line one-var
-export const checkFor = (inObjs: Array<{ arr: string[], str: string, inline?:boolean }>): EmbedField[] => {
+export const checkFor = (inObjs: Array<{ channels: number, str: string, inline?:boolean }>): EmbedField[] => {
 	const out:EmbedField[] = [];
 	inObjs.forEach((inObj) => {
-		if (inObj.arr.length > zero) {
+		if (inObj.channels > zero) {
 			inObj.inline = true;
-			out.push({ inline:inObj.inline, name: inObj.str, value: inObj.arr.length.toString() });
+			out.push({ inline:inObj.inline, name: inObj.str, value: inObj.channels.toString() });
 		}
 	});
 	return out;
@@ -205,6 +205,7 @@ export const sendAsWebHook = (inObjs: Array<{ message: Message, sendTo: Exclude<
 // eslint-disable-next-line one-var
 export const listThings = async (interaction:CommandInteraction):Promise<InteractionReplyOptions[]> => {
 	const thing = interaction.options.get(`thing`)?.value;
+	if (typeof thing !== `string`) return [];
 	if (interaction.guild === null) 
 		return [{ content: `How am I supposed to do that?` }];
 	switch (thing) {

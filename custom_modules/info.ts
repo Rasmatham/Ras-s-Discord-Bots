@@ -1,43 +1,76 @@
 //#region imports
 import { ChannelType, EmbedBuilder, User } from "discord.js";
 import type { CommandInteraction, Guild, InteractionReplyOptions } from "discord.js";
-import { base2, checkFor, ephemeral, genericCatch } from "./generalUse.js";
+import { base2, checkFor, ephemeral, genericCatch, inc, zero } from "./generalUse.js";
 //#endregion
 
 //#region channelCount
 export const channelCount = (inObj: { guild: Guild }):{
-	textChannels: `unknown` | number,
-	voiceChannels: `unknown` | number,
-	categories: `unknown` | number,
-	unknown: `unknown` | number,
-	all: `unknown` | number
+	all: number,
+	announcementChannels: number,
+	categories: number,
+	forumChannels: number,
+	mediaChannels: number,
+	stageChannels: number,
+	textChannels: number,
+	threads: number,
+	unknown: number,
+	voiceChannels: number,
 } => {
-	const categories:string[] = [],
-	textChannels:string[] = [],
-	unknown:string[] = [],
-	voiceChannels:string[] = [];
+	let announcementChannels: number, categories: number, forumChannels: number, mediaChannels: number, stageChannels: number, textChannels: number, threads: number, unknown: number, voiceChannels: number;
+	announcementChannels = zero;
+	categories = zero;
+	forumChannels = zero;
+	mediaChannels = zero;
+	stageChannels = zero;
+	textChannels = zero;
+	threads = zero;
+	unknown = zero;
+	voiceChannels = zero;
 	inObj.guild.channels.cache.forEach((channel) => {
 		switch (channel.type) {
 		case ChannelType.GuildText:
-			textChannels.push(channel.name);
+			textChannels += inc;
 			break;
 		case ChannelType.GuildVoice:
-			voiceChannels.push(channel.name);
+			voiceChannels += inc;
 			break;
 		case ChannelType.GuildCategory:
-			categories.push(channel.name);
+			categories += inc;
 			break;
-		default:
-			unknown.push(channel.name);
+		case ChannelType.GuildAnnouncement:
+			announcementChannels += inc;
+			break;
+		case ChannelType.GuildStageVoice:
+			stageChannels += inc;
+			break;
+		case ChannelType.GuildForum:
+			forumChannels += inc;
+			break;
+		case ChannelType.GuildMedia:
+			mediaChannels += inc;
+			break;
+		case ChannelType.AnnouncementThread:
+		case ChannelType.PublicThread:
+		case ChannelType.PrivateThread:
+			threads += inc;
+			break;
+  		default:
+			unknown += inc;
 			break;
 		}
 	});
 	return {
-		all: textChannels.length+voiceChannels.length+categories.length+unknown.length,
-		categories: categories.length,
-		textChannels: textChannels.length,
-		unknown: unknown.length,
-		voiceChannels: voiceChannels.length,
+		all: announcementChannels + categories + forumChannels + mediaChannels + stageChannels + textChannels + unknown + voiceChannels,
+		announcementChannels,
+		categories,
+		forumChannels,
+		mediaChannels,
+		stageChannels,
+		textChannels,
+		threads,
+		unknown,
+		voiceChannels,
 	};
 };
 //#endregion
@@ -84,42 +117,65 @@ export const serverInfo = (inObjs: Array<{interaction: CommandInteraction}>): vo
 			}
 		}
 		else {
-			const 
-			categories:string[] = [],
-			textChannels:string[] = [],
-			unknown:string[] = [],
-			voiceChannels:string[] = [];
+			let announcementChannels: number, categories: number, forumChannels: number, mediaChannels: number, stageChannels: number, textChannels: number, unknown: number, voiceChannels: number;
+			announcementChannels = zero;
+			categories = zero;
+			forumChannels = zero;
+			mediaChannels = zero;
+			stageChannels = zero;
+			textChannels = zero;
+			unknown = zero;
+			voiceChannels = zero;
 			inObj.interaction.guild.channels.fetch().then((channels) => {
 				channels.forEach((channel) => {
-					switch (channel?.type) {
+					if (channel === null) return;
+					switch (channel.type) {
 					case ChannelType.GuildText:
-						textChannels.push(channel.name);
+						textChannels += inc;
 						break;
 					case ChannelType.GuildVoice:
-						voiceChannels.push(channel.name);
+						voiceChannels += inc;
 						break;
 					case ChannelType.GuildCategory:
-						categories.push(channel.name);
+						categories += inc;
+						break;
+					case ChannelType.GuildAnnouncement:
+						announcementChannels += inc;
+						break;
+					case ChannelType.GuildStageVoice:
+						stageChannels += inc;
+						break;
+					case ChannelType.GuildForum:
+						forumChannels += inc;
+						break;
+					case ChannelType.GuildMedia:
+						mediaChannels += inc;
 						break;
 					default:
-						unknown.push(channel?.name ?? ``);
+						unknown += inc;
 						break;
 					}
 				});
 			}).then(() => {
-				const maxChannels = 500,
+				const currentChannels = announcementChannels + categories + forumChannels + mediaChannels + stageChannels + textChannels + unknown + voiceChannels,
+				inline = true,
+				maxChannels = 500,
 				snowflakeTimestampBitShift = 22,
 				uniqueDefaultAvatars = 6;
 				// eslint-disable-next-line one-var
 				const embed = new EmbedBuilder().addFields(checkFor([
-					{ arr: textChannels, inline: true, str: `Text channels` },
-					{ arr: voiceChannels, inline: true, str: `Voice channels` },
-					{ arr: categories, inline: true, str: `Categories` },
-					{ arr: unknown, inline: true, str: `Other channels` }
+					{ channels: textChannels, inline, str: `Text channels` },
+					{ channels: voiceChannels, inline, str: `Voice channels` },
+					{ channels: categories, inline, str: `Categories` },
+					{ channels: announcementChannels, inline, str: `Announcement channels` },
+					{ channels: forumChannels, inline, str: `Forum channels` },
+					{ channels: mediaChannels, inline, str: `Media channels` },
+					{ channels: stageChannels, inline, str: `Stage channels` },
+					{ channels: unknown, inline, str: `Unknown channels` }
 				])).addFields([
-					{ inline: true, name: `Total channels`, value: (textChannels.length + voiceChannels.length + categories.length + unknown.length).toString() },
-					{ inline: true, name: `Channels left`, value: (maxChannels - (textChannels.length + voiceChannels.length + categories.length + unknown.length)).toString() },
-					{ inline: true, name: `Members`, value: guild?.memberCount.toString() ?? `error` }
+					{ inline, name: `Total channels`, value: (currentChannels).toString() },
+					{ inline, name: `Channels left`, value: (maxChannels - currentChannels).toString() },
+					{ inline, name: `Members`, value: guild?.memberCount.toString() ?? `error` }
 				]).setThumbnail(guild?.iconURL() ?? `https://cdn.discordapp.com/embed/avatars/${(Math.abs(Number.parseInt(guild?.id ?? `0`, 10) >> snowflakeTimestampBitShift) % uniqueDefaultAvatars).toString()}.png`)
 					.setColor(`#0099FF`);
 					inObj.interaction.reply({ embeds: [embed] }).catch(genericCatch);

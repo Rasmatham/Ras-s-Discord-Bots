@@ -115,7 +115,7 @@ export const ticTacToe = (inObjs: Array<{ interaction: CommandInteraction }>): v
 								});
 						
 								buttons.forEach((button) => {
-									if (button.emoji !== null) {
+									if (typeof button.emoji?.name !== `undefined`) {
 										switch (button.emoji.name) {
 										case `⭕`:
 											o += inc;
@@ -123,7 +123,7 @@ export const ticTacToe = (inObjs: Array<{ interaction: CommandInteraction }>): v
 										case `❌`:
 											x += inc;
 											break;
-										default:
+          								default:
 											break;
 										}
 									}
@@ -323,14 +323,16 @@ export const ticTacToe = (inObjs: Array<{ interaction: CommandInteraction }>): v
 												checkThree = (index:[number, number, number], type: PlayerSymbol): boolean => check(index[Index.First], type) && check(index[Index.Second], type) && check(index[Index.Third], type);
 												rows.forEach((row) => {
 													row.components.forEach((button) => {
-														const json = button.toJSON();
-														if (json.style === style) {
-															switch (json.emoji?.name) {
+														const isPlayerSymbol = (value: number|string): value is PlayerSymbol => value in PlayerSymbol,
+														json = button.toJSON();
+														if (json.style === style && typeof json.emoji?.name !== `undefined` && isPlayerSymbol(json.emoji.name)) {
+															switch (json.emoji.name) {
 																case PlayerSymbol.O:
 																case PlayerSymbol.X:
 																	buttonArray.push(json.emoji.name);
 																	break;
-																default:
+																case PlayerSymbol.Ras:
+                												default:
 																	buttonArray.push(PlayerSymbol.Ras);
 																break;
 															}

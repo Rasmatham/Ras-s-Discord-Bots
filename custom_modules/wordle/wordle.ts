@@ -326,7 +326,9 @@ class Wordle {
 
 // eslint-disable-next-line one-var
 export const startGame = (interaction: ChatInputCommandInteraction): void => {
-	switch (interaction.options.getSubcommandGroup(false)) {
+	const subcommandGroup = interaction.options.getSubcommandGroup(false);
+	if (subcommandGroup === null) return;
+	switch (subcommandGroup) {
 		case `play`:
 			interaction.reply({ content: `please wait`, ephemeral }).then(() => {
 				const wordle = new Wordle(interaction);

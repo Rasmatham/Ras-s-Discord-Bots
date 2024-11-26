@@ -33,7 +33,13 @@ export const natDex = (inObj: {query: number | string}):MessageReplyOptions => {
 					dexNumber = Number.parseInt(pokeObj.nat, 10);
 			});
 			break;
-		default:
+		case `bigint`:
+		case `boolean`:
+		case `symbol`:
+		case `undefined`:
+		case `object`:
+		case `function`:
+  		default:
 			break;
 	}
 	const attachment = { attachment: `./Pokebot/Pokemon/1-151/250px-${pokemon[dexNumber].nat}${pokemon[dexNumber].name}.png` },
