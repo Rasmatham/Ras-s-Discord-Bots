@@ -35,6 +35,7 @@ type EmoteTypeList = [
 	EmoteList[],
 	EmoteList[]
 ];
+type HalfByteAsString = `${ `i` | `o` }${ `i` | `o` }${ `i` | `o` }${ `i` | `o` }`;
 interface MazeObj {
 	bottom: boolean,
 	left: boolean,
@@ -44,7 +45,6 @@ interface MazeObj {
 	x: number,
 	y: number,
 }
-type HalfByteAsString = `${ `i` | `o` }${ `i` | `o` }${ `i` | `o` }${ `i` | `o` }`;
 //#endregion
 
 //#region maze generator

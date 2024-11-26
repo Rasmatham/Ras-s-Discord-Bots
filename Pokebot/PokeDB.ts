@@ -1,5 +1,28 @@
 import type { ColorResolvable } from "discord.js";
 
+export interface PokeObjType {
+	dexEntries:DexEntriesType
+	height:[
+		string,
+		string
+	],
+	name: string,
+	nat:string,
+	rarity:number,
+	reg:string,
+	types:[PokeType,PokeType] | [PokeType],
+	weight:[
+		string,
+		string
+	],
+}
+export interface PokeType {
+	color: ColorResolvable,
+	name: string,
+	noDamageTo?: string[]
+	strongTo?: string[],
+	weakTo?: string[],
+}
 //#region type definitions
 interface DexEntriesType {
 	as: string,
@@ -33,29 +56,6 @@ interface DexEntriesType {
 	xx: string,
 	yr: string,
 	yy: string,
-}
-export interface PokeType {
-	color: ColorResolvable,
-	name: string,
-	noDamageTo?: string[]
-	strongTo?: string[],
-	weakTo?: string[],
-}
-export interface PokeObjType {
-	dexEntries:DexEntriesType
-	height:[
-		string,
-		string
-	],
-	name: string,
-	nat:string,
-	rarity:number,
-	reg:string,
-	types:[PokeType,PokeType] | [PokeType],
-	weight:[
-		string,
-		string
-	],
 }
 //#endregion
 
