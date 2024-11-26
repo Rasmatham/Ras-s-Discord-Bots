@@ -18,7 +18,7 @@ import * as coinflip from "./custom_modules/coinflip";
 import * as containsWord from "./custom_modules/containsWordFunctions";
 import * as dice from "./custom_modules/dice";
 import * as forwarding from "./custom_modules/forwardMessages";
-import { Index, ShiftBy, blackList, botReady, decimalShift, ephemeral, genericCatch, headerlessField, inc, intents, listThings, login, msInS, offByOne, sendAsWebHook, technicalStuff, toBigInt } from "./custom_modules/generalUse";
+import { blackList, botReady, decimalShift, ephemeral, genericCatch, headerlessField, inc, Index, intents, listThings, login, msInS, offByOne, sendAsWebHook, ShiftBy, technicalStuff, toBigInt } from "./custom_modules/generalUse";
 import * as info from "./custom_modules/info";
 import * as inspiroBot from "./custom_modules/inspiroBot";
 import * as maze from "./custom_modules/playableMaze";

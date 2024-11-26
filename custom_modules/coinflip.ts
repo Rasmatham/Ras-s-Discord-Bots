@@ -4,7 +4,7 @@ import type { CommandInteraction } from "discord.js";
 import { EmbedBuilder } from "discord.js";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 
-import { ShiftBy, decimalShift, genericCatch, offByOne } from "./generalUse";
+import { decimalShift, genericCatch, offByOne, ShiftBy } from "./generalUse";
 //#endregion
 
 //#region setup

@@ -3,7 +3,7 @@ import type { CommandInteraction, EmojiIdentifierResolvable, InteractionReplyOpt
 
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, ChannelType, StringSelectMenuBuilder } from "discord.js";
 
-import { ShiftBy, blackList, decimalShift, genericCatch, offByOne, toBigInt } from "./generalUse.js";
+import { blackList, decimalShift, genericCatch, offByOne, ShiftBy, toBigInt } from "./generalUse.js";
 //#endregion
 
 //#region Frick that one rule

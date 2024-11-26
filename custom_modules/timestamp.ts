@@ -4,7 +4,7 @@ import type { ButtonInteraction, Interaction, ModalMessageModalSubmitInteraction
 import { ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } from "discord.js";
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "fs";
 
-import { Index, ShiftBy, binaryShift, ephemeral, genericCatch, msInS, zero } from "./generalUse";
+import { binaryShift, ephemeral, genericCatch, Index, msInS, ShiftBy, zero } from "./generalUse";
 //#endregion
 
 //#region setup

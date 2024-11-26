@@ -3,7 +3,7 @@ import type { CommandInteraction } from "discord.js";
 
 import { EmbedBuilder } from "discord.js";
 
-import { ShiftBy, decimalShift, genericCatch, inc, offByOne } from "./generalUse";
+import { decimalShift, genericCatch, inc, offByOne, ShiftBy } from "./generalUse";
 //#endregion
 
 //#region die roller

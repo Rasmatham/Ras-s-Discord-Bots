@@ -3,7 +3,7 @@ import type { ButtonInteraction, CommandInteraction, EmojiIdentifierResolvable, 
 
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, Events } from "discord.js";
 
-import { Index, boolToInt, ephemeral, genericCatch, inc, offByOne, zero } from "./generalUse";
+import { boolToInt, ephemeral, genericCatch, inc, Index, offByOne, zero } from "./generalUse";
 import mazeThing from "./mazegen";
 //#endregion
 

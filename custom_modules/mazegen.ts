@@ -1,4 +1,4 @@
-import { Index, inc, offByOne, zero } from "./generalUse";
+import { inc, Index, offByOne, zero } from "./generalUse";
 
 /* eslint-disable sort-vars */
 interface Cell {

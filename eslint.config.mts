@@ -135,6 +135,7 @@ export default tseslint.config(
 			"perfectionist/sort-maps": [`error`],
 			"perfectionist/sort-modules": [`error`],
 			"perfectionist/sort-named-exports": [`error`],
+			"perfectionist/sort-named-imports": [`error`],
 			"perfectionist/sort-union-types": [`error`]
 		}
 	},

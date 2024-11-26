@@ -3,7 +3,7 @@ import type { CommandInteraction, ComponentEmojiResolvable, EmojiIdentifierResol
 
 import { ActionRowBuilder, ButtonBuilder, ButtonComponent, ButtonStyle, ComponentType, Events, MessageMentions } from "discord.js";
 
-import { Index, ephemeral, genericCatch, inc, offByOne, zero } from "./generalUse";
+import { ephemeral, genericCatch, inc, Index, offByOne, zero } from "./generalUse";
 //#endregion
 
 //#region tic tac toe game

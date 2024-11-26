@@ -3,7 +3,7 @@ import type { ChatInputCommandInteraction, ComponentEmojiResolvable } from "disc
 
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, Events, InteractionType } from "discord.js";
 
-import { Index, ephemeral, genericCatch, inc, offByOne } from "../generalUse";
+import { ephemeral, genericCatch, inc, Index, offByOne } from "../generalUse";
 import * as words from "./words";
 //#endregion
 /* eslint-disable id-length */

@@ -3,7 +3,7 @@ import type { Message, MessageCreateOptions } from "discord.js";
 
 import { ChannelType } from "discord.js";
 
-import { ShiftBy, decimalShift, genericCatch, toBigInt } from "./generalUse";
+import { decimalShift, genericCatch, ShiftBy, toBigInt } from "./generalUse";
 //#endregion
 
 //#region reply
