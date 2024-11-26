@@ -4,25 +4,20 @@ import type { CommandInteraction } from "discord.js";
 import { EmbedBuilder } from "discord.js";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 
-import { decimalShift, genericCatch, offByOne, ShiftBy } from "./generalUse";
+import { decimalShift, genericCatch, inc, offByOne, ShiftBy } from "./generalUse";
 // #endregion
 
 // #region setup
 const setup = (inObj: { interaction: CommandInteraction }): void => {
 	const clientId = inObj.interaction.client.user.id,
-		userId = inObj.interaction.user.id;
-	if (!existsSync(`./${clientId}`))
-		mkdirSync(`./${clientId}`);
-	if (!existsSync(`./${clientId}/userinfo`))
-		mkdirSync(`./${clientId}/userinfo`);
-	if (!existsSync(`./${clientId}/userinfo/${userId}`))
-		mkdirSync(`./${clientId}/userinfo/${userId}`);
-	if (!existsSync(`./${clientId}/userinfo/${userId}/coinflip`))
-		mkdirSync(`./${clientId}/userinfo/${userId}/coinflip`);
-	if (!existsSync(`./${clientId}/userinfo/${userId}/coinflip/wins.log`))
-		writeFileSync(`./${clientId}/userinfo/${userId}/coinflip/wins.log`, `0`);
-	if (!existsSync(`./${clientId}/userinfo/${userId}/coinflip/losses.log`))
-		writeFileSync(`./${clientId}/userinfo/${userId}/coinflip/losses.log`, `0`);
+		userId = inObj.interaction.user.id,
+		path = `./${clientId}/userinfo/${userId}/coinflip`;
+	if (!existsSync(path))
+		mkdirSync(path, { recursive: true });
+	if (!existsSync(`${path}/wins.log`))
+		writeFileSync(`${path}/wins.log`, `0`);
+	if (!existsSync(`${path}/losses.log`))
+		writeFileSync(`${path}/losses.log`, `0`);
 };
 // #endregion
 
@@ -34,121 +29,29 @@ export const flip = (inObjs: Array<{ interaction: CommandInteraction }>): void =
 			const coinPath = `./${inObj.interaction.client.user.id}/userinfo/${inObj.interaction.user.id}/coinflip`,
 				coinfilel = `${coinPath}/losses.log`,
 				coinfilew = `${coinPath}/wins.log`,
+				discordUrl = (path: string): string => `https://cdn.discordapp.com/attachments/656164355381133332/${path}.gif`,
 				fiftyPercent = 50,
-				side = inObj.interaction.options.get(`side`)?.value;
+				losecount = readFileSync(coinfilel, `utf8`),
+				side = inObj.interaction.options.get(`side`)?.value,
+				wincount = readFileSync(coinfilew, `utf8`),
+				winState = (decimalShift(Math.random(), ShiftBy.P2) < fiftyPercent);
+			if (typeof side !== `string`) return;
 			setup(inObj);
-			if (side === `heads`) {
-				if (decimalShift(Math.random(), ShiftBy.P2) < fiftyPercent) {
-					const losecount: string = readFileSync(coinfilel, `utf8`),
-						wincount: string = readFileSync(coinfilew, `utf8`);
-					writeFileSync(coinfilew, (parseInt(wincount, 10) + offByOne).toString());
-					// eslint-disable-next-line one-var
-					const embed: EmbedBuilder = new EmbedBuilder()
-						.setColor(`#00FF00`)
-						.setTitle(`You won!`)
-						.setThumbnail(`https://cdn.discordapp.com/attachments/656164355381133332/715662587471331359/ezgif-3-b3ae702d4205.gif`)
-						.addFields({
-							name: `The coin landed on heads`,
-							value: `You won!`
-						},
-						{
-							name: `Wins`,
-							value: (parseInt(wincount, 10) + offByOne).toString()
-						},
-						{
-							name: `Losses`,
-							value: losecount
-						});
-					inObj.interaction.reply({
-						embeds: [
-							embed
-						]
-					}).catch(genericCatch);
-				}
-				else {
-					const losecount: string = readFileSync(coinfilel, `utf8`),
-						wincount: string = readFileSync(coinfilew, `utf8`);
-					writeFileSync(coinfilel, (parseInt(losecount, 10) + offByOne).toString());
-					// eslint-disable-next-line one-var
-					const embed: EmbedBuilder = new EmbedBuilder()
-						.setColor(`#FF0000`)
-						.setTitle(`You lost!`)
-						.setThumbnail(`https://cdn.discordapp.com/attachments/656164355381133332/715669285128634368/ezgif-3-b8913657fa57.gif`)
-						.addFields({
-							name: `The coin landed on tails`,
-							value: `You lost!`
-						},
-						{
-							name: `Wins`,
-							value: wincount
-						},
-						{
-							name: `Losses`,
-							value: (parseInt(losecount, 10) + offByOne).toString()
-						});
-					inObj.interaction.reply({
-						embeds: [
-							embed
-						]
-					}).catch(genericCatch);
-				}
-			}
-			if (side === `tails`) {
-				if (decimalShift(Math.random(), ShiftBy.P2) < fiftyPercent) {
-					const losecount: string = readFileSync(coinfilel, `utf8`),
-						wincount: string = readFileSync(coinfilew, `utf8`);
-					writeFileSync(coinfilew, (parseInt(losecount, 10) + offByOne).toString());
-					// eslint-disable-next-line one-var
-					const embed: EmbedBuilder = new EmbedBuilder()
-						.setColor(`#00FF00`)
-						.setTitle(`You won!`)
-						.setThumbnail(`https://cdn.discordapp.com/attachments/656164355381133332/715669285128634368/ezgif-3-b8913657fa57.gif`)
-						.addFields({
-							name: `The coin landed on tails`,
-							value: `You won!`
-						},
-						{
-							name: `Wins`,
-							value: (parseInt(wincount, 10) + offByOne).toString()
-						},
-						{
-							name: `Losses`,
-							value: losecount
-						});
-					inObj.interaction.reply({
-						embeds: [
-							embed
-						]
-					}).catch(genericCatch);
-				}
-				else {
-					const losecount: string = readFileSync(coinfilel, `utf8`),
-						wincount: string = readFileSync(coinfilew, `utf8`);
-					writeFileSync(coinfilel, (parseInt(losecount, 10) + offByOne).toString());
-					// eslint-disable-next-line one-var
-					const embed: EmbedBuilder = new EmbedBuilder()
-						.setColor(`#FF0000`)
-						.setTitle(`You lost!`)
-						.setThumbnail(`https://cdn.discordapp.com/attachments/656164355381133332/715662587471331359/ezgif-3-b3ae702d4205.gif`)
-						.addFields({
-							name: `The coin landed on heads`,
-							value: `You lost!`
-						},
-						{
-							name: `Wins`,
-							value: wincount
-						},
-						{
-							name: `Losses`,
-							value: (parseInt(losecount, 10) + offByOne).toString()
-						});
-					inObj.interaction.reply({
-						embeds: [
-							embed
-						]
-					}).catch(genericCatch);
-				}
-			}
+			writeFileSync(winState ? coinfilew : coinfilel, (parseInt(wincount, 10) + offByOne).toString());
+			// eslint-disable-next-line one-var
+			const embed: EmbedBuilder = new EmbedBuilder()
+				.setColor(`#00FF00`)
+				.setTitle(winState ? `You won!` : `You lost!`)
+				.setThumbnail(side === `heads` ?
+					discordUrl(`715662587471331359/ezgif-3-b3ae702d4205`) :
+					discordUrl(`715669285128634368/ezgif-3-b8913657fa57`)
+				)
+				.addFields([
+					{ name: `The coin landed on ${side}`, value: winState ? `You won!` : `You lost!` },
+					{ name: `Wins`, value: winState ? (parseInt(wincount, 10) + inc).toString() : wincount },
+					{ name: `Losses`, value: winState ? losecount : (parseInt(losecount, 10) + inc).toString() }
+				]);
+			inObj.interaction.reply({ embeds: [embed] }).catch(genericCatch);
 		}
 	});
 };
