@@ -132,6 +132,7 @@ export default tseslint.config(
 			"perfectionist/sort-imports": [`error`],
 			"perfectionist/sort-interfaces": [`error`],
 			"perfectionist/sort-intersection-types": [`error`],
+			"perfectionist/sort-maps": [`error`],
 			"perfectionist/sort-union-types": [`error`]
 		}
 	},
