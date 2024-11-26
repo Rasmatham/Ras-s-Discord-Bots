@@ -2,7 +2,7 @@
 ╔═════════════════════════════════════════════════════╦═╦═╦═╗
 ║ Command Prompt                                      ║-║▫║X║
 ╠═════════════════════════════════════════════════════╩═╩═╩═╣
-║ These bots were made by RasMatHam#8846                    ║
+║ These bots were made by RasMatHam                         ║
 ║ Feel free to do whatever you want with the code           ║
 ║ as long as it isn't just a copy/paste of the entire thing ║
 ║ C:\WINDOWS\system32>echo Hello, World!                    ║
