@@ -2,9 +2,6 @@ import type * as djs from "discord.js";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface Bots {
-	generalConfig: {
-		envPath: string
-	};
 	botConfig: Array<{
 		name: string;
 		clientOtions: djs.ClientOptions;
@@ -220,4 +217,7 @@ interface Bots {
 			}>
 		}
 	}>;
+	generalConfig: {
+		envPath: string
+	};
 }

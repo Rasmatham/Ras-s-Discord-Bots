@@ -12,18 +12,18 @@ path = `/info.0.json`;
 
 /* eslint-disable @typescript-eslint/naming-convention */
 interface RawXkcdJson {
-	month: string,
-	num: number,
-	link: string,
-	year: string,
-	news: string,
-	safe_title: string,
-	transcript: string,
 	alt: string,
-	img: string,
-	title: string,
-	extra_parts?: unknown,
 	day: string
+	extra_parts?: unknown,
+	img: string,
+	link: string,
+	month: string,
+	news: string,
+	num: number,
+	safe_title: string,
+	title: string,
+	transcript: string,
+	year: string,
 }
 /* eslint-enable @typescript-eslint/naming-convention */
 

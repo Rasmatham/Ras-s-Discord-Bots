@@ -9,40 +9,40 @@ import mazeThing from "./mazegen";
 
 //#region type definitions
 interface EmoteList {
-	oooo: EmojiIdentifierResolvable,
-	oooi: EmojiIdentifierResolvable,
-	ooio: EmojiIdentifierResolvable,
-	ooii: EmojiIdentifierResolvable,
-	oioo: EmojiIdentifierResolvable,
-	oioi: EmojiIdentifierResolvable,
-	oiio: EmojiIdentifierResolvable,
-	oiii: EmojiIdentifierResolvable,
-	iooo: EmojiIdentifierResolvable,
-	iooi: EmojiIdentifierResolvable,
-	ioio: EmojiIdentifierResolvable,
-	ioii: EmojiIdentifierResolvable,
-	iioo: EmojiIdentifierResolvable,
-	iioi: EmojiIdentifierResolvable,
-	iiio: EmojiIdentifierResolvable,
-	iiii: EmojiIdentifierResolvable,
 	goal: {
 		ooii: EmojiIdentifierResolvable,
 		oiii: EmojiIdentifierResolvable,
 		ioii: EmojiIdentifierResolvable
 	}
+	iiii: EmojiIdentifierResolvable,
+	iiio: EmojiIdentifierResolvable,
+	iioi: EmojiIdentifierResolvable,
+	iioo: EmojiIdentifierResolvable,
+	ioii: EmojiIdentifierResolvable,
+	ioio: EmojiIdentifierResolvable,
+	iooi: EmojiIdentifierResolvable,
+	iooo: EmojiIdentifierResolvable,
+	oiii: EmojiIdentifierResolvable,
+	oiio: EmojiIdentifierResolvable,
+	oioi: EmojiIdentifierResolvable,
+	oioo: EmojiIdentifierResolvable,
+	ooii: EmojiIdentifierResolvable,
+	ooio: EmojiIdentifierResolvable,
+	oooi: EmojiIdentifierResolvable,
+	oooo: EmojiIdentifierResolvable,
 }
 type EmoteTypeList = [
 	EmoteList[],
 	EmoteList[]
 ];
 interface MazeObj {
-	x: number,
-	y: number,
-	top: boolean,
-	left: boolean,
 	bottom: boolean,
+	left: boolean,
 	right: boolean,
 	set: number
+	top: boolean,
+	x: number,
+	y: number,
 }
 type HalfByteAsString = `${ `i` | `o` }${ `i` | `o` }${ `i` | `o` }${ `i` | `o` }`;
 //#endregion

@@ -2,13 +2,13 @@ import { Index, inc, offByOne, zero } from "./generalUse";
 
 /* eslint-disable sort-vars */
 interface Cell {
-	x: number,
-	y: number,
-	top: boolean,
-	left: boolean,
 	bottom: boolean,
+	left: boolean,
 	right: boolean,
 	set: number,
+	top: boolean,
+	x: number,
+	y: number,
 }
 
 type ObjectKey<T, V> = {[K in keyof T]-?: T[K] extends V ? K : never}[keyof T & string]

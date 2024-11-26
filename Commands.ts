@@ -10,9 +10,9 @@ dotenv.config();
 
 //#region type definitions
 interface CommandObject {
-	id?:`${bigint}`, 
+	command:ContextMenuCommandBuilder | SlashCommandBuilder | SlashCommandOptionsOnlyBuilder | SlashCommandSubcommandsOnlyBuilder 
 	guild?:`${bigint}`,
-	command:ContextMenuCommandBuilder | SlashCommandBuilder | SlashCommandOptionsOnlyBuilder | SlashCommandSubcommandsOnlyBuilder
+	id?:`${bigint}`,
 }
 //#endregion
 

@@ -2,60 +2,60 @@ import type { ColorResolvable } from "discord.js";
 
 //#region type definitions
 interface DexEntriesType {
-	re: string,
+	as: string,
+	b2: string,
 	bl: string,
-	yr: string,
-	go: string,
-	si: string,
 	cr: string,
-	ru: string,
-	sa: string,
+	di: string,
 	em: string,
 	fr: string,
+	go: string,
+	hg: string,
 	lg: string,
-	di: string,
+	lge: string,
+	lgp: string,
+	mo: string,
+	or: string,
 	pe: string,
 	pl: string,
-	hg: string,
-	ss: string,
-	wh: string,
-	b2: string,
-	w2: string,
-	xx: string,
-	yy: string,
-	or: string,
-	as: string,
-	su: string,
-	mo: string,
-	us: string,
-	um: string,
-	lgp: string,
-	lge: string,
-	sw: string,
+	re: string,
+	ru: string,
+	sa: string,
 	sh: string
+	si: string,
+	ss: string,
+	su: string,
+	sw: string,
+	um: string,
+	us: string,
+	w2: string,
+	wh: string,
+	xx: string,
+	yr: string,
+	yy: string,
 }
 export interface PokeType {
-	name: string,
 	color: ColorResolvable,
-	weakTo?: string[],
-	strongTo?: string[],
+	name: string,
 	noDamageTo?: string[]
+	strongTo?: string[],
+	weakTo?: string[],
 }
 export interface PokeObjType {
-	name: string,
-	reg:string,
-	nat:string,
-	rarity:number,
-	types:[PokeType,PokeType] | [PokeType],
+	dexEntries:DexEntriesType
 	height:[
 		string,
 		string
 	],
+	name: string,
+	nat:string,
+	rarity:number,
+	reg:string,
+	types:[PokeType,PokeType] | [PokeType],
 	weight:[
 		string,
 		string
 	],
-	dexEntries:DexEntriesType
 }
 //#endregion
 

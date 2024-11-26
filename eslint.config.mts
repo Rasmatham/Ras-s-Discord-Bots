@@ -61,6 +61,7 @@ export default tseslint.config(
 	{
 		// Disabled rules
 		rules: {
+			"@typescript-eslint/adjacent-overload-signatures": `off`,
 			"class-methods-use-this": `off`,
 			"complexity": `off`,
 			"default-param-last": `off`,
@@ -129,6 +130,7 @@ export default tseslint.config(
 		rules: {
 			"perfectionist/sort-array-includes": [`error`],
 			"perfectionist/sort-imports": [`error`],
+			"perfectionist/sort-interfaces": [`error`],
 			"perfectionist/sort-intersection-types": [`error`],
 			"perfectionist/sort-union-types": [`error`]
 		}
