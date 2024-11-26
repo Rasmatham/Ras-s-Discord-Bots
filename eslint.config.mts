@@ -80,7 +80,8 @@ export default tseslint.config(
 			"no-ternary": `off`,
 			"no-use-before-define": `off`,
 			"prefer-destructuring": `off`,
-			"sort-imports": `off`
+			"sort-imports": `off`,
+			"sort-keys": `off`
 		}
 	},
 	{
@@ -137,6 +138,7 @@ export default tseslint.config(
 			"perfectionist/sort-named-exports": [`error`],
 			"perfectionist/sort-named-imports": [`error`],
 			"perfectionist/sort-object-types": [`error`],
+			"perfectionist/sort-objects": [`error`],
 			"perfectionist/sort-union-types": [`error`]
 		}
 	},
