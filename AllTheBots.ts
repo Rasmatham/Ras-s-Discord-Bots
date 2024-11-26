@@ -12,17 +12,18 @@
 
 //#region imports
 import { ActivityType, Client, EmbedBuilder, Events } from "discord.js";
-import { Index, ShiftBy, blackList, botReady, decimalShift, ephemeral, genericCatch, headerlessField, inc, intents, listThings, login, msInS, offByOne, sendAsWebHook, technicalStuff, toBigInt } from "./custom_modules/generalUse";
-import { ReactionTypes } from "./custom_modules/stupidStuff";
+import * as dotenv from "dotenv";
+
 import * as coinflip from "./custom_modules/coinflip";
 import * as containsWord from "./custom_modules/containsWordFunctions";
 import * as dice from "./custom_modules/dice";
-import * as dotenv from "dotenv";
 import * as forwarding from "./custom_modules/forwardMessages";
+import { Index, ShiftBy, blackList, botReady, decimalShift, ephemeral, genericCatch, headerlessField, inc, intents, listThings, login, msInS, offByOne, sendAsWebHook, technicalStuff, toBigInt } from "./custom_modules/generalUse";
 import * as info from "./custom_modules/info";
 import * as inspiroBot from "./custom_modules/inspiroBot";
 import * as maze from "./custom_modules/playableMaze";
 import * as pokedex from "./custom_modules/pokedex";
+import { ReactionTypes } from "./custom_modules/stupidStuff";
 import * as stupidStuff from "./custom_modules/stupidStuff";
 import * as ticTacToe from "./custom_modules/TicTacToe";
 import * as timestamps from "./custom_modules/timestamp";

@@ -1,6 +1,8 @@
 //#region imports
-import { ChannelType, DMChannel, NewsChannel, TextChannel, ThreadChannel } from "discord.js";
 import type { Client, Message } from "discord.js";
+
+import { ChannelType, DMChannel, NewsChannel, TextChannel, ThreadChannel } from "discord.js";
+
 import { blackList, genericCatch, sendAsWebHook } from "./generalUse.js";
 //#endregion
 

@@ -1,8 +1,10 @@
 //#region imports
-import { ephemeral, genericCatch, zero } from "./generalUse";
 import type { CommandInteraction } from "discord.js";
+
 import { EmbedBuilder } from "discord.js";
 import * as https from "https";
+
+import { ephemeral, genericCatch, zero } from "./generalUse";
 //#endregion
 
 const domain = `https://xkcd.com/`,

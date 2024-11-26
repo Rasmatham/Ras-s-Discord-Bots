@@ -1,7 +1,9 @@
-import globals from "globals";
-import perfectionist from "eslint-plugin-perfectionist";
+//#region imports
 import pluginJs from "@eslint/js";
+import perfectionist from "eslint-plugin-perfectionist";
+import globals from "globals";
 import tseslint from "typescript-eslint";
+//#endregion
 
 enum NamingConventionFormat {
 	/* eslint-disable @typescript-eslint/naming-convention */
@@ -76,7 +78,8 @@ export default tseslint.config(
 			"no-shadow": `off`,
 			"no-ternary": `off`,
 			"no-use-before-define": `off`,
-			"prefer-destructuring": `off`
+			"prefer-destructuring": `off`,
+			"sort-imports": `off`
 		}
 	},
 	{
@@ -125,6 +128,7 @@ export default tseslint.config(
 		// Perfectionist rules
 		rules: {
 			"perfectionist/sort-array-includes": [`error`],
+			"perfectionist/sort-imports": [`error`],
 			"perfectionist/sort-intersection-types": [`error`],
 			"perfectionist/sort-union-types": [`error`]
 		}
@@ -150,10 +154,7 @@ export default tseslint.config(
 				"objectsInObjects": true
 			}],
 			"quotes": [ `error`, `backtick` ],
-			"semi": [ `error`, `always`, {}],
-			"sort-imports": [ `error`, {
-				memberSyntaxSortOrder: [ `multiple`, `single`, `all`, `none` ]
-			}]
+			"semi": [ `error`, `always`, {}]
 		}
 	}
 	/* eslint-enable @typescript-eslint/naming-convention */

@@ -1,7 +1,9 @@
 //#region imports
-import { ShiftBy, decimalShift, genericCatch, inc, offByOne } from "./generalUse";
 import type { CommandInteraction } from "discord.js";
+
 import { EmbedBuilder } from "discord.js";
+
+import { ShiftBy, decimalShift, genericCatch, inc, offByOne } from "./generalUse";
 //#endregion
 
 //#region die roller

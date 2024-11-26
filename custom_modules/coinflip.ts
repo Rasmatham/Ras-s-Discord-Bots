@@ -1,8 +1,10 @@
 //#region imports
-import { ShiftBy, decimalShift, genericCatch, offByOne } from "./generalUse";
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import type { CommandInteraction } from "discord.js";
+
 import { EmbedBuilder } from "discord.js";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
+
+import { ShiftBy, decimalShift, genericCatch, offByOne } from "./generalUse";
 //#endregion
 
 //#region setup

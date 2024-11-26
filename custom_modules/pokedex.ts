@@ -1,9 +1,12 @@
 //#region imports
-import { Index, offByOne, zero } from "./generalUse.js";
-import { pokemon, trainerList } from "../Pokebot/PokeDB.js";
-import { EmbedBuilder } from "discord.js";
 import type { MessageReplyOptions } from "discord.js";
+
+import { EmbedBuilder } from "discord.js";
+
 import type { PokeObjType } from "../Pokebot/PokeDB.js";
+
+import { pokemon, trainerList } from "../Pokebot/PokeDB.js";
+import { Index, offByOne, zero } from "./generalUse.js";
 //#endregion
 
 //#region trainers

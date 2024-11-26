@@ -1,8 +1,11 @@
+//#region imports
+import type { ChatInputCommandInteraction, ComponentEmojiResolvable } from "discord.js";
 
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, Events, InteractionType } from "discord.js";
-import type { ChatInputCommandInteraction, ComponentEmojiResolvable } from "discord.js";
+
 import { Index, ephemeral, genericCatch, inc, offByOne } from "../generalUse";
 import * as words from "./words";
+//#endregion
 /* eslint-disable id-length */
 enum EmoteColors {
 	Black = `black`,

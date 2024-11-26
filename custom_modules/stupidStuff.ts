@@ -1,6 +1,8 @@
 //#region imports
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, ChannelType, StringSelectMenuBuilder } from "discord.js";
 import type { CommandInteraction, EmojiIdentifierResolvable, InteractionReplyOptions, Message, MessageCreateOptions } from "discord.js";
+
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, ChannelType, StringSelectMenuBuilder } from "discord.js";
+
 import { ShiftBy, blackList, decimalShift, genericCatch, offByOne, toBigInt } from "./generalUse.js";
 //#endregion
 

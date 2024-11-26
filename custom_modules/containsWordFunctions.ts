@@ -1,7 +1,9 @@
 //#region imports
 import type { Message, MessageCreateOptions } from "discord.js";
-import { ShiftBy, decimalShift, genericCatch, toBigInt } from "./generalUse";
+
 import { ChannelType } from "discord.js";
+
+import { ShiftBy, decimalShift, genericCatch, toBigInt } from "./generalUse";
 //#endregion
 
 //#region reply

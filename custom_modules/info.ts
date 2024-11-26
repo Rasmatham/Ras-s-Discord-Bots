@@ -1,6 +1,8 @@
 //#region imports
-import { ChannelType, EmbedBuilder, User } from "discord.js";
 import type { CommandInteraction, Guild, InteractionReplyOptions } from "discord.js";
+
+import { ChannelType, EmbedBuilder, User } from "discord.js";
+
 import { base2, checkFor, ephemeral, genericCatch, inc, zero } from "./generalUse.js";
 //#endregion
 

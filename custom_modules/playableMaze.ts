@@ -1,7 +1,8 @@
-
 //#region imports
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, Events } from "discord.js";
 import type { ButtonInteraction, CommandInteraction, EmojiIdentifierResolvable, Interaction } from "discord.js";
+
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, Events } from "discord.js";
+
 import { Index, boolToInt, ephemeral, genericCatch, inc, offByOne, zero } from "./generalUse";
 import mazeThing from "./mazegen";
 //#endregion

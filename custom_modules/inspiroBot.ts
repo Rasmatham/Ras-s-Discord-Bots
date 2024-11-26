@@ -1,8 +1,10 @@
 //#region imports
-import { ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelType, Message } from "discord.js";
 import type { Response } from "node-fetch";
-import { genericCatch } from "./generalUse";
+
+import { ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelType, Message } from "discord.js";
 import req from "node-fetch";
+
+import { genericCatch } from "./generalUse";
 //#endregion
 
 //#region fetches inspirobot URI

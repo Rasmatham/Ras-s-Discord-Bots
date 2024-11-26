@@ -1,6 +1,8 @@
 //#region imports
-import { ActionRowBuilder, ButtonBuilder, ButtonComponent, ButtonStyle, ComponentType, Events, MessageMentions } from "discord.js";
 import type { CommandInteraction, ComponentEmojiResolvable, EmojiIdentifierResolvable, User, UserResolvable } from "discord.js";
+
+import { ActionRowBuilder, ButtonBuilder, ButtonComponent, ButtonStyle, ComponentType, Events, MessageMentions } from "discord.js";
+
 import { Index, ephemeral, genericCatch, inc, offByOne, zero } from "./generalUse";
 //#endregion
 
