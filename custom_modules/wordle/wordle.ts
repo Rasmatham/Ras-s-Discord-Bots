@@ -181,9 +181,6 @@ class Wordle {
 					case `a_to_m`:
 						interaction.update({ components: this.buttonsFirstHalf }).catch(genericCatch);
 						break;
-					case `n_to_z`:
-						interaction.update({ components: this.buttonsSecondHalf }).catch(genericCatch);
-						break;
 					case `backspace`:
 						if (this.slot <= Index.First) {
 							interaction.reply({ content: `You can't have less than 0 letters`, ephemeral }).catch(genericCatch);
@@ -296,6 +293,9 @@ class Wordle {
 							default:
 								break;
 						}
+						break;
+					case `n_to_z`:
+						interaction.update({ components: this.buttonsSecondHalf }).catch(genericCatch);
 						break;
 					default:
 						break;

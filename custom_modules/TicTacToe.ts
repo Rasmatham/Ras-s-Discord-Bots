@@ -119,11 +119,11 @@ export const ticTacToe = (inObjs: Array<{ interaction: CommandInteraction }>): v
 								buttons.forEach((button) => {
 									if (typeof button.emoji?.name !== `undefined`) {
 										switch (button.emoji.name) {
-										case `⭕`:
-											o += inc;
-											break;
 										case `❌`:
 											x += inc;
+											break;
+										case `⭕`:
+											o += inc;
 											break;
           								default:
 											break;

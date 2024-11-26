@@ -397,6 +397,34 @@ glados.on(Events.InteractionCreate, (interaction) => {
 	}
 	if (interaction.isChatInputCommand()) {
 		switch (interaction.commandName) {
+			case `botlink`: {
+				interaction.reply({ content: gladosLink, ephemeral }).catch(genericCatch);
+				break;
+			}
+			case `coinflip`: {
+				coinflip.flip([{ interaction }]);
+				break;
+			}
+			case `d`: {
+				dice.dice([{ interaction }]);
+				break;
+			}
+			case `gladle`: {
+				wordle.startGame(interaction);
+				break;
+			}
+			case `grid`: {
+				interaction.reply(stupidStuff.buttonGrid({ interaction })).catch(genericCatch);
+				break;
+			}
+			case `invisicolor`: {
+				interaction.reply({ content: `#36393F`, ephemeral }).catch(genericCatch);
+				break;
+			}
+			case `joindate`: {
+				interaction.reply(info.joindate({ interaction })).catch(genericCatch);
+				break;
+			}
 			case `list`: {
 				listThings(interaction).then((interactionReplyOptions) => {
 					interaction.reply(interactionReplyOptions[Index.First]).then(() => {
@@ -408,68 +436,40 @@ glados.on(Events.InteractionCreate, (interaction) => {
 				}).catch(genericCatch);
 				break;
 			}
-			case `botlink`: {
-				interaction.reply({ content: gladosLink, ephemeral }).catch(genericCatch);
+			case `maze`: {
+				maze.mazeFunction([{ interaction }]);
 				break;
 			}
-			case `sightingslink`: {
-				interaction.reply({ content: `https://discord.gg/62jvqRv`, ephemeral }).catch(genericCatch);
-				break;
-			}
-			case `invisicolor`: {
-				interaction.reply({ content: `#36393F`, ephemeral }).catch(genericCatch);
-				break;
-			}
-			case `source`: {
-				interaction.reply({ content: githublink, ephemeral }).catch(genericCatch);
-				break;
-			}
-			case `userinfo`: {
-				info.userInfo({ interaction }).then((message) => {interaction.reply(message).catch(genericCatch);}).catch(genericCatch);
-				break;
-			}
-			case `serverinfo`: {
-				info.serverInfo([{ interaction }]);
-				break;
-			}
-			case `joindate`: {
-				interaction.reply(info.joindate({ interaction })).catch(genericCatch);
-				break;
-			}
-			case `grid`: {
-				interaction.reply(stupidStuff.buttonGrid({ interaction })).catch(genericCatch);
+			case `reboot`: {
+				interaction.reply({ content: `And when you're gone I'll still be aliiiiii` }).then(() => process.exit()).catch(genericCatch);
 				break;
 			}
 			case `selectmenu`: {
 				interaction.reply(stupidStuff.selectMenu()).catch(genericCatch);
 				break;
 			}
-			case `d`: {
-				dice.dice([{ interaction }]);
+			case `serverinfo`: {
+				info.serverInfo([{ interaction }]);
 				break;
 			}
-			case `xkcd`: {
-				xkcd.xkcdFunct([{ interaction }]);
+			case `sightingslink`: {
+				interaction.reply({ content: `https://discord.gg/62jvqRv`, ephemeral }).catch(genericCatch);
 				break;
 			}
-			case `maze`: {
-				maze.mazeFunction([{ interaction }]);
+			case `source`: {
+				interaction.reply({ content: githublink, ephemeral }).catch(genericCatch);
 				break;
 			}
 			case `tictactoe`: {
 				ticTacToe.ticTacToe([{ interaction }]);
 				break;
 			}
-			case `coinflip`: {
-				coinflip.flip([{ interaction }]);
+			case `userinfo`: {
+				info.userInfo({ interaction }).then((message) => {interaction.reply(message).catch(genericCatch);}).catch(genericCatch);
 				break;
 			}
-			case `gladle`: {
-				wordle.startGame(interaction);
-				break;
-			}
-			case `reboot`: {
-				interaction.reply({ content: `And when you're gone I'll still be aliiiiii` }).then(() => process.exit()).catch(genericCatch);
+			case `xkcd`: {
+				xkcd.xkcdFunct([{ interaction }]);
 				break;
 			}
 			default: {
@@ -757,8 +757,8 @@ croissant.on(Events.MessageCreate, (message) => {forwarding.messageForwarding([{
 canine.on(Events.InteractionCreate, (interaction) => {
 	if (interaction.isCommand()) {
 		switch (interaction.commandName) {
-			case `timestamp`:
-			case `Create Timestamp`: {
+			case `Create Timestamp`:
+			case `timestamp`: {
 				timestamps.create([{ interaction }]);
 				break;
 			}
@@ -776,12 +776,12 @@ canine.on(Events.InteractionCreate, (interaction) => {
 	} else if (interaction.isModalSubmit()) {
 		if (interaction.isFromMessage()) {
 			switch (interaction.customId) {
-				case `relative`: {
-					timestamps.relativeModalInteraction([{ interaction }]);
-					break;
-				}
 				case `absolute`: {
 					timestamps.absoluteModalInteraction([{ interaction }]);
+					break;
+				}
+				case `relative`: {
+					timestamps.relativeModalInteraction([{ interaction }]);
 					break;
 				}
 				default: {
@@ -801,16 +801,16 @@ canine.on(Events.InteractionCreate, (interaction) => {
 		}
 	} else if (interaction.isButton()) {
 		switch (interaction.customId) {
-			case `setTz`:{
-				timestamps.saveTimezone([{ interaction }]);
+			case `absolute`:{
+				timestamps.absoluteButtonInteraction([{ interaction }]);
 				break;
 			}
 			case `relative`:{
 				timestamps.relativeButtonInteraction([{ interaction }]);
 				break;
 			}
-			case `absolute`:{
-				timestamps.absoluteButtonInteraction([{ interaction }]);
+			case `setTz`:{
+				timestamps.saveTimezone([{ interaction }]);
 				break;
 			}
 			default: {

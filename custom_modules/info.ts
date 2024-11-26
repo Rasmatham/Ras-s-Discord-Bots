@@ -31,20 +31,16 @@ export const channelCount = (inObj: { guild: Guild }):{
 	voiceChannels = zero;
 	inObj.guild.channels.cache.forEach((channel) => {
 		switch (channel.type) {
-		case ChannelType.GuildText:
-			textChannels += inc;
-			break;
-		case ChannelType.GuildVoice:
-			voiceChannels += inc;
-			break;
-		case ChannelType.GuildCategory:
-			categories += inc;
+		case ChannelType.AnnouncementThread:
+		case ChannelType.PrivateThread:
+		case ChannelType.PublicThread:
+			threads += inc;
 			break;
 		case ChannelType.GuildAnnouncement:
 			announcementChannels += inc;
 			break;
-		case ChannelType.GuildStageVoice:
-			stageChannels += inc;
+		case ChannelType.GuildCategory:
+			categories += inc;
 			break;
 		case ChannelType.GuildForum:
 			forumChannels += inc;
@@ -52,10 +48,14 @@ export const channelCount = (inObj: { guild: Guild }):{
 		case ChannelType.GuildMedia:
 			mediaChannels += inc;
 			break;
-		case ChannelType.AnnouncementThread:
-		case ChannelType.PublicThread:
-		case ChannelType.PrivateThread:
-			threads += inc;
+		case ChannelType.GuildStageVoice:
+			stageChannels += inc;
+			break;
+		case ChannelType.GuildText:
+			textChannels += inc;
+			break;
+		case ChannelType.GuildVoice:
+			voiceChannels += inc;
 			break;
   		default:
 			unknown += inc;
@@ -132,26 +132,26 @@ export const serverInfo = (inObjs: Array<{interaction: CommandInteraction}>): vo
 				channels.forEach((channel) => {
 					if (channel === null) return;
 					switch (channel.type) {
-					case ChannelType.GuildText:
-						textChannels += inc;
-						break;
-					case ChannelType.GuildVoice:
-						voiceChannels += inc;
-						break;
-					case ChannelType.GuildCategory:
-						categories += inc;
-						break;
 					case ChannelType.GuildAnnouncement:
 						announcementChannels += inc;
 						break;
-					case ChannelType.GuildStageVoice:
-						stageChannels += inc;
+					case ChannelType.GuildCategory:
+						categories += inc;
 						break;
 					case ChannelType.GuildForum:
 						forumChannels += inc;
 						break;
 					case ChannelType.GuildMedia:
 						mediaChannels += inc;
+						break;
+					case ChannelType.GuildStageVoice:
+						stageChannels += inc;
+						break;
+					case ChannelType.GuildText:
+						textChannels += inc;
+						break;
+					case ChannelType.GuildVoice:
+						voiceChannels += inc;
 						break;
 					default:
 						unknown += inc;

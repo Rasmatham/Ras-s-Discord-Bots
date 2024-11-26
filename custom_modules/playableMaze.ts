@@ -299,23 +299,23 @@ export const mazeFunction = (inObjs: Array<{interaction: CommandInteraction}>): 
 					const buttonInteraction:ButtonInteraction = interaction,
 					totalCells = createdClass.height*createdClass.width;
 					switch (buttonInteraction.customId) {
-					case `Left`:
-						createdClass.moveLeft();
-						if (!createdClass.cellArr[totalCells-offByOne].playerState) 
-							buttonInteraction.update(mazeMessage(createdClass)).catch(genericCatch);
-						break;
-					case `Up`:
-						createdClass.moveUp();
-						if (!createdClass.cellArr[totalCells-offByOne].playerState) 
-							buttonInteraction.update(mazeMessage(createdClass)).catch(genericCatch);
-						break;
 					case `Down`:
 						createdClass.moveDown();
 						if (!createdClass.cellArr[totalCells-offByOne].playerState) 
 							buttonInteraction.update(mazeMessage(createdClass)).catch(genericCatch);
 						break;
+					case `Left`:
+						createdClass.moveLeft();
+						if (!createdClass.cellArr[totalCells-offByOne].playerState) 
+							buttonInteraction.update(mazeMessage(createdClass)).catch(genericCatch);
+						break;
 					case `Right`:
 						createdClass.moveRight();
+						if (!createdClass.cellArr[totalCells-offByOne].playerState) 
+							buttonInteraction.update(mazeMessage(createdClass)).catch(genericCatch);
+						break;
+					case `Up`:
+						createdClass.moveUp();
 						if (!createdClass.cellArr[totalCells-offByOne].playerState) 
 							buttonInteraction.update(mazeMessage(createdClass)).catch(genericCatch);
 						break;

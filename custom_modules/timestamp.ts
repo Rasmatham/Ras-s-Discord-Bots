@@ -426,6 +426,23 @@ export const absoluteModalInteraction = (inObjs: Array<{interaction: ModalMessag
 		second = Math.min(maxValues.second, second);
 
 		switch (month) {
+			case Months.April:
+			case Months.June:
+			case Months.November:
+			case Months.September: {
+				day = Math.min(maxValues.shotMonth, day);
+				break;
+			}
+			case Months.August:
+			case Months.December:
+			case Months.January:
+			case Months.July:
+			case Months.March:
+			case Months.May:
+			case Months.October: {
+				day = Math.min(maxValues.longMonth, day);
+				break;
+			}
 			case Months.February: {
 				// eslint-disable-next-line @typescript-eslint/no-magic-numbers
 				if (!(year % 4) && (year % 100 || !(year % 400))) {
@@ -433,23 +450,6 @@ export const absoluteModalInteraction = (inObjs: Array<{interaction: ModalMessag
 					break;
 				}
 				day = Math.min(maxValues.feb, day);
-				break;
-			}
-			case Months.April:
-			case Months.June:
-			case Months.September:
-			case Months.November: {
-				day = Math.min(maxValues.shotMonth, day);
-				break;
-			}
-			case Months.January:
-			case Months.March:
-			case Months.May:
-			case Months.July:
-			case Months.August:
-			case Months.October:
-			case Months.December: {
-				day = Math.min(maxValues.longMonth, day);
 				break;
 			}
 			default: {

@@ -38,10 +38,10 @@ export const natDex = (inObj: {query: number | string}):MessageReplyOptions => {
 			break;
 		case `bigint`:
 		case `boolean`:
+		case `function`:
+		case `object`:
 		case `symbol`:
 		case `undefined`:
-		case `object`:
-		case `function`:
   		default:
 			break;
 	}
