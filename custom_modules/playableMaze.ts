@@ -10,9 +10,9 @@ import mazeThing from "./mazegen";
 //#region type definitions
 interface EmoteList {
 	goal: {
-		ooii: EmojiIdentifierResolvable,
-		oiii: EmojiIdentifierResolvable,
 		ioii: EmojiIdentifierResolvable
+		oiii: EmojiIdentifierResolvable,
+		ooii: EmojiIdentifierResolvable,
 	}
 	iiii: EmojiIdentifierResolvable,
 	iiio: EmojiIdentifierResolvable,

@@ -115,7 +115,7 @@ class Wordle {
 	private attempt: Index.Fifth | Index.First | Index.Fourth | Index.Second | Index.Sixth | Index.Third;
 	private slot: Index.Fifth | Index.First | Index.Fourth | Index.Second | Index.Sixth | Index.Third;
 	private readonly words: string[][];
-	private hints: {placed: [string, string, string, string, string], guessed: string[]};
+	private hints: {guessed: string[]; placed: [string, string, string, string, string],};
 	private readonly difficulty: string;
 	public constructor (commandInteraction: ChatInputCommandInteraction) {
 		this.cmd = commandInteraction;

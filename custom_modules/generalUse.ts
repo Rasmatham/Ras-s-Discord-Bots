@@ -136,7 +136,7 @@ export const intents:IntentsBitField = new IntentsBitField([
 
 //#region Check amount
 // eslint-disable-next-line one-var
-export const checkFor = (inObjs: Array<{ channels: number, str: string, inline?:boolean }>): EmbedField[] => {
+export const checkFor = (inObjs: Array<{ channels: number, inline?:boolean; str: string, }>): EmbedField[] => {
 	const out:EmbedField[] = [];
 	inObjs.forEach((inObj) => {
 		if (inObj.channels > zero) {
@@ -150,7 +150,7 @@ export const checkFor = (inObjs: Array<{ channels: number, str: string, inline?:
 
 //#region send as webhook
 // eslint-disable-next-line one-var
-export const sendAsWebHook = (inObjs: Array<{ message: Message, sendTo: Exclude<GuildTextBasedChannel, AnyThreadChannel>, sendMessage: MessageCreateOptions, name: string, pfp: BufferResolvable }>): void => {
+export const sendAsWebHook = (inObjs: Array<{ message: Message, name: string, pfp: BufferResolvable; sendMessage: MessageCreateOptions, sendTo: Exclude<GuildTextBasedChannel, AnyThreadChannel>, }>): void => {
 	inObjs.forEach((inObj) => {
 		const webHookFunction = (): void => {
 			inObj.sendTo.fetchWebhooks().then((webHooks) => {

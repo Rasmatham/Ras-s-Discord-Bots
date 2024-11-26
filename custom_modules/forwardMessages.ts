@@ -53,7 +53,7 @@ export const messageForwarding = (inObjs: Array<{message: Message}>): void => {
 
 //#region DM spy
 // eslint-disable-next-line one-var
-export const dmSpy = (inObjs: Array<{ message: Message, channelId: `${bigint}` }>): void => {
+export const dmSpy = (inObjs: Array<{ channelId: `${bigint}`; message: Message, }>): void => {
 	inObjs.forEach(inObj => {
 		if (inObj.message.channel.type === ChannelType.DM && !inObj.message.author.bot /*&& message.author.id != process.env.RASID*/) {
 			inObj.message.client.channels.fetch(inObj.channelId).then((channel) => {
@@ -82,7 +82,7 @@ export const dmSpy = (inObjs: Array<{ message: Message, channelId: `${bigint}` }
 
 //#region Channel link
 // eslint-disable-next-line one-var
-export const channelLink = (inObjs: Array<{ message: Message, ch1: `${bigint}`, ch2: `${bigint}` }>): void => {
+export const channelLink = (inObjs: Array<{ ch1: `${bigint}`, ch2: `${bigint}`; message: Message, }>): void => {
 	inObjs.forEach((inObj) => {
 		if (!inObj.message.author.bot && (inObj.message.channel.id === inObj.ch1 || inObj.message.channel.id === inObj.ch2)) {
 			inObj.message.client.channels.fetch(inObj.ch1).then((ch1) => {

@@ -3,219 +3,219 @@ import type * as djs from "discord.js";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface Bots {
 	botConfig: Array<{
-		name: string;
 		clientOtions: djs.ClientOptions;
-		token: string;
 		features?: {
 			commands?: {
-				generalReply?: Array<{		
-					active: boolean;
-					visibility?: `choice` | `private` | `visible`;
-					permissions?: {
-						everyone: boolean;
-						guildWhitelist?: djs.GuildResolvable[];
-						guildBlacklist?: djs.GuildResolvable[];
-						channelWhitelist?: djs.ChannelResolvable[];
-						channelBlacklist?: djs.ChannelResolvable[];
-						roleWhitelist?: djs.RoleResolvable[];
-						roleBlacklist?: djs.RoleResolvable[];
-						userWhitelist?: djs.UserResolvable[];
-						userBlacklist?: djs.UserResolvable[];
-					}
-					name: string;
-					message: djs.InteractionReplyOptions;
-				}>;
 				botlink?: {
 					active: boolean;
-					visibility?: `choice` | `private` | `visible`;
 					permissions?: {
-						everyone: boolean;
-						guildWhitelist?: djs.GuildResolvable[];
-						guildBlacklist?: djs.GuildResolvable[];
-						channelWhitelist?: djs.ChannelResolvable[];
 						channelBlacklist?: djs.ChannelResolvable[];
-						roleWhitelist?: djs.RoleResolvable[];
+						channelWhitelist?: djs.ChannelResolvable[];
+						everyone: boolean;
+						guildBlacklist?: djs.GuildResolvable[];
+						guildWhitelist?: djs.GuildResolvable[];
 						roleBlacklist?: djs.RoleResolvable[];
-						userWhitelist?: djs.UserResolvable[];
+						roleWhitelist?: djs.RoleResolvable[];
 						userBlacklist?: djs.UserResolvable[];
+						userWhitelist?: djs.UserResolvable[];
 					}
-				};
-				userinfo?: {
-					active: boolean;
 					visibility?: `choice` | `private` | `visible`;
-					permissions?: {
-						everyone: boolean;
-						guildWhitelist?: djs.GuildResolvable[];
-						guildBlacklist?: djs.GuildResolvable[];
-						channelWhitelist?: djs.ChannelResolvable[];
-						channelBlacklist?: djs.ChannelResolvable[];
-						roleWhitelist?: djs.RoleResolvable[];
-						roleBlacklist?: djs.RoleResolvable[];
-						userWhitelist?: djs.UserResolvable[];
-						userBlacklist?: djs.UserResolvable[];
-					}
-				};
-				serverInfo?: {
-					active: boolean;
-					visibility?: `choice` | `private` | `visible`;
-					permissions?: {
-						everyone: boolean;
-						guildWhitelist?: djs.GuildResolvable[];
-						guildBlacklist?: djs.GuildResolvable[];
-						channelWhitelist?: djs.ChannelResolvable[];
-						channelBlacklist?: djs.ChannelResolvable[];
-						roleWhitelist?: djs.RoleResolvable[];
-						roleBlacklist?: djs.RoleResolvable[];
-						userWhitelist?: djs.UserResolvable[];
-						userBlacklist?: djs.UserResolvable[];
-					}
-				};
-				joindate?: {
-					active: boolean;
-					visibility?: `choice` | `private` | `visible`;
-					permissions?: {
-						everyone: boolean;
-						guildWhitelist?: djs.GuildResolvable[];
-						guildBlacklist?: djs.GuildResolvable[];
-						channelWhitelist?: djs.ChannelResolvable[];
-						channelBlacklist?: djs.ChannelResolvable[];
-						roleWhitelist?: djs.RoleResolvable[];
-						roleBlacklist?: djs.RoleResolvable[];
-						userWhitelist?: djs.UserResolvable[];
-						userBlacklist?: djs.UserResolvable[];
-					}
-				};
-				dice?: {
-					active: boolean;
-					visibility?: `choice` | `private` | `visible`;
-					permissions?: {
-						everyone: boolean;
-						guildWhitelist?: djs.GuildResolvable[];
-						guildBlacklist?: djs.GuildResolvable[];
-						channelWhitelist?: djs.ChannelResolvable[];
-						channelBlacklist?: djs.ChannelResolvable[];
-						roleWhitelist?: djs.RoleResolvable[];
-						roleBlacklist?: djs.RoleResolvable[];
-						userWhitelist?: djs.UserResolvable[];
-						userBlacklist?: djs.UserResolvable[];
-					}
-				};
-				xkcd?: {
-					active: boolean;
-					visibility?: `choice` | `private` | `visible`;
-					permissions?: {
-						everyone: boolean;
-						guildWhitelist?: djs.GuildResolvable[];
-						guildBlacklist?: djs.GuildResolvable[];
-						channelWhitelist?: djs.ChannelResolvable[];
-						channelBlacklist?: djs.ChannelResolvable[];
-						roleWhitelist?: djs.RoleResolvable[];
-						roleBlacklist?: djs.RoleResolvable[];
-						userWhitelist?: djs.UserResolvable[];
-						userBlacklist?: djs.UserResolvable[];
-					}
-				};
-				maze?: {
-					active: boolean;
-					visibility?: `choice` | `private` | `visible`;
-					permissions?: {
-						everyone: boolean;
-						guildWhitelist?: djs.GuildResolvable[];
-						guildBlacklist?: djs.GuildResolvable[];
-						channelWhitelist?: djs.ChannelResolvable[];
-						channelBlacklist?: djs.ChannelResolvable[];
-						roleWhitelist?: djs.RoleResolvable[];
-						roleBlacklist?: djs.RoleResolvable[];
-						userWhitelist?: djs.UserResolvable[];
-						userBlacklist?: djs.UserResolvable[];
-					}
-				};
-				ticTacToe?: {
-					active: boolean;
-					visibility?: `choice` | `private` | `visible`;
-					permissions?: {
-						everyone: boolean;
-						guildWhitelist?: djs.GuildResolvable[];
-						guildBlacklist?: djs.GuildResolvable[];
-						channelWhitelist?: djs.ChannelResolvable[];
-						channelBlacklist?: djs.ChannelResolvable[];
-						roleWhitelist?: djs.RoleResolvable[];
-						roleBlacklist?: djs.RoleResolvable[];
-						userWhitelist?: djs.UserResolvable[];
-						userBlacklist?: djs.UserResolvable[];
-					}
 				};
 				coinflip?: {
 					active: boolean;
-					visibility?: `choice` | `private` | `visible`;
 					permissions?: {
-						everyone: boolean;
-						guildWhitelist?: djs.GuildResolvable[];
-						guildBlacklist?: djs.GuildResolvable[];
-						channelWhitelist?: djs.ChannelResolvable[];
 						channelBlacklist?: djs.ChannelResolvable[];
-						roleWhitelist?: djs.RoleResolvable[];
+						channelWhitelist?: djs.ChannelResolvable[];
+						everyone: boolean;
+						guildBlacklist?: djs.GuildResolvable[];
+						guildWhitelist?: djs.GuildResolvable[];
 						roleBlacklist?: djs.RoleResolvable[];
-						userWhitelist?: djs.UserResolvable[];
+						roleWhitelist?: djs.RoleResolvable[];
 						userBlacklist?: djs.UserResolvable[];
+						userWhitelist?: djs.UserResolvable[];
 					}
+					visibility?: `choice` | `private` | `visible`;
 				};
-				wordle?: {
+				dice?: {
 					active: boolean;
-					visibility?: `choice` | `private` | `visible`;
 					permissions?: {
-						everyone: boolean;
-						guildWhitelist?: djs.GuildResolvable[];
-						guildBlacklist?: djs.GuildResolvable[];
-						channelWhitelist?: djs.ChannelResolvable[];
 						channelBlacklist?: djs.ChannelResolvable[];
-						roleWhitelist?: djs.RoleResolvable[];
+						channelWhitelist?: djs.ChannelResolvable[];
+						everyone: boolean;
+						guildBlacklist?: djs.GuildResolvable[];
+						guildWhitelist?: djs.GuildResolvable[];
 						roleBlacklist?: djs.RoleResolvable[];
-						userWhitelist?: djs.UserResolvable[];
+						roleWhitelist?: djs.RoleResolvable[];
 						userBlacklist?: djs.UserResolvable[];
+						userWhitelist?: djs.UserResolvable[];
 					}
+					visibility?: `choice` | `private` | `visible`;
+				};
+				generalReply?: Array<{		
+					active: boolean;
+					message: djs.InteractionReplyOptions;
+					name: string;
+					permissions?: {
+						channelBlacklist?: djs.ChannelResolvable[];
+						channelWhitelist?: djs.ChannelResolvable[];
+						everyone: boolean;
+						guildBlacklist?: djs.GuildResolvable[];
+						guildWhitelist?: djs.GuildResolvable[];
+						roleBlacklist?: djs.RoleResolvable[];
+						roleWhitelist?: djs.RoleResolvable[];
+						userBlacklist?: djs.UserResolvable[];
+						userWhitelist?: djs.UserResolvable[];
+					}
+					visibility?: `choice` | `private` | `visible`;
+				}>;
+				joindate?: {
+					active: boolean;
+					permissions?: {
+						channelBlacklist?: djs.ChannelResolvable[];
+						channelWhitelist?: djs.ChannelResolvable[];
+						everyone: boolean;
+						guildBlacklist?: djs.GuildResolvable[];
+						guildWhitelist?: djs.GuildResolvable[];
+						roleBlacklist?: djs.RoleResolvable[];
+						roleWhitelist?: djs.RoleResolvable[];
+						userBlacklist?: djs.UserResolvable[];
+						userWhitelist?: djs.UserResolvable[];
+					}
+					visibility?: `choice` | `private` | `visible`;
+				};
+				maze?: {
+					active: boolean;
+					permissions?: {
+						channelBlacklist?: djs.ChannelResolvable[];
+						channelWhitelist?: djs.ChannelResolvable[];
+						everyone: boolean;
+						guildBlacklist?: djs.GuildResolvable[];
+						guildWhitelist?: djs.GuildResolvable[];
+						roleBlacklist?: djs.RoleResolvable[];
+						roleWhitelist?: djs.RoleResolvable[];
+						userBlacklist?: djs.UserResolvable[];
+						userWhitelist?: djs.UserResolvable[];
+					}
+					visibility?: `choice` | `private` | `visible`;
 				};
 				reboot?: {
 					active: boolean;
-					visibility?: `choice` | `private` | `visible`;
 					permissions?: {
-						everyone: boolean;
-						guildWhitelist?: djs.GuildResolvable[];
-						guildBlacklist?: djs.GuildResolvable[];
-						channelWhitelist?: djs.ChannelResolvable[];
 						channelBlacklist?: djs.ChannelResolvable[];
-						roleWhitelist?: djs.RoleResolvable[];
+						channelWhitelist?: djs.ChannelResolvable[];
+						everyone: boolean;
+						guildBlacklist?: djs.GuildResolvable[];
+						guildWhitelist?: djs.GuildResolvable[];
 						roleBlacklist?: djs.RoleResolvable[];
-						userWhitelist?: djs.UserResolvable[];
+						roleWhitelist?: djs.RoleResolvable[];
 						userBlacklist?: djs.UserResolvable[];
+						userWhitelist?: djs.UserResolvable[];
 					}
+					visibility?: `choice` | `private` | `visible`;
+				};
+				serverInfo?: {
+					active: boolean;
+					permissions?: {
+						channelBlacklist?: djs.ChannelResolvable[];
+						channelWhitelist?: djs.ChannelResolvable[];
+						everyone: boolean;
+						guildBlacklist?: djs.GuildResolvable[];
+						guildWhitelist?: djs.GuildResolvable[];
+						roleBlacklist?: djs.RoleResolvable[];
+						roleWhitelist?: djs.RoleResolvable[];
+						userBlacklist?: djs.UserResolvable[];
+						userWhitelist?: djs.UserResolvable[];
+					}
+					visibility?: `choice` | `private` | `visible`;
+				};
+				ticTacToe?: {
+					active: boolean;
+					permissions?: {
+						channelBlacklist?: djs.ChannelResolvable[];
+						channelWhitelist?: djs.ChannelResolvable[];
+						everyone: boolean;
+						guildBlacklist?: djs.GuildResolvable[];
+						guildWhitelist?: djs.GuildResolvable[];
+						roleBlacklist?: djs.RoleResolvable[];
+						roleWhitelist?: djs.RoleResolvable[];
+						userBlacklist?: djs.UserResolvable[];
+						userWhitelist?: djs.UserResolvable[];
+					}
+					visibility?: `choice` | `private` | `visible`;
+				};
+				userinfo?: {
+					active: boolean;
+					permissions?: {
+						channelBlacklist?: djs.ChannelResolvable[];
+						channelWhitelist?: djs.ChannelResolvable[];
+						everyone: boolean;
+						guildBlacklist?: djs.GuildResolvable[];
+						guildWhitelist?: djs.GuildResolvable[];
+						roleBlacklist?: djs.RoleResolvable[];
+						roleWhitelist?: djs.RoleResolvable[];
+						userBlacklist?: djs.UserResolvable[];
+						userWhitelist?: djs.UserResolvable[];
+					}
+					visibility?: `choice` | `private` | `visible`;
+				};
+				wordle?: {
+					active: boolean;
+					permissions?: {
+						channelBlacklist?: djs.ChannelResolvable[];
+						channelWhitelist?: djs.ChannelResolvable[];
+						everyone: boolean;
+						guildBlacklist?: djs.GuildResolvable[];
+						guildWhitelist?: djs.GuildResolvable[];
+						roleBlacklist?: djs.RoleResolvable[];
+						roleWhitelist?: djs.RoleResolvable[];
+						userBlacklist?: djs.UserResolvable[];
+						userWhitelist?: djs.UserResolvable[];
+					}
+					visibility?: `choice` | `private` | `visible`;
+				};
+				xkcd?: {
+					active: boolean;
+					permissions?: {
+						channelBlacklist?: djs.ChannelResolvable[];
+						channelWhitelist?: djs.ChannelResolvable[];
+						everyone: boolean;
+						guildBlacklist?: djs.GuildResolvable[];
+						guildWhitelist?: djs.GuildResolvable[];
+						roleBlacklist?: djs.RoleResolvable[];
+						roleWhitelist?: djs.RoleResolvable[];
+						userBlacklist?: djs.UserResolvable[];
+						userWhitelist?: djs.UserResolvable[];
+					}
+					visibility?: `choice` | `private` | `visible`;
 				};
 			};
 			triggers?: Array<{
 				active: boolean;
 				input: {
-					type: `mention`;
-					triggers: Array<djs.ChannelResolvable | djs.RoleResolvable | djs.UserResolvable>
-				} | {
-					type: `reaction`;
-					triggers: djs.EmojiResolvable[];
-				} | {
-					type: `string`;
 					strict?: boolean;
 					triggers: string[];
+					type: `string`;
+				} | {
+					triggers: Array<djs.ChannelResolvable | djs.RoleResolvable | djs.UserResolvable>
+					type: `mention`;
+				} | {
+					triggers: djs.EmojiResolvable[];
+					type: `reaction`;
 				};
 				output: {
-					type: `message`;
-					message: djs.MessageReplyOptions
-				} | {
-					type: `reaction`;
 					emoji: djs.EmojiIdentifierResolvable
+					type: `reaction`;
 				} | {
-					type: `reply`;
+					message: djs.MessageReplyOptions
+					type: `message`;
+				} | {
 					reply: djs.MessageReplyOptions
+					type: `reply`;
 				};
 			}>
 		}
+		name: string;
+		token: string;
 	}>;
 	generalConfig: {
 		envPath: string

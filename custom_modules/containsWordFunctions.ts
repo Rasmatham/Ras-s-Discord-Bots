@@ -9,7 +9,7 @@ import { decimalShift, genericCatch, ShiftBy, toBigInt } from "./generalUse";
 //#region reply
 
 // Function int
-const reply = (inObjs: Array<{ message: Message, chance?: number, reply: MessageCreateOptions }>): void => {
+const reply = (inObjs: Array<{ chance?: number, message: Message, reply: MessageCreateOptions }>): void => {
 	inObjs.forEach((inObj) => {
 		if (typeof inObj.chance === `undefined`) 
 			inObj.chance = 100;
@@ -26,7 +26,7 @@ const reply = (inObjs: Array<{ message: Message, chance?: number, reply: Message
 
 // Function ext
 // eslint-disable-next-line one-var
-export const replyThing = (inObjs: Array<{ message: Message,type: `anywhere` | `exact` | `mention`,chance?: number,reply: MessageCreateOptions,triggers: Array<`${bigint}`> | string[] }>): void => {
+export const replyThing = (inObjs: Array<{ chance?: number,message: Message,reply: MessageCreateOptions,triggers: Array<`${bigint}`> | string[];type: `anywhere` | `exact` | `mention`, }>): void => {
 	inObjs.forEach((inObj) => {
 		if (typeof inObj.chance === `undefined`) 
 			inObj.chance = 100;
@@ -82,7 +82,7 @@ export const replyThing = (inObjs: Array<{ message: Message,type: `anywhere` | `
 	
 // Function int
 // eslint-disable-next-line one-var
-const react = (inObjs: Array<{ message: Message, chance?: number, emotes: string[] }>): void => {
+const react = (inObjs: Array<{ chance?: number, emotes: string[]; message: Message, }>): void => {
 	inObjs.forEach((inObj) => {
 		if (typeof inObj.chance === `undefined`) 
 			inObj.chance = 100;
@@ -95,7 +95,7 @@ const react = (inObjs: Array<{ message: Message, chance?: number, emotes: string
 };
 // Function ext
 // eslint-disable-next-line one-var
-export const reactThing = (inObjs: Array<{ message: Message, type: `anywhere` | `exact` | `mention`, chance?: number, emotes: string[], triggers: Array<`${bigint}`> | string[] }>): void => {
+export const reactThing = (inObjs: Array<{ chance?: number, emotes: string[], message: Message, triggers: Array<`${bigint}`> | string[]; type: `anywhere` | `exact` | `mention`, }>): void => {
 	inObjs.forEach((inObj) => {
 		if (typeof inObj.chance === `undefined`) 
 			inObj.chance = 100;

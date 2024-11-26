@@ -34,7 +34,7 @@ export const hencefortifier = (inObjs: Array<{ message: Message }>): void => {
 
 //#region Flit no lasting! Flit no lasting! Flit no lasting!
 // eslint-disable-next-line one-var
-export const userWordBan = (inObjs: Array<{ message: Message, word: string, userId: `${bigint}` }>): void => {
+export const userWordBan = (inObjs: Array<{ message: Message, userId: `${bigint}`; word: string, }>): void => {
 	inObjs.forEach((inObj) => {
 		if (inObj.message.author.id === inObj.userId) {
 			if (inObj.message.content.toLowerCase().includes(inObj.word))
@@ -51,7 +51,7 @@ export enum ReactionTypes {
 }
 
 // eslint-disable-next-line one-var
-export const espenBotReplacement = (inObjs: Array<{ type: ReactionTypes.Message, message: Message, chance: number, victim: `${bigint}`, out: MessageCreateOptions} | { type: ReactionTypes.React, message: Message, chance: number, victim: `${bigint}`, out: EmojiIdentifierResolvable}>): void => {
+export const espenBotReplacement = (inObjs: Array<{ chance: number, message: Message, out: EmojiIdentifierResolvable; type: ReactionTypes.React, victim: `${bigint}`,} | { chance: number, message: Message, out: MessageCreateOptions; type: ReactionTypes.Message, victim: `${bigint}`,}>): void => {
 	inObjs.forEach((inObj) => {
 		if (inObj.message.author.id === inObj.victim && Math.floor(decimalShift(Math.random(), ShiftBy.P2)) <= inObj.chance) {
 			switch (inObj.type) {
