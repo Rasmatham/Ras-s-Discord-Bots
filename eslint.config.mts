@@ -124,6 +124,7 @@ export default tseslint.config(
 	{
 		// Perfectionist rules
 		rules: {
+			"perfectionist/sort-array-includes": [`error`],
 			"perfectionist/sort-intersection-types": [`error`],
 			"perfectionist/sort-union-types": [`error`]
 		}

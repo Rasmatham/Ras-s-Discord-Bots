@@ -221,7 +221,7 @@ export const relativeModalInteraction = (inObjs: Array<{interaction: ModalMessag
 		offset += hours * secondsPerHour;
 		offset += minutes * secondsPerMinute;
 		offset += seconds;
-		offset = [ `Y`,`y`,`Yes`,`yes`,`true`,`1` ].includes(negativeTime) ? -offset : offset;
+		offset = [ `1`,`true`,`Y`,`y`,`Yes`,`yes` ].includes(negativeTime) ? -offset : offset;
 
 		// eslint-disable-next-line one-var
 		const timestamp = (style: TimestampStylesString): `<t:${string}:${TimestampStylesString}>` => `<t:${(Math.floor(new Date().getTime()/msInS) + offset).toString()}:${style}>`;

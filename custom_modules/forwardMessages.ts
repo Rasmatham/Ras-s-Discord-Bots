@@ -15,15 +15,9 @@ export const messageForwarding = (inObjs: Array<{message: Message}>): void => {
 		if (inObj.message.content.startsWith(`<#`)) {
 			if (inObj.message.channel.type !== ChannelType.GuildText) return;
 			if ([
-				`talk-as-${
-					bot.user.username.toLowerCase()
-				}`,
-				`talk-and-dm-as-${
-					bot.user.username.toLowerCase()
-				}`,
-				`dm-and-talk-as-${
-					bot.user.username.toLowerCase()
-				}`
+				`dm-and-talk-as-${bot.user.username.toLowerCase()}`,
+				`talk-and-dm-as-${bot.user.username.toLowerCase()}`,
+				`talk-as-${bot.user.username.toLowerCase()}`
 			].includes(inObj.message.channel.name)) {
 				const firstChannel = inObj.message.mentions.channels.first();
 				if (!blackList.includes(inObj.message.channel.name) /*|| message.member.id == process.env.RASID*/ || inObj.message.member.permissions.has(`Administrator`)) {
@@ -44,15 +38,9 @@ export const messageForwarding = (inObjs: Array<{message: Message}>): void => {
 		else if (inObj.message.content.startsWith(`<@`) && !inObj.message.content.startsWith(`<@&`) /*&& message.member.hasPermission(`ADMINISTRATOR`)*/) {
 			if (inObj.message.channel.type !== ChannelType.GuildText) return;
 			if ([
-				`dm-as-${
-					bot.user.username.toLowerCase()
-				}`,
-				`talk-and-dm-as-${
-					bot.user.username.toLowerCase()
-				}`,
-				`dm-and-talk-as-${
-					bot.user.username.toLowerCase()
-				}`
+				`dm-and-talk-as-${bot.user.username.toLowerCase()}`,
+				`dm-as-${bot.user.username.toLowerCase()}`,
+				`talk-and-dm-as-${bot.user.username.toLowerCase()}`
 			].includes(inObj.message.channel.name)) 
 				inObj.message.channel.send(`This functionality is temporarily disabled`).catch(genericCatch);
 			
