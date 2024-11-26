@@ -1,17 +1,17 @@
-//#region imports
+// #region imports
 import type { Message, MessageCreateOptions } from "discord.js";
 
 import { ChannelType } from "discord.js";
 
 import { decimalShift, genericCatch, ShiftBy, toBigInt } from "./generalUse";
-//#endregion
+// #endregion
 
-//#region reply
+// #region reply
 
 // Function int
 const reply = (inObjs: Array<{ chance?: number, message: Message, reply: MessageCreateOptions }>): void => {
 	inObjs.forEach((inObj) => {
-		if (typeof inObj.chance === `undefined`) 
+		if (typeof inObj.chance === `undefined`)
 			inObj.chance = 100;
 		if (decimalShift(Math.random(), ShiftBy.P2) <= inObj.chance) {
 			if (inObj.message.channel.type === ChannelType.GuildText) {
@@ -26,9 +26,9 @@ const reply = (inObjs: Array<{ chance?: number, message: Message, reply: Message
 
 // Function ext
 // eslint-disable-next-line one-var
-export const replyThing = (inObjs: Array<{ chance?: number,message: Message,reply: MessageCreateOptions,triggers: Array<`${bigint}`> | string[];type: `anywhere` | `exact` | `mention`, }>): void => {
+export const replyThing = (inObjs: Array<{ chance?: number, message: Message, reply: MessageCreateOptions, triggers: Array<`${bigint}`> | string[], type: `anywhere` | `exact` | `mention` }>): void => {
 	inObjs.forEach((inObj) => {
-		if (typeof inObj.chance === `undefined`) 
+		if (typeof inObj.chance === `undefined`)
 			inObj.chance = 100;
 		if (!inObj.message.author.bot) {
 			if (inObj.type.toString() === `anywhere`) {
@@ -76,18 +76,18 @@ export const replyThing = (inObjs: Array<{ chance?: number,message: Message,repl
 	});
 };
 
-//#endregion
+// #endregion
 
-//#region react
-	
+// #region react
+
 // Function int
 // eslint-disable-next-line one-var
-const react = (inObjs: Array<{ chance?: number, emotes: string[]; message: Message, }>): void => {
+const react = (inObjs: Array<{ chance?: number, emotes: string[], message: Message }>): void => {
 	inObjs.forEach((inObj) => {
-		if (typeof inObj.chance === `undefined`) 
+		if (typeof inObj.chance === `undefined`)
 			inObj.chance = 100;
 		if (decimalShift(Math.random(), ShiftBy.P2) <= inObj.chance) {
-			inObj.emotes.forEach(emote => {
+			inObj.emotes.forEach((emote) => {
 				inObj.message.react(emote).catch(genericCatch);
 			});
 		}
@@ -95,9 +95,9 @@ const react = (inObjs: Array<{ chance?: number, emotes: string[]; message: Messa
 };
 // Function ext
 // eslint-disable-next-line one-var
-export const reactThing = (inObjs: Array<{ chance?: number, emotes: string[], message: Message, triggers: Array<`${bigint}`> | string[]; type: `anywhere` | `exact` | `mention`, }>): void => {
+export const reactThing = (inObjs: Array<{ chance?: number, emotes: string[], message: Message, triggers: Array<`${bigint}`> | string[], type: `anywhere` | `exact` | `mention` }>): void => {
 	inObjs.forEach((inObj) => {
-		if (typeof inObj.chance === `undefined`) 
+		if (typeof inObj.chance === `undefined`)
 			inObj.chance = 100;
 		if (!inObj.message.author.bot) {
 			const { chance } = inObj;
@@ -146,4 +146,4 @@ export const reactThing = (inObjs: Array<{ chance?: number, emotes: string[], me
 	});
 };
 
-//#endregion
+// #endregion

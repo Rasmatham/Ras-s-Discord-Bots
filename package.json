@@ -9,6 +9,7 @@
 	},
 	"devDependencies": {
 		"@eslint/js": "9.14.0",
+		"@stylistic/eslint-plugin": "^2.11.0",
 		"@types/node-fetch": "2.6.12",
 		"eslint": "9.14.0",
 		"eslint-plugin-perfectionist": "^4.0.3",

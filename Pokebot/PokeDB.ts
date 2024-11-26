@@ -1,29 +1,29 @@
 import type { ColorResolvable } from "discord.js";
 
 export interface PokeObjType {
-	dexEntries:DexEntriesType
-	height:[
+	dexEntries: DexEntriesType,
+	height: [
 		string,
 		string
 	],
 	name: string,
-	nat:string,
-	rarity:number,
-	reg:string,
-	types:[PokeType,PokeType] | [PokeType],
-	weight:[
+	nat: string,
+	rarity: number,
+	reg: string,
+	types: [PokeType, PokeType] | [PokeType],
+	weight: [
 		string,
 		string
-	],
+	]
 }
 export interface PokeType {
 	color: ColorResolvable,
 	name: string,
-	noDamageTo?: string[]
+	noDamageTo?: string[],
 	strongTo?: string[],
-	weakTo?: string[],
+	weakTo?: string[]
 }
-//#region type definitions
+// #region type definitions
 interface DexEntriesType {
 	as: string,
 	b2: string,
@@ -44,7 +44,7 @@ interface DexEntriesType {
 	re: string,
 	ru: string,
 	sa: string,
-	sh: string
+	sh: string,
 	si: string,
 	ss: string,
 	su: string,
@@ -55,11 +55,11 @@ interface DexEntriesType {
 	wh: string,
 	xx: string,
 	yr: string,
-	yy: string,
+	yy: string
 }
-//#endregion
+// #endregion
 
-//#region types
+// #region types
 export const types: Record<string, PokeType> = {
 	bird: {
 		color: `#68A090`,
@@ -195,9 +195,9 @@ export const types: Record<string, PokeType> = {
 		weakTo: []
 	}
 };
-//#endregion
+// #endregion
 
-//#region pokemon
+// #region pokemon
 // eslint-disable-next-line one-var
 export const pokemon: PokeObjType[] = [
 	{
@@ -232,7 +232,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Missingno`,
@@ -274,7 +274,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Bulbasaur`,
@@ -319,7 +319,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Ivysaur`,
@@ -364,7 +364,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Venusaur`,
@@ -409,7 +409,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Charmander`,
@@ -453,7 +453,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Charmeleon`,
@@ -497,7 +497,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Charizard`,
@@ -542,7 +542,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Squirtle`,
@@ -586,7 +586,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Wartortle`,
@@ -630,7 +630,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Blastoise`,
@@ -674,7 +674,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Caterpie`,
@@ -718,7 +718,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Metapod`,
@@ -762,7 +762,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Butterfree`,
@@ -807,7 +807,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Weedle`,
@@ -852,7 +852,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Kakuna`,
@@ -897,7 +897,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Beedrill`,
@@ -942,7 +942,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Pidgey`,
@@ -987,7 +987,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Pidgeotto`,
@@ -1032,7 +1032,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Pidgeot`,
@@ -1077,7 +1077,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Rattata`,
@@ -1121,7 +1121,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Raticate`,
@@ -1165,7 +1165,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Spearow`,
@@ -1210,7 +1210,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Fearow`,
@@ -1255,7 +1255,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Ekans`,
@@ -1299,7 +1299,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Arbok`,
@@ -1343,7 +1343,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Pikachu`,
@@ -1387,7 +1387,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Raichu`,
@@ -1431,7 +1431,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Sandshrew`,
@@ -1475,7 +1475,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Sandslash`,
@@ -1519,7 +1519,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Nidoran`,
@@ -1563,7 +1563,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Nidorina`,
@@ -1607,7 +1607,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Nidoqueen`,
@@ -1652,7 +1652,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Nidoran`,
@@ -1696,7 +1696,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Nidorino`,
@@ -1740,7 +1740,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Nidoking`,
@@ -1785,7 +1785,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Clefairy`,
@@ -1829,7 +1829,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Clefable`,
@@ -1873,7 +1873,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Vulpix`,
@@ -1917,7 +1917,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Ninetales`,
@@ -1961,7 +1961,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Jigglypuff`,
@@ -2006,7 +2006,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Wigglytuff`,
@@ -2051,7 +2051,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Zubat`,
@@ -2096,7 +2096,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Golbat`,
@@ -2141,7 +2141,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Oddish`,
@@ -2186,7 +2186,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Gloom`,
@@ -2231,7 +2231,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Vileplume`,
@@ -2276,7 +2276,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Paras`,
@@ -2321,7 +2321,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Parasect`,
@@ -2366,7 +2366,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Venonat`,
@@ -2411,7 +2411,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Venomoth`,
@@ -2456,7 +2456,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Diglett`,
@@ -2500,7 +2500,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Dugtrio`,
@@ -2544,7 +2544,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Meowth`,
@@ -2588,7 +2588,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Persian`,
@@ -2632,7 +2632,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Psyduck`,
@@ -2676,7 +2676,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Golduck`,
@@ -2720,7 +2720,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Mankey`,
@@ -2764,7 +2764,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Primeape`,
@@ -2808,7 +2808,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Growlithe`,
@@ -2852,7 +2852,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Arcanine`,
@@ -2896,7 +2896,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Poliwag`,
@@ -2940,7 +2940,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Poliwhirl`,
@@ -2984,7 +2984,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Poliwrath`,
@@ -3029,7 +3029,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Abra`,
@@ -3073,7 +3073,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Kadabra`,
@@ -3117,7 +3117,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Alakazam`,
@@ -3161,7 +3161,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Machop`,
@@ -3205,7 +3205,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Machoke`,
@@ -3249,7 +3249,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Machamp`,
@@ -3293,7 +3293,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Bellsprout`,
@@ -3338,7 +3338,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Weepinbell`,
@@ -3383,7 +3383,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Victreebel`,
@@ -3428,7 +3428,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Tentacool`,
@@ -3473,7 +3473,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Tentacruel`,
@@ -3518,7 +3518,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Geodude`,
@@ -3563,7 +3563,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Graveler`,
@@ -3608,7 +3608,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Golem`,
@@ -3653,7 +3653,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Ponyta`,
@@ -3697,7 +3697,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Rapidash`,
@@ -3741,7 +3741,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Slowpoke`,
@@ -3786,7 +3786,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Slowbro`,
@@ -3831,7 +3831,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Magnemite`,
@@ -3876,7 +3876,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Magneton`,
@@ -3921,7 +3921,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Farfetch'd`,
@@ -3966,7 +3966,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Doduo`,
@@ -4011,7 +4011,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Dodrio`,
@@ -4056,7 +4056,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Seel`,
@@ -4100,7 +4100,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Dewgong`,
@@ -4145,7 +4145,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Grimer`,
@@ -4189,7 +4189,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Muk`,
@@ -4233,7 +4233,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Shellder`,
@@ -4277,7 +4277,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Cloyster`,
@@ -4322,7 +4322,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Gastly`,
@@ -4367,7 +4367,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Haunter`,
@@ -4412,7 +4412,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Gengar`,
@@ -4457,7 +4457,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Onix`,
@@ -4502,7 +4502,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Drowzee`,
@@ -4546,7 +4546,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Hypno`,
@@ -4590,7 +4590,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Krabby`,
@@ -4634,7 +4634,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Kingler`,
@@ -4678,7 +4678,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Voltorb`,
@@ -4722,7 +4722,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Electrode`,
@@ -4766,7 +4766,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Exeggcute`,
@@ -4811,7 +4811,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Exeggutor`,
@@ -4856,7 +4856,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Cubone`,
@@ -4900,7 +4900,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Marowak`,
@@ -4944,7 +4944,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Hitmonlee`,
@@ -4988,7 +4988,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Hitmonchan`,
@@ -5032,7 +5032,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Lickitung`,
@@ -5076,7 +5076,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Koffing`,
@@ -5120,7 +5120,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Weezing`,
@@ -5164,7 +5164,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Ryhorn`,
@@ -5209,7 +5209,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Rhydon`,
@@ -5254,7 +5254,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Chansey`,
@@ -5298,7 +5298,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Tangela`,
@@ -5342,7 +5342,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Kangaskhan`,
@@ -5386,7 +5386,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Horsea`,
@@ -5430,7 +5430,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Seadra`,
@@ -5474,7 +5474,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Goldeen`,
@@ -5518,7 +5518,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Seaking`,
@@ -5562,7 +5562,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Staryu`,
@@ -5606,7 +5606,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Starmie`,
@@ -5651,7 +5651,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Mr. Mime`,
@@ -5696,7 +5696,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Scyther`,
@@ -5741,7 +5741,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Jynx`,
@@ -5786,7 +5786,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Electabuzz`,
@@ -5830,7 +5830,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Magmar`,
@@ -5874,7 +5874,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Pinsir`,
@@ -5918,7 +5918,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Tauros`,
@@ -5962,7 +5962,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Magikarp`,
@@ -6006,7 +6006,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Gyarados`,
@@ -6051,7 +6051,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Lapras`,
@@ -6096,7 +6096,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Ditto`,
@@ -6140,7 +6140,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Eevee`,
@@ -6184,7 +6184,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Vaporeon`,
@@ -6228,7 +6228,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Jolteon`,
@@ -6272,7 +6272,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Flareon`,
@@ -6316,7 +6316,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Porygon`,
@@ -6360,7 +6360,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Omanyte`,
@@ -6405,7 +6405,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Omastar`,
@@ -6450,7 +6450,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Kabuto`,
@@ -6495,7 +6495,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Kabutops`,
@@ -6540,7 +6540,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Aerodactyl`,
@@ -6585,7 +6585,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Snorlax`,
@@ -6629,7 +6629,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Articuno`,
@@ -6674,7 +6674,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Zapdos`,
@@ -6719,7 +6719,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Moltres`,
@@ -6764,7 +6764,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Dratini`,
@@ -6808,7 +6808,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Dragonair`,
@@ -6852,7 +6852,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Dragonite`,
@@ -6897,7 +6897,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Mewtwo`,
@@ -6941,7 +6941,7 @@ export const pokemon: PokeObjType[] = [
 			wh: `?`,
 			xx: `?`,
 			yr: `?`,
-			yy: `?`,
+			yy: `?`
 		},
 		height: [ `?`, `?` ],
 		name: `Mew`,
@@ -6954,145 +6954,145 @@ export const pokemon: PokeObjType[] = [
 		weight: [ `impweight`, `metweight` ]
 	}
 ];
-//#endregion
+// #endregion
 
-//#region trainers
+// #region trainers
 // eslint-disable-next-line one-var
 export const trainerList = [
-	//Core games
+	// Core games
 	[
-	//Kanto
+	// Kanto
 		[
-			//Gen 1
+			// Gen 1
 			[
 				`Red`,
-				`Blue`,
+				`Blue`
 			],
-			//Gen 3
+			// Gen 3
 			[
-				`Green`,
+				`Green`
 			],
-			//Gen 7
+			// Gen 7
 			[
 				`Chace`,
 				`Elaine`,
-				`Trace`,
-			],
+				`Trace`
+			]
 		],
-		//Johto
+		// Johto
 		[
-			//Gen 2
+			// Gen 2
 			[
-				//GS
+				// GS
 				[
 					`Ethan`,
-					`Silver`,
+					`Silver`
 				],
-				//C
+				// C
 				[
-					`Kris`,
-				],
+					`Kris`
+				]
 			],
-			//Gen 4
+			// Gen 4
 			[
-				`Lyra`,
-			],
+				`Lyra`
+			]
 		],
-		//Hoenn
+		// Hoenn
 		[
-			//Gen 3
+			// Gen 3
 			[
 				`Brendan`,
 				`May`,
-				`Wally`,
+				`Wally`
 			],
-			//Gen 6
+			// Gen 6
 			[
 				// None
-			],
+			]
 		],
-		//Sinnoh
+		// Sinnoh
 		[
-			//Gen 4
+			// Gen 4
 			[
 				`Lucas`,
 				`Dawn`,
-				`Barry`,
+				`Barry`
 			],
-			//Gen 8
+			// Gen 8
 			[
 				// None
-			],
+			]
 		],
-		//Unova
+		// Unova
 		[
-			//Gen 5
+			// Gen 5
 			[
-				//BW
+				// BW
 				[
 					`Hilbert`,
 					`Hilda`,
 					`Cheren`,
 					`Bianca`,
-					`N`,
+					`N`
 				],
-				//B2W2
+				// B2W2
 				[
 					`Nate`,
 					`Rosa`,
-					`Hugh`,
-				],
-			],
+					`Hugh`
+				]
+			]
 		],
-		//Kalos
+		// Kalos
 		[
-			//Gen 6
+			// Gen 6
 			[
 				`Calem`,
 				`Serena`,
 				`Shauna`,
 				`Tierno`,
-				`Trevor`,
-			],
+				`Trevor`
+			]
 		],
-		//Alola
+		// Alola
 		[
-			//Gen 7
+			// Gen 7
 			[
 				`Elio`,
 				`Selene`,
 				`Hau`,
-				`Gladion`,
-			],
+				`Gladion`
+			]
 		],
-		//Galar
+		// Galar
 		[
-			//Gen 8
+			// Gen 8
 			[
-				//Base game
+				// Base game
 				[
 					`Victor`,
 					`Gloria`,
 					`Hop`,
 					`Bede`,
-					`Marnie`,
+					`Marnie`
 				],
-				//Isle of Armor
+				// Isle of Armor
 				[
 					`Klara`,
-					`Avery`,
-				],
-			],
+					`Avery`
+				]
+			]
 		],
-		//Hisui
+		// Hisui
 		[
-			//Gen 9
+			// Gen 9
 			[
 				`Rei`,
-				`Akari`,
-			],
-		],
-	],
+				`Akari`
+			]
+		]
+	]
 // eslint-disable-next-line @typescript-eslint/no-magic-numbers
 ].flat(4);
-//#endregion
+// #endregion

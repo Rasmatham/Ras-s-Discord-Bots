@@ -1,20 +1,20 @@
-//#region imports
+// #region imports
 import type { CommandInteraction, EmojiIdentifierResolvable, InteractionReplyOptions, Message, MessageCreateOptions } from "discord.js";
 
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, ChannelType, StringSelectMenuBuilder } from "discord.js";
 
 import { blackList, decimalShift, genericCatch, offByOne, ShiftBy, toBigInt } from "./generalUse.js";
-//#endregion
+// #endregion
 
-//#region Frick that one rule
+// #region Frick that one rule
 export const hencefortifier = (inObjs: Array<{ message: Message }>): void => {
 	inObjs.forEach((inObj) => {
 		if (inObj.message.author.id !== inObj.message.client.user.id && inObj.message.guild !== null && inObj.message.content.toLowerCase().includes(`from now on`)) {
 			if (inObj.message.guild.id === `646155122992480266`) {
-				const textChannels:Array<`${bigint}`> = [];
+				const textChannels: Array<`${bigint}`> = [];
 				inObj.message.guild.channels.cache.forEach((channel) => {
 					if (channel.type === ChannelType.GuildText) {
-						blackList.forEach((bannedChannel:string) => {
+						blackList.forEach((bannedChannel: string) => {
 							if (channel.name !== bannedChannel)
 								textChannels.push(toBigInt(channel.id));
 						});
@@ -30,11 +30,11 @@ export const hencefortifier = (inObjs: Array<{ message: Message }>): void => {
 		}
 	});
 };
-//#endregion
+// #endregion
 
-//#region Flit no lasting! Flit no lasting! Flit no lasting!
+// #region Flit no lasting! Flit no lasting! Flit no lasting!
 // eslint-disable-next-line one-var
-export const userWordBan = (inObjs: Array<{ message: Message, userId: `${bigint}`; word: string, }>): void => {
+export const userWordBan = (inObjs: Array<{ message: Message, userId: `${bigint}`, word: string }>): void => {
 	inObjs.forEach((inObj) => {
 		if (inObj.message.author.id === inObj.userId) {
 			if (inObj.message.content.toLowerCase().includes(inObj.word))
@@ -42,16 +42,16 @@ export const userWordBan = (inObjs: Array<{ message: Message, userId: `${bigint}
 		}
 	});
 };
-//#endregion
+// #endregion
 
-//#region smh, Espen bot doesn't work
+// #region smh, Espen bot doesn't work
 export enum ReactionTypes {
 	Message = 0,
 	React = 1
 }
 
 // eslint-disable-next-line one-var
-export const espenBotReplacement = (inObjs: Array<{ chance: number, message: Message, out: EmojiIdentifierResolvable; type: ReactionTypes.React, victim: `${bigint}`,} | { chance: number, message: Message, out: MessageCreateOptions; type: ReactionTypes.Message, victim: `${bigint}`,}>): void => {
+export const espenBotReplacement = (inObjs: Array<{ chance: number, message: Message, out: EmojiIdentifierResolvable, type: ReactionTypes.React, victim: `${bigint}` } | { chance: number, message: Message, out: MessageCreateOptions, type: ReactionTypes.Message, victim: `${bigint}` }>): void => {
 	inObjs.forEach((inObj) => {
 		if (inObj.message.author.id === inObj.victim && Math.floor(decimalShift(Math.random(), ShiftBy.P2)) <= inObj.chance) {
 			switch (inObj.type) {
@@ -69,23 +69,23 @@ export const espenBotReplacement = (inObjs: Array<{ chance: number, message: Mes
 		}
 	});
 };
-//#endregion
+// #endregion
 
-//#region interaction tests
+// #region interaction tests
 // eslint-disable-next-line one-var
-export const buttonGrid = (inObj: {interaction: CommandInteraction}):InteractionReplyOptions => {
+export const buttonGrid = (inObj: { interaction: CommandInteraction }): InteractionReplyOptions => {
 	const buttonContentOption = inObj.interaction.options.get(`button_content`);
 	// eslint-disable-next-line one-var
 	const buttonContent = typeof buttonContentOption?.value === `string` ? buttonContentOption.value : ``,
-	discordEmoji = /^<(?:a?)?:.+?:\d+>$/gui,
-	discordEmojiNotExact = /<(?:a?)?:.+?:\d+>/giu,
-	maxLabelLength = 80,
-	unicodeEmoji = /^\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff]$/gui;
+		discordEmoji = /^<(?:a?)?:.+?:\d+>$/gui,
+		discordEmojiNotExact = /<(?:a?)?:.+?:\d+>/giu,
+		maxLabelLength = 80,
+		unicodeEmoji = /^\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff]$/gui;
 	if (buttonContent.length <= maxLabelLength) {
 		if (buttonContent.match(unicodeEmoji) || buttonContent.match(discordEmoji)) {
-			const button = (id:string): ButtonBuilder => new ButtonBuilder().setCustomId(id).setEmoji(buttonContent).setStyle(ButtonStyle.Secondary);
+			const button = (id: string): ButtonBuilder => new ButtonBuilder().setCustomId(id).setEmoji(buttonContent).setStyle(ButtonStyle.Secondary);
 			// eslint-disable-next-line one-var
-			const bar = (rowNumber:string): ActionRowBuilder<ButtonBuilder> => new ActionRowBuilder<ButtonBuilder>().addComponents([
+			const bar = (rowNumber: string): ActionRowBuilder<ButtonBuilder> => new ActionRowBuilder<ButtonBuilder>().addComponents([
 				button(`Dummy: ${rowNumber}-1`),
 				button(`Dummy: ${rowNumber}-2`),
 				button(`Dummy: ${rowNumber}-3`),
@@ -104,9 +104,9 @@ export const buttonGrid = (inObj: {interaction: CommandInteraction}):Interaction
 			};
 		}
 		else if (buttonContent.match(discordEmojiNotExact)) {
-			const button = (id:string):ButtonBuilder => new ButtonBuilder().setCustomId(id).setLabel(buttonContent.replace(discordEmojiNotExact, ``)).setStyle(ButtonStyle.Secondary);
+			const button = (id: string): ButtonBuilder => new ButtonBuilder().setCustomId(id).setLabel(buttonContent.replace(discordEmojiNotExact, ``)).setStyle(ButtonStyle.Secondary);
 			// eslint-disable-next-line one-var
-			const bar = (rowNumber:string): ActionRowBuilder<ButtonBuilder> => new ActionRowBuilder<ButtonBuilder>().addComponents([
+			const bar = (rowNumber: string): ActionRowBuilder<ButtonBuilder> => new ActionRowBuilder<ButtonBuilder>().addComponents([
 				button(`Dummy: ${rowNumber}-1`),
 				button(`Dummy: ${rowNumber}-2`),
 				button(`Dummy: ${rowNumber}-3`),
@@ -124,9 +124,9 @@ export const buttonGrid = (inObj: {interaction: CommandInteraction}):Interaction
 				content: buttonContent.replace(discordEmojiNotExact, ``)
 			};
 		}
-		const button = (id:string):ButtonBuilder => new ButtonBuilder().setCustomId(id).setLabel(buttonContent).setStyle(ButtonStyle.Secondary);
+		const button = (id: string): ButtonBuilder => new ButtonBuilder().setCustomId(id).setLabel(buttonContent).setStyle(ButtonStyle.Secondary);
 		// eslint-disable-next-line one-var
-		const bar = (rowNumber:string): ActionRowBuilder<ButtonBuilder> => new ActionRowBuilder<ButtonBuilder>().addComponents([
+		const bar = (rowNumber: string): ActionRowBuilder<ButtonBuilder> => new ActionRowBuilder<ButtonBuilder>().addComponents([
 			button(`Dummy: ${rowNumber}-1`),
 			button(`Dummy: ${rowNumber}-2`),
 			button(`Dummy: ${rowNumber}-3`),
@@ -145,15 +145,15 @@ export const buttonGrid = (inObj: {interaction: CommandInteraction}):Interaction
 		};
 	}
 	// eslint-disable-next-line one-var
-	const button = (id:string):ButtonBuilder => new ButtonBuilder().setCustomId(id).setLabel(`error`).setStyle(ButtonStyle.Secondary);
+	const button = (id: string): ButtonBuilder => new ButtonBuilder().setCustomId(id).setLabel(`error`).setStyle(ButtonStyle.Secondary);
 	// eslint-disable-next-line one-var
-	const bar = (rowNumber:string): ActionRowBuilder<ButtonBuilder> => new ActionRowBuilder<ButtonBuilder>().addComponents(
-			button(`Dummy: ${rowNumber}-1`),
-			button(`Dummy: ${rowNumber}-2`),
-			button(`Dummy: ${rowNumber}-3`),
-			button(`Dummy: ${rowNumber}-4`),
-			button(`Dummy: ${rowNumber}-5`)
-		);
+	const bar = (rowNumber: string): ActionRowBuilder<ButtonBuilder> => new ActionRowBuilder<ButtonBuilder>().addComponents(
+		button(`Dummy: ${rowNumber}-1`),
+		button(`Dummy: ${rowNumber}-2`),
+		button(`Dummy: ${rowNumber}-3`),
+		button(`Dummy: ${rowNumber}-4`),
+		button(`Dummy: ${rowNumber}-5`)
+	);
 	return {
 		components: [
 			bar(`1`),
@@ -167,7 +167,7 @@ export const buttonGrid = (inObj: {interaction: CommandInteraction}):Interaction
 };
 
 // eslint-disable-next-line one-var
-export const selectMenu = ():InteractionReplyOptions => {
+export const selectMenu = (): InteractionReplyOptions => {
 	const bar = new ActionRowBuilder<StringSelectMenuBuilder>()
 		.addComponents([
 			new StringSelectMenuBuilder()
@@ -177,13 +177,13 @@ export const selectMenu = ():InteractionReplyOptions => {
 					{
 						description: `This is the wrong answer`,
 						label: `Ras is cool`,
-						value: `first_option`,
+						value: `first_option`
 					},
 					{
 						description: `Don't deny it`,
 						label: `Ras is cooler than cool`,
-						value: `second_option`,
-					},
+						value: `second_option`
+					}
 				])
 		]);
 	return {
@@ -191,4 +191,4 @@ export const selectMenu = ():InteractionReplyOptions => {
 		content: `sample menus:`
 	};
 };
-//#endregion
+// #endregion

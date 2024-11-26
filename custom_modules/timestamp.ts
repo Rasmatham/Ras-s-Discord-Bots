@@ -1,16 +1,16 @@
-//#region imports
+// #region imports
 import type { ButtonInteraction, Interaction, ModalMessageModalSubmitInteraction, ModalSubmitInteraction, TimestampStylesString } from "discord.js";
 
 import { ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } from "discord.js";
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "fs";
 
 import { binaryShift, ephemeral, genericCatch, Index, msInS, ShiftBy, zero } from "./generalUse";
-//#endregion
+// #endregion
 
-//#region setup
-const setup = (inObj: { interaction: Interaction } ): void => {
+// #region setup
+const setup = (inObj: { interaction: Interaction }): void => {
 	const clientId = inObj.interaction.client.user.id,
-	userId = inObj.interaction.user.id;
+		userId = inObj.interaction.user.id;
 	if (!existsSync(`./${clientId}`))
 		mkdirSync(`./${clientId}`);
 	if (!existsSync(`./${clientId}/userinfo`))
@@ -18,11 +18,11 @@ const setup = (inObj: { interaction: Interaction } ): void => {
 	if (!existsSync(`./${clientId}/userinfo/${userId}`))
 		mkdirSync(`./${clientId}/userinfo/${userId}`);
 };
-//#endregion
+// #endregion
 
-//#region utc converter
+// #region utc converter
 // eslint-disable-next-line one-var
-const toUtc = (dateString = new Date().toISOString(), tzIdentifier = `Etc/UTC`):Date => {
+const toUtc = (dateString = new Date().toISOString(), tzIdentifier = `Etc/UTC`): Date => {
 	const utcDate = new Date(dateString);
 	return new Date(binaryShift(utcDate.getTime(), ShiftBy.P1) - new Date(utcDate.toLocaleString(`en-US`, {
 		day: `2-digit`,
@@ -35,45 +35,45 @@ const toUtc = (dateString = new Date().toISOString(), tzIdentifier = `Etc/UTC`):
 		year: `numeric`
 	})).getTime());
 };
-//#endregion
+// #endregion
 
-//#region create timestamp
+// #region create timestamp
 // eslint-disable-next-line one-var
 const validTimestamps = Intl.supportedValuesOf(`timeZone`).join(`\n`);
 
 // eslint-disable-next-line one-var
-export const create = (inObjs: Array<{interaction: Interaction}>): void => {
+export const create = (inObjs: Array<{ interaction: Interaction }>): void => {
 	inObjs.forEach((inObj) => {
 		if (inObj.interaction.isRepliable()) {
 			const absoluteButton = new ButtonBuilder()
-				.setCustomId(`absolute`)
-				.setLabel(`Absolute`)
-				.setStyle(ButtonStyle.Primary),
-			embed = new EmbedBuilder()
-				.setTitle(`Realtive or absolute?`)
-				.setColor(`#004b84`)
-				.addFields(
-					{ name: `Relative`, value: `Timestamp relative to when the timestamp was created. (e.g. in x minutes. Does not affect the timestamp style)` },
-					{ name: `Absolute`, value: `Timesatmp based on the actual date and time. (e.g. At HH:mm. Does not affect the timestamp style)` }
-				),
-			relativeButton = new ButtonBuilder()
-				.setCustomId(`relative`)
-				.setLabel(`Relative`)
-				.setStyle(ButtonStyle.Primary),
-			row = new ActionRowBuilder<ButtonBuilder>()
-				.addComponents(relativeButton, absoluteButton);
+					.setCustomId(`absolute`)
+					.setLabel(`Absolute`)
+					.setStyle(ButtonStyle.Primary),
+				embed = new EmbedBuilder()
+					.setTitle(`Realtive or absolute?`)
+					.setColor(`#004b84`)
+					.addFields(
+						{ name: `Relative`, value: `Timestamp relative to when the timestamp was created. (e.g. in x minutes. Does not affect the timestamp style)` },
+						{ name: `Absolute`, value: `Timesatmp based on the actual date and time. (e.g. At HH:mm. Does not affect the timestamp style)` }
+					),
+				relativeButton = new ButtonBuilder()
+					.setCustomId(`relative`)
+					.setLabel(`Relative`)
+					.setStyle(ButtonStyle.Primary),
+				row = new ActionRowBuilder<ButtonBuilder>()
+					.addComponents(relativeButton, absoluteButton);
 			inObj.interaction.reply({ components: [row], embeds: [embed], ephemeral }).catch(genericCatch);
 		}
 	});
 };
 
-//#region relative
+// #region relative
 // eslint-disable-next-line one-var
-export const relativeButtonInteraction = (inObjs: Array<{interaction: ButtonInteraction}>): void => {
+export const relativeButtonInteraction = (inObjs: Array<{ interaction: ButtonInteraction }>): void => {
 	inObjs.forEach((inObj) => {
 		const dateFormats = [ `YYYY-MM-DD`, `MM-DD`, `DD` ],
-		negativeFormats = [ `Y/N`, `y/n`, `Yes/No`, `yes/no`, `true/false`, `1/0` ],
-		timeFormats = [ `HH:mm:ss`, `HH:mm`, `mm` ];
+			negativeFormats = [ `Y/N`, `y/n`, `Yes/No`, `yes/no`, `true/false`, `1/0` ],
+			timeFormats = [ `HH:mm:ss`, `HH:mm`, `mm` ];
 		// eslint-disable-next-line one-var
 		const modal = new ModalBuilder()
 			.setCustomId(`relative`)
@@ -118,7 +118,7 @@ export const relativeButtonInteraction = (inObjs: Array<{interaction: ButtonInte
 };
 
 // eslint-disable-next-line one-var
-export const relativeModalInteraction = (inObjs: Array<{interaction: ModalMessageModalSubmitInteraction}>): void => {
+export const relativeModalInteraction = (inObjs: Array<{ interaction: ModalMessageModalSubmitInteraction }>): void => {
 	inObjs.forEach((inObj) => {
 		let days, hours, minutes, months, offset, seconds, years;
 		/* eslint-disable no-useless-assignment */
@@ -132,89 +132,80 @@ export const relativeModalInteraction = (inObjs: Array<{interaction: ModalMessag
 		/* eslint-enable no-useless-assignment */
 
 		const { interaction } = inObj,
-		longTime = interaction.fields.getTextInputValue(`long_time`),
-		negativeTime = interaction.fields.getTextInputValue(`negative`),
-		shortTime = interaction.fields.getTextInputValue(`short_time`),
-		splitDate = longTime.split(`-`),
-		splitTime = shortTime.split(`:`);
+			longTime = interaction.fields.getTextInputValue(`long_time`),
+			negativeTime = interaction.fields.getTextInputValue(`negative`),
+			shortTime = interaction.fields.getTextInputValue(`short_time`),
+			splitDate = longTime.split(`-`),
+			splitTime = shortTime.split(`:`);
 
 		// eslint-disable-next-line one-var
-		const 
-		daysRegex = /^[0-9]{1,2}$/u,
-		hoursMinutesRegex = /^[0-9]{1,2}:[0-9]{1,2}$/u,
-		hoursMinutesSecondsRegex = /^[0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2}$/u,
-		minutesRegex = /^[0-9]{1,2}$/u,
-		monthsDaysRegex = /^[0-9]{1,2}-[0-9]{1,2}$/u,
-		yearsMonthsDaysRegex = /^[0-9]{1,4}-[0-9]{1,2}-[0-9]{1,2}$/u;
+		const daysRegex = /^[0-9]{1,2}$/u,
+			hoursMinutesRegex = /^[0-9]{1,2}:[0-9]{1,2}$/u,
+			hoursMinutesSecondsRegex = /^[0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2}$/u,
+			minutesRegex = /^[0-9]{1,2}$/u,
+			monthsDaysRegex = /^[0-9]{1,2}-[0-9]{1,2}$/u,
+			yearsMonthsDaysRegex = /^[0-9]{1,4}-[0-9]{1,2}-[0-9]{1,2}$/u;
 
 		if (yearsMonthsDaysRegex.test(longTime)) {
-
 			years = Number.parseInt(splitDate[Index.First], 10);
 			months = Number.parseInt(splitDate[Index.Second], 10);
 			days = Number.parseInt(splitDate[Index.Third], 10);
-
-		} else if (monthsDaysRegex.test(longTime)) {
-
+		}
+		else if (monthsDaysRegex.test(longTime)) {
 			years = zero;
 			months = Number.parseInt(splitDate[Index.First], 10);
 			days = Number.parseInt(splitDate[Index.Second], 10);
-
-		} else if (daysRegex.test(longTime)) {
-
+		}
+		else if (daysRegex.test(longTime)) {
 			years = zero;
 			months = zero;
 			days = Number.parseInt(longTime, 10);
-
-		} else if (longTime.length === zero) {
-
+		}
+		else if (longTime.length === zero) {
 			years = zero;
 			months = zero;
 			days = zero;
-
-		} else {
+		}
+		else {
 			interaction.update({ components: [], content: `Error paring date`, embeds: [] }).catch(genericCatch);
 			return;
 		}
 
 		if (hoursMinutesSecondsRegex.test(shortTime)) {
-
 			hours = Number.parseInt(splitTime[Index.First], 10);
 			minutes = Number.parseInt(splitTime[Index.Second], 10);
 			seconds = Number.parseInt(splitTime[Index.Third], 10);
-
-		} else if (hoursMinutesRegex.test(shortTime)) {
-
+		}
+		else if (hoursMinutesRegex.test(shortTime)) {
 			hours = Number.parseInt(splitTime[Index.Second], 10);
 			minutes = Number.parseInt(splitTime[Index.Third], 10);
 			seconds = zero;
-
-		} else if (minutesRegex.test(shortTime)) {
-
+		}
+		else if (minutesRegex.test(shortTime)) {
 			hours = zero;
 			minutes = Number.parseInt(shortTime, 10);
 			seconds = zero;
-
-		} else if (shortTime.length === zero) {
-
+		}
+		else if (shortTime.length === zero) {
 			hours = zero;
 			minutes = zero;
 			seconds = zero;
-
-		} else {
+		}
+		else {
 			interaction.update({ components: [], content: `Error paring time`, embeds: [] }).catch(genericCatch);
 			return;
 		}
 		/* eslint-disable perfectionist/sort-variable-declarations */
 		// eslint-disable-next-line one-var
 		const minutesPerHour = 60,
-		hoursPerDay = 24,
-		daysPerMonth = 30,
-		daysPerYear = 365,
-		secondsPerMinute = 60,
-		secondsPerHour = minutesPerHour * secondsPerMinute,
-		secondsPerDay = hoursPerDay * secondsPerHour,
-		secondsPerMonth = daysPerMonth * secondsPerDay,
-		secondsPerYear = daysPerYear * secondsPerDay;
+			hoursPerDay = 24,
+			daysPerMonth = 30,
+			daysPerYear = 365,
+			secondsPerMinute = 60,
+			secondsPerHour = minutesPerHour * secondsPerMinute,
+			secondsPerDay = hoursPerDay * secondsPerHour,
+			secondsPerMonth = daysPerMonth * secondsPerDay,
+			secondsPerYear = daysPerYear * secondsPerDay;
 		/* eslint-enable perfectionist/sort-variable-declarations */
 
 		offset += years * secondsPerYear;
@@ -223,10 +214,10 @@ export const relativeModalInteraction = (inObjs: Array<{interaction: ModalMessag
 		offset += hours * secondsPerHour;
 		offset += minutes * secondsPerMinute;
 		offset += seconds;
-		offset = [ `1`,`true`,`Y`,`y`,`Yes`,`yes` ].includes(negativeTime) ? -offset : offset;
+		offset = [ `1`, `true`, `Y`, `y`, `Yes`, `yes` ].includes(negativeTime) ? -offset : offset;
 
 		// eslint-disable-next-line one-var
-		const timestamp = (style: TimestampStylesString): `<t:${string}:${TimestampStylesString}>` => `<t:${(Math.floor(new Date().getTime()/msInS) + offset).toString()}:${style}>`;
+		const timestamp = (style: TimestampStylesString): `<t:${string}:${TimestampStylesString}>` => `<t:${(Math.floor(new Date().getTime() / msInS) + offset).toString()}:${style}>`;
 
 		// eslint-disable-next-line one-var
 		const embed = new EmbedBuilder()
@@ -242,20 +233,19 @@ export const relativeModalInteraction = (inObjs: Array<{interaction: ModalMessag
 				{ name: `Relative Time (${timestamp(`R`)})`, value: `\`${timestamp(`R`)}\`` }
 			);
 
-			inObj.interaction.update({ components: [], embeds: [embed] }).catch(genericCatch);
+		inObj.interaction.update({ components: [], embeds: [embed] }).catch(genericCatch);
 	});
 };
-//#endregion
+// #endregion
 
-
-//#region absolute
+// #region absolute
 // eslint-disable-next-line one-var
-export const absoluteButtonInteraction = (inObjs: Array<{interaction: ButtonInteraction}>): void => {
+export const absoluteButtonInteraction = (inObjs: Array<{ interaction: ButtonInteraction }>): void => {
 	inObjs.forEach((inObj) => {
 		const path = `./${inObj.interaction.client.user.id}/userinfo/${inObj.interaction.user.id}/tz.txt`;
 		// eslint-disable-next-line one-var
 		const dateFormats = [`YYYY-MM-DD`],
-		timeFormats = [ `HH:mm:ss`, `HH:mm` ];
+			timeFormats = [ `HH:mm:ss`, `HH:mm` ];
 		// eslint-disable-next-line one-var
 		const modal = new ModalBuilder()
 			.setCustomId(`absolute`)
@@ -284,14 +274,14 @@ export const absoluteButtonInteraction = (inObjs: Array<{interaction: ButtonInte
 				new ActionRowBuilder<TextInputBuilder>()
 					.addComponents([
 						new TextInputBuilder()
-						.setCustomId(`timezone`)
-						.setLabel(`Which timezone are you using?`)
-						.setStyle(TextInputStyle.Short)
-						.setPlaceholder(existsSync(path) ? readFileSync(path, `utf8`) : `Europe/Oslo`)
-						.setMinLength(Math.min(...Intl.supportedValuesOf(`timeZone`).map((a) => a.length)))
-						.setMaxLength(Math.max(...Intl.supportedValuesOf(`timeZone`).map((a) => a.length)))
-						.setRequired(true)
-						.setValue(existsSync(path) ? readFileSync(path, `utf8`) : ``)
+							.setCustomId(`timezone`)
+							.setLabel(`Which timezone are you using?`)
+							.setStyle(TextInputStyle.Short)
+							.setPlaceholder(existsSync(path) ? readFileSync(path, `utf8`) : `Europe/Oslo`)
+							.setMinLength(Math.min(...Intl.supportedValuesOf(`timeZone`).map((a) => a.length)))
+							.setMaxLength(Math.max(...Intl.supportedValuesOf(`timeZone`).map((a) => a.length)))
+							.setRequired(true)
+							.setValue(existsSync(path) ? readFileSync(path, `utf8`) : ``)
 					])
 			]);
 		inObj.interaction.showModal(modal).catch(genericCatch);
@@ -299,16 +289,15 @@ export const absoluteButtonInteraction = (inObjs: Array<{interaction: ButtonInte
 };
 
 // eslint-disable-next-line one-var
-export const absoluteModalInteraction = (inObjs: Array<{interaction: ModalMessageModalSubmitInteraction}>): void => {
+export const absoluteModalInteraction = (inObjs: Array<{ interaction: ModalMessageModalSubmitInteraction }>): void => {
 	inObjs.forEach((inObj) => {
 		const { interaction } = inObj,
-		date = interaction.fields.getTextInputValue(`date`),
-		time = interaction.fields.getTextInputValue(`time`),
-		timezone = interaction.fields.getTextInputValue(`timezone`);
+			date = interaction.fields.getTextInputValue(`date`),
+			time = interaction.fields.getTextInputValue(`time`),
+			timezone = interaction.fields.getTextInputValue(`timezone`);
 		// eslint-disable-next-line one-var
 		const splitDate = date.split(`-`),
-		splitTime = time.split(`:`);
-		
+			splitTime = time.split(`:`);
 		if (!Intl.supportedValuesOf(`timeZone`).includes(timezone)) {
 			interaction.reply({
 				content: `Invalid timezone. The input is case sensitive.\n-# See [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) for more information. Specifically the "TZ identifier" collumn in the table.`,
@@ -333,8 +322,6 @@ export const absoluteModalInteraction = (inObjs: Array<{interaction: ModalMessag
 			December = 12
 		}
 
-
-
 		let day, hour, minute, month: Months, second, year;
 		/* eslint-disable no-useless-assignment */
 		year = zero;
@@ -347,70 +334,65 @@ export const absoluteModalInteraction = (inObjs: Array<{interaction: ModalMessag
 
 		// eslint-disable-next-line one-var
 		const hoursMinutesRegex = /^[0-9]{1,2}:[0-9]{1,2}$/u,
-		hoursMinutesSecondsRegex = /^[0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2}$/u,
-		yearsMonthsDaysRegex = /^[0-9]{1,4}-[0-9]{1,2}-[0-9]{1,2}$/u;
+			hoursMinutesSecondsRegex = /^[0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2}$/u,
+			yearsMonthsDaysRegex = /^[0-9]{1,4}-[0-9]{1,2}-[0-9]{1,2}$/u;
 
 		if (yearsMonthsDaysRegex.test(date)) {
-
 			year = Number.parseInt(splitDate[Index.First], 10);
 			month = Number.parseInt(splitDate[Index.Second], 10);
 			day = Number.parseInt(splitDate[Index.Third], 10);
-
-		} else if (date.length === zero) {
-
+		}
+		else if (date.length === zero) {
 			const unix = new Date(zero);
 			year = unix.getUTCFullYear();
 			month = unix.getUTCMonth();
 			day = unix.getUTCDate();
-
-		} else {
+		}
+		else {
 			interaction.update({ components: [], content: `Error paring date`, embeds: [] }).catch(genericCatch);
 			return;
 		}
 
 		if (hoursMinutesSecondsRegex.test(time)) {
-
 			hour = Number.parseInt(splitTime[Index.First], 10);
 			minute = Number.parseInt(splitTime[Index.Second], 10);
 			second = Number.parseInt(splitTime[Index.Third], 10);
-
-		} else if (hoursMinutesRegex.test(time)) {
-
+		}
+		else if (hoursMinutesRegex.test(time)) {
 			hour = Number.parseInt(splitTime[Index.First], 10);
 			minute = Number.parseInt(splitTime[Index.Second], 10);
 			second = zero;
-
-		} else if (time.length === zero) {
-
+		}
+		else if (time.length === zero) {
 			hour = zero;
 			minute = zero;
 			second = zero;
-
-		} else {
+		}
+		else {
 			interaction.update({ components: [], content: `Error paring time`, embeds: [] }).catch(genericCatch);
 			return;
 		}
 
 		// eslint-disable-next-line one-var
 		const maxValues = {
-			feb: 28,
-			hour: 23,
-			leapFeb: 29,
-			longMonth: 31,
-			minute: 59,
-			month: Months.December,
-			second: 59,
-			shotMonth: 30,
-			year: 9999
-		},
-		minValues = {
-			day: 1,
-			hour: 0,
-			minute: 0,
-			month: Months.January,
-			second: 0,
-			year: 100
-		};
+				feb: 28,
+				hour: 23,
+				leapFeb: 29,
+				longMonth: 31,
+				minute: 59,
+				month: Months.December,
+				second: 59,
+				shotMonth: 30,
+				year: 9999
+			},
+			minValues = {
+				day: 1,
+				hour: 0,
+				minute: 0,
+				month: Months.January,
+				second: 0,
+				year: 100
+			};
 
 		year = Math.max(minValues.year, year);
 		month = Math.max(minValues.month, month);
@@ -418,7 +400,7 @@ export const absoluteModalInteraction = (inObjs: Array<{interaction: ModalMessag
 		hour = Math.max(minValues.hour, hour);
 		minute = Math.max(minValues.minute, minute);
 		second = Math.max(minValues.second, second);
-		
+
 		year = Math.min(maxValues.year, year);
 		month = Math.min(maxValues.month, month);
 		hour = Math.min(maxValues.hour, hour);
@@ -456,12 +438,11 @@ export const absoluteModalInteraction = (inObjs: Array<{interaction: ModalMessag
 				break;
 			}
 		}
-		
 		// eslint-disable-next-line one-var
 		const utcDate = toUtc(`${year.toString().padStart(maxValues.year.toString().length, `0`)}-${month.toString().padStart(maxValues.month.toString().length, `0`)}-${day.toString().padStart(maxValues.longMonth.toString().length, `0`)}T${hour.toString().padStart(maxValues.hour.toString().length, `0`)}:${minute.toString().padStart(maxValues.minute.toString().length, `0`)}:${second.toString().padStart(maxValues.second.toString().length, `0`)}.000`, timezone);
 
 		// eslint-disable-next-line one-var
-		const timestamp = (style: TimestampStylesString): `<t:${string}:${TimestampStylesString}>`  => `<t:${(Math.floor(utcDate.getTime()/msInS)).toString()}:${style}>`;
+		const timestamp = (style: TimestampStylesString): `<t:${string}:${TimestampStylesString}>` => `<t:${(Math.floor(utcDate.getTime() / msInS)).toString()}:${style}>`;
 
 		// eslint-disable-next-line one-var
 		const embed = new EmbedBuilder()
@@ -477,17 +458,16 @@ export const absoluteModalInteraction = (inObjs: Array<{interaction: ModalMessag
 				{ name: `Relative Time (${timestamp(`R`)})`, value: `\`${timestamp(`R`)}\`` }
 			]);
 
-			inObj.interaction.update({ components: [], embeds: [embed] }).catch(genericCatch);
+		inObj.interaction.update({ components: [], embeds: [embed] }).catch(genericCatch);
 	});
 };
-//#endregion
+// #endregion
 
+// #endregion
 
-//#endregion
-
-//#region save timezone
+// #region save timezone
 // eslint-disable-next-line one-var
-export const saveTimezone = (inObjs: Array<{interaction: Interaction}>): void => {
+export const saveTimezone = (inObjs: Array<{ interaction: Interaction }>): void => {
 	inObjs.forEach((inObj) => {
 		if (!inObj.interaction.isAutocomplete() && !inObj.interaction.isModalSubmit()) {
 			const modal = new ModalBuilder()
@@ -510,7 +490,7 @@ export const saveTimezone = (inObjs: Array<{interaction: Interaction}>): void =>
 };
 
 // eslint-disable-next-line one-var
-export const saveTimezoneModalResponse = (inObjs: Array<{interaction: ModalSubmitInteraction}>): void => {
+export const saveTimezoneModalResponse = (inObjs: Array<{ interaction: ModalSubmitInteraction }>): void => {
 	inObjs.forEach((inObj) => {
 		const { interaction } = inObj;
 		if (interaction.customId !== `setTz`) return;
@@ -543,4 +523,4 @@ export const saveTimezoneModalResponse = (inObjs: Array<{interaction: ModalSubmi
 		}).catch(genericCatch);
 	});
 };
-//#endregion
+// #endregion

@@ -1,19 +1,19 @@
-//#region imports
+// #region imports
 import type { CommandInteraction } from "discord.js";
 
 import { EmbedBuilder } from "discord.js";
 import * as https from "https";
 
 import { ephemeral, genericCatch, zero } from "./generalUse";
-//#endregion
+// #endregion
 
 const domain = `https://xkcd.com/`,
-path = `/info.0.json`;
+	path = `/info.0.json`;
 
 /* eslint-disable @typescript-eslint/naming-convention */
 interface RawXkcdJson {
 	alt: string,
-	day: string
+	day: string,
 	extra_parts?: unknown,
 	img: string,
 	link: string,
@@ -23,7 +23,7 @@ interface RawXkcdJson {
 	safe_title: string,
 	title: string,
 	transcript: string,
-	year: string,
+	year: string
 }
 /* eslint-enable @typescript-eslint/naming-convention */
 
@@ -51,7 +51,6 @@ class Xkcd {
 		this.extraParts = rawJson.extra_parts;
 		this.date = new Date(Number.parseInt(rawJson.year, 10), Number.parseInt(rawJson.month, 10), Number.parseInt(rawJson.day, 10));
 	}
-
 }
 
 // Gets the current xkcd.
@@ -59,39 +58,41 @@ class Xkcd {
 // @param cb [Function] The callback that passes (`err`, `data`)
 // @example current(2, function(err, data){ console.log(data); });
 // eslint-disable-next-line one-var
-const isRawXkcdJson = (obj: unknown): obj is RawXkcdJson  => {
-	if (obj === null || typeof obj !== `object`) return false;
-	return `month` in obj &&
-	`num` in obj &&
-	`link` in obj &&
-	`year` in obj &&
-	`news` in obj &&
-	`safe_title` in obj &&
-	`transcript` in obj &&
-	`alt` in obj &&
-	`img` in obj &&
-	`title` in obj &&
-	`day` in obj;
-},
-xkcdModule = (cb: (data:Error | Xkcd) => void, id?: number | string): void => {
-	const idUrl = id?.toString() ?? ``,
-	url = domain + idUrl + path;
-	https.get(url, (res) => {
-		let body: string;
-		body = ``;
-		res.on(`data`, (chunk) => { body += typeof chunk === `string` ? chunk : ``; });
-		res.on(`end`, () => {
-			const data: unknown = JSON.parse(body);
-			if (isRawXkcdJson(data))
-				cb(new Xkcd(data));
-			else throw Error(`Could not parse xkcd object`);
-		});
-	}).on(`error`, cb);
-};
+const isRawXkcdJson = (obj: unknown): obj is RawXkcdJson => {
+		if (obj === null || typeof obj !== `object`) return false;
+		return `month` in obj &&
+			`num` in obj &&
+			`link` in obj &&
+			`year` in obj &&
+			`news` in obj &&
+			`safe_title` in obj &&
+			`transcript` in obj &&
+			`alt` in obj &&
+			`img` in obj &&
+			`title` in obj &&
+			`day` in obj;
+	},
+	xkcdModule = (cb: (data: Error | Xkcd) => void, id?: number | string): void => {
+		const idUrl = id?.toString() ?? ``,
+			url = domain + idUrl + path;
+		https.get(url, (res) => {
+			let body: string;
+			body = ``;
+			res.on(`data`, (chunk) => {
+				body += typeof chunk === `string` ? chunk : ``;
+			});
+			res.on(`end`, () => {
+				const data: unknown = JSON.parse(body);
+				if (isRawXkcdJson(data))
+					cb(new Xkcd(data));
+				else throw Error(`Could not parse xkcd object`);
+			});
+		}).on(`error`, cb);
+	};
 
-//#region send xkcd message
+// #region send xkcd message
 // eslint-disable-next-line one-var
-export const xkcdFunct = (inObjs: Array<{interaction: CommandInteraction}>): void => {
+export const xkcdFunct = (inObjs: Array<{ interaction: CommandInteraction }>): void => {
 	inObjs.forEach((inObj) => {
 		xkcdModule((xkcdObjOuter) => {
 			if (xkcdObjOuter instanceof Error) {
@@ -122,4 +123,4 @@ export const xkcdFunct = (inObjs: Array<{interaction: CommandInteraction}>): voi
 		});
 	});
 };
-//#endregion
+// #endregion

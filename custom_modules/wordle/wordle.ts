@@ -1,106 +1,106 @@
-//#region imports
+// #region imports
 import type { ChatInputCommandInteraction, ComponentEmojiResolvable } from "discord.js";
 
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, Events, InteractionType } from "discord.js";
 
 import { ephemeral, genericCatch, inc, Index, offByOne } from "../generalUse";
 import * as words from "./words";
-//#endregion
+// #endregion
 /* eslint-disable id-length */
 enum EmoteColors {
 	Black = `black`,
 	Blue = `blue`,
 	Orange = `orange`
 }
-const emotes: Record<EmoteColors , Record<string, ComponentEmojiResolvable>> = {
-	black: {
-		a: { id: `939208752396136449` },
-		b: { id: `939208753885102080` },
-		c: { id: `939208754686201866` },
-		d: { id: `939208754694598678` },
-		e: { id: `939208753402757210` },
-		f: { id: `939208753562157207` },
-		g: { id: `939208755311157248` },
-		h: { id: `939208754493292576` },
-		i: { id: `939208753499230268` },
-		j: { id: `939208754652655647` },
-		k: { id: `939208755269234749` },
-		l: { id: `939208753834758214` },
-		m: { id: `939208755743186965` },
-		n: { id: `939208755344707634` },
-		o: { id: `939208755495714816` },
-		p: { id: `939208755072094288` },
-		q: { id: `939208756112277644` },
-		r: { id: `939208755541844009` },
-		s: { id: `939208756590411796` },
-		t: { id: `939208754027708527` },
-		u: { id: `939208755244060692` },
-		v: { id: `939208755730583632` },
-		w: { id: `939208756133261332` },
-		x: { id: `939208756368146573` },
-		y: { id: `939208755428622356` },
-		z: { id: `939208755520893010` }
+const emotes: Record<EmoteColors, Record<string, ComponentEmojiResolvable>> = {
+		black: {
+			a: { id: `939208752396136449` },
+			b: { id: `939208753885102080` },
+			c: { id: `939208754686201866` },
+			d: { id: `939208754694598678` },
+			e: { id: `939208753402757210` },
+			f: { id: `939208753562157207` },
+			g: { id: `939208755311157248` },
+			h: { id: `939208754493292576` },
+			i: { id: `939208753499230268` },
+			j: { id: `939208754652655647` },
+			k: { id: `939208755269234749` },
+			l: { id: `939208753834758214` },
+			m: { id: `939208755743186965` },
+			n: { id: `939208755344707634` },
+			o: { id: `939208755495714816` },
+			p: { id: `939208755072094288` },
+			q: { id: `939208756112277644` },
+			r: { id: `939208755541844009` },
+			s: { id: `939208756590411796` },
+			t: { id: `939208754027708527` },
+			u: { id: `939208755244060692` },
+			v: { id: `939208755730583632` },
+			w: { id: `939208756133261332` },
+			x: { id: `939208756368146573` },
+			y: { id: `939208755428622356` },
+			z: { id: `939208755520893010` }
+		},
+		blue: {
+			a: `🇦`,
+			b: `🇧`,
+			c: `🇨`,
+			d: `🇩`,
+			e: `🇪`,
+			f: `🇫`,
+			g: `🇬`,
+			h: `🇭`,
+			i: `🇮`,
+			j: `🇯`,
+			k: `🇰`,
+			l: `🇱`,
+			m: `🇲`,
+			n: `🇳`,
+			o: `🇴`,
+			p: `🇵`,
+			q: `🇶`,
+			r: `🇷`,
+			s: `🇸`,
+			t: `🇹`,
+			u: `🇺`,
+			v: `🇻`,
+			w: `🇼`,
+			x: `🇽`,
+			y: `🇾`,
+			z: `🇿`
+		},
+		orange: {
+			a: { id: `939208893333139506` },
+			b: { id: `939208895149248532` },
+			c: { id: `939208895610646548` },
+			d: { id: `939208898261434408` },
+			e: { id: `939208897066045500` },
+			f: { id: `939208897569361920` },
+			g: { id: `939208899301629962` },
+			h: { id: `939208897456128040` },
+			i: { id: `939208897749712976` },
+			j: { id: `939208897695199292` },
+			k: { id: `939208899301625916` },
+			l: { id: `939208898148171776` },
+			m: { id: `939208899708457041` },
+			n: { id: `939208899670716437` },
+			o: { id: `939208899595210842` },
+			p: { id: `939208899175780473` },
+			q: { id: `939208900438269962` },
+			r: { id: `939208899855286292` },
+			s: { id: `939208899498770544` },
+			t: { id: `939208898496311376` },
+			u: { id: `939208899213525043` },
+			v: { id: `939208899528118313` },
+			w: { id: `939208900199211008` },
+			x: { id: `939208899867848835` },
+			y: { id: `939208899138056263` },
+			z: { id: `939208899490381864` }
+		}
 	},
-	blue: {
-		a: `🇦`,
-		b: `🇧`,
-		c: `🇨`,
-		d: `🇩`,
-		e: `🇪`,
-		f: `🇫`,
-		g: `🇬`,
-		h: `🇭`,
-		i: `🇮`,
-		j: `🇯`,
-		k: `🇰`,
-		l: `🇱`,
-		m: `🇲`,
-		n: `🇳`,
-		o: `🇴`,
-		p: `🇵`,
-		q: `🇶`,
-		r: `🇷`,
-		s: `🇸`,
-		t: `🇹`,
-		u: `🇺`,
-		v: `🇻`,
-		w: `🇼`,
-		x: `🇽`,
-		y: `🇾`,
-		z: `🇿`
-	},
-	orange: {
-		a: { id: `939208893333139506` },
-		b: { id: `939208895149248532` },
-		c: { id: `939208895610646548` },
-		d: { id: `939208898261434408` },
-		e: { id: `939208897066045500` },
-		f: { id: `939208897569361920` },
-		g: { id: `939208899301629962` },
-		h: { id: `939208897456128040` },
-		i: { id: `939208897749712976` },
-		j: { id: `939208897695199292` },
-		k: { id: `939208899301625916` },
-		l: { id: `939208898148171776` },
-		m: { id: `939208899708457041` },
-		n: { id: `939208899670716437` },
-		o: { id: `939208899595210842` },
-		p: { id: `939208899175780473` },
-		q: { id: `939208900438269962` },
-		r: { id: `939208899855286292` },
-		s: { id: `939208899498770544` },
-		t: { id: `939208898496311376` },
-		u: { id: `939208899213525043` },
-		v: { id: `939208899528118313` },
-		w: { id: `939208900199211008` },
-		x: { id: `939208899867848835` },
-		y: { id: `939208899138056263` },
-		z: { id: `939208899490381864` }
-	},
-},
-/* eslint-enable id-length */
-// eslint-disable-next-line no-irregular-whitespace
-zws = `_​_`;
+	/* eslint-enable id-length */
+	// eslint-disable-next-line no-irregular-whitespace
+	zws = `_​_`;
 // eslint-disable-next-line one-var
 const emoteButtonInstantiator = (letter: string): ButtonBuilder => new ButtonBuilder()
 	.setCustomId(`wordle_${letter}`)
@@ -115,13 +115,13 @@ class Wordle {
 	private attempt: Index.Fifth | Index.First | Index.Fourth | Index.Second | Index.Sixth | Index.Third;
 	private slot: Index.Fifth | Index.First | Index.Fourth | Index.Second | Index.Sixth | Index.Third;
 	private readonly words: string[][];
-	private hints: {guessed: string[]; placed: [string, string, string, string, string],};
+	private hints: { guessed: string[], placed: [string, string, string, string, string] };
 	private readonly difficulty: string;
-	public constructor (commandInteraction: ChatInputCommandInteraction) {
+	public constructor(commandInteraction: ChatInputCommandInteraction) {
 		this.cmd = commandInteraction;
 		this.difficulty = this.cmd.options.getSubcommand(true);
 		this.gameId = commandInteraction.id;
-		this.word = words.spoilers[Math.floor(Math.random()*words.spoilers.length)];
+		this.word = words.spoilers[Math.floor(Math.random() * words.spoilers.length)];
 		this.buttons = {
 			/* eslint-disable id-length */
 			a: emoteButtonInstantiator(`a`),
@@ -160,7 +160,7 @@ class Wordle {
 		this.slot = 0;
 		this.attempts = [[ `⬛`, `⬛`, `⬛`, `⬛`, `⬛` ], [], [], [], [], []];
 		this.hints = { guessed: [], placed: [ ``, ``, ``, ``, `` ] };
-		this.words = [[],[],[],[],[],[]];
+		this.words = [[], [], [], [], [], []];
 		this.cmd.client.on(Events.InteractionCreate, (interaction) => {
 			if (interaction.type !== InteractionType.MessageComponent) return;
 			if (!interaction.isButton()) return;
@@ -176,7 +176,8 @@ class Wordle {
 				this.words[this.attempt][this.slot] = id;
 				this.slot += inc;
 				interaction.update({ content: this.attempts.map((x) => x.join(zws)).join(`\n`) }).catch(genericCatch);
-			} else {
+			}
+			else {
 				switch (id) {
 					case `a_to_m`:
 						interaction.update({ components: this.buttonsFirstHalf }).catch(genericCatch);
@@ -210,21 +211,23 @@ class Wordle {
 										}
 									});
 									this.words[this.attempt].forEach((x, i) => {
-										if (this.word.includes(x) && this.attempts[this.attempt][i] !== emotes.blue[x] && this.attempts[this.attempt].filter(y => (y === emotes.blue[x] || y === emotes.orange[x])).length < this.word.split(``).filter(y => y === x).length) 
+										if (this.word.includes(x) && this.attempts[this.attempt][i] !== emotes.blue[x] && this.attempts[this.attempt].filter((y) => (y === emotes.blue[x] || y === emotes.orange[x])).length < this.word.split(``).filter((y) => y === x).length)
 											this.attempts[this.attempt][i] = emotes.orange[x];
 									});
 									interaction.update({ components: [], content: zws }).catch(genericCatch);
 									this.cmd.followUp({ content: `GLaDLE ${(this.attempt + offByOne).toString()}/6\n${this.attempts.map((x) => x.join(zws)).join(`\n`)}\nFrom: ${this.cmd.user.tag}` }).catch(genericCatch);
-								} else if (this.attempt < Index.Sixth) { // If before last attempt
+								}
+								else if (this.attempt < Index.Sixth) { // If before last attempt
 									this.words[this.attempt].forEach((x, i) => {
 										if (this.word[i] === x) {
 											this.attempts[this.attempt][i] = emotes.blue[x];
 											this.buttons[x] = this.buttons[x].setEmoji(emotes.blue[x]);
-										} else 
+										}
+										else
 											this.buttons[x] = this.buttons[x].setStyle(ButtonStyle.Secondary);
 									});
 									this.words[this.attempt].forEach((x, i) => {
-										if (this.word.includes(x) && this.attempts[this.attempt][i] !== emotes.blue[x] && this.attempts[this.attempt].filter(y => (y === emotes.blue[x] || y === emotes.orange[x])).length < this.word.split(``).filter(y => y === x).length) {
+										if (this.word.includes(x) && this.attempts[this.attempt][i] !== emotes.blue[x] && this.attempts[this.attempt].filter((y) => (y === emotes.blue[x] || y === emotes.orange[x])).length < this.word.split(``).filter((y) => y === x).length) {
 											this.attempts[this.attempt][i] = emotes.orange[x];
 											this.buttons[x].setEmoji(emotes.orange[x]);
 											this.buttons[x] = this.buttons[x].setStyle(ButtonStyle.Primary);
@@ -234,7 +237,8 @@ class Wordle {
 									this.attempt += 1;
 									this.attempts[this.attempt] = [ `⬛`, `⬛`, `⬛`, `⬛`, `⬛` ];
 									interaction.update({ components: this.buttonsFirstHalf, content: this.attempts.map((x) => x.join(zws)).join(`\n`) }).catch(genericCatch);
-								} else if (this.attempt <= Index.Sixth) { // If last attempt
+								}
+								else if (this.attempt <= Index.Sixth) { // If last attempt
 									interaction.update({ components: [], content: zws }).catch(genericCatch);
 									this.cmd.followUp({ content: `GLaDLE _FAILURE_/6\n${this.attempts.map((x) => x.join(zws)).join(`\n`)}\nFrom: ${this.cmd.user.tag}\nThe word was: ${this.word}` }).catch(genericCatch);
 								}
@@ -248,12 +252,13 @@ class Wordle {
 										}
 									});
 									this.words[this.attempt].forEach((x, i) => {
-										if (this.word.includes(x) && this.attempts[this.attempt][i] !== emotes.blue[x] && this.attempts[this.attempt].filter(y => (y === emotes.blue[x] || y === emotes.orange[x])).length < this.word.split(``).filter(y => y === x).length) 
+										if (this.word.includes(x) && this.attempts[this.attempt][i] !== emotes.blue[x] && this.attempts[this.attempt].filter((y) => (y === emotes.blue[x] || y === emotes.orange[x])).length < this.word.split(``).filter((y) => y === x).length)
 											this.attempts[this.attempt][i] = emotes.orange[x];
 									});
 									interaction.update({ components: [], content: zws }).catch(genericCatch);
 									this.cmd.followUp({ content: `GLaDLE ${(this.attempt + offByOne).toString()}/6\n${this.attempts.map((x) => x.join(zws)).join(`\n`)}\nFrom: ${this.cmd.user.tag}` }).catch(genericCatch);
-								} else { // Not won
+								}
+								else { // Not won
 									if (!(this.words[this.attempt].every((x, i) => (x === this.hints.placed[i] || this.hints.placed[i] === ``)) && this.hints.guessed.every((x) => this.words[this.attempt].includes(x)))) {
 										interaction.reply({ content: `You need to use your hints`, ephemeral }).catch(genericCatch);
 										return;
@@ -265,12 +270,12 @@ class Wordle {
 												this.attempts[this.attempt][i] = emotes.blue[x];
 												this.buttons[x] = this.buttons[x].setEmoji(emotes.blue[x]);
 												this.hints.placed[i] = x;
-											} else 
+											}
+											else
 												this.buttons[x] = this.buttons[x].setStyle(ButtonStyle.Secondary);
-											
 										});
 										this.words[this.attempt].forEach((x, i) => {
-											if (this.word.includes(x) && this.attempts[this.attempt][i] !== emotes.blue[x] && this.attempts[this.attempt].filter(y => (y === emotes.blue[x] || y === emotes.orange[x])).length < this.word.split(``).filter(y => y === x).length) {
+											if (this.word.includes(x) && this.attempts[this.attempt][i] !== emotes.blue[x] && this.attempts[this.attempt].filter((y) => (y === emotes.blue[x] || y === emotes.orange[x])).length < this.word.split(``).filter((y) => y === x).length) {
 												this.attempts[this.attempt][i] = emotes.orange[x];
 												this.hints.guessed.push(x);
 												this.buttons[x].setEmoji(emotes.orange[x]);
@@ -281,13 +286,11 @@ class Wordle {
 										this.attempt += 1;
 										this.attempts[this.attempt] = [ `⬛`, `⬛`, `⬛`, `⬛`, `⬛` ];
 										interaction.update({ components: this.buttonsFirstHalf, content: this.attempts.map((x) => x.join(zws)).join(`\n`) }).catch(genericCatch);
-									} else if (this.attempt <= Index.Sixth) { // If last attempt
+									}
+									else if (this.attempt <= Index.Sixth) { // If last attempt
 										interaction.update({ components: [], content: zws }).catch(genericCatch);
 										this.cmd.followUp({ content: `GLaDLE _FAILURE_/6\n${this.attempts.map((x) => x.join(zws)).join(`\n`)}\nFrom: ${this.cmd.user.tag}\nThe word was: ${this.word}` }).catch(genericCatch);
 									}
-
-
-
 								}
 								break;
 							default:
@@ -303,6 +306,7 @@ class Wordle {
 			}
 		});
 	}
+
 	private get buttonsFirstHalf(): Array<ActionRowBuilder<ButtonBuilder>> {
 		return [
 			new ActionRowBuilder<ButtonBuilder>().setComponents(this.buttons.a, this.buttons.b, this.buttons.c, this.buttons.d, this.buttons.e),
@@ -311,6 +315,7 @@ class Wordle {
 			new ActionRowBuilder<ButtonBuilder>().setComponents(this.buttons.nz)
 		];
 	}
+
 	private get buttonsSecondHalf(): Array<ActionRowBuilder<ButtonBuilder>> {
 		return [
 			new ActionRowBuilder<ButtonBuilder>().setComponents(this.buttons.n, this.buttons.o, this.buttons.p, this.buttons.q, this.buttons.r),
@@ -319,6 +324,7 @@ class Wordle {
 			new ActionRowBuilder<ButtonBuilder>().setComponents(this.buttons.am)
 		];
 	}
+
 	public start = (): void => {
 		this.cmd.editReply({
 			components: this.buttonsFirstHalf,

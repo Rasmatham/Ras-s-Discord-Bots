@@ -1,12 +1,12 @@
-//#region imports
+// #region imports
 import type { CommandInteraction } from "discord.js";
 
 import { EmbedBuilder } from "discord.js";
 
 import { decimalShift, genericCatch, inc, offByOne, ShiftBy } from "./generalUse";
-//#endregion
+// #endregion
 
-//#region die roller
+// #region die roller
 export const dice = (inObjs: Array<{ interaction: CommandInteraction }>): void => {
 	inObjs.forEach((inObj) => {
 		const defaultDie = { count: 1, sides: 6 };
@@ -27,14 +27,14 @@ export const dice = (inObjs: Array<{ interaction: CommandInteraction }>): void =
 			dieSides.toString()
 		}`).then(() => {
 			const maxDice = 20;
-			if (diceCount > maxDice) 
+			if (diceCount > maxDice)
 				inObj.interaction.editReply(`Sorry, but you can only roll 20 dice at a time`).catch(genericCatch);
 			else {
 				const specialDice = { d10: 10, d100: 100 };
 				switch (dieSides) {
 					case specialDice.d10: {
 						for (let i = 0; i < diceCount; i += inc) {
-							const number10:EmbedBuilder = new EmbedBuilder()
+							const number10: EmbedBuilder = new EmbedBuilder()
 								.setColor(`#0099ff`)
 								.setTitle(`Totally legit dice`)
 								.addFields([
@@ -56,7 +56,7 @@ export const dice = (inObjs: Array<{ interaction: CommandInteraction }>): void =
 					}
 					case specialDice.d100: {
 						for (let i = 0; i < diceCount; i += inc) {
-							const number100:EmbedBuilder = new EmbedBuilder()
+							const number100: EmbedBuilder = new EmbedBuilder()
 								.setColor(`#0099ff`)
 								.setTitle(`Totally legit dice`)
 								.addFields([
@@ -76,7 +76,7 @@ export const dice = (inObjs: Array<{ interaction: CommandInteraction }>): void =
 					}
 					default: {
 						for (let i = 0; i < diceCount; i += inc) {
-							const numberN:EmbedBuilder = new EmbedBuilder()
+							const numberN: EmbedBuilder = new EmbedBuilder()
 								.setColor(`#0099ff`)
 								.setTitle(`Totally legit dice`)
 								.addFields([
@@ -87,7 +87,7 @@ export const dice = (inObjs: Array<{ interaction: CommandInteraction }>): void =
 									},
 									{
 										name: `"roll" number:`,
-										value:`${(i + offByOne).toString()}/${diceCount.toString()}`
+										value: `${(i + offByOne).toString()}/${diceCount.toString()}`
 									}
 								]);
 							inObj.interaction.followUp({ embeds: [numberN] }).catch(genericCatch);
@@ -99,4 +99,4 @@ export const dice = (inObjs: Array<{ interaction: CommandInteraction }>): void =
 		}).catch(genericCatch);
 	});
 };
-//#endregion
+// #endregion
