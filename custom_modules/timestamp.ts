@@ -204,7 +204,7 @@ export const relativeModalInteraction = (inObjs: Array<{interaction: ModalMessag
 			interaction.update({ components: [], content: `Error paring time`, embeds: [] }).catch(genericCatch);
 			return;
 		}
-		/* eslint-disable sort-vars */
+		/* eslint-disable perfectionist/sort-variable-declarations */
 		// eslint-disable-next-line one-var
 		const minutesPerHour = 60,
 		hoursPerDay = 24,
@@ -215,7 +215,7 @@ export const relativeModalInteraction = (inObjs: Array<{interaction: ModalMessag
 		secondsPerDay = hoursPerDay * secondsPerHour,
 		secondsPerMonth = daysPerMonth * secondsPerDay,
 		secondsPerYear = daysPerYear * secondsPerDay;
-		/* eslint-enable sort-vars */
+		/* eslint-enable perfectionist/sort-variable-declarations */
 
 		offset += years * secondsPerYear;
 		offset += months * secondsPerMonth;

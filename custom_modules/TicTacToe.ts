@@ -56,13 +56,11 @@ export const ticTacToe = (inObjs: Array<{ interaction: CommandInteraction }>): v
 	
 		inObj.interaction.client.on(Events.InteractionCreate, (interaction) => {
 			if (!interaction.isButton()) return;
-			/* eslint-disable sort-vars */
 			const { mentions } = interaction.message,
+			buttonGuild = interaction.guild,
 			memberMentions = mentions.members,
 			firstMemberMention = memberMentions?.first(),
-			lastMemberMention = memberMentions?.last(),
-			buttonGuild = interaction.guild;
-			/* eslint-enable sort-vars */
+			lastMemberMention = memberMentions?.last();
 			if (interaction.message.mentions instanceof MessageMentions) {
 				switch (interaction.customId) {
 					//================================================================================================================

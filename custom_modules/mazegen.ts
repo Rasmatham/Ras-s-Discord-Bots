@@ -1,6 +1,5 @@
+/* eslint-disable perfectionist/sort-variable-declarations */
 import { inc, Index, offByOne, zero } from "./generalUse";
-
-/* eslint-disable sort-vars */
 interface Cell {
 	bottom: boolean,
 	left: boolean,
