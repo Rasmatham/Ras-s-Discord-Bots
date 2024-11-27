@@ -47,7 +47,7 @@ const buzzLink = `https://discordapp.com/oauth2/authorize?&client_id=68944907400
 // eslint-disable-next-line one-var
 const client = (name: string, state: string): Client => new Client({ intents, presence: { activities: [{ name, state, type: ActivityType.Custom }] } });
 // eslint-disable-next-line one-var
-const amber = client(`Amber`, ``),
+const amber = client(`Amber`, `[Octopus noises]`),
 	artoo = client(`R2D2`, `[screaming sounds]`),
 	buzzBot = client(`BuzzBot`, `Listening to jazz`),
 	canine = client(`K9`, `Spoilers!`),
