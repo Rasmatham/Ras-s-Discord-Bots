@@ -1,0 +1,4 @@
+# PRIVACY POLICY
+The bots may use any data provided by the Discord API for its own features, but will only store necessary data for features to work, like your user ID and feature specific data (An example of this would be the coinflip command storing wins and losses per user). The apps will *NEVER* share any user information with any third party, other than Discord, for reasons that should be obvious. Some commands may use third party APIs (including, but not limited to XKCD and inspirobot), which may use user provided inputs for certain commands (e.g. an XKCD comic ID).
+
+For Terms of Service, se [./TOS](./TOS.md)
